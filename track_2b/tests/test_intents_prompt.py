@@ -36,15 +36,32 @@ def test_single_intents(view):
     assert teacher_choice(view, intent("I4")) == (2, 40)  # fewest slots needed
 
 
-def test_pairs_intersect_and_empty_means_reject(view):
-    # fewest hops is path 0, which contains Berlin-Munich: nothing satisfies both
+def test_avoid_link_pairs_filter_then_rank(view):
+    # fewest hops is path 0, which contains Berlin-Munich: drop it, then the fewest hops among the
+    # rest are paths 1 and 2 (three hops each), and the shorter one wins
     both = intent("I1", "I2", link=("Berlin", "Munich"))
-    assert admissible_paths(view, both) == ()
-    assert teacher_choice(view, both) is None
-    assert is_admissible(view, both, None)
-    assert not is_admissible(view, both, (1, 12))
+    assert admissible_paths(view, both) == (1, 2)
+    assert teacher_choice(view, both) == (1, 12)
+    assert not is_admissible(view, both, None) and not is_admissible(view, both, (0, 88))
+    # the most-free path is path 1, which contains Hamburg-Vienna: the most free of the rest is path 2
+    assert teacher_choice(view, intent("I1", "I3", link=("Hamburg", "Vienna"))) == (2, 40)
     # avoiding Berlin-Warsaw leaves path 0 as the fewest-hops path
     assert teacher_choice(view, intent("I1", "I2", link=("Berlin", "Warsaw"))) == (0, 88)
+    # reject only when no feasible path avoids the link
+    everywhere = intent("I1", "I4", link=("Berlin", "Munich"))
+    only_path_0 = RequestView(**{**view.__dict__, "paths": view.paths[:1] + view.paths[3:]})
+    assert admissible_paths(only_path_0, everywhere) == ()
+    assert teacher_choice(only_path_0, everywhere) is None and is_admissible(only_path_0, everywhere, None)
+
+
+def test_first_pass_rule_and_ranking_pairs_intersect(view):
+    # the first pass intersected every pair: nothing satisfies "avoid Berlin-Munich" and "fewest hops"
+    both = intent("I1", "I2", link=("Berlin", "Munich"))
+    assert admissible_paths(view, both, rule="intersection") == ()
+    # a pair of two ranking intents still intersects: fewest hops is path 0, most free is path 1
+    assert admissible_paths(view, intent("I2", "I3")) == ()
+    assert teacher_choice(view, intent("I2", "I3")) is None
+    assert admissible_paths(view, intent("I3", "I4"), rule="filter") == ()
 
 
 def test_admissibility_of_decisions(view):
@@ -57,7 +74,8 @@ def test_admissibility_of_decisions(view):
 def test_ties_go_to_the_shorter_path(view):
     # paths 1 and 2 both have 3 hops once path 0 is excluded
     tied = intent("I1", "I2", link=("Munich", "Prague"))
-    assert admissible_paths(view, tied) == ()  # intersection: path 0 is the only fewest-hops path
+    assert admissible_paths(view, tied) == (1, 2)
+    assert teacher_choice(view, tied) == (1, 12)  # 1410 km against 1500 km
     equal_free = RequestView(**{**view.__dict__, "paths": tuple(
         PathView(**{**p.__dict__, "free_slots": 100}) for p in view.paths
     )})  # fmt: skip

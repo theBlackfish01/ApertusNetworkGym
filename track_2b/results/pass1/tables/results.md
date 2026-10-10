@@ -2,6 +2,8 @@
 
 Rendered by `src/report_tables.py` from `results/eval/` and `results/offline/`; do not edit by hand.
 
+First pass: every intent pair is an intersection (SPEC section 3); fine-tuned for one epoch.
+
 Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured requests per condition, load and seed. Cells are mean ± sample standard deviation over seeds; a cell without ± comes from a single seed (see the Seeds column of the latency table). An invalid answer is replaced by first fit; a violation is an executed decision outside the intent's admissible set. An intent binds on a request when the no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is the share of binding requests; first fit ignores the intent in its own way.
 
 ## Service blocking probability, % — load 240 E

@@ -29,3 +29,8 @@ def test_pool_matches_single_process():
     assert len(pooled) == len(done) == len(jobs)
     assert strip(pooled) == strip(run_group(Oracle(), jobs))
     assert all(row["processed"] == 25 and row["violations"] == 0 for row in pooled)
+    for row in pooled:  # the per-intent counts add up to the episode's counts
+        assert sum(counts["requests"] for counts in row["by_intent"].values()) == 25
+        assert row["needless_rejects"] == row["wrong_accepts"] == 0
+    pairs = next(row for row in pooled if row["condition"] == "heldout_pairs")
+    assert set(pairs["by_intent"]) <= {"I1+I4", "I2+I3"}

@@ -1,0 +1,24 @@
+{
+  "hidden": 128,
+  "epochs_run": 167,
+  "best_epoch": 137,
+  "val_accuracy": 0.9116666666666666,
+  "train_examples": 10800,
+  "val_examples": 1200,
+  "lr": 0.001,
+  "batch": 128,
+  "seed": 0,
+  "train_file": "train.jsonl",
+  "features": 51,
+  "path_features": [
+    "feasible",
+    "hops",
+    "km",
+    "slots_needed",
+    "free_slots",
+    "first_slot",
+    "blocks",
+    "largest_block",
+    "has_avoided_link"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "hidden": 128,
-  "epochs_run": 167,
-  "best_epoch": 137,
-  "val_accuracy": 0.9116666666666666,
+  "epochs_run": 215,
+  "best_epoch": 185,
+  "val_accuracy": 0.9191666666666667,
   "train_examples": 10800,
   "val_examples": 1200,
   "lr": 0.001,

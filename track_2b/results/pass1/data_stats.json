@@ -1,0 +1,295 @@
+{
+  "splits": {
+    "train": {
+      "records": 12000,
+      "loads": {
+        "150": 2430,
+        "210": 2382,
+        "270": 2377,
+        "330": 2412,
+        "390": 2399
+      },
+      "seeds": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106
+      ],
+      "prompt_chars": {
+        "mean": 919.7,
+        "max": 1167
+      },
+      "by_intent": {
+        "I0": {
+          "differs_from_no_intent": 0,
+          "n": 4000,
+          "no_admissible_path": 74,
+          "path0": 2154,
+          "path1": 786,
+          "path2": 442,
+          "path3": 300,
+          "path4": 244,
+          "reject": 74
+        },
+        "I1": {
+          "differs_from_no_intent": 427,
+          "n": 1500,
+          "no_admissible_path": 71,
+          "path0": 712,
+          "path1": 307,
+          "path2": 180,
+          "path3": 134,
+          "path4": 96,
+          "reject": 71
+        },
+        "I1+I2": {
+          "differs_from_no_intent": 541,
+          "n": 1000,
+          "no_admissible_path": 192,
+          "path0": 615,
+          "path1": 143,
+          "path2": 26,
+          "path3": 11,
+          "path4": 13,
+          "reject": 192
+        },
+        "I1+I3": {
+          "differs_from_no_intent": 576,
+          "n": 1000,
+          "no_admissible_path": 283,
+          "path0": 375,
+          "path1": 152,
+          "path2": 86,
+          "path3": 61,
+          "path4": 43,
+          "reject": 283
+        },
+        "I2": {
+          "differs_from_no_intent": 610,
+          "n": 1500,
+          "no_admissible_path": 21,
+          "path0": 1248,
+          "path1": 191,
+          "path2": 17,
+          "path3": 17,
+          "path4": 6,
+          "reject": 21
+        },
+        "I3": {
+          "differs_from_no_intent": 636,
+          "n": 1500,
+          "no_admissible_path": 21,
+          "path0": 751,
+          "path1": 341,
+          "path2": 187,
+          "path3": 117,
+          "path4": 83,
+          "reject": 21
+        },
+        "I4": {
+          "differs_from_no_intent": 616,
+          "n": 1500,
+          "no_admissible_path": 28,
+          "path0": 1444,
+          "path1": 14,
+          "path2": 7,
+          "path3": 5,
+          "path4": 2,
+          "reject": 28
+        }
+      }
+    },
+    "heldout_indist": {
+      "records": 1000,
+      "loads": {
+        "150": 191,
+        "210": 194,
+        "270": 186,
+        "330": 206,
+        "390": 223
+      },
+      "seeds": [
+        107,
+        108
+      ],
+      "prompt_chars": {
+        "mean": 923.6,
+        "max": 1152
+      },
+      "by_intent": {
+        "I0": {
+          "differs_from_no_intent": 0,
+          "n": 337,
+          "no_admissible_path": 4,
+          "path0": 186,
+          "path1": 76,
+          "path2": 36,
+          "path3": 20,
+          "path4": 15,
+          "reject": 4
+        },
+        "I1": {
+          "differs_from_no_intent": 29,
+          "n": 134,
+          "no_admissible_path": 2,
+          "path0": 74,
+          "path1": 30,
+          "path2": 9,
+          "path3": 16,
+          "path4": 3,
+          "reject": 2
+        },
+        "I1+I2": {
+          "differs_from_no_intent": 41,
+          "n": 82,
+          "no_admissible_path": 12,
+          "path0": 49,
+          "path1": 17,
+          "path2": 2,
+          "path3": 2,
+          "reject": 12
+        },
+        "I1+I3": {
+          "differs_from_no_intent": 38,
+          "n": 80,
+          "no_admissible_path": 21,
+          "path0": 35,
+          "path1": 14,
+          "path2": 8,
+          "path3": 2,
+          "reject": 21
+        },
+        "I2": {
+          "differs_from_no_intent": 55,
+          "n": 129,
+          "no_admissible_path": 0,
+          "path0": 115,
+          "path1": 13,
+          "path2": 1
+        },
+        "I3": {
+          "differs_from_no_intent": 61,
+          "n": 115,
+          "no_admissible_path": 1,
+          "path0": 63,
+          "path1": 15,
+          "path2": 17,
+          "path3": 10,
+          "path4": 9,
+          "reject": 1
+        },
+        "I4": {
+          "differs_from_no_intent": 60,
+          "n": 123,
+          "no_admissible_path": 0,
+          "path0": 121,
+          "path1": 2
+        }
+      }
+    },
+    "heldout_paraphrase": {
+      "records": 600,
+      "loads": {
+        "150": 112,
+        "210": 132,
+        "270": 120,
+        "330": 107,
+        "390": 129
+      },
+      "seeds": [
+        107,
+        108
+      ],
+      "prompt_chars": {
+        "mean": 945.9,
+        "max": 1148
+      },
+      "by_intent": {
+        "I1": {
+          "differs_from_no_intent": 53,
+          "n": 139,
+          "no_admissible_path": 8,
+          "path0": 63,
+          "path1": 22,
+          "path2": 16,
+          "path3": 17,
+          "path4": 13,
+          "reject": 8
+        },
+        "I2": {
+          "differs_from_no_intent": 55,
+          "n": 152,
+          "no_admissible_path": 2,
+          "path0": 134,
+          "path1": 15,
+          "path2": 1,
+          "reject": 2
+        },
+        "I3": {
+          "differs_from_no_intent": 64,
+          "n": 149,
+          "no_admissible_path": 2,
+          "path0": 65,
+          "path1": 44,
+          "path2": 22,
+          "path3": 10,
+          "path4": 6,
+          "reject": 2
+        },
+        "I4": {
+          "differs_from_no_intent": 70,
+          "n": 160,
+          "no_admissible_path": 1,
+          "path0": 157,
+          "path1": 1,
+          "path3": 1,
+          "reject": 1
+        }
+      }
+    },
+    "heldout_pairs": {
+      "records": 600,
+      "loads": {
+        "150": 111,
+        "210": 118,
+        "270": 127,
+        "330": 131,
+        "390": 113
+      },
+      "seeds": [
+        107,
+        108
+      ],
+      "prompt_chars": {
+        "mean": 989.1,
+        "max": 1202
+      },
+      "by_intent": {
+        "I1+I4": {
+          "differs_from_no_intent": 148,
+          "n": 286,
+          "no_admissible_path": 11,
+          "path0": 212,
+          "path1": 41,
+          "path2": 16,
+          "path3": 5,
+          "path4": 1,
+          "reject": 11
+        },
+        "I2+I3": {
+          "differs_from_no_intent": 131,
+          "n": 314,
+          "no_admissible_path": 48,
+          "path0": 150,
+          "path1": 76,
+          "path2": 17,
+          "path3": 14,
+          "path4": 9,
+          "reject": 48
+        }
+      }
+    }
+  }
+}

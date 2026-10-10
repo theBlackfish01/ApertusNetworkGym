@@ -38,7 +38,16 @@ from datetime import UTC, datetime
 from multiprocessing import Pool
 from pathlib import Path
 
-from intents import HELDOUT_PAIRS, NO_INTENT, SINGLES, Intent, is_admissible, sample_intent, teacher_choice
+from intents import (
+    HELDOUT_PAIRS,
+    NO_INTENT,
+    SINGLES,
+    Intent,
+    admissible_paths,
+    is_admissible,
+    sample_intent,
+    teacher_choice,
+)
 from policies import Decision, Policy, Request, make_policy
 from prompt import format_choice, parse_answer, render_prompt
 from view import RequestView
@@ -82,6 +91,7 @@ class Episode:
             _, self.info = self.env.reset(options={"only_episode_counters": True})
         self.rng = random.Random(f"eval-{job['condition']}-{job['load']}-{job['seed']}")
         self.counts: Counter = Counter()
+        self.by_intent: dict[str, Counter] = defaultdict(Counter)  # the same counts per intent key
         self.seconds = 0.0
         self.remaining = job["window"]
         self.trace: list[dict] = []
@@ -105,21 +115,29 @@ class Episode:
         view, intent, counts = self.view, self.intent, self.counts
         action = action_from_choice(analysis, decision.choice) if decision.well_formed else None
         executed = decision.choice
-        if action is None:  # malformed answer or not a valid action: fall back to first fit
-            counts["invalid"] += 1
-            counts["malformed"] += not decision.well_formed
+        invalid = action is None
+        if invalid:  # malformed answer or not a valid action: fall back to first fit
             action = select_first_fit_action(self.env.action_masks())
             executed = choice_from_action(analysis, action)
         violation = not is_admissible(view, intent, executed)
         binding = not is_admissible(view, intent, teacher_choice(view, NO_INTENT))
         oracle = teacher_choice(view, intent)
-        counts["requests"] += 1
-        counts["violations"] += violation
-        counts["binding"] += binding
-        counts["binding_violations"] += binding and violation
-        counts["rejects"] += executed is None
-        counts["oracle_exact"] += decision.well_formed and decision.choice == oracle
-        counts["oracle_path"] += (executed[0] if executed else None) == (oracle[0] if oracle else None)
+        tally = {
+            "requests": 1,
+            "invalid": invalid,
+            "malformed": not decision.well_formed,
+            "violations": violation,
+            "binding": binding,
+            "binding_violations": binding and violation,
+            "rejects": executed is None,
+            # the two kinds of violation that are about the reject decision itself
+            "needless_rejects": violation and executed is None,
+            "wrong_accepts": violation and executed is not None and not admissible_paths(view, intent),
+            "oracle_exact": decision.well_formed and decision.choice == oracle,
+            "oracle_path": (executed[0] if executed else None) == (oracle[0] if oracle else None),
+        }
+        for counter in (counts, self.by_intent[intent.key]):
+            counter.update({key: int(value) for key, value in tally.items()})
         self.seconds += decision.seconds
         if keep_trace:
             self.trace.append({"prompt": render_prompt(view, intent), "answer": decision.raw,
@@ -150,6 +168,11 @@ class Episode:
             "malformed": counts["malformed"],
             "binding": counts["binding"],
             "binding_violations": counts["binding_violations"],
+            "needless_rejects": counts["needless_rejects"],
+            "wrong_accepts": counts["wrong_accepts"],
+            "by_intent": {
+                key: dict(sorted(counter.items())) for key, counter in sorted(self.by_intent.items())
+            },
             "oracle_exact_rate": counts["oracle_exact"] / n,
             "oracle_path_rate": counts["oracle_path"] / n,
             "decision_ms": 1000.0 * self.seconds / n,
@@ -273,6 +296,13 @@ def summarise(rows: list[dict]) -> list[dict]:
         )
         entry["binding_share"] = binding / sum(r["window"] for r in group)
         entry["oracle_path_rate_mean"] = statistics.fmean(r["oracle_path_rate"] for r in group)
+        # Counts pooled over the seeds, overall and per intent key (a condition can mix intents).
+        pooled: dict[str, Counter] = defaultdict(Counter)
+        for row in group:
+            for key, counts in row.get("by_intent", {}).items():
+                pooled[key].update(counts)
+                pooled["all"].update(counts)
+        entry["by_intent"] = {key: dict(sorted(counter.items())) for key, counter in sorted(pooled.items())}
         summary.append(entry)
     return summary
 

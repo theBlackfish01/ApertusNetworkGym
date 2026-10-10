@@ -32,6 +32,10 @@ the tokens of the prompt (up to and including the assistant start) get label -10
 and the end token ``<|assistant_end|>`` are the targets. Label ids 131072-131271 are also set
 to -100: those head rows are untrained in the text-only conversion.
 
+``--init-adapter`` continues from a trained adapter with a new optimizer and schedule (the
+second epoch of the second pass was run this way, at half the learning rate, after the first
+epoch's held-out scores had been checked).
+
 Outputs in ``--out``: ``adapter/``, ``training_log.json`` and ``heldout_predictions.jsonl``
 (greedy, unconstrained answers of the merged model on the three held-out splits; score them with
 ``uv run python src/evaluate.py offline --policy apertus_ft --predictions ...``), plus ``merged/``
@@ -101,6 +105,10 @@ def parse_args() -> argparse.Namespace:
         "--die-at-step", type=int, default=0, help="test only: fail after this optimizer step"
     )
     parser.add_argument("--predict-batch", type=int, default=32)
+    parser.add_argument(
+        "--init-adapter",
+        help="start from this adapter (Hub repo or directory) with a fresh optimizer and schedule: a further epoch",
+    )
     return parser.parse_args()
 
 
@@ -289,7 +297,16 @@ def main() -> None:
             r=args.lora_r, lora_alpha=args.lora_alpha, lora_dropout=args.lora_dropout,
             target_modules=LORA_TARGETS, task_type="CAUSAL_LM",
         )  # fmt: skip
-        model = get_peft_model(model, lora)
+        if args.init_adapter:
+            start = args.init_adapter
+            if not Path(start).is_dir():
+                from huggingface_hub import snapshot_download as download
+
+                start = download(start, allow_patterns=["adapter_*"])
+            model = PeftModel.from_pretrained(model, start, is_trainable=True)
+            print(f"starting from the adapter {args.init_adapter}", flush=True)
+        else:
+            model = get_peft_model(model, lora)
         model.print_trainable_parameters()
         config = TrainingArguments(
             output_dir=str(args.out / "checkpoints"),
@@ -345,20 +362,29 @@ def main() -> None:
                         f"simulated failure at optimizer step {state.global_step} (--die-at-step)"
                     )
 
+        # The held-out file is sorted by load: take every k-th record so the curve covers all loads.
+        pool = data["heldout_indist"]
+        curve_records = pool[:: max(1, len(pool) // max(1, args.eval_records))][: args.eval_records]
         trainer = Trainer(
             model=model,
             args=config,
             train_dataset=tokenized(data["train"]),
-            eval_dataset=tokenized(data["heldout_indist"][: args.eval_records]),  # loss curve only
+            eval_dataset=tokenized(curve_records),  # loss curve only
             data_collator=collate,
             callbacks=[PushProgress()],
         )
         outcome = trainer.train(resume_from_checkpoint=resume_from)
         print(f"training: {outcome.metrics}", flush=True)
+        peak_gb = None
+        if torch.cuda.is_available():
+            peak_gb = torch.cuda.max_memory_allocated() / 2**30
+            print(f"peak GPU memory while training: {peak_gb:.1f} GB", flush=True)
+            torch.cuda.reset_peak_memory_stats()
         trainer.model.save_pretrained(adapter_dir)
         tokenizer.save_pretrained(adapter_dir)
         log = {"args": {k: str(v) for k, v in vars(args).items()}, "resumed_from": resume_from,
-               "metrics": outcome.metrics, "log": trainer.state.log_history}  # fmt: skip
+               "metrics": outcome.metrics, "log": trainer.state.log_history,
+               "peak_gpu_gb": peak_gb}  # fmt: skip
         (args.out / "training_log.json").write_text(json.dumps(log, indent=2))
         if api is not None and args.hub_adapter:
             api.upload_folder(repo_id=args.hub_adapter, folder_path=str(adapter_dir))
@@ -406,6 +432,11 @@ def main() -> None:
                         json.dumps({"id": record["id"], "split": split, "answer": answer.strip()}) + "\n"
                     )
             print(f"predicted {split}: {len(records)} records", flush=True)
+    if torch.cuda.is_available():
+        print(
+            f"peak GPU memory while predicting: {torch.cuda.max_memory_allocated() / 2**30:.1f} GB",
+            flush=True,
+        )
 
     if api is not None:
         predictions = str(args.out / "heldout_predictions.jsonl")

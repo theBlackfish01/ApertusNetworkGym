@@ -13,7 +13,14 @@ takes the first valid start on the best one.
 | I3 | least loaded                    | those with the most free slots           | shortest km, first fit   |
 | I4 | fewest slots                    | those with the minimum slots needed      | shortest km, first fit   |
 
-Pairs combine as set intersection; an empty set means the only admissible decision is reject.
+Pairs (``PAIR_RULE``). A pair that contains the avoid-link intent is *filter, then rank*: the
+paths with the link are dropped and the other intent is applied to the paths that are left, so
+the only admissible decision is reject exactly when no feasible path avoids the link. A pair of
+two ranking intents (I2+I3) is the intersection of their sets, and an empty intersection means
+reject. The first pass of the project used the intersection for every pair (SPEC section 3);
+``PAIR_RULE = "intersection"`` or the environment variable ``LIGHTPATH_PAIR_RULE`` reproduces it.
+With it the reject rule of the avoid-link pairs leaked into the single avoid-link intent
+(``results/design/pair_rule_leak_apertus_ft.json``, ``docs/decisions.md``).
 A path is feasible when it has at least one valid (resource and QoT) start.
 
 BM-LS-KSP here means: the admissible path whose first listed block starts lowest, ties by path
@@ -28,6 +35,7 @@ held out. The paraphrases below are drafts for the owner to review (SPEC section
 
 from __future__ import annotations
 
+import os
 import random
 from dataclasses import asdict, dataclass
 
@@ -38,6 +46,9 @@ TRAIN_PAIRS = (("I1", "I2"), ("I1", "I3"))
 HELDOUT_PAIRS = (("I1", "I4"), ("I2", "I3"))
 N_TRAIN_PARAPHRASES = 7
 RANKED = frozenset({"I2", "I3", "I4"})  # intents whose teacher ranks paths by km, then first fit
+# How a pair with the avoid-link intent combines: "filter" (drop the paths with the link, apply the
+# other intent to the rest) or "intersection" (first pass: every intent on all feasible paths).
+PAIR_RULE = os.environ.get("LIGHTPATH_PAIR_RULE", "filter")
 
 # {link} is a noun phrase from LINK_FORMS; {Link} is the same phrase with a capital first letter.
 PARAPHRASES: dict[str, tuple[str, ...]] = {
@@ -187,12 +198,22 @@ def _allowed_by(intent_id: str, intent: Intent, feasible: list[PathView]) -> set
     raise ValueError(f"unknown intent id {intent_id!r}")
 
 
-def admissible_paths(view: RequestView, intent: Intent) -> tuple[int, ...]:
-    """Indices of the paths the intent allows; empty means the request must be rejected."""
+def admissible_paths(view: RequestView, intent: Intent, rule: str | None = None) -> tuple[int, ...]:
+    """Indices of the paths the intent allows; empty means the request must be rejected.
+
+    ``rule`` overrides ``PAIR_RULE`` (used by the analyses of the first pass).
+    """
+    rule = rule or PAIR_RULE
+    if rule not in ("filter", "intersection"):
+        raise ValueError(f"unknown pair rule {rule!r}")
     feasible = [p for p in view.paths if p.feasible]
+    ids = intent.ids
+    if rule == "filter" and "I1" in ids:
+        feasible = [p for p in feasible if not p.has_link(*intent.link)]
+        ids = tuple(i for i in ids if i != "I1")
     allowed = {p.index for p in feasible}
     if feasible:
-        for intent_id in intent.ids:
+        for intent_id in ids:
             allowed &= _allowed_by(intent_id, intent, feasible)
     return tuple(sorted(allowed))
 

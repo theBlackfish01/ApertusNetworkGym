@@ -45,26 +45,26 @@
           "reject": 71
         },
         "I1+I2": {
-          "differs_from_no_intent": 541,
+          "differs_from_no_intent": 513,
           "n": 1000,
-          "no_admissible_path": 192,
-          "path0": 615,
-          "path1": 143,
-          "path2": 26,
-          "path3": 11,
-          "path4": 13,
-          "reject": 192
+          "no_admissible_path": 62,
+          "path0": 639,
+          "path1": 188,
+          "path2": 56,
+          "path3": 33,
+          "path4": 22,
+          "reject": 62
         },
         "I1+I3": {
-          "differs_from_no_intent": 576,
+          "differs_from_no_intent": 513,
           "n": 1000,
-          "no_admissible_path": 283,
-          "path0": 375,
-          "path1": 152,
-          "path2": 86,
-          "path3": 61,
-          "path4": 43,
-          "reject": 283
+          "no_admissible_path": 55,
+          "path0": 442,
+          "path1": 205,
+          "path2": 131,
+          "path3": 92,
+          "path4": 75,
+          "reject": 55
         },
         "I2": {
           "differs_from_no_intent": 610,
@@ -144,22 +144,23 @@
         "I1+I2": {
           "differs_from_no_intent": 41,
           "n": 82,
-          "no_admissible_path": 12,
+          "no_admissible_path": 5,
           "path0": 49,
-          "path1": 17,
-          "path2": 2,
-          "path3": 2,
-          "reject": 12
+          "path1": 19,
+          "path2": 6,
+          "path3": 3,
+          "reject": 5
         },
         "I1+I3": {
-          "differs_from_no_intent": 38,
+          "differs_from_no_intent": 34,
           "n": 80,
-          "no_admissible_path": 21,
-          "path0": 35,
-          "path1": 14,
-          "path2": 8,
-          "path3": 2,
-          "reject": 21
+          "no_admissible_path": 7,
+          "path0": 38,
+          "path1": 17,
+          "path2": 13,
+          "path3": 4,
+          "path4": 1,
+          "reject": 7
         },
         "I2": {
           "differs_from_no_intent": 55,
@@ -268,15 +269,15 @@
       },
       "by_intent": {
         "I1+I4": {
-          "differs_from_no_intent": 148,
+          "differs_from_no_intent": 146,
           "n": 286,
-          "no_admissible_path": 11,
+          "no_admissible_path": 7,
           "path0": 212,
-          "path1": 41,
+          "path1": 44,
           "path2": 16,
           "path3": 5,
-          "path4": 1,
-          "reject": 11
+          "path4": 2,
+          "reject": 7
         },
         "I2+I3": {
           "differs_from_no_intent": 131,

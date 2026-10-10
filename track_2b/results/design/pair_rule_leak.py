@@ -8,8 +8,9 @@ and compares how often the model rejects them when a training pair rule would ha
 with how often it does otherwise, also within each number of admissible paths left (so that the
 comparison is not just "harder requests").
 
-Two sources: the held-out answers of the fine-tuned model (offline), and its closed-loop
-avoid-link episodes of seed 1, replayed from the answer cache (no GPU).
+Two sources: the held-out answers of the fine-tuned model (offline), and, once the closed loop
+has been run, its avoid-link episodes of seed 1, replayed from the answer cache (no GPU). "Would
+have said reject" always refers to the first-pass rule (intersection).
 
     PYTHONPATH=src uv run python results/design/pair_rule_leak.py apertus_ft \\
         results/train/apertus_ft_heldout_predictions.jsonl results/design/pair_rule_leak_apertus_ft.json
@@ -35,8 +36,10 @@ def situation(view, intent) -> tuple[int, bool, bool] | None:
     allowed = admissible_paths(view, intent)
     if not allowed:
         return None
-    with_hops = admissible_paths(view, Intent(ids=("I1", "I2"), text="", link=intent.link))
-    with_load = admissible_paths(view, Intent(ids=("I1", "I3"), text="", link=intent.link))
+    # "Would say reject" refers to the first-pass rule (intersection), whatever the current rule is.
+    pair = {"text": "", "link": intent.link}
+    with_hops = admissible_paths(view, Intent(ids=("I1", "I2"), **pair), rule="intersection")
+    with_load = admissible_paths(view, Intent(ids=("I1", "I3"), **pair), rule="intersection")
     return len(allowed), not with_hops, not with_load
 
 
@@ -108,31 +111,34 @@ def table(counter: Counter) -> dict:
 
 def main() -> None:
     policy, predictions, out = sys.argv[1], Path(sys.argv[2]), Path(sys.argv[3])
-    with Pool(2) as pool:
-        per_load = pool.map(replay, [(policy, load) for load in LOADS])
-    closed = sum(per_load, Counter())
     result = {
         "policy": policy,
         "what": "requests with only the avoid-link intent that have an admissible path; 'rejected' is the model's answer",
         "offline_heldout": table(offline(predictions)),
-        "closed_loop": {"seed": SEED, "loads": list(LOADS), "pooled": table(closed),
-                        **{f"load_{load}": table(c) for load, c in zip(LOADS, per_load, strict=True)}},
-    }  # fmt: skip
-    pooled = result["closed_loop"]["pooled"]
-    needless = pooled["pair_rule_rejects"]["rejected"] + pooled["no_pair_rule_rejects"]["rejected"]
-    result["closed_loop"]["share_of_needless_rejects_where_a_pair_rule_rejects"] = (
-        pooled["pair_rule_rejects"]["rejected"] / needless
-    )
+    }
+    shown = [("offline held-out", result["offline_heldout"])]
+    if (ROOT / "results" / "eval" / f"{policy}.json").exists():  # closed loop: only once it has been run
+        with Pool(2) as pool:
+            per_load = pool.map(replay, [(policy, load) for load in LOADS])
+        pooled = table(sum(per_load, Counter()))
+        needless = pooled["pair_rule_rejects"]["rejected"] + pooled["no_pair_rule_rejects"]["rejected"]
+        result["closed_loop"] = {
+            "seed": SEED,
+            "loads": list(LOADS),
+            "pooled": pooled,
+            **{f"load_{load}": table(c) for load, c in zip(LOADS, per_load, strict=True)},
+            "share_of_needless_rejects_where_a_pair_rule_rejects": (
+                pooled["pair_rule_rejects"]["rejected"] / needless if needless else None
+            ),
+        }
+        shown.append(("closed loop, pooled", pooled))
     out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
-    for name, rows in (("offline held-out", result["offline_heldout"]), ("closed loop, pooled", pooled)):
+    for name, rows in shown:
         print(name)
         for key, row in rows.items():
             print(
                 f"  {key:34s} rejected {row['rejected']:4d} of {row['requests']:4d} = {100 * row['rate']:5.1f}%"
             )
-    print(
-        f"share of needless rejects where a pair rule rejects: {100 * needless and 100 * pooled['pair_rule_rejects']['rejected'] / needless:.1f}%"
-    )
     print(f"wrote {out}")
 
 

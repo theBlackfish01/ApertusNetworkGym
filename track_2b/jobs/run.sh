@@ -15,7 +15,8 @@
 #
 # Environment: WORK_REPO (dataset repo holding this bundle; results are copied back to it),
 # ADAPTER_REPO (model repo for the adapter), HF_TOKEN (secret); optional MODEL, TRAIN_ARGS,
-# EVAL_ARGS (fine-tuned closed loop), ZS_ARGS (zero-shot closed loop).
+# EVAL_ARGS (fine-tuned closed loop), ZS_ARGS (zero-shot closed loop), SKIP_ZERO_SHOT (any value:
+# the eval stage evaluates the fine-tuned model only).
 set -euo pipefail
 STAGE=${1:?stage: check | smoke | train | eval}
 : "${WORK_REPO:?set WORK_REPO}"
@@ -102,6 +103,11 @@ check)
     stamp "and once more: training is finished, only the predictions are redone"
     $TRAIN --resume 2>&1 | tee /tmp/finished.log
     grep -q "training already finished on the Hub" /tmp/finished.log
+    stamp "a further epoch from the finished adapter (--init-adapter)"
+    $PY src/train.py --model $TINY --data-dir data/full --out runs/check-more --no-4bit --limit-train 16 \
+        --limit-heldout 4 --max-steps 2 --save-steps 0 --batch 4 --accumulation 1 --eval-records 4 \
+        --init-adapter "$CHECK_REPO" --lr 1e-4 --skip-merge 2>&1 | tee /tmp/more.log
+    grep -q "starting from the adapter" /tmp/more.log
     $PY src/evaluate.py offline --policy check_ft --predictions runs/check/heldout_predictions.jsonl --limit 4
     stamp "closed loop (tiny model + adapter)"
     # shellcheck disable=SC2086
@@ -153,16 +159,24 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     stamp "fine-tuned: demo answers for make run"
     $PY src/evaluate.py demo --policy apertus_ft_demo --backend transformers --model "$MODEL" --adapter runs/adapter
     keep results/cache/apertus_ft_demo.jsonl
-    stamp "zero-shot: offline agreement, with and without the answer constraint"
-    # shellcheck disable=SC2086
-    $PY src/evaluate.py offline --policy apertus_zero_shot --backend transformers --model "$MODEL" $SYNC
-    # shellcheck disable=SC2086
-    $PY src/evaluate.py offline --policy apertus_zero_shot_unconstrained --backend transformers --model "$MODEL" \
-        --structured none $SYNC
+    if [ -z "${SKIP_ZERO_SHOT:-}" ]; then
+        stamp "zero-shot: offline agreement, with and without the answer constraint"
+        # shellcheck disable=SC2086
+        $PY src/evaluate.py offline --policy apertus_zero_shot --backend transformers --model "$MODEL" $SYNC
+        # shellcheck disable=SC2086
+        $PY src/evaluate.py offline --policy apertus_zero_shot_unconstrained --backend transformers \
+            --model "$MODEL" --structured none $SYNC
+    fi
     stamp "fine-tuned: closed loop"
     # shellcheck disable=SC2086
     $PY src/evaluate.py closed --policy apertus_ft --backend transformers --model "$MODEL" --adapter runs/adapter \
         --sim-workers "$WORKERS" $SYNC ${EVAL_ARGS:-}
+    # The zero-shot answers do not depend on the adapter or on the intent rules, so a later pass
+    # sets SKIP_ZERO_SHOT=1 and re-scores the cached answers on a laptop instead.
+    if [ -n "${SKIP_ZERO_SHOT:-}" ]; then
+        stamp "done"
+        exit 0
+    fi
     # All environments of one call advance together and finish on the same tick, so the heavy load
     # runs alone first: a timeout in the second call still leaves a results file. The second call
     # replays the heavy-load answers from the cache and only asks the model for the light load.

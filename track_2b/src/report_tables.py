@@ -98,6 +98,50 @@ def closed_tables(results: dict[str, dict]) -> list[tuple[str, list[str], list[l
             tables.append(
                 (f"{title} — load {load} E", ["Policy"] + [CONDITIONS[c] for c in conditions], rows)
             )
+    by_key = {
+        (name, e["condition"], e["load"]): e.get("by_intent", {})
+        for name, r in results.items()
+        for e in r["summary"]
+    }
+
+    def pooled(name: str, condition: str, load: int, key: str, field: str) -> str:
+        counts = by_key.get((name, condition, load), {}).get(key)
+        if not counts or not counts.get("requests"):
+            return "–"
+        return f"{100 * counts.get(field, 0) / counts['requests']:.1f}"
+
+    if any(by_key.values()):
+        pairs = sorted(
+            {key for (_, c, _), keys in by_key.items() if c == "heldout_pairs" for key in keys} - {"all"}
+        )
+        if pairs:
+            header = ["Policy"] + [f"{pair}, load {load} E" for load in loads for pair in pairs]
+            rows = [
+                [POLICIES.get(name, name)]
+                + [
+                    pooled(name, "heldout_pairs", load, pair, "violations")
+                    for load in loads
+                    for pair in pairs
+                ]
+                for name in results
+            ]
+            tables.append(
+                ("Unseen pairs by pair: intent violations, % of decisions (pooled over seeds)", header, rows)
+            )
+        kinds = {
+            "needless_rejects": "Needless rejects (a request with an admissible path is rejected), % of decisions",
+            "wrong_accepts": "Accepts although the intent leaves no admissible path, % of decisions",
+        }
+        shown = [c for c in ("I1", "mixed_heldout_paraphrases", "heldout_pairs") if c in conditions]
+        for field, title in kinds.items():
+            header = ["Policy"] + [f"{CONDITIONS[c]}, load {load} E" for c in shown for load in loads]
+            rows = [
+                [POLICIES.get(name, name)]
+                + [pooled(name, c, load, "all", field) for c in shown for load in loads]
+                for name in results
+            ]
+            tables.append((f"{title} (pooled over seeds)", header, rows))
+
     rows = []
     for name, result in results.items():
         times = [e["decision_ms_mean"] for e in result["summary"]]
@@ -226,6 +270,11 @@ def main() -> None:
     )
     parser.add_argument("--results", type=Path, default=ROOT / "results")
     parser.add_argument("--no-figure", action="store_true")
+    parser.add_argument("--figure", type=Path, default=ROOT / "docs" / "figures" / "blocking",
+                        help="figure path without suffix")  # fmt: skip
+    parser.add_argument(
+        "--note", default="", help="a sentence put at the top of results.md (e.g. which pass)"
+    )
     args = parser.parse_args()
 
     closed = load(args.results / "eval")
@@ -236,6 +285,8 @@ def main() -> None:
     notes = [
         "Rendered by `src/report_tables.py` from `results/eval/` and `results/offline/`; do not edit by hand."
     ]
+    if args.note:
+        notes += ["", args.note]
     if protocol:
         protocol_note = (
             f"Closed loop: {protocol['warmup']}-request warm-up by the no-intent teacher, then "
@@ -256,12 +307,8 @@ def main() -> None:
     (out / "results.tex").write_text(latex(tables), encoding="utf-8")
     print(text)
     if not args.no_figure and closed:
-        made = figure(closed, ROOT / "docs" / "figures" / "blocking")
-        print(
-            "figure written to docs/figures/blocking.png"
-            if made
-            else "figure skipped (matplotlib not installed)"
-        )
+        made = figure(closed, args.figure)
+        print(f"figure written to {args.figure}.png" if made else "figure skipped (matplotlib not installed)")
 
 
 if __name__ == "__main__":

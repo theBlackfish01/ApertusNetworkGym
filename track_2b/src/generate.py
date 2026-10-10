@@ -164,8 +164,10 @@ def build_splits(episodes_dir: Path) -> dict[str, list[dict]]:
     state has not changed). Only its first occurrence is kept, training episodes first, so no
     prompt appears twice anywhere.
 
-    Prompts are rendered again from the stored view and intent, so the splits always match the
-    current ``prompt.py`` without re-running the simulator.
+    Prompts and labels are computed again from the stored view and intent, so the splits always
+    match the current ``prompt.py`` and ``intents.py`` without re-running the simulator. The
+    second pass of the project used this to change the rule for avoid-link pairs: same records,
+    same prompts, new labels for the pair records the old rule had forced to ``reject``.
     """
     records = [r for path in sorted(episodes_dir.glob("L*-S*.jsonl")) for r in read_jsonl(path)]
     records.sort(key=lambda r: (r["meta"]["group"] != "train", r["id"]))
@@ -173,9 +175,16 @@ def build_splits(episodes_dir: Path) -> dict[str, list[dict]]:
     seen: set[str] = set()
     for record in records:
         meta = record["meta"]
-        record["prompt"] = chat_messages(
-            RequestView.from_json(meta["view"]), Intent.from_json(meta["intent"])
-        )
+        view, intent = RequestView.from_json(meta["view"]), Intent.from_json(meta["intent"])
+        record["prompt"] = chat_messages(view, intent)
+        # The label follows the current intent rules as well: the stored view is all the teacher
+        # needs, so a change of rule relabels the records without re-running the simulator. What
+        # the teacher of the episode executed is kept for reference.
+        choice = teacher_choice(view, intent)
+        meta["episode_choice"] = meta.get("episode_choice", meta["teacher_choice"])
+        meta["teacher_choice"] = list(choice) if choice else None
+        meta["admissible_paths"] = list(admissible_paths(view, intent))
+        record["completion"] = [{"role": "assistant", "content": format_choice(choice)}]
         text = user_text(record)
         if text in seen:
             continue
