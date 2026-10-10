@@ -43,6 +43,7 @@ nothing. Held-out data is used for the loss curve and these predictions only, ne
 from __future__ import annotations
 
 import argparse
+import gc
 import json
 import statistics
 from pathlib import Path
@@ -89,6 +90,16 @@ def parse_args() -> argparse.Namespace:
         "--save-merged", action="store_true", help="also write the merged bf16 model to --out"
     )
     parser.add_argument("--eval-records", type=int, default=200, help="held-out records for the loss curve")
+    parser.add_argument(
+        "--save-steps", type=int, default=100, help="checkpoint every N optimizer steps (0: never)"
+    )
+    parser.add_argument(
+        "--resume", action="store_true", help="continue from the checkpoint or adapter on the Hub"
+    )
+    parser.add_argument("--resume-dir", default=None, help="continue from this local checkpoint directory")
+    parser.add_argument(
+        "--die-at-step", type=int, default=0, help="test only: fail after this optimizer step"
+    )
     parser.add_argument("--predict-batch", type=int, default=32)
     return parser.parse_args()
 
@@ -225,96 +236,146 @@ def main() -> None:
         }
 
     dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
-    quantization = None
-    if not args.no_4bit:
-        quantization = BitsAndBytesConfig(
-            load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True,
-            bnb_4bit_compute_dtype=torch.bfloat16,
-        )  # fmt: skip
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model, quantization_config=quantization, dtype=dtype, device_map="auto"
-    )
-    model.config.use_cache = False  # incompatible with gradient checkpointing
-    if quantization is not None:
-        model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
-    else:
-        model.enable_input_require_grads()  # lets gradients reach the adapters through checkpointed blocks
-    lora = LoraConfig(
-        r=args.lora_r, lora_alpha=args.lora_alpha, lora_dropout=args.lora_dropout,
-        target_modules=LORA_TARGETS, task_type="CAUSAL_LM",
-    )  # fmt: skip
-    model = get_peft_model(model, lora)
-    model.print_trainable_parameters()
-    config = TrainingArguments(
-        output_dir=str(args.out / "checkpoints"),
-        num_train_epochs=args.epochs,
-        max_steps=args.max_steps,
-        per_device_train_batch_size=args.batch,
-        per_device_eval_batch_size=args.batch,
-        gradient_accumulation_steps=args.accumulation,
-        learning_rate=args.lr,
-        lr_scheduler_type="cosine",
-        warmup_steps=0.05,  # a value below 1 is a ratio of the total steps
-        bf16=torch.cuda.is_available(),
-        optim="adamw_torch" if args.no_4bit else "paged_adamw_8bit",
-        gradient_checkpointing=True,
-        logging_steps=10,
-        eval_strategy="steps",
-        eval_steps=100 if args.max_steps < 0 else max(1, args.max_steps),
-        save_strategy="no",
-        report_to="none",
-        seed=args.seed,
-        remove_unused_columns=False,  # the datasets hold exactly input_ids and labels
-    )
+    args.out.mkdir(parents=True, exist_ok=True)
+    adapter_dir = args.out / "adapter"
     api = None
     if args.hub_adapter or args.hub_merged:
-        from huggingface_hub import HfApi
+        from huggingface_hub import HfApi, snapshot_download
 
         api = HfApi()
         for repo in filter(None, (args.hub_adapter, args.hub_merged)):
             api.create_repo(repo, private=True, exist_ok=True)  # fail now, not after hours of training
 
-    class PushEachEpoch(TrainerCallback):
-        """Copy the adapter to the Hub at the end of every epoch, so a dead job keeps its progress."""
+    # --resume: continue from what an earlier job left on the Hub. If training had finished, only
+    # the predictions are redone; otherwise it restarts from the last pushed checkpoint (adapter,
+    # optimizer, scheduler, data position), so at most --save-steps optimizer steps are repeated.
+    finished, resume_from = False, args.resume_dir
+    if args.resume and api is not None and args.hub_adapter:
+        remote = set(api.list_repo_files(args.hub_adapter))
+        if {"adapter_model.safetensors", "training_log.json"} <= remote:
+            finished = True
+            snapshot_download(
+                args.hub_adapter, local_dir=str(adapter_dir), allow_patterns=["adapter_*", "*.jinja"]
+            )
+            snapshot_download(args.hub_adapter, local_dir=str(args.out), allow_patterns=["training_log.json"])
+            tokenizer.save_pretrained(adapter_dir)
+            print("training already finished on the Hub: skipping to the predictions", flush=True)
+        elif "checkpoint/trainer_state.json" in remote:
+            snapshot_download(
+                args.hub_adapter, local_dir=str(args.out / "resume"), allow_patterns=["checkpoint/*"]
+            )
+            resume_from = str(args.out / "resume" / "checkpoint")
+    if resume_from and not finished:
+        step = json.loads(Path(resume_from, "trainer_state.json").read_text())["global_step"]
+        print(f"resuming training from the checkpoint at optimizer step {step}", flush=True)
 
-        def on_epoch_end(self, train_args, state, control, **kwargs):
-            if api is None or not args.hub_adapter:
-                return
-            folder = args.out / f"adapter-epoch{round(state.epoch)}"
-            kwargs["model"].save_pretrained(folder)
-            api.upload_folder(repo_id=args.hub_adapter, folder_path=str(folder), path_in_repo=folder.name)
-            print(f"pushed {folder.name} to {args.hub_adapter}", flush=True)
-
-    trainer = Trainer(
-        model=model,
-        args=config,
-        train_dataset=tokenized(data["train"]),
-        eval_dataset=tokenized(data["heldout_indist"][: args.eval_records]),  # loss curve only
-        data_collator=collate,
-        callbacks=[PushEachEpoch()],
-    )
-    outcome = trainer.train()
-    print(f"training: {outcome.metrics}", flush=True)
-    args.out.mkdir(parents=True, exist_ok=True)
-    adapter_dir = args.out / "adapter"
-    trainer.model.save_pretrained(adapter_dir)
-    tokenizer.save_pretrained(adapter_dir)
-    log = {"args": {k: str(v) for k, v in vars(args).items()}, "metrics": outcome.metrics,
-           "log": trainer.state.log_history}  # fmt: skip
-    (args.out / "training_log.json").write_text(json.dumps(log, indent=2))
-    if api is not None and args.hub_adapter:
-        api.upload_folder(repo_id=args.hub_adapter, folder_path=str(adapter_dir))
-        api.upload_file(
-            repo_id=args.hub_adapter,
-            path_or_fileobj=str(args.out / "training_log.json"),
-            path_in_repo="training_log.json",
+    def fit():
+        """Train (or continue training) the adapter; returns the trained PEFT model."""
+        quantization = None
+        if not args.no_4bit:
+            quantization = BitsAndBytesConfig(
+                load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True,
+                bnb_4bit_compute_dtype=torch.bfloat16,
+            )  # fmt: skip
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model, quantization_config=quantization, dtype=dtype, device_map="auto"
         )
-        print(f"pushed adapter and training log to {args.hub_adapter} (private)", flush=True)
+        model.config.use_cache = False  # incompatible with gradient checkpointing
+        if quantization is not None:
+            model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+        else:
+            model.enable_input_require_grads()  # lets gradients reach the adapters through checkpointed blocks
+        lora = LoraConfig(
+            r=args.lora_r, lora_alpha=args.lora_alpha, lora_dropout=args.lora_dropout,
+            target_modules=LORA_TARGETS, task_type="CAUSAL_LM",
+        )  # fmt: skip
+        model = get_peft_model(model, lora)
+        model.print_trainable_parameters()
+        config = TrainingArguments(
+            output_dir=str(args.out / "checkpoints"),
+            num_train_epochs=args.epochs,
+            max_steps=args.max_steps,
+            per_device_train_batch_size=args.batch,
+            per_device_eval_batch_size=args.batch,
+            gradient_accumulation_steps=args.accumulation,
+            learning_rate=args.lr,
+            lr_scheduler_type="cosine",
+            warmup_steps=0.05,  # a value below 1 is a ratio of the total steps
+            bf16=torch.cuda.is_available(),
+            optim="adamw_torch" if args.no_4bit else "paged_adamw_8bit",
+            gradient_checkpointing=True,
+            logging_steps=10,
+            eval_strategy="steps",
+            eval_steps=100 if args.max_steps < 0 else max(1, args.max_steps),
+            save_strategy="steps" if args.save_steps > 0 else "no",
+            save_steps=max(1, args.save_steps),
+            save_total_limit=1,
+            report_to="none",
+            seed=args.seed,
+            remove_unused_columns=False,  # the datasets hold exactly input_ids and labels
+        )
 
-    if args.skip_merge:
-        predictor = trainer.model
+        class PushProgress(TrainerCallback):
+            """Copy progress to the Hub while training: the latest checkpoint every time one is
+            saved, and the adapter at the end of every epoch."""
+
+            def on_save(self, train_args, state, control, **kwargs):
+                if api is None or not args.hub_adapter:
+                    return
+                folder = Path(train_args.output_dir) / f"checkpoint-{state.global_step}"
+                api.upload_folder(
+                    repo_id=args.hub_adapter,
+                    folder_path=str(folder),
+                    path_in_repo="checkpoint",
+                    delete_patterns="*",
+                )
+                print(f"pushed checkpoint at optimizer step {state.global_step}", flush=True)
+
+            def on_epoch_end(self, train_args, state, control, **kwargs):
+                if api is None or not args.hub_adapter:
+                    return
+                folder = args.out / f"adapter-epoch{round(state.epoch)}"
+                kwargs["model"].save_pretrained(folder)
+                api.upload_folder(repo_id=args.hub_adapter, folder_path=str(folder), path_in_repo=folder.name)
+                print(f"pushed {folder.name} to {args.hub_adapter}", flush=True)
+
+            def on_step_end(self, train_args, state, control, **kwargs):
+                if args.die_at_step and state.global_step == args.die_at_step:
+                    raise SystemExit(
+                        f"simulated failure at optimizer step {state.global_step} (--die-at-step)"
+                    )
+
+        trainer = Trainer(
+            model=model,
+            args=config,
+            train_dataset=tokenized(data["train"]),
+            eval_dataset=tokenized(data["heldout_indist"][: args.eval_records]),  # loss curve only
+            data_collator=collate,
+            callbacks=[PushProgress()],
+        )
+        outcome = trainer.train(resume_from_checkpoint=resume_from)
+        print(f"training: {outcome.metrics}", flush=True)
+        trainer.model.save_pretrained(adapter_dir)
+        tokenizer.save_pretrained(adapter_dir)
+        log = {"args": {k: str(v) for k, v in vars(args).items()}, "resumed_from": resume_from,
+               "metrics": outcome.metrics, "log": trainer.state.log_history}  # fmt: skip
+        (args.out / "training_log.json").write_text(json.dumps(log, indent=2))
+        if api is not None and args.hub_adapter:
+            api.upload_folder(repo_id=args.hub_adapter, folder_path=str(adapter_dir))
+            api.upload_file(
+                repo_id=args.hub_adapter,
+                path_or_fileobj=str(args.out / "training_log.json"),
+                path_in_repo="training_log.json",
+            )
+            print(f"pushed adapter and training log to {args.hub_adapter} (private)", flush=True)
+        return trainer.model
+
+    trained = None if finished else fit()
+    if args.skip_merge and trained is not None:
+        predictor = trained
     else:
-        del trainer, model
+        del trained
+        gc.collect()
         torch.cuda.empty_cache()
         base = AutoModelForCausalLM.from_pretrained(args.model, dtype=dtype, device_map="auto")
         predictor = PeftModel.from_pretrained(base, adapter_dir).merge_and_unload()
