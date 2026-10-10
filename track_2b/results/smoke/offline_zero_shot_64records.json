@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "smoke_zero_shot",
+      "backend": "transformers",
+      "model": "andreasmartin/apertus-v1.5-8b-text",
+      "adapter": null,
+      "structured": "regex",
+      "template_kwargs": {},
+      "cache": "smoke_zero_shot.jsonl"
+    },
+    "command": "src/evaluate.py offline --policy smoke_zero_shot --backend transformers --model andreasmartin/apertus-v1.5-8b-text --limit 64 --sync-repo blackfish021/apertus-lightpath-work --sync-every 120",
+    "finished_utc": "2026-10-10T08:28:44.152623+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 16,
+        "exact_match": 0.0625,
+        "admissible": 0.125,
+        "invalid": 0.875,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 6,
+        "exact_match": 0.0,
+        "admissible": 0.3333333333333333,
+        "invalid": 0.6666666666666666,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 5,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "invalid": 1.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 7,
+        "exact_match": 0.0,
+        "admissible": 0.14285714285714285,
+        "invalid": 0.8571428571428571,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 12,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "invalid": 1.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 7,
+        "exact_match": 0.0,
+        "admissible": 0.14285714285714285,
+        "invalid": 0.8571428571428571,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 11,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "invalid": 1.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 64,
+        "exact_match": 0.015625,
+        "admissible": 0.09375,
+        "invalid": 0.90625,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 20,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "invalid": 1.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 15,
+        "exact_match": 0.0,
+        "admissible": 0.06666666666666667,
+        "invalid": 0.9333333333333333,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 17,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "invalid": 1.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 12,
+        "exact_match": 0.0,
+        "admissible": 0.08333333333333333,
+        "invalid": 0.9166666666666666,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 64,
+        "exact_match": 0.0,
+        "admissible": 0.03125,
+        "invalid": 0.96875,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 27,
+        "exact_match": 0.037037037037037035,
+        "admissible": 0.07407407407407407,
+        "invalid": 0.8888888888888888,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 37,
+        "exact_match": 0.0,
+        "admissible": 0.05405405405405406,
+        "invalid": 0.918918918918919,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 64,
+        "exact_match": 0.015625,
+        "admissible": 0.0625,
+        "invalid": 0.90625,
+        "malformed": 0.0
+      }
+    }
+  }
+}

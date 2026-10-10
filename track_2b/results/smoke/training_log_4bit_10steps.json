@@ -1,0 +1,68 @@
+{
+  "args": {
+    "model": "andreasmartin/apertus-v1.5-8b-text",
+    "data_dir": "data/full",
+    "dataset_repo": "None",
+    "out": "runs/smoke-4bit",
+    "epochs": "2.0",
+    "lr": "0.0002",
+    "batch": "8",
+    "accumulation": "4",
+    "max_length": "768",
+    "lora_r": "32",
+    "lora_alpha": "32",
+    "lora_dropout": "0.05",
+    "seed": "0",
+    "template_kwargs": "{}",
+    "hub_adapter": "None",
+    "hub_merged": "None",
+    "dry_run": "False",
+    "no_4bit": "False",
+    "limit_train": "480",
+    "limit_heldout": "32",
+    "max_steps": "10",
+    "skip_merge": "False",
+    "save_merged": "False",
+    "eval_records": "32",
+    "save_steps": "0",
+    "resume": "False",
+    "resume_dir": "None",
+    "die_at_step": "0",
+    "predict_batch": "32"
+  },
+  "resumed_from": null,
+  "metrics": {
+    "train_runtime": 102.7239,
+    "train_samples_per_second": 3.115,
+    "train_steps_per_second": 0.097,
+    "total_flos": 7460111080028160.0,
+    "train_loss": 0.9394064903259277,
+    "epoch": 0.6666666666666666
+  },
+  "log": [
+    {
+      "loss": 0.9394064903259277,
+      "grad_norm": 0.312809020280838,
+      "learning_rate": 6.030737921409169e-06,
+      "epoch": 0.6666666666666666,
+      "step": 10
+    },
+    {
+      "eval_loss": 0.14047913253307343,
+      "eval_runtime": 2.876,
+      "eval_samples_per_second": 11.127,
+      "eval_steps_per_second": 1.391,
+      "epoch": 0.6666666666666666,
+      "step": 10
+    },
+    {
+      "train_runtime": 102.7239,
+      "train_samples_per_second": 3.115,
+      "train_steps_per_second": 0.097,
+      "total_flos": 7460111080028160.0,
+      "train_loss": 0.9394064903259277,
+      "epoch": 0.6666666666666666,
+      "step": 10
+    }
+  ]
+}

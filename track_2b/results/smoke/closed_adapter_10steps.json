@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "run_id": "20261010T083039Z",
+    "finished_utc": "2026-10-10T08:31:09.160772+00:00",
+    "command": "src/evaluate.py closed --policy smoke_ft --backend transformers --model andreasmartin/apertus-v1.5-8b-text --adapter runs/smoke-4bit/adapter --conditions I0 I1 --loads 390 --seeds 1 --warmup 100 --window 20 --sim-workers 2 --sync-repo blackfish021/apertus-lightpath-work --sync-every 120",
+    "policy": {
+      "name": "smoke_ft",
+      "backend": "transformers",
+      "model": "andreasmartin/apertus-v1.5-8b-text",
+      "adapter": "runs/smoke-4bit/adapter",
+      "structured": "regex",
+      "template_kwargs": {},
+      "cache": "smoke_ft.jsonl"
+    },
+    "protocol": {
+      "warmup": 100,
+      "window": 20,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "invalid_fallback": "first_fit"
+    },
+    "conditions": [
+      "I0",
+      "I1"
+    ],
+    "loads": [
+      390
+    ],
+    "seeds": [
+      1
+    ],
+    "ong_version": "0.2.0",
+    "ong_commit": "f7c4491caa9090577fe451a6f9f57a8f60edc81e",
+    "repo_commit": null,
+    "python": "3.12.12",
+    "numpy": "2.5.3",
+    "platform": "Linux-6.12.103-127.188.amzn2023.x86_64-x86_64-with-glibc2.36",
+    "cpu_count": 96
+  },
+  "summary": [
+    {
+      "condition": "I0",
+      "load": 390,
+      "seeds": [
+        1
+      ],
+      "service_blocking_rate_mean": 0.0,
+      "service_blocking_rate_std": 0.0,
+      "bit_rate_blocking_rate_mean": 0.0,
+      "bit_rate_blocking_rate_std": 0.0,
+      "violation_rate_mean": 0.0,
+      "violation_rate_std": 0.0,
+      "invalid_rate_mean": 0.2,
+      "invalid_rate_std": 0.0,
+      "decision_ms_mean": 460.86500000000007,
+      "decision_ms_std": 0.0,
+      "binding_violation_rate": 0.0,
+      "binding_share": 0.0,
+      "oracle_path_rate_mean": 0.6
+    },
+    {
+      "condition": "I1",
+      "load": 390,
+      "seeds": [
+        1
+      ],
+      "service_blocking_rate_mean": 0.15,
+      "service_blocking_rate_std": 0.0,
+      "bit_rate_blocking_rate_mean": 0.15915119363395225,
+      "bit_rate_blocking_rate_std": 0.0,
+      "violation_rate_mean": 0.35,
+      "violation_rate_std": 0.0,
+      "invalid_rate_mean": 0.25,
+      "invalid_rate_std": 0.0,
+      "decision_ms_mean": 460.86500000000007,
+      "decision_ms_std": 0.0,
+      "binding_violation_rate": 0.6,
+      "binding_share": 0.25,
+      "oracle_path_rate_mean": 0.45
+    }
+  ],
+  "episodes": [
+    {
+      "policy": "smoke_ft",
+      "condition": "I0",
+      "load": 390,
+      "seed": 1,
+      "warmup": 100,
+      "window": 20,
+      "processed": 20,
+      "accepted": 20,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 0,
+      "service_blocking_rate": 0.0,
+      "bit_rate_blocking_rate": 0.0,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "invalid": 4,
+      "invalid_rate": 0.2,
+      "malformed": 0,
+      "binding": 0,
+      "binding_violations": 0,
+      "oracle_exact_rate": 0.5,
+      "oracle_path_rate": 0.6,
+      "decision_ms": 460.86500000000007,
+      "group_decisions_per_s": 1.55
+    },
+    {
+      "policy": "smoke_ft",
+      "condition": "I1",
+      "load": 390,
+      "seed": 1,
+      "warmup": 100,
+      "window": 20,
+      "processed": 20,
+      "accepted": 17,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 3,
+      "service_blocking_rate": 0.15,
+      "bit_rate_blocking_rate": 0.15915119363395225,
+      "violations": 7,
+      "violation_rate": 0.35,
+      "invalid": 5,
+      "invalid_rate": 0.25,
+      "malformed": 0,
+      "binding": 5,
+      "binding_violations": 3,
+      "oracle_exact_rate": 0.3,
+      "oracle_path_rate": 0.45,
+      "decision_ms": 460.86500000000007,
+      "group_decisions_per_s": 1.55
+    }
+  ]
+}
