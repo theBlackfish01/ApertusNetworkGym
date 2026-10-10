@@ -1,0 +1,83 @@
+% Service blocking probability, % — load 240 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 & 2.68 $\pm$ 0.40 \\
+BM-LS-KSP (no-intent teacher) & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 & 1.22 $\pm$ 0.45 \\
+Intent-aware teacher (oracle) & 1.20 $\pm$ 0.44 & 4.78 $\pm$ 0.90 & 1.78 $\pm$ 0.66 & 1.38 $\pm$ 0.18 & 2.28 $\pm$ 0.84 & 2.52 $\pm$ 0.54 & 11.52 $\pm$ 0.43 \\
+MLP control & 1.33 $\pm$ 0.38 & 4.57 $\pm$ 0.67 & 1.75 $\pm$ 0.66 & 1.27 $\pm$ 0.36 & 2.12 $\pm$ 0.88 & 2.38 $\pm$ 0.28 & 2.83 $\pm$ 0.65 \\
+\bottomrule
+\end{tabular}
+
+% Intent violations, % of decisions — load 240 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 0.0 $\pm$ 0.0 & 26.2 $\pm$ 1.1 & 12.1 $\pm$ 0.2 & 49.5 $\pm$ 1.1 & 0.1 $\pm$ 0.1 & 22.3 $\pm$ 0.6 & 38.9 $\pm$ 1.4 \\
+BM-LS-KSP (no-intent teacher) & 0.0 $\pm$ 0.0 & 28.2 $\pm$ 0.4 & 21.2 $\pm$ 0.8 & 41.1 $\pm$ 0.7 & 3.8 $\pm$ 0.5 & 23.6 $\pm$ 1.3 & 39.2 $\pm$ 1.5 \\
+Intent-aware teacher (oracle) & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+MLP control & 0.0 $\pm$ 0.0 & 0.6 $\pm$ 0.2 & 2.5 $\pm$ 0.4 & 12.2 $\pm$ 0.8 & 0.2 $\pm$ 0.1 & 3.3 $\pm$ 0.5 & 31.2 $\pm$ 1.5 \\
+\bottomrule
+\end{tabular}
+
+% Invalid answers, % of decisions — load 240 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+BM-LS-KSP (no-intent teacher) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Intent-aware teacher (oracle) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+MLP control & 0.00 $\pm$ 0.00 & 0.07 $\pm$ 0.06 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.03 $\pm$ 0.06 & 0.32 $\pm$ 0.29 \\
+\bottomrule
+\end{tabular}
+
+% Service blocking probability, % — load 390 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 & 8.23 $\pm$ 0.80 \\
+BM-LS-KSP (no-intent teacher) & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 & 5.98 $\pm$ 0.65 \\
+Intent-aware teacher (oracle) & 5.97 $\pm$ 0.68 & 9.95 $\pm$ 0.75 & 7.05 $\pm$ 0.79 & 6.30 $\pm$ 0.80 & 7.53 $\pm$ 0.73 & 7.73 $\pm$ 0.58 & 14.65 $\pm$ 1.26 \\
+MLP control & 6.28 $\pm$ 0.85 & 9.37 $\pm$ 0.91 & 6.90 $\pm$ 0.93 & 6.27 $\pm$ 0.58 & 7.48 $\pm$ 0.83 & 7.78 $\pm$ 0.63 & 7.90 $\pm$ 0.98 \\
+\bottomrule
+\end{tabular}
+
+% Intent violations, % of decisions — load 390 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 0.0 $\pm$ 0.0 & 24.5 $\pm$ 0.9 & 10.4 $\pm$ 0.3 & 43.2 $\pm$ 2.4 & 0.1 $\pm$ 0.1 & 19.3 $\pm$ 1.5 & 33.9 $\pm$ 2.2 \\
+BM-LS-KSP (no-intent teacher) & 0.0 $\pm$ 0.0 & 25.8 $\pm$ 1.3 & 18.4 $\pm$ 1.2 & 34.7 $\pm$ 1.0 & 2.0 $\pm$ 0.3 & 20.3 $\pm$ 0.8 & 33.5 $\pm$ 1.0 \\
+Intent-aware teacher (oracle) & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+MLP control & 0.0 $\pm$ 0.0 & 0.9 $\pm$ 0.2 & 2.4 $\pm$ 0.2 & 11.8 $\pm$ 0.4 & 0.1 $\pm$ 0.1 & 3.7 $\pm$ 0.2 & 28.7 $\pm$ 1.5 \\
+\bottomrule
+\end{tabular}
+
+% Invalid answers, % of decisions — load 390 E
+\begin{tabular}{lrrrrrrr}
+\toprule
+Policy & No intent & Avoid link & Fewest hops & Least loaded & Fewest slots & Unseen wording & Unseen pairs \\
+\midrule
+KSP-BM-FF first fit & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+BM-LS-KSP (no-intent teacher) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Intent-aware teacher (oracle) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+MLP control & 0.00 $\pm$ 0.00 & 0.03 $\pm$ 0.03 & 0.02 $\pm$ 0.03 & 0.00 $\pm$ 0.00 & 0.05 $\pm$ 0.09 & 0.03 $\pm$ 0.06 & 1.28 $\pm$ 0.39 \\
+\bottomrule
+\end{tabular}
+
+% Decision latency and violations on binding requests (all loads and conditions)
+\begin{tabular}{lrrr}
+\toprule
+Policy & ms per decision & Violations where the intent binds, \% & Seeds \\
+\midrule
+KSP-BM-FF first fit & 0.03 & 46.8 & 1, 2, 3 \\
+BM-LS-KSP (no-intent teacher) & 0.28 & 99.8 & 1, 2, 3 \\
+Intent-aware teacher (oracle) & 0.01 & 0.0 & 1, 2, 3 \\
+MLP control & 0.05 & 17.4 & 1, 2, 3 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "run_id": "20261009T193210Z",
+    "started_utc": "2026-10-09T19:32:10.201953+00:00",
+    "finished_utc": "2026-10-09T19:33:18.354764+00:00",
+    "command": "src/calibrate.py --workers 2 --modes window --loads 240 --out results/calibration/day1_sweep_load240.json",
+    "output": "results/calibration/day1_sweep_load240.json",
+    "scenario": "jocn_benchmark",
+    "scenario_config": {
+      "topology_id": "nobel-eu",
+      "k_paths": 5,
+      "num_spectrum_resources": 320,
+      "frequency_slot_bandwidth_hz": 12500000000.0,
+      "bit_rates": [
+        10,
+        40,
+        100,
+        400
+      ],
+      "mean_holding_time": 10800.0,
+      "modulations": [
+        "BPSK",
+        "QPSK",
+        "8QAM",
+        "16QAM",
+        "32QAM",
+        "64QAM"
+      ],
+      "qot_constraint": "ASE+NLI",
+      "mask_mode": "resource_and_qot",
+      "launch_power_dbm": -4.0
+    },
+    "teacher": "jocn_ls_bm_ksp",
+    "policies": [
+      "first_fit",
+      "jocn_ls_bm_ksp"
+    ],
+    "loads": [
+      240.0
+    ],
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "modes": [
+      "window"
+    ],
+    "requests": 1000,
+    "warmup": 1000,
+    "window": 2000,
+    "ong_version": "0.2.0",
+    "ong_commit": "f7c4491caa9090577fe451a6f9f57a8f60edc81e",
+    "repo_commit": null,
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "cpu_count": 16
+  },
+  "summary": [
+    {
+      "mode": "window",
+      "policy": "first_fit",
+      "load": 240.0,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "service_blocking_rate_mean": 0.026833333333333334,
+      "service_blocking_rate_std": 0.00404145188432738,
+      "bit_rate_blocking_rate_mean": 0.07852314503168561,
+      "bit_rate_blocking_rate_std": 0.009150848630037445,
+      "final_slot_utilisation_mean": 0.2601371951219512,
+      "final_slot_utilisation_std": 0.020980588913778075,
+      "blocked_total": 161,
+      "processed_total": 6000
+    },
+    {
+      "mode": "window",
+      "policy": "jocn_ls_bm_ksp",
+      "load": 240.0,
+      "seeds": [
+        1,
+        2,
+        3
+      ],
+      "service_blocking_rate_mean": 0.012166666666666666,
+      "service_blocking_rate_std": 0.004536885862938733,
+      "bit_rate_blocking_rate_mean": 0.035379506836769915,
+      "bit_rate_blocking_rate_std": 0.012181157196040111,
+      "final_slot_utilisation_mean": 0.2944359756097561,
+      "final_slot_utilisation_std": 0.018109313403064133,
+      "blocked_total": 73,
+      "processed_total": 6000
+    }
+  ],
+  "episodes": [
+    {
+      "mode": "window",
+      "policy": "first_fit",
+      "load": 240.0,
+      "seed": 1,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1939,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 61,
+      "service_blocking_rate": 0.0305,
+      "bit_rate_blocking_rate": 0.08754305396096441,
+      "final_slot_utilisation": 0.27682926829268295,
+      "active_services_at_end": 233,
+      "wall_s": 11.146,
+      "ms_per_request": 5.573
+    },
+    {
+      "mode": "window",
+      "policy": "first_fit",
+      "load": 240.0,
+      "seed": 2,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1955,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 45,
+      "service_blocking_rate": 0.0225,
+      "bit_rate_blocking_rate": 0.06924674924982688,
+      "final_slot_utilisation": 0.23658536585365852,
+      "active_services_at_end": 222,
+      "wall_s": 13.333,
+      "ms_per_request": 6.667
+    },
+    {
+      "mode": "window",
+      "policy": "first_fit",
+      "load": 240.0,
+      "seed": 3,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1945,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 55,
+      "service_blocking_rate": 0.0275,
+      "bit_rate_blocking_rate": 0.07877963188426555,
+      "final_slot_utilisation": 0.26699695121951217,
+      "active_services_at_end": 208,
+      "wall_s": 11.568,
+      "ms_per_request": 5.784
+    },
+    {
+      "mode": "window",
+      "policy": "jocn_ls_bm_ksp",
+      "load": 240.0,
+      "seed": 1,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1969,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 31,
+      "service_blocking_rate": 0.0155,
+      "bit_rate_blocking_rate": 0.044489092996555686,
+      "final_slot_utilisation": 0.3153201219512195,
+      "active_services_at_end": 236,
+      "wall_s": 13.084,
+      "ms_per_request": 6.542
+    },
+    {
+      "mode": "window",
+      "policy": "jocn_ls_bm_ksp",
+      "load": 240.0,
+      "seed": 2,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1986,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 14,
+      "service_blocking_rate": 0.007,
+      "bit_rate_blocking_rate": 0.021543433099946142,
+      "final_slot_utilisation": 0.28490853658536586,
+      "active_services_at_end": 225,
+      "wall_s": 17.552,
+      "ms_per_request": 8.776
+    },
+    {
+      "mode": "window",
+      "policy": "jocn_ls_bm_ksp",
+      "load": 240.0,
+      "seed": 3,
+      "warmup_requests": 1000,
+      "warmup_policy": "jocn_ls_bm_ksp",
+      "requests": 2000,
+      "processed": 2000,
+      "accepted": 1972,
+      "blocked_resources": 0,
+      "blocked_qot": 0,
+      "rejected_by_policy": 28,
+      "service_blocking_rate": 0.014,
+      "bit_rate_blocking_rate": 0.04010599441380792,
+      "final_slot_utilisation": 0.28307926829268293,
+      "active_services_at_end": 208,
+      "wall_s": 13.203,
+      "ms_per_request": 6.601
+    }
+  ]
+}

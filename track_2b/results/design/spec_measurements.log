@@ -1,0 +1,47 @@
+=== load 150: 700 requests, max hops 9
+  any_feasible: 699 (99.9%)
+  I0_matches_ONG: 700 (100.0%)
+  I0_accept: 699 (99.9%)
+  I0 teacher slot off the listed blocks (lower modulation at lower slot): 113 (16.17% of accepts)
+  feasible paths with lowest_slot < first best-mod slot: 23.46%   with >3 blocks: 36.4%
+  ONG load_balancing: path is a most-free-slots path 58.9%, slot is first fit 74.0%
+  I1     empty   2.9%  path differs from I0  27.0%  I0 choice admissible  73.0%  |allowed| 0/1/2/3+: 20/30/84/565
+  I2     empty   0.0%  path differs from I0  41.6%  I0 choice admissible  78.7%  |allowed| 0/1/2/3+: 0/373/182/144
+  I3     empty   0.0%  path differs from I0  43.8%  I0 choice admissible  56.8%  |allowed| 0/1/2/3+: 0/672/24/3
+  I4     empty   0.0%  path differs from I0  41.3%  I0 choice admissible  79.7%  |allowed| 0/1/2/3+: 0/88/29/582
+  I1+I2  empty  13.6%  path differs from I0  51.5%  I0 choice admissible  60.5%  |allowed| 0/1/2/3+: 95/373/147/84 seq_empty 3.7%
+  I1+I3  empty  27.3%  path differs from I0  58.4%  I0 choice admissible  42.1%  |allowed| 0/1/2/3+: 191/498/9/1 seq_empty 3.3%
+  I1+I4  empty   5.3%  path differs from I0  52.1%  I0 choice admissible  56.8%  |allowed| 0/1/2/3+: 37/116/89/457 seq_empty 3.0%
+  I2+I3  empty  18.0%  path differs from I0  48.9%  I0 choice admissible  51.4%  |allowed| 0/1/2/3+: 126/559/11/3
+
+=== load 270: 700 requests, max hops 9
+  any_feasible: 697 (99.6%)
+  I0_matches_ONG: 700 (100.0%)
+  I0_accept: 697 (99.6%)
+  I0 teacher slot off the listed blocks (lower modulation at lower slot): 119 (17.07% of accepts)
+  feasible paths with lowest_slot < first best-mod slot: 25.17%   with >3 blocks: 39.6%
+  ONG load_balancing: path is a most-free-slots path 49.9%, slot is first fit 76.0%
+  I1     empty   4.2%  path differs from I0  31.7%  I0 choice admissible  68.3%  |allowed| 0/1/2/3+: 29/37/93/538
+  I2     empty   0.0%  path differs from I0  40.3%  I0 choice admissible  79.3%  |allowed| 0/1/2/3+: 0/377/182/138
+  I3     empty   0.0%  path differs from I0  43.2%  I0 choice admissible  57.5%  |allowed| 0/1/2/3+: 0/674/23/0
+  I4     empty   0.0%  path differs from I0  42.0%  I0 choice admissible  79.2%  |allowed| 0/1/2/3+: 0/93/27/577
+  I1+I2  empty  17.2%  path differs from I0  51.4%  I0 choice admissible  58.8%  |allowed| 0/1/2/3+: 120/381/118/78 seq_empty 3.3%
+  I1+I3  empty  28.8%  path differs from I0  58.5%  I0 choice admissible  41.9%  |allowed| 0/1/2/3+: 201/482/14/0 seq_empty 2.9%
+  I1+I4  empty   5.3%  path differs from I0  50.2%  I0 choice admissible  59.0%  |allowed| 0/1/2/3+: 37/120/97/443 seq_empty 3.3%
+  I2+I3  empty  18.1%  path differs from I0  47.9%  I0 choice admissible  52.7%  |allowed| 0/1/2/3+: 126/558/13/0
+
+=== load 390: 700 requests, max hops 9
+  any_feasible: 678 (96.9%)
+  I0_matches_ONG: 700 (100.0%)
+  I0_accept: 678 (96.9%)
+  I0 teacher slot off the listed blocks (lower modulation at lower slot): 120 (17.70% of accepts)
+  feasible paths with lowest_slot < first best-mod slot: 20.34%   with >3 blocks: 47.5%
+  ONG load_balancing: path is a most-free-slots path 54.0%, slot is first fit 79.1%
+  I1     empty   3.2%  path differs from I0  26.4%  I0 choice admissible  73.6%  |allowed| 0/1/2/3+: 22/71/103/482
+  I2     empty   0.0%  path differs from I0  39.2%  I0 choice admissible  80.5%  |allowed| 0/1/2/3+: 0/378/172/128
+  I3     empty   0.0%  path differs from I0  38.8%  I0 choice admissible  61.8%  |allowed| 0/1/2/3+: 0/661/16/1
+  I4     empty   0.0%  path differs from I0  39.8%  I0 choice admissible  78.5%  |allowed| 0/1/2/3+: 0/98/28/552
+  I1+I2  empty  16.7%  path differs from I0  51.6%  I0 choice admissible  59.4%  |allowed| 0/1/2/3+: 113/376/126/63 seq_empty 3.8%
+  I1+I3  empty  25.1%  path differs from I0  52.9%  I0 choice admissible  47.1%  |allowed| 0/1/2/3+: 170/503/5/0 seq_empty 3.4%
+  I1+I4  empty   5.9%  path differs from I0  48.8%  I0 choice admissible  58.1%  |allowed| 0/1/2/3+: 40/109/103/426 seq_empty 4.4%
+  I2+I3  empty  15.6%  path differs from I0  44.2%  I0 choice admissible  55.8%  |allowed| 0/1/2/3+: 106/566/6/0

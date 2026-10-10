@@ -1,0 +1,34 @@
+[project]
+name = "apertus-lightpath"
+version = "0.1.0"
+description = "Intent-conditioned lightpath provisioning with Apertus 8B on Optical Networking Gym (Hack Apertus Track 2B)"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    # Built from source by uv: the sdist's build step runs cythonize and compiles the kernels.
+    "optical-networking-gym",
+    "numpy",
+    "matplotlib",  # the results figure (src/report_tables.py)
+]
+# src/train.py is not part of this environment: it declares its own (GPU) dependencies inline
+# and runs with `uv run src/train.py`.
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[tool.uv]
+# src/ holds flat modules run as scripts (spec section 8 layout), not an installable package.
+package = false
+
+[tool.uv.sources]
+# Pinned commit; bump deliberately and record it in docs/decisions.md.
+optical-networking-gym = { git = "https://github.com/carlosnatalino/optical-networking-gym", rev = "f7c4491caa9090577fe451a6f9f57a8f60edc81e" }
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"

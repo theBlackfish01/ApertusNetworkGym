@@ -1,0 +1,12 @@
+services:
+  lightpath:
+    build: .
+    # LLM_* are optional: without LLM_BASE_URL the run only uses files in the image.
+    # Values come from the shell or from a .env file next to this file (see .env.example).
+    environment:
+      LLM_NAME: ${LLM_NAME:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+    # Lets LLM_BASE_URL=http://host.docker.internal:8000/v1 reach a server on the host (Linux too).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
