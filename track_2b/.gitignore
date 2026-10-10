@@ -1,0 +1,33 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Model weights and checkpoints — do not commit these
+*.bin
+*.safetensors
+*.gguf
+*.ckpt
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+
+# OS and editor
+.DS_Store
+.idea/
+.vscode/
+
+# Full dataset and per-episode files (published on the Hugging Face Hub; data/sample/ is committed)
+data/full/
+
+# Training outputs (adapter and merged model go to the Hub)
+runs/
