@@ -15,11 +15,13 @@ start slots, and the route node by node, from which the links follow (I1). Examp
     Answer format: path=<0-4> slot=<n>  or  reject
 
 A block ``[start-length]`` is a run of free spectrum in which the request is valid (resources
-and QoT) at the path's best modulation wherever it is placed, so every teacher answer is the
-start of a listed block. At most ``MAX_BLOCKS`` blocks per path are listed, lowest first.
+and QoT) in ``slots needed`` slots wherever it is placed: with the best modulation or another
+format of the same width (see ``view.PathView.blocks``). Every teacher answer is the start of a
+path's first listed block. At most ``MAX_BLOCKS`` blocks per path are listed, lowest first.
 
 Routes list each node once instead of every link pair: with the Apertus tokenizer that brings
-the user message from 468 to 428 tokens on average (83 % of prompts under 450 instead of 29 %).
+the user message from 468 to 413 tokens on average (91 % of training prompts under 450 instead
+of 29 %).
 """
 
 from __future__ import annotations

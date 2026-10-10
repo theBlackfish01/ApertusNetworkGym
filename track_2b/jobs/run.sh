@@ -149,10 +149,7 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     stamp "fine-tuned: offline agreement on the held-out splits"
     # shellcheck disable=SC2086
     $PY src/evaluate.py offline --policy apertus_ft --backend transformers --model "$MODEL" --adapter runs/adapter $SYNC
-    stamp "fine-tuned: closed loop"
-    # shellcheck disable=SC2086
-    $PY src/evaluate.py closed --policy apertus_ft --backend transformers --model "$MODEL" --adapter runs/adapter \
-        --sim-workers "$WORKERS" $SYNC ${EVAL_ARGS:-}
+    # The short steps come first, so a job that runs out of time has already delivered them.
     stamp "fine-tuned: demo answers for make run"
     $PY src/evaluate.py demo --policy apertus_ft_demo --backend transformers --model "$MODEL" --adapter runs/adapter
     keep results/cache/apertus_ft_demo.jsonl
@@ -162,7 +159,18 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     # shellcheck disable=SC2086
     $PY src/evaluate.py offline --policy apertus_zero_shot_unconstrained --backend transformers --model "$MODEL" \
         --structured none $SYNC
-    stamp "zero-shot: closed loop"
+    stamp "fine-tuned: closed loop"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy apertus_ft --backend transformers --model "$MODEL" --adapter runs/adapter \
+        --sim-workers "$WORKERS" $SYNC ${EVAL_ARGS:-}
+    # All environments of one call advance together and finish on the same tick, so the heavy load
+    # runs alone first: a timeout in the second call still leaves a results file. The second call
+    # replays the heavy-load answers from the cache and only asks the model for the light load.
+    stamp "zero-shot: closed loop, load 390"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy apertus_zero_shot --backend transformers --model "$MODEL" \
+        --sim-workers "$WORKERS" $SYNC ${ZS_ARGS:-} --loads 390
+    stamp "zero-shot: closed loop, both loads"
     # shellcheck disable=SC2086
     $PY src/evaluate.py closed --policy apertus_zero_shot --backend transformers --model "$MODEL" \
         --sim-workers "$WORKERS" $SYNC ${ZS_ARGS:-}

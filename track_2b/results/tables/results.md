@@ -2,7 +2,7 @@
 
 Rendered by `src/report_tables.py` from `results/eval/` and `results/offline/`; do not edit by hand.
 
-Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured requests per condition, load and seed. Cells are mean ± sample standard deviation over seeds. An invalid answer is replaced by first fit; a violation is an executed decision outside the intent's admissible set. Policies that ignore the intent (first fit, no-intent teacher) show how often an intent changes the right answer.
+Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured requests per condition, load and seed. Cells are mean ± sample standard deviation over seeds. An invalid answer is replaced by first fit; a violation is an executed decision outside the intent's admissible set. An intent binds on a request when the no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is the share of binding requests; first fit ignores the intent in its own way.
 
 ## Service blocking probability, % — load 240 E
 
@@ -60,12 +60,12 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 
 ## Decision latency and violations on binding requests (all loads and conditions)
 
-| Policy | ms per decision | Violations where the intent binds, % | Seeds |
+| Policy | ms per decision | Violations on binding requests, % (pooled) | Seeds |
 |---|---|---|---|
-| KSP-BM-FF first fit | 0.03 | 46.8 | 1, 2, 3 |
-| BM-LS-KSP (no-intent teacher) | 0.28 | 99.8 | 1, 2, 3 |
+| KSP-BM-FF first fit | 0.03 | 58.0 | 1, 2, 3 |
+| BM-LS-KSP (no-intent teacher) | 0.28 | 99.9 | 1, 2, 3 |
 | Intent-aware teacher (oracle) | 0.01 | 0.0 | 1, 2, 3 |
-| MLP control | 0.05 | 17.4 | 1, 2, 3 |
+| MLP control | 0.05 | 23.0 | 1, 2, 3 |
 
 ## Offline agreement with the teacher on the held-out splits
 
@@ -73,3 +73,4 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 |---|---|---|---|---|---|---|
 | Intent-aware teacher (oracle) | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 |
 | MLP control | 90.0 | 96.4 | 91.5 | 95.7 | 70.0 | 70.0 |
+| Apertus 8B fine-tuned, no answer constraint | 92.9 | 95.9 | 89.2 | 95.7 | 77.0 | 77.5 |

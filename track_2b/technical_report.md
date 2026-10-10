@@ -29,7 +29,7 @@ fine-tuned model against the oracle, the zero-shot model and the MLP control).
 ```
 operator intent (text) ─┐
 new lightpath request ──┼─> request view ─> prompt ─> Apertus 8B + LoRA ─> "path=1 slot=120"
-network state (ONG) ────┘        │                     (vLLM, regex-constrained)      │
+network state (ONG) ────┘        │                  (regex-constrained decoding)      │
                                  └──────────── validity check, first-fit fallback <───┘
                                                          │
                                                   simulator / network controller
@@ -43,8 +43,8 @@ network state (ONG) ────┘        │                     (vLLM, regex-
   intent rules and the MLP control are all computed from this one structure.
 - **Intents** (`src/intents.py`): each intent defines the set of admissible paths for a request;
   a decision outside it is a violation. One metric therefore covers every intent.
-- **Policy**: the language model behind an OpenAI-compatible endpoint, with the answer format
-  enforced by a regular expression at decode time. An answer that is not a valid action is
+- **Policy**: the language model, loaded in the evaluation process or behind an OpenAI-compatible
+  endpoint, with the answer format enforced by a regular expression at decode time. An answer that is not a valid action is
   counted and replaced by first fit, so the network never receives an invalid allocation.
 - **Evaluation** (`src/evaluate.py`): the same closed-loop protocol for every policy.
 
@@ -68,15 +68,20 @@ Face) are fetched once; the container built by `make run` then needs no network.
   `TODO: Hugging Face repo` and applies to that base model.
 - **How it is used:** fine-tuning (QLoRA) and inference. No other model is used; the MLP control
   is trained from scratch on the same data.
-- **Where it runs:** fine-tuning and evaluation serving on one rented A100 80 GB; demo locally.
+- **Where it runs:** fine-tuning and evaluation as Hugging Face Jobs on one rented A100 80 GB;
+  demo locally.
 - **Prompt:** fixed system message, then the request, the intent, the network free ratio, one line
   per candidate path and the links of each path (example in `README.md`). Answer: one line.
-- **Fine-tuning** (`src/train.py`): 4-bit NF4 base, LoRA r = 32, α = 32, dropout 0.05 on the seven
-  projection matrices, learning rate 2e-4 with cosine decay and 5 % warm-up, 2 epochs, effective
-  batch 32, bf16, completion-only loss, maximum length 768. Label ids 131072–131271 are masked
+- **Fine-tuning** (`src/train.py`): 4-bit NF4 base, LoRA r = 32, α = 32, dropout 0.05 on the six
+  projection matrices of every block (q, k, v, o, up, down; 79.7 M trainable parameters, 0.98 %),
+  learning rate 2e-4 with cosine decay and 5 % warm-up, 1 epoch (375 optimizer steps; two epochs
+  were planned and the budget covered one), effective batch 32, bf16, completion-only loss,
+  maximum length 768. Label ids 131072–131271 are masked
   (untrained head rows in the text-only conversion).
-- **Serving:** vLLM with the regex `^(path=[0-4] slot=\d{1,3}|reject)$` as structured output,
-  temperature 0, at most 16 new tokens.
+- **Decoding:** greedy, with the regex `^(path=[0-4] slot=\d{1,3}|reject)$` applied as a
+  token-level constraint (`src/decoding.py`) inside plain Transformers generation, at most 18 new
+  tokens. A client for vLLM's structured outputs is included as an alternative and was tested
+  against a mock endpoint only.
 
 ## 4. Data
 

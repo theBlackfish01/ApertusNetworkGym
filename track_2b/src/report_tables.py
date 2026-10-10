@@ -27,7 +27,9 @@ POLICIES = {  # display order and names; other result files are appended under t
     "oracle": "Intent-aware teacher (oracle)",
     "mlp": "MLP control",
     "apertus_zero_shot": "Apertus 8B zero-shot",
+    "apertus_zero_shot_unconstrained": "Apertus 8B zero-shot, no answer constraint",
     "apertus_ft": "Apertus 8B fine-tuned",
+    "apertus_ft_unconstrained": "Apertus 8B fine-tuned, no answer constraint",
 }
 CONDITIONS = {
     "I0": "No intent",
@@ -96,14 +98,17 @@ def closed_tables(results: dict[str, dict]) -> list[tuple[str, list[str], list[l
     rows = []
     for name, result in results.items():
         times = [e["decision_ms_mean"] for e in result["summary"]]
-        bound = [e["binding_violation_rate"] for e in result["summary"] if e["condition"] != "I0"]
+        # Pooled over every binding request of every episode, so a condition counts by how
+        # often its intent binds (an average of per-condition rates would weigh I4 like I3).
+        binding = sum(e["binding"] for e in result["episodes"])
+        violated = sum(e["binding_violations"] for e in result["episodes"])
         rows.append([
             POLICIES.get(name, name),
             f"{sum(times) / len(times):.2f}",
-            f"{100 * sum(bound) / len(bound):.1f}" if bound else "–",
+            f"{100 * violated / binding:.1f}" if binding else "–",
             ", ".join(str(s) for s in result["metadata"]["seeds"]),
         ])  # fmt: skip
-    header = ["Policy", "ms per decision", "Violations where the intent binds, %", "Seeds"]
+    header = ["Policy", "ms per decision", "Violations on binding requests, % (pooled)", "Seeds"]
     tables.append(
         ("Decision latency and violations on binding requests (all loads and conditions)", header, rows)
     )
@@ -222,8 +227,9 @@ def main() -> None:
             f"Closed loop: {protocol['warmup']}-request warm-up by the no-intent teacher, then "
             f"{protocol['window']} measured requests per condition, load and seed. Cells are mean ± sample "
             "standard deviation over seeds. An invalid answer is replaced by first fit; a violation is an "
-            "executed decision outside the intent's admissible set. Policies that ignore the intent (first "
-            "fit, no-intent teacher) show how often an intent changes the right answer."
+            "executed decision outside the intent's admissible set. An intent binds on a request when the "
+            "no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is "
+            "the share of binding requests; first fit ignores the intent in its own way."
         )
         notes += ["", protocol_note]
     tables = closed_tables(closed) if closed else []

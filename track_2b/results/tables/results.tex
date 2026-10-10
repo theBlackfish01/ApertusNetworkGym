@@ -73,11 +73,11 @@ MLP control & 0.00 $\pm$ 0.00 & 0.03 $\pm$ 0.03 & 0.02 $\pm$ 0.03 & 0.00 $\pm$ 0
 % Decision latency and violations on binding requests (all loads and conditions)
 \begin{tabular}{lrrr}
 \toprule
-Policy & ms per decision & Violations where the intent binds, \% & Seeds \\
+Policy & ms per decision & Violations on binding requests, \% (pooled) & Seeds \\
 \midrule
-KSP-BM-FF first fit & 0.03 & 46.8 & 1, 2, 3 \\
-BM-LS-KSP (no-intent teacher) & 0.28 & 99.8 & 1, 2, 3 \\
+KSP-BM-FF first fit & 0.03 & 58.0 & 1, 2, 3 \\
+BM-LS-KSP (no-intent teacher) & 0.28 & 99.9 & 1, 2, 3 \\
 Intent-aware teacher (oracle) & 0.01 & 0.0 & 1, 2, 3 \\
-MLP control & 0.05 & 17.4 & 1, 2, 3 \\
+MLP control & 0.05 & 23.0 & 1, 2, 3 \\
 \bottomrule
 \end{tabular}

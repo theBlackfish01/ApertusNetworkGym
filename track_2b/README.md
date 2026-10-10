@@ -23,16 +23,17 @@ owner. The challenge text from the template is in [`docs/challenge.md`](docs/cha
 | Closed-loop evaluator; runs for first fit, teacher, oracle, MLP | done (4 policies × 7 conditions × 2 loads × 3 seeds) |
 | Tables and figure from results files | done |
 | `make run` (Docker) | done: image builds from the working tree, prints the tables, runs the demo; a fresh clone is untested until there is a first commit (run as `docker compose run --rm --build lightpath`; `make` itself is not installed on the dev machine) |
-| Fine-tuning script, in-process and endpoint backends, job pipeline | written; training and constrained decoding tested on a tiny open model, endpoint client against a mock. Model access granted and dry run passed on the real tokenizer; Hugging Face Jobs pipeline being validated (CPU check, then a GPU smoke test) |
-| Apertus zero-shot and fine-tuned results | next: GPU smoke test, training, evaluation (USD 10 of credits) |
+| Fine-tuning script, in-process and endpoint backends, job pipeline | done: training, constrained decoding and the job stages tested on a tiny open model (CPU `check` job, including a kill-and-resume) and smoke-tested on Apertus; endpoint client tested against a mock only |
+| Fine-tuning of Apertus | done: 1 epoch, 69 min on one A100. Held-out admissible agreement 95.9 % (new traffic), 95.7 % (unseen wording), 77.5 % (unseen pairs), no invalid answers; the gate of 60 % is passed. Adapter in a private Hub repo |
+| Apertus closed-loop results, fine-tuned and zero-shot | evaluation job running (USD 10 of credits in total) |
 | Report | first draft in `technical_report.md`; results sections wait for the Apertus runs |
 | Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
 
 What the fine-tuned model has to beat is already measured: see
 [`results/tables/results.md`](results/tables/results.md) and
 [`docs/figures/blocking.png`](docs/figures/blocking.png). In short, on requests where the intent
-changes the right answer the MLP control still violates it 17 % of the time, and on unseen
-intent pairs it violates it in about 30 % of all decisions.
+binds (the no-intent teacher's choice is not allowed) the MLP control still violates it 23 % of the
+time, and on unseen intent pairs it violates it in about 30 % of all decisions.
 
 ## Run it
 
@@ -139,7 +140,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # from track_2b/ (e.g. /mnt/c/Users/<you>/PycharmProjects/ApertusNetworkGym/track_2b)
 UV_LINK_MODE=copy uv sync      # creates .venv, builds ONG and its Cython kernels from source
-uv run pytest -q               # 20-odd tests, about 15 s
+uv run pytest -q               # 28 tests, about 15 s
 ```
 
 `UV_LINK_MODE=copy` only silences uv's hardlink warning when the cache (WSL disk) and the project
