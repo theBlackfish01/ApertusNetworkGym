@@ -83,6 +83,27 @@ uv run python src/report_tables.py
 
 Record GPU-hours and cost in `technical_report.md` §7.
 
+## A further pass (how the second pass was run)
+
+```bash
+source ~/hfenv2.sh                      # same token, separate WORK_REPO and ADAPTER_REPO
+uv run python src/generate.py --stage splits                 # relabel under the current rule
+uv run python src/mlp.py                                      # retrain the control
+bash jobs/push_bundle.sh "second pass"
+bash jobs/launch.sh check cpu-upgrade 20m
+TRAIN_ARGS="--epochs 1" bash jobs/launch.sh train a100-large 85m
+# score the held-out answers on the laptop, then, if worth it, one more epoch from that adapter:
+ADAPTER_REPO=<user>/...-e2 TRAIN_ARGS="--epochs 1 --lr 1e-4 --init-adapter <user>/..." \
+    bash jobs/launch.sh train a100-large 85m
+ADAPTER_REPO=<user>/...-e2 SKIP_ZERO_SHOT=1 bash jobs/launch.sh eval a100-large 125m
+```
+
+Use a new work repo for a new pass: answer caches are keyed by policy name and prompt, so an old
+cache in the work repo would be replayed for a new model. Zero-shot answers depend neither on the
+adapter nor on the intent rules; re-score them from `results/cache/` on the laptop
+(`evaluate.py closed --policy apertus_zero_shot --backend transformers --seeds 1 --loads 390`).
+Measured on 2026-10-10: 68.5 and 68.8 min per epoch, 100 min for the evaluation.
+
 ## Alternative: a rented machine with vLLM
 
 ```bash

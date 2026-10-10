@@ -24,19 +24,25 @@ owner. The challenge text from the template is in [`docs/challenge.md`](docs/cha
 | Tables and figure from results files | done |
 | `make run` (Docker) | done: the image builds from the working tree, prints the tables and replays the fine-tuned model's recorded answers in the 50-request demo (checked on 2026-10-10 with `docker compose run --rm --build lightpath`; `make` itself is not installed on the dev machine, and a fresh clone is untested until the repository is public) |
 | Fine-tuning script, in-process and endpoint backends, job pipeline | done: training, constrained decoding and the job stages tested on a tiny open model (CPU `check` job, including a kill-and-resume) and smoke-tested on Apertus; endpoint client tested against a mock only |
-| Fine-tuning of Apertus | done: 1 epoch, 69 min on one A100. Held-out admissible agreement 95.9 % (new traffic), 95.7 % (unseen wording), 77.5 % (unseen pairs), no invalid answers; the gate of 60 % is passed. Adapter in a private Hub repo |
-| Apertus closed-loop results, fine-tuned and zero-shot | done: fine-tuned model on the full grid (42 episodes); zero-shot model at 390 E on seed 1 (its answers are invalid 88–98 % of the time, so the first-fit fallback decides). USD 8.70 of GPU time in total |
+| Fine-tuning of Apertus | done in two passes. First pass: 1 epoch, every intent pair an intersection (held-out admissible agreement 95.9 / 95.7 / 77.5 %). Second pass: avoid-link pairs are filter-then-rank, 2 epochs: **99.0 % new traffic, 98.5 % unseen wording, 85.7 % unseen pairs**, no invalid answers. Adapters in private Hub repos |
+| Apertus closed-loop results, fine-tuned and zero-shot | done for both passes: fine-tuned model on the full grid (42 episodes); zero-shot model at 390 E on seed 1 (its answers are invalid 88–98 % of the time, so the first-fit fallback decides). 7.4 GPU-hours, USD 18.61 in total |
 | Report | draft with all results in `technical_report.md`; awaits the owner's review (team, video, public links and the laptop measurement are marked TODO) |
 | Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
 
 Results are in [`results/tables/results.md`](results/tables/results.md) and
-[`docs/figures/blocking.png`](docs/figures/blocking.png). In short, after one epoch of training:
-with no intent the fine-tuned model blocks like its teacher; it follows the three ranking intents
-with at most 1.5 % violations (the MLP control: up to 12 %) and unseen wordings cost nothing; on
-unseen intent pairs it violates 20–24 % of decisions against 29–31 % for the MLP; and on the
-avoid-link intent it fails by rejecting about 14 % of requests it could have served, which
-doubles to quadruples the blocking. The error classes are in
-`results/design/closed_loop_failures_apertus_ft.json`.
+[`docs/figures/blocking.png`](docs/figures/blocking.png). In short, at 390 Erlang: with no intent
+the fine-tuned model blocks about like its teacher (6.4 against 6.0 %); it follows the four single
+intents with 0.1–3.3 % violations (the MLP control: up to 11 %); unseen wordings cost 1.0 %; an
+unseen pair of a prohibition and a preference is followed with 3.7 % violations (MLP 6.5 %); an
+unseen pair of two preferences is not (22 %, MLP 43 %).
+
+There were two passes. The first trained one epoch with every intent pair defined as an
+intersection and failed on "avoid link" by rejecting about 14 % of requests it could have served.
+That was traced to the pair rule leaking into the single intent
+(`results/design/pair_rule_leak_apertus_ft.json`); the second pass changed the rule for avoid-link
+pairs, relabelled the same records and trained two epochs. The first pass is kept under
+[`results/pass1/`](results/pass1/) with its own tables; `LIGHTPATH_PAIR_RULE=intersection`
+reproduces its rule.
 
 ## Run it
 
@@ -121,7 +127,8 @@ track_2b/
   data/                sample/ and stats.json are committed; full/ is git-ignored (goes to the Hub)
   results/
     calibration/  eval/  offline/  mlp/  tables/  cache/    one JSON per run, rendered tables
-    train/             training log and held-out answers of the fine-tuning run
+    train/             training logs and held-out answers of the fine-tuning runs
+    pass1/             everything of the first pass (intersection rule, one epoch), frozen
     design/            one-off measurements behind the design decisions
   docs/
     decisions.md       deviations from SPEC.md, their evidence, open questions
@@ -183,7 +190,7 @@ Copy `.env.example` to `.env`.
 | Purpose | Machine |
 | --- | --- |
 | Simulation, data generation, MLP, CPU evaluation | Windows 11 laptop, WSL2 Ubuntu 24.04, 16 logical CPUs, 7.6 GB RAM visible to WSL |
-| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 3.5 GPU-hours |
+| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 7.4 GPU-hours over both passes (peak memory 17.8 GB training, 23.6 GB answering) |
 | Demo video (llama.cpp Q4_K_M) | RTX 4060 laptop GPU (planned) |
 
 ## AI assistance

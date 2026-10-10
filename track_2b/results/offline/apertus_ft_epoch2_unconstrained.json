@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "apertus_ft_epoch2_unconstrained",
+      "predictions": "apertus_ft_epoch2_heldout_predictions.jsonl"
+    },
+    "command": "src/evaluate.py offline --policy apertus_ft_epoch2_unconstrained --predictions results/train/apertus_ft_epoch2_heldout_predictions.jsonl",
+    "finished_utc": "2026-10-10T22:04:05.095217+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact_match": 0.9821958456973294,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 134,
+        "exact_match": 0.9477611940298507,
+        "admissible": 0.9925373134328358,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.9512195121951219,
+        "admissible": 0.9512195121951219,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.9375,
+        "admissible": 0.9375,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 129,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 115,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 123,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1000,
+        "exact_match": 0.978,
+        "admissible": 0.99,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact_match": 0.8489208633093526,
+        "admissible": 0.9784172661870504,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 152,
+        "exact_match": 0.9868421052631579,
+        "admissible": 0.993421052631579,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 149,
+        "exact_match": 0.9798657718120806,
+        "admissible": 0.9798657718120806,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 160,
+        "exact_match": 0.8625,
+        "admissible": 0.9875,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.92,
+        "admissible": 0.985,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.9265734265734266,
+        "admissible": 0.972027972027972,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.7515923566878981,
+        "admissible": 0.7515923566878981,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.835,
+        "admissible": 0.8566666666666667,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

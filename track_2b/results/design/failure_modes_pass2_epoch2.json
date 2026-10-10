@@ -1,0 +1,101 @@
+{
+  "predictions": "heldout_predictions.jsonl",
+  "classes": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact": 331,
+        "admissible, but not the teacher's choice": 6
+      },
+      "I1": {
+        "n": 134,
+        "exact": 127,
+        "admissible, but not the teacher's choice": 6,
+        "violation: uses the avoided link": 1
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact": 78,
+        "rejects although an admissible path exists": 4
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact": 75,
+        "violation: uses the avoided link": 4,
+        "violation: breaks I3": 1
+      },
+      "I2": {
+        "n": 129,
+        "exact": 129
+      },
+      "I3": {
+        "n": 115,
+        "exact": 115
+      },
+      "I4": {
+        "n": 123,
+        "exact": 123
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact": 118,
+        "admissible, but not the teacher's choice": 18,
+        "violation: uses the avoided link": 2,
+        "accepts although it must reject": 1
+      },
+      "I2": {
+        "n": 152,
+        "exact": 150,
+        "violation: breaks I2": 1,
+        "admissible, but not the teacher's choice": 1
+      },
+      "I3": {
+        "n": 149,
+        "exact": 146,
+        "violation: breaks I3": 3
+      },
+      "I4": {
+        "n": 160,
+        "exact": 138,
+        "admissible, but not the teacher's choice": 20,
+        "violation: breaks I4": 2
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact": 265,
+        "admissible, but not the teacher's choice": 13,
+        "rejects although an admissible path exists": 5,
+        "accepts although it must reject": 2,
+        "violation: uses the avoided link": 1
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact": 236,
+        "accepts although it must reject": 44,
+        "violation: breaks I3": 34
+      }
+    }
+  },
+  "avoid_link_rejects_by_admissible_paths_left": {
+    "1": {
+      "requests": 183,
+      "rejected": 6
+    },
+    "2": {
+      "requests": 113,
+      "rejected": 1
+    },
+    "3": {
+      "requests": 183,
+      "rejected": 0
+    },
+    "4": {
+      "requests": 213,
+      "rejected": 2
+    }
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "policy": "apertus_ft",
+  "what": "requests with only the avoid-link intent that have an admissible path; 'rejected' is the model's answer",
+  "offline_heldout": {
+    "I1+I2_rejects": {
+      "requests": 30,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "I1+I3_rejects": {
+      "requests": 64,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects": {
+      "requests": 193,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_1": {
+      "requests": 6,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_2": {
+      "requests": 24,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_3": {
+      "requests": 59,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_4": {
+      "requests": 104,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects": {
+      "requests": 70,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects/left_1": {
+      "requests": 8,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects/left_2": {
+      "requests": 23,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects/left_3": {
+      "requests": 22,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects/left_4": {
+      "requests": 17,
+      "rejected": 0,
+      "rate": 0.0
+    }
+  },
+  "closed_loop": {
+    "seed": 1,
+    "loads": [
+      240,
+      390
+    ],
+    "pooled": {
+      "I1+I2_rejects": {
+        "requests": 485,
+        "rejected": 26,
+        "rate": 0.05360824742268041
+      },
+      "I1+I3_rejects": {
+        "requests": 863,
+        "rejected": 32,
+        "rate": 0.03707995365005794
+      },
+      "no_pair_rule_rejects": {
+        "requests": 2722,
+        "rejected": 20,
+        "rate": 0.0073475385745775165
+      },
+      "no_pair_rule_rejects/left_1": {
+        "requests": 201,
+        "rejected": 15,
+        "rate": 0.07462686567164178
+      },
+      "no_pair_rule_rejects/left_2": {
+        "requests": 377,
+        "rejected": 3,
+        "rate": 0.007957559681697613
+      },
+      "no_pair_rule_rejects/left_3": {
+        "requests": 977,
+        "rejected": 0,
+        "rate": 0.0
+      },
+      "no_pair_rule_rejects/left_4": {
+        "requests": 1167,
+        "rejected": 2,
+        "rate": 0.001713796058269066
+      },
+      "pair_rule_rejects": {
+        "requests": 966,
+        "rejected": 34,
+        "rate": 0.035196687370600416
+      },
+      "pair_rule_rejects/left_1": {
+        "requests": 135,
+        "rejected": 18,
+        "rate": 0.13333333333333333
+      },
+      "pair_rule_rejects/left_2": {
+        "requests": 225,
+        "rejected": 8,
+        "rate": 0.035555555555555556
+      },
+      "pair_rule_rejects/left_3": {
+        "requests": 348,
+        "rejected": 1,
+        "rate": 0.0028735632183908046
+      },
+      "pair_rule_rejects/left_4": {
+        "requests": 258,
+        "rejected": 7,
+        "rate": 0.027131782945736434
+      }
+    },
+    "load_240": {
+      "I1+I2_rejects": {
+        "requests": 240,
+        "rejected": 12,
+        "rate": 0.05
+      },
+      "I1+I3_rejects": {
+        "requests": 471,
+        "rejected": 13,
+        "rate": 0.027600849256900213
+      },
+      "no_pair_rule_rejects": {
+        "requests": 1369,
+        "rejected": 8,
+        "rate": 0.005843681519357195
+      },
+      "no_pair_rule_rejects/left_1": {
+        "requests": 64,
+        "rejected": 5,
+        "rate": 0.078125
+      },
+      "no_pair_rule_rejects/left_2": {
+        "requests": 169,
+        "rejected": 2,
+        "rate": 0.011834319526627219
+      },
+      "no_pair_rule_rejects/left_3": {
+        "requests": 475,
+        "rejected": 0,
+        "rate": 0.0
+      },
+      "no_pair_rule_rejects/left_4": {
+        "requests": 661,
+        "rejected": 1,
+        "rate": 0.0015128593040847202
+      },
+      "pair_rule_rejects": {
+        "requests": 523,
+        "rejected": 14,
+        "rate": 0.02676864244741874
+      },
+      "pair_rule_rejects/left_1": {
+        "requests": 57,
+        "rejected": 5,
+        "rate": 0.08771929824561403
+      },
+      "pair_rule_rejects/left_2": {
+        "requests": 111,
+        "rejected": 3,
+        "rate": 0.02702702702702703
+      },
+      "pair_rule_rejects/left_3": {
+        "requests": 207,
+        "rejected": 1,
+        "rate": 0.004830917874396135
+      },
+      "pair_rule_rejects/left_4": {
+        "requests": 148,
+        "rejected": 5,
+        "rate": 0.033783783783783786
+      }
+    },
+    "load_390": {
+      "I1+I2_rejects": {
+        "requests": 245,
+        "rejected": 14,
+        "rate": 0.05714285714285714
+      },
+      "I1+I3_rejects": {
+        "requests": 392,
+        "rejected": 19,
+        "rate": 0.04846938775510204
+      },
+      "no_pair_rule_rejects": {
+        "requests": 1353,
+        "rejected": 12,
+        "rate": 0.008869179600886918
+      },
+      "no_pair_rule_rejects/left_1": {
+        "requests": 137,
+        "rejected": 10,
+        "rate": 0.072992700729927
+      },
+      "no_pair_rule_rejects/left_2": {
+        "requests": 208,
+        "rejected": 1,
+        "rate": 0.004807692307692308
+      },
+      "no_pair_rule_rejects/left_3": {
+        "requests": 502,
+        "rejected": 0,
+        "rate": 0.0
+      },
+      "no_pair_rule_rejects/left_4": {
+        "requests": 506,
+        "rejected": 1,
+        "rate": 0.001976284584980237
+      },
+      "pair_rule_rejects": {
+        "requests": 443,
+        "rejected": 20,
+        "rate": 0.045146726862302484
+      },
+      "pair_rule_rejects/left_1": {
+        "requests": 78,
+        "rejected": 13,
+        "rate": 0.16666666666666666
+      },
+      "pair_rule_rejects/left_2": {
+        "requests": 114,
+        "rejected": 5,
+        "rate": 0.043859649122807015
+      },
+      "pair_rule_rejects/left_3": {
+        "requests": 141,
+        "rejected": 0,
+        "rate": 0.0
+      },
+      "pair_rule_rejects/left_4": {
+        "requests": 110,
+        "rejected": 2,
+        "rate": 0.01818181818181818
+      }
+    },
+    "share_of_needless_rejects_where_a_pair_rule_rejects": 0.6296296296296297
+  }
+}

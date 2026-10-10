@@ -1,0 +1,110 @@
+{
+  "predictions": "heldout_predictions.jsonl",
+  "classes": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact": 318,
+        "admissible, but not the teacher's choice": 19
+      },
+      "I1": {
+        "n": 134,
+        "exact": 112,
+        "admissible, but not the teacher's choice": 16,
+        "rejects although an admissible path exists": 3,
+        "violation: uses the avoided link": 3
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact": 71,
+        "rejects although an admissible path exists": 7,
+        "accepts although it must reject": 1,
+        "violation: breaks I2": 1,
+        "violation: uses the avoided link and breaks I2": 1,
+        "admissible, but not the teacher's choice": 1
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact": 66,
+        "violation: uses the avoided link": 7,
+        "violation: breaks I3": 5,
+        "violation: uses the avoided link and breaks I3": 1,
+        "rejects although an admissible path exists": 1
+      },
+      "I2": {
+        "n": 129,
+        "exact": 129
+      },
+      "I3": {
+        "n": 115,
+        "exact": 113,
+        "violation: breaks I3": 2
+      },
+      "I4": {
+        "n": 123,
+        "exact": 122,
+        "admissible, but not the teacher's choice": 1
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact": 99,
+        "admissible, but not the teacher's choice": 29,
+        "violation: uses the avoided link": 6,
+        "accepts although it must reject": 3,
+        "rejects although an admissible path exists": 2
+      },
+      "I2": {
+        "n": 152,
+        "exact": 152
+      },
+      "I3": {
+        "n": 149,
+        "exact": 146,
+        "violation: breaks I3": 3
+      },
+      "I4": {
+        "n": 160,
+        "exact": 143,
+        "admissible, but not the teacher's choice": 16,
+        "violation: breaks I4": 1
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact": 246,
+        "admissible, but not the teacher's choice": 18,
+        "rejects although an admissible path exists": 13,
+        "accepts although it must reject": 5,
+        "violation: uses the avoided link": 2,
+        "violation: breaks I4": 2
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact": 232,
+        "accepts although it must reject": 44,
+        "violation: breaks I3": 38
+      }
+    }
+  },
+  "avoid_link_rejects_by_admissible_paths_left": {
+    "1": {
+      "requests": 183,
+      "rejected": 10
+    },
+    "2": {
+      "requests": 113,
+      "rejected": 9
+    },
+    "3": {
+      "requests": 183,
+      "rejected": 3
+    },
+    "4": {
+      "requests": 213,
+      "rejected": 4
+    }
+  }
+}

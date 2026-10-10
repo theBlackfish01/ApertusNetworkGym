@@ -30,6 +30,8 @@ POLICIES = {  # display order and names; other result files are appended under t
     "apertus_zero_shot_unconstrained": "Apertus 8B zero-shot, no answer constraint",
     "apertus_ft": "Apertus 8B fine-tuned",
     "apertus_ft_unconstrained": "Apertus 8B fine-tuned, no answer constraint",
+    "apertus_ft_epoch1_unconstrained": "Apertus 8B fine-tuned, after epoch 1, no answer constraint",
+    "apertus_ft_epoch2_unconstrained": "Apertus 8B fine-tuned, after epoch 2, no answer constraint",
 }
 CONDITIONS = {
     "I0": "No intent",

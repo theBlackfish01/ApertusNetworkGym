@@ -2,7 +2,7 @@
 
 Rendered by `src/report_tables.py` from `results/eval/` and `results/offline/`; do not edit by hand.
 
-Second pass: a pair that contains the avoid-link intent is filter-then-rank; I2+I3 is an intersection.
+Second pass: a pair that contains the avoid-link intent is filter-then-rank; I2+I3 is an intersection. Fine-tuned for two epochs. The first pass is in results/pass1/.
 
 Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured requests per condition, load and seed. Cells are mean ± sample standard deviation over seeds; a cell without ± comes from a single seed (see the Seeds column of the latency table). An invalid answer is replaced by first fit; a violation is an executed decision outside the intent's admissible set. An intent binds on a request when the no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is the share of binding requests; first fit ignores the intent in its own way.
 
@@ -15,6 +15,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 1.20 ± 0.44 | 4.78 ± 0.90 | 1.78 ± 0.66 | 1.38 ± 0.18 | 2.28 ± 0.84 | 2.52 ± 0.54 | 10.32 ± 0.20 |
 | MLP control | 1.17 ± 0.40 | 4.70 ± 0.66 | 1.82 ± 0.68 | 1.30 ± 0.45 | 2.15 ± 0.83 | 2.55 ± 0.79 | 3.08 ± 0.58 |
 | Apertus 8B zero-shot | – | – | – | – | – | – | – |
+| Apertus 8B fine-tuned | 1.32 ± 0.43 | 5.00 ± 0.66 | 2.18 ± 0.64 | 1.30 ± 0.15 | 2.27 ± 0.86 | 2.53 ± 0.55 | 3.43 ± 0.51 |
 
 ## Intent violations, % of decisions — load 240 E
 
@@ -25,6 +26,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 |
 | MLP control | 0.0 ± 0.0 | 0.4 ± 0.1 | 2.9 ± 0.6 | 10.9 ± 1.0 | 0.2 ± 0.0 | 3.5 ± 0.5 | 27.1 ± 1.1 |
 | Apertus 8B zero-shot | – | – | – | – | – | – | – |
+| Apertus 8B fine-tuned | 0.0 ± 0.0 | 3.9 ± 0.3 | 0.7 ± 0.1 | 0.5 ± 0.2 | 0.2 ± 0.1 | 0.9 ± 0.0 | 14.2 ± 0.7 |
 
 ## Invalid answers, % of decisions — load 240 E
 
@@ -35,6 +37,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | MLP control | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.02 ± 0.03 | 0.02 ± 0.03 | 0.33 ± 0.19 |
 | Apertus 8B zero-shot | – | – | – | – | – | – | – |
+| Apertus 8B fine-tuned | 0.00 ± 0.00 | 0.10 ± 0.00 | 0.20 ± 0.05 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.05 ± 0.05 | 0.03 ± 0.06 |
 
 ## Service blocking probability, % — load 390 E
 
@@ -45,6 +48,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 5.97 ± 0.68 | 9.95 ± 0.75 | 7.05 ± 0.79 | 6.30 ± 0.80 | 7.53 ± 0.73 | 7.73 ± 0.58 | 13.45 ± 0.56 |
 | MLP control | 5.93 ± 0.98 | 9.58 ± 1.09 | 7.20 ± 0.58 | 6.37 ± 0.71 | 7.37 ± 0.78 | 7.52 ± 0.68 | 8.30 ± 0.85 |
 | Apertus 8B zero-shot | 9.20 | 14.60 | 8.50 | 9.05 | 8.95 | 9.05 | 9.25 |
+| Apertus 8B fine-tuned | 6.42 ± 0.83 | 10.23 ± 0.85 | 7.40 ± 0.78 | 6.25 ± 1.13 | 7.52 ± 0.78 | 7.67 ± 0.83 | 8.72 ± 1.10 |
 
 ## Intent violations, % of decisions — load 390 E
 
@@ -55,6 +59,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 |
 | MLP control | 0.0 ± 0.0 | 0.8 ± 0.2 | 2.7 ± 0.5 | 11.4 ± 1.0 | 0.1 ± 0.1 | 3.2 ± 0.4 | 24.9 ± 1.6 |
 | Apertus 8B zero-shot | 0.1 | 28.1 | 10.2 | 42.1 | 0.1 | 19.2 | 32.6 |
+| Apertus 8B fine-tuned | 0.0 ± 0.0 | 3.3 ± 0.2 | 0.6 ± 0.2 | 0.7 ± 0.1 | 0.1 ± 0.0 | 1.0 ± 0.1 | 12.9 ± 0.7 |
 
 ## Invalid answers, % of decisions — load 390 E
 
@@ -65,6 +70,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | MLP control | 0.00 ± 0.00 | 0.03 ± 0.03 | 0.03 ± 0.06 | 0.02 ± 0.03 | 0.10 ± 0.09 | 0.02 ± 0.03 | 0.70 ± 0.54 |
 | Apertus 8B zero-shot | 94.05 | 87.95 | 96.50 | 98.25 | 97.85 | 96.65 | 96.95 |
+| Apertus 8B fine-tuned | 0.00 ± 0.00 | 0.12 ± 0.03 | 0.52 ± 0.13 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.10 ± 0.09 | 0.07 ± 0.06 |
 
 ## Unseen pairs by pair: intent violations, % of decisions (pooled over seeds)
 
@@ -75,6 +81,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.0 | 0.0 | 0.0 | 0.0 |
 | MLP control | 5.1 | 49.6 | 6.5 | 43.1 |
 | Apertus 8B zero-shot | – | – | 23.4 | 42.3 |
+| Apertus 8B fine-tuned | 3.7 | 25.0 | 3.7 | 22.0 |
 
 ## Needless rejects (a request with an admissible path is rejected), % of decisions (pooled over seeds)
 
@@ -85,6 +92,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 | MLP control | 0.1 | 0.2 | 0.1 | 0.1 | 0.1 | 0.1 |
 | Apertus 8B zero-shot | – | 6.0 | – | 0.5 | – | 0.2 |
+| Apertus 8B fine-tuned | 1.2 | 1.2 | 0.3 | 0.4 | 0.7 | 0.6 |
 
 ## Accepts although the intent leaves no admissible path, % of decisions (pooled over seeds)
 
@@ -95,6 +103,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 | MLP control | 0.1 | 0.2 | 0.0 | 0.0 | 8.9 | 6.5 |
 | Apertus 8B zero-shot | – | 3.7 | – | 0.8 | – | 8.2 |
+| Apertus 8B fine-tuned | 0.8 | 0.7 | 0.1 | 0.2 | 8.1 | 6.6 |
 
 ## Decision latency and violations on binding requests (all loads and conditions)
 
@@ -105,6 +114,7 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Intent-aware teacher (oracle) | 0.03 | 0.0 | 1, 2, 3 |
 | MLP control | 0.07 | 20.8 | 1, 2, 3 |
 | Apertus 8B zero-shot | 690.10 | 59.6 | 1 |
+| Apertus 8B fine-tuned | 2693.54 | 10.3 | 1, 2, 3 |
 
 ## Offline agreement with the teacher on the held-out splits
 
@@ -114,3 +124,6 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | MLP control | 91.4 | 97.3 | 93.3 | 96.3 | 72.0 | 72.5 |
 | Apertus 8B zero-shot | 1.0 | 3.3 | 0.7 | 2.5 | 1.5 | 4.8 |
 | Apertus 8B zero-shot, no answer constraint | 1.0 | 3.3 | 0.7 | 2.5 | 1.5 | 4.8 |
+| Apertus 8B fine-tuned | 97.7 | 98.9 | 92.2 | 98.7 | 83.7 | 85.8 |
+| Apertus 8B fine-tuned, after epoch 1, no answer constraint | 93.1 | 96.8 | 90.0 | 97.5 | 79.7 | 82.7 |
+| Apertus 8B fine-tuned, after epoch 2, no answer constraint | 97.8 | 99.0 | 92.0 | 98.5 | 83.5 | 85.7 |

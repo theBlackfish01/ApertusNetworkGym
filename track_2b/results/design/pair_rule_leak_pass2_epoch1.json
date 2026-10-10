@@ -1,0 +1,66 @@
+{
+  "policy": "apertus_ft_epoch1",
+  "what": "requests with only the avoid-link intent that have an admissible path; 'rejected' is the model's answer",
+  "offline_heldout": {
+    "I1+I2_rejects": {
+      "requests": 30,
+      "rejected": 5,
+      "rate": 0.16666666666666666
+    },
+    "I1+I3_rejects": {
+      "requests": 64,
+      "rejected": 4,
+      "rate": 0.0625
+    },
+    "no_pair_rule_rejects": {
+      "requests": 193,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_1": {
+      "requests": 6,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_2": {
+      "requests": 24,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_3": {
+      "requests": 59,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "no_pair_rule_rejects/left_4": {
+      "requests": 104,
+      "rejected": 0,
+      "rate": 0.0
+    },
+    "pair_rule_rejects": {
+      "requests": 70,
+      "rejected": 5,
+      "rate": 0.07142857142857142
+    },
+    "pair_rule_rejects/left_1": {
+      "requests": 8,
+      "rejected": 1,
+      "rate": 0.125
+    },
+    "pair_rule_rejects/left_2": {
+      "requests": 23,
+      "rejected": 2,
+      "rate": 0.08695652173913043
+    },
+    "pair_rule_rejects/left_3": {
+      "requests": 22,
+      "rejected": 1,
+      "rate": 0.045454545454545456
+    },
+    "pair_rule_rejects/left_4": {
+      "requests": 17,
+      "rejected": 1,
+      "rate": 0.058823529411764705
+    }
+  }
+}

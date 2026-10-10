@@ -1,0 +1,200 @@
+{
+  "first_pass": "results/pass1/train/apertus_ft_heldout_predictions.jsonl",
+  "second_pass": "runs/pass2-epoch2/heldout_predictions.jsonl",
+  "by_split_and_intent": {
+    "heldout_indist/I0": {
+      "first": {
+        "admissible": 337
+      },
+      "second": {
+        "admissible": 337
+      }
+    },
+    "heldout_indist/I1": {
+      "first": {
+        "admissible": 120,
+        "needless reject": 14
+      },
+      "second": {
+        "admissible": 133,
+        "wrong path": 1
+      }
+    },
+    "heldout_indist/I1+I2": {
+      "first": {
+        "admissible": 71,
+        "needless reject": 10,
+        "accepts although it must reject": 1
+      },
+      "second": {
+        "admissible": 78,
+        "needless reject": 4
+      }
+    },
+    "heldout_indist/I1+I3": {
+      "first": {
+        "admissible": 67,
+        "accepts although it must reject": 10,
+        "needless reject": 3
+      },
+      "second": {
+        "admissible": 75,
+        "wrong path": 5
+      }
+    },
+    "heldout_indist/I2": {
+      "first": {
+        "admissible": 129
+      },
+      "second": {
+        "admissible": 129
+      }
+    },
+    "heldout_indist/I3": {
+      "first": {
+        "admissible": 112,
+        "wrong path": 3
+      },
+      "second": {
+        "admissible": 115
+      }
+    },
+    "heldout_indist/I4": {
+      "first": {
+        "admissible": 123
+      },
+      "second": {
+        "admissible": 123
+      }
+    },
+    "heldout_pairs/I1+I4": {
+      "first": {
+        "admissible": 217,
+        "needless reject": 50,
+        "wrong path": 14,
+        "accepts although it must reject": 5
+      },
+      "second": {
+        "admissible": 278,
+        "needless reject": 5,
+        "accepts although it must reject": 2,
+        "wrong path": 1
+      }
+    },
+    "heldout_pairs/I2+I3": {
+      "first": {
+        "admissible": 248,
+        "accepts although it must reject": 44,
+        "wrong path": 22
+      },
+      "second": {
+        "admissible": 236,
+        "accepts although it must reject": 44,
+        "wrong path": 34
+      }
+    },
+    "heldout_paraphrase/I1": {
+      "first": {
+        "admissible": 117,
+        "needless reject": 13,
+        "wrong path": 6,
+        "accepts although it must reject": 3
+      },
+      "second": {
+        "admissible": 136,
+        "wrong path": 2,
+        "accepts although it must reject": 1
+      }
+    },
+    "heldout_paraphrase/I2": {
+      "first": {
+        "admissible": 151,
+        "wrong path": 1
+      },
+      "second": {
+        "admissible": 151,
+        "wrong path": 1
+      }
+    },
+    "heldout_paraphrase/I3": {
+      "first": {
+        "admissible": 146,
+        "wrong path": 3
+      },
+      "second": {
+        "admissible": 146,
+        "wrong path": 3
+      }
+    },
+    "heldout_paraphrase/I4": {
+      "first": {
+        "admissible": 160
+      },
+      "second": {
+        "admissible": 158,
+        "wrong path": 2
+      }
+    }
+  },
+  "paired_on_records_with_the_same_admissible_set": {
+    "heldout_indist/I0": {
+      "both right": 337
+    },
+    "heldout_indist/I1": {
+      "both right": 120,
+      "only second pass right": 13,
+      "neither right": 1
+    },
+    "heldout_indist/I1+I2": {
+      "both right": 65,
+      "only second pass right": 8,
+      "neither right": 2
+    },
+    "heldout_indist/I1+I3": {
+      "both right": 63,
+      "only second pass right": 3
+    },
+    "heldout_indist/I2": {
+      "both right": 129
+    },
+    "heldout_indist/I3": {
+      "both right": 112,
+      "only second pass right": 3
+    },
+    "heldout_indist/I4": {
+      "both right": 123
+    },
+    "heldout_pairs/I1+I4": {
+      "both right": 213,
+      "only second pass right": 61,
+      "neither right": 7,
+      "only first pass right": 1
+    },
+    "heldout_pairs/I2+I3": {
+      "both right": 234,
+      "neither right": 64,
+      "only first pass right": 14,
+      "only second pass right": 2
+    },
+    "heldout_paraphrase/I1": {
+      "both right": 117,
+      "only second pass right": 19,
+      "neither right": 3
+    },
+    "heldout_paraphrase/I2": {
+      "both right": 150,
+      "only second pass right": 1,
+      "only first pass right": 1
+    },
+    "heldout_paraphrase/I3": {
+      "both right": 145,
+      "neither right": 2,
+      "only second pass right": 1,
+      "only first pass right": 1
+    },
+    "heldout_paraphrase/I4": {
+      "both right": 158,
+      "only first pass right": 2
+    }
+  }
+}
