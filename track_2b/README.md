@@ -22,18 +22,21 @@ owner. The challenge text from the template is in [`docs/challenge.md`](docs/cha
 | MLP control: training, offline agreement | done |
 | Closed-loop evaluator; runs for first fit, teacher, oracle, MLP | done (4 policies × 7 conditions × 2 loads × 3 seeds) |
 | Tables and figure from results files | done |
-| `make run` (Docker) | done: image builds from the working tree, prints the tables, runs the demo; a fresh clone is untested until there is a first commit (run as `docker compose run --rm --build lightpath`; `make` itself is not installed on the dev machine) |
+| `make run` (Docker) | done: the image builds from the working tree, prints the tables and replays the fine-tuned model's recorded answers in the 50-request demo (checked on 2026-10-10 with `docker compose run --rm --build lightpath`; `make` itself is not installed on the dev machine, and a fresh clone is untested until the repository is public) |
 | Fine-tuning script, in-process and endpoint backends, job pipeline | done: training, constrained decoding and the job stages tested on a tiny open model (CPU `check` job, including a kill-and-resume) and smoke-tested on Apertus; endpoint client tested against a mock only |
 | Fine-tuning of Apertus | done: 1 epoch, 69 min on one A100. Held-out admissible agreement 95.9 % (new traffic), 95.7 % (unseen wording), 77.5 % (unseen pairs), no invalid answers; the gate of 60 % is passed. Adapter in a private Hub repo |
-| Apertus closed-loop results, fine-tuned and zero-shot | evaluation job running (USD 10 of credits in total) |
-| Report | first draft in `technical_report.md`; results sections wait for the Apertus runs |
+| Apertus closed-loop results, fine-tuned and zero-shot | done: fine-tuned model on the full grid (42 episodes); zero-shot model at 390 E on seed 1 (its answers are invalid 88–98 % of the time, so the first-fit fallback decides). USD 8.70 of GPU time in total |
+| Report | draft with all results in `technical_report.md`; awaits the owner's review (team, video, public links and the laptop measurement are marked TODO) |
 | Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
 
-What the fine-tuned model has to beat is already measured: see
-[`results/tables/results.md`](results/tables/results.md) and
-[`docs/figures/blocking.png`](docs/figures/blocking.png). In short, on requests where the intent
-binds (the no-intent teacher's choice is not allowed) the MLP control still violates it 23 % of the
-time, and on unseen intent pairs it violates it in about 30 % of all decisions.
+Results are in [`results/tables/results.md`](results/tables/results.md) and
+[`docs/figures/blocking.png`](docs/figures/blocking.png). In short, after one epoch of training:
+with no intent the fine-tuned model blocks like its teacher; it follows the three ranking intents
+with at most 1.5 % violations (the MLP control: up to 12 %) and unseen wordings cost nothing; on
+unseen intent pairs it violates 20–24 % of decisions against 29–31 % for the MLP; and on the
+avoid-link intent it fails by rejecting about 14 % of requests it could have served, which
+doubles to quadruples the blocking. The error classes are in
+`results/design/closed_loop_failures_apertus_ft.json`.
 
 ## Run it
 
@@ -118,6 +121,7 @@ track_2b/
   data/                sample/ and stats.json are committed; full/ is git-ignored (goes to the Hub)
   results/
     calibration/  eval/  offline/  mlp/  tables/  cache/    one JSON per run, rendered tables
+    train/             training log and held-out answers of the fine-tuning run
     design/            one-off measurements behind the design decisions
   docs/
     decisions.md       deviations from SPEC.md, their evidence, open questions
@@ -179,7 +183,7 @@ Copy `.env.example` to `.env`.
 | Purpose | Machine |
 | --- | --- |
 | Simulation, data generation, MLP, CPU evaluation | Windows 11 laptop, WSL2 Ubuntu 24.04, 16 logical CPUs, 7.6 GB RAM visible to WSL |
-| Fine-tuning and evaluation serving | One rented A100 80 GB (planned) |
+| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 3.5 GPU-hours |
 | Demo video (llama.cpp Q4_K_M) | RTX 4060 laptop GPU (planned) |
 
 ## AI assistance

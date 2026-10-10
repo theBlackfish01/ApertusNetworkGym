@@ -6,7 +6,7 @@ admissible set is empty; a violation, with the rule it breaks; not a valid start
 For requests with an avoid-link intent it also counts rejects by the number of admissible paths
 left, which shows when the model gives up.
 
-    PYTHONPATH=src python results/design/failure_modes.py runs/apertus-ft/heldout_predictions.jsonl \\
+    PYTHONPATH=src python results/design/failure_modes.py results/train/apertus_ft_heldout_predictions.jsonl \\
         results/design/failure_modes_apertus_ft_unconstrained.json
 
 The predictions file holds one ``{"id", "answer"}`` object per line (what ``train.py`` writes).

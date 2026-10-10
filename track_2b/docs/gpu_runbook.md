@@ -59,7 +59,7 @@ bash jobs/launch.sh <stage> <flavor> <timeout>
 | `check` | `cpu-upgrade`, 20m | Whole pipeline on a 135M open model: install, ONG build, train 2 steps, merge, predict, closed loop with adapter, upload. About 1 cent. | It ends with `=== ... done`. |
 | `smoke` | `a100-large`, 25m | Real model: 10 optimizer steps with 4-bit QLoRA and with bf16 LoRA, zero-shot offline agreement on 64 records per split, a short closed loop over all 42 environments. | Seconds per step and decisions per second; they fix the timeouts and the budget of the next two stages. |
 | `train` | `a100-large` | Full fine-tuning. The adapter goes to `ADAPTER_REPO` after every epoch and at the end, with the log and the held-out predictions. Extra arguments in `TRAIN_ARGS`. | Loss falls; score the predictions (below); stop if admissible-set agreement is under 60 % (SPEC §9). |
-| `eval` | `a100-large` | Fine-tuned model: closed loop on the full grid, then the demo answers for `make run`. Zero-shot model: offline agreement, then closed loop. `EVAL_ARGS` and `ZS_ARGS` restrict the grids, e.g. `ZS_ARGS="--seeds 1"`. | At least 10 decisions/s (SPEC §9). |
+| `eval` | `a100-large` | Short steps first: fine-tuned offline agreement, the demo answers for `make run`, zero-shot offline agreement. Then the fine-tuned closed loop on the full grid, then the zero-shot closed loop, load 390 alone before both loads. `EVAL_ARGS` and `ZS_ARGS` restrict the grids, e.g. `ZS_ARGS="--seeds 1"`. Measured on 2026-10-10: 95 min for the fine-tuned grid (14.8 decisions/s end to end), 24 min for seven zero-shot episodes. | At least 10 decisions/s (SPEC §9). |
 
 Follow a job with `hf jobs logs -f <id>`, stop it with `hf jobs cancel <id>`, list them with
 `hf jobs ps -a`.

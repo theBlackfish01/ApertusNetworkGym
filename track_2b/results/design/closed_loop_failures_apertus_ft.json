@@ -1,0 +1,312 @@
+{
+  "policy": "apertus_ft",
+  "seed": 1,
+  "episodes": [
+    {
+      "condition": "I1",
+      "load": 240,
+      "seed": 1,
+      "violations": 340,
+      "invalid": 1,
+      "service_blocking_rate": 0.1795,
+      "classes": {
+        "admissible": 1660,
+        "rejects although an admissible path exists": 284,
+        "violation: uses the avoided link": 33,
+        "accepts although it must reject": 22,
+        "invalid answer": 1
+      },
+      "by_intent": {
+        "I1": {
+          "admissible": 1660,
+          "rejects although an admissible path exists": 284,
+          "violation: uses the avoided link": 33,
+          "accepts although it must reject": 22,
+          "invalid answer": 1
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 106,
+          "rejected": 32
+        },
+        "2": {
+          "requests": 263,
+          "rejected": 79
+        },
+        "3": {
+          "requests": 695,
+          "rejected": 120
+        },
+        "4": {
+          "requests": 838,
+          "rejected": 53
+        }
+      },
+      "matches_stored_run": true
+    },
+    {
+      "condition": "I1",
+      "load": 390,
+      "seed": 1,
+      "violations": 360,
+      "invalid": 9,
+      "service_blocking_rate": 0.226,
+      "classes": {
+        "admissible": 1634,
+        "rejects although an admissible path exists": 290,
+        "accepts although it must reject": 34,
+        "violation: uses the avoided link": 33,
+        "invalid answer": 9
+      },
+      "by_intent": {
+        "I1": {
+          "admissible": 1634,
+          "rejects although an admissible path exists": 290,
+          "accepts although it must reject": 34,
+          "violation: uses the avoided link": 33,
+          "invalid answer": 9
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 190,
+          "rejected": 62
+        },
+        "2": {
+          "requests": 337,
+          "rejected": 82
+        },
+        "3": {
+          "requests": 645,
+          "rejected": 101
+        },
+        "4": {
+          "requests": 629,
+          "rejected": 45
+        }
+      },
+      "matches_stored_run": true
+    },
+    {
+      "condition": "mixed_heldout_paraphrases",
+      "load": 240,
+      "seed": 1,
+      "violations": 60,
+      "invalid": 1,
+      "service_blocking_rate": 0.0445,
+      "classes": {
+        "admissible": 1940,
+        "rejects although an admissible path exists": 37,
+        "violation: uses the avoided link": 9,
+        "accepts although it must reject": 5,
+        "violation: breaks I3": 5,
+        "violation: breaks I2": 2,
+        "violation: breaks I4": 1,
+        "invalid answer": 1
+      },
+      "by_intent": {
+        "I1": {
+          "admissible": 431,
+          "rejects although an admissible path exists": 37,
+          "violation: uses the avoided link": 9,
+          "accepts although it must reject": 5,
+          "invalid answer": 1
+        },
+        "I2": {
+          "admissible": 501,
+          "violation: breaks I2": 2
+        },
+        "I3": {
+          "admissible": 507,
+          "violation: breaks I3": 5
+        },
+        "I4": {
+          "admissible": 501,
+          "violation: breaks I4": 1
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 30,
+          "rejected": 8
+        },
+        "2": {
+          "requests": 71,
+          "rejected": 12
+        },
+        "3": {
+          "requests": 186,
+          "rejected": 13
+        },
+        "4": {
+          "requests": 173,
+          "rejected": 4
+        }
+      },
+      "matches_stored_run": true
+    },
+    {
+      "condition": "mixed_heldout_paraphrases",
+      "load": 390,
+      "seed": 1,
+      "violations": 60,
+      "invalid": 1,
+      "service_blocking_rate": 0.0995,
+      "classes": {
+        "admissible": 1940,
+        "rejects although an admissible path exists": 39,
+        "violation: uses the avoided link": 8,
+        "accepts although it must reject": 5,
+        "violation: breaks I3": 4,
+        "violation: breaks I2": 3,
+        "invalid answer": 1
+      },
+      "by_intent": {
+        "I1": {
+          "admissible": 449,
+          "rejects although an admissible path exists": 39,
+          "violation: uses the avoided link": 8,
+          "accepts although it must reject": 5,
+          "invalid answer": 1
+        },
+        "I2": {
+          "admissible": 455,
+          "violation: breaks I2": 3
+        },
+        "I3": {
+          "admissible": 511,
+          "violation: breaks I3": 4
+        },
+        "I4": {
+          "admissible": 525
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 43,
+          "rejected": 8
+        },
+        "2": {
+          "requests": 77,
+          "rejected": 11
+        },
+        "3": {
+          "requests": 156,
+          "rejected": 12
+        },
+        "4": {
+          "requests": 182,
+          "rejected": 8
+        }
+      },
+      "matches_stored_run": true
+    },
+    {
+      "condition": "heldout_pairs",
+      "load": 240,
+      "seed": 1,
+      "violations": 503,
+      "invalid": 2,
+      "service_blocking_rate": 0.1365,
+      "classes": {
+        "admissible": 1495,
+        "rejects although an admissible path exists": 214,
+        "accepts although it must reject": 189,
+        "violation: breaks I3": 54,
+        "violation: uses the avoided link": 41,
+        "violation: breaks I4": 3,
+        "violation: breaks I2 and breaks I3": 2,
+        "invalid answer": 2
+      },
+      "by_intent": {
+        "I1+I4": {
+          "admissible": 753,
+          "rejects although an admissible path exists": 213,
+          "violation: uses the avoided link": 41,
+          "accepts although it must reject": 21,
+          "violation: breaks I4": 3
+        },
+        "I2+I3": {
+          "admissible": 742,
+          "accepts although it must reject": 168,
+          "violation: breaks I3": 54,
+          "violation: breaks I2 and breaks I3": 2,
+          "invalid answer": 2,
+          "rejects although an admissible path exists": 1
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 163,
+          "rejected": 35
+        },
+        "2": {
+          "requests": 163,
+          "rejected": 58
+        },
+        "3": {
+          "requests": 286,
+          "rejected": 74
+        },
+        "4": {
+          "requests": 350,
+          "rejected": 46
+        }
+      },
+      "matches_stored_run": true
+    },
+    {
+      "condition": "heldout_pairs",
+      "load": 390,
+      "seed": 1,
+      "violations": 415,
+      "invalid": 4,
+      "service_blocking_rate": 0.1605,
+      "classes": {
+        "admissible": 1582,
+        "rejects although an admissible path exists": 174,
+        "accepts although it must reject": 149,
+        "violation: breaks I3": 54,
+        "violation: uses the avoided link": 36,
+        "invalid answer": 4,
+        "violation: breaks I2": 1
+      },
+      "by_intent": {
+        "I1+I4": {
+          "admissible": 800,
+          "rejects although an admissible path exists": 170,
+          "violation: uses the avoided link": 36,
+          "accepts although it must reject": 17
+        },
+        "I2+I3": {
+          "admissible": 782,
+          "accepts although it must reject": 132,
+          "violation: breaks I3": 54,
+          "invalid answer": 4,
+          "rejects although an admissible path exists": 4,
+          "violation: breaks I2": 1
+        }
+      },
+      "avoid_link_rejects_by_admissible_paths_left": {
+        "1": {
+          "requests": 174,
+          "rejected": 27
+        },
+        "2": {
+          "requests": 139,
+          "rejected": 44
+        },
+        "3": {
+          "requests": 300,
+          "rejected": 63
+        },
+        "4": {
+          "requests": 308,
+          "rejected": 36
+        }
+      },
+      "matches_stored_run": true
+    }
+  ]
+}

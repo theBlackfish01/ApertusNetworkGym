@@ -69,7 +69,10 @@ def load(directory: Path) -> dict[str, dict]:
 def cell(entry: dict | None, metric: str, decimals: int) -> str:
     if entry is None:
         return "–"
-    return f"{100 * entry[f'{metric}_mean']:.{decimals}f} ± {100 * entry[f'{metric}_std']:.{decimals}f}"
+    mean = f"{100 * entry[f'{metric}_mean']:.{decimals}f}"
+    if len(entry["seeds"]) < 2:  # one seed: there is no spread to report
+        return mean
+    return f"{mean} ± {100 * entry[f'{metric}_std']:.{decimals}f}"
 
 
 def closed_tables(results: dict[str, dict]) -> list[tuple[str, list[str], list[list[str]]]]:
@@ -166,6 +169,7 @@ def figure(results: dict[str, dict], out: Path) -> bool:
 
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
+        from matplotlib.patches import Patch
     except ImportError:
         return False
     series = [name for name in FIGURE_SERIES if name in results]
@@ -185,9 +189,13 @@ def figure(results: dict[str, dict], out: Path) -> bool:
             xs = [i + (k - (len(series) - 1) / 2) * width for i, c in enumerate(conditions) if c in index]
             means = [100 * index[c]["service_blocking_rate_mean"] for c in conditions if c in index]
             stds = [100 * index[c]["service_blocking_rate_std"] for c in conditions if c in index]
-            ax.bar(xs, means, width=width, color=FIGURE_SERIES[name], edgecolor=SURFACE, linewidth=1.2,
-                   label=POLICIES[name], zorder=2)  # fmt: skip
-            ax.errorbar(xs, means, yerr=stds, fmt="none", ecolor=MUTED, elinewidth=0.8, capsize=1.5, zorder=3)
+            ax.bar(
+                xs, means, width=width, color=FIGURE_SERIES[name], edgecolor=SURFACE, linewidth=1.2, zorder=2
+            )
+            if any(len(index[c]["seeds"]) > 1 for c in conditions if c in index):  # no spread for one seed
+                ax.errorbar(
+                    xs, means, yerr=stds, fmt="none", ecolor=MUTED, elinewidth=0.8, capsize=1.5, zorder=3
+                )
         ax.set_xticks(range(len(conditions)), [CONDITIONS[c].replace(" ", "\n") for c in conditions])
         ax.set_title(f"Load {load} E", loc="left", color=INK, fontsize=10)
         ax.set_ylim(bottom=0)
@@ -195,9 +203,15 @@ def figure(results: dict[str, dict], out: Path) -> bool:
         ax.tick_params(length=0)
         for side in ("top", "right", "left"):
             ax.spines[side].set_visible(False)
-    axes[0].set_ylabel("Service blocking, %  (mean ± std, 3 seeds)")
-    fig.legend(*axes[0].get_legend_handles_labels(), loc="lower center", ncol=len(series), frameon=False,
-               bbox_to_anchor=(0.5, -0.02))  # fmt: skip
+    axes[0].set_ylabel("Service blocking, %  (mean ± std)")
+    handles = []
+    for name in series:  # explicit handles: a series can be absent from the first panel
+        seeds = results[name]["metadata"]["seeds"]
+        note = "" if len(seeds) > 1 else f" (seed {seeds[0]} only)"
+        handles.append(Patch(facecolor=FIGURE_SERIES[name], label=POLICIES[name] + note))
+    fig.legend(
+        handles=handles, loc="lower center", ncol=len(series), frameon=False, bbox_to_anchor=(0.5, -0.02)
+    )
     fig.tight_layout(rect=(0, 0.07, 1, 1))
     out.parent.mkdir(parents=True, exist_ok=True)
     for suffix in (".png", ".pdf"):
@@ -226,7 +240,8 @@ def main() -> None:
         protocol_note = (
             f"Closed loop: {protocol['warmup']}-request warm-up by the no-intent teacher, then "
             f"{protocol['window']} measured requests per condition, load and seed. Cells are mean ± sample "
-            "standard deviation over seeds. An invalid answer is replaced by first fit; a violation is an "
+            "standard deviation over seeds; a cell without ± comes from a single seed (see the Seeds column "
+            "of the latency table). An invalid answer is replaced by first fit; a violation is an "
             "executed decision outside the intent's admissible set. An intent binds on a request when the "
             "no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is "
             "the share of binding requests; first fit ignores the intent in its own way."

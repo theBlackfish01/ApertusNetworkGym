@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "apertus_ft",
+      "backend": "transformers",
+      "model": "andreasmartin/apertus-v1.5-8b-text",
+      "adapter": "runs/adapter",
+      "structured": "regex",
+      "template_kwargs": {},
+      "cache": "apertus_ft.jsonl"
+    },
+    "command": "src/evaluate.py offline --policy apertus_ft --backend transformers --model andreasmartin/apertus-v1.5-8b-text --adapter runs/adapter --sync-repo blackfish021/apertus-lightpath-work --sync-every 120",
+    "finished_utc": "2026-10-10T09:47:39.124134+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact_match": 0.9614243323442137,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 134,
+        "exact_match": 0.7686567164179104,
+        "admissible": 0.8656716417910447,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.8780487804878049,
+        "admissible": 0.8780487804878049,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.8625,
+        "admissible": 0.8625,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 129,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 115,
+        "exact_match": 0.9739130434782609,
+        "admissible": 0.9739130434782609,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 123,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1000,
+        "exact_match": 0.932,
+        "admissible": 0.958,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact_match": 0.6402877697841727,
+        "admissible": 0.841726618705036,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 152,
+        "exact_match": 0.9868421052631579,
+        "admissible": 0.993421052631579,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 149,
+        "exact_match": 0.9731543624161074,
+        "admissible": 0.9798657718120806,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 160,
+        "exact_match": 0.94375,
+        "admissible": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.8916666666666667,
+        "admissible": 0.9566666666666667,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.7517482517482518,
+        "admissible": 0.7622377622377622,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.7961783439490446,
+        "admissible": 0.7961783439490446,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.775,
+        "admissible": 0.78,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}
