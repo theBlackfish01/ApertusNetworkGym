@@ -59,10 +59,13 @@ Face) are fetched once; the container built by `make run` then needs no network.
 
 ## 3. Use of Apertus
 
-- **Model:** `andreasmartin/apertus-v1.5-8b-text`, the text-only conversion of
-  `swiss-ai/Apertus-v1.5-8B` (same backbone weights, loads with stock Transformers). TODO: state
-  the organisers' answer on whether the conversion is accepted, or switch to the official
-  checkpoint.
+- **Model:** `andreasmartin/apertus-v1.5-8b-text`, the text-only conversion of the official
+  `swiss-ai/Apertus-v1.5-8B`: the same language-model weights without the image components, so it
+  loads with stock Transformers (the official multimodal checkpoint needs custom branches). The
+  question whether this conversion counts as "built with Apertus" was asked on the Hack Apertus
+  Discord on 7 Oct 2026 and answered that it is not a problem, provided the fine-tuned weights are
+  published and this report explains the procedure. Our LoRA adapter is published at
+  `TODO: Hugging Face repo` and applies to that base model.
 - **How it is used:** fine-tuning (QLoRA) and inference. No other model is used; the MLP control
   is trained from scratch on the same data.
 - **Where it runs:** fine-tuning and evaluation serving on one rented A100 80 GB; demo locally.
