@@ -6,8 +6,10 @@
 #   smoke   a few training steps and a short closed loop with the real model: measures throughput
 #   train   full fine-tuning; resumes from the Hub if an earlier job left a checkpoint
 #   eval    closed-loop and offline evaluation of the fine-tuned and the zero-shot model
-#   phase1  translate versus decide: the translator (as is, with examples, fine-tuned) on the test
-#           instructions; the fine-tuned decider on the probe sets; the few-shot decider
+#   phase1  translate versus decide: the translator (as is, and with examples in the prompt) on the
+#           test and closed-loop instructions; the fine-tuned decider on the probe sets; the
+#           few-shot decider on the held-out splits
+#   phase1-ft  fine-tune the translator and run it on the same instructions
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
@@ -23,7 +25,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | smoke | train | eval | phase1 | phase1-closed}
+STAGE=${1:?stage: check | smoke | train | eval | phase1 | phase1-ft | phase1-closed}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -215,13 +217,14 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
         --sim-workers "$WORKERS" $SYNC ${ZS_ARGS:-}
     ;;
 phase1)
-    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}" "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
-    # One process per model state, so the weights are loaded five times in all. Short steps first.
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}"
+    # One process per model state, so the weights are loaded three times. Short steps first.
     stamp "translator as is: the test instructions, with and without examples in the prompt"
     $PY src/translate.py batch --model "$MODEL" --batch 96 --sync-repo "$WORK_REPO" --jobs \
         "translate_few:nobel-eu:regex:$TESTS" "translate_zero:nobel-eu:regex:$TESTS" \
         "translate_few:germany50:regex:$I/germany50.jsonl" "translate_zero:germany50:regex:$I/germany50.jsonl" \
-        "translate_few_free:nobel-eu:none:$TESTS"         "translate_few:nobel-eu:regex:$I/closed_loop.jsonl" "translate_zero:nobel-eu:regex:$I/closed_loop.jsonl"
+        "translate_few_free:nobel-eu:none:$TESTS" \
+        "translate_few:nobel-eu:regex:$I/closed_loop.jsonl" "translate_zero:nobel-eu:regex:$I/closed_loop.jsonl"
     keep results/translate
     stamp "fine-tuned decider: the probe sets"
     $PY -c "
@@ -234,6 +237,9 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     # shellcheck disable=SC2086
     $PY src/evaluate.py offline --policy apertus_fewshot --backend transformers --model "$MODEL" \
         --shots data/fewshot/decider.jsonl --batch-envs 16 $SYNC
+    ;;
+phase1-ft)
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
     stamp "fine-tune the translator (resumes from $TRANSLATOR_REPO if a checkpoint is there)"
     # shellcheck disable=SC2086
     $PY src/train.py --model "$MODEL" --data-dir data/translate --out runs/translator \
@@ -243,7 +249,8 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     stamp "fine-tuned translator: the test instructions"
     $PY src/translate.py batch --model "$MODEL" --adapter runs/translator/adapter --batch 96 \
         --sync-repo "$WORK_REPO" --jobs "translate_ft:nobel-eu:regex:$TESTS" \
-        "translate_ft:germany50:regex:$I/germany50.jsonl" "translate_ft_free:nobel-eu:none:$TESTS"         "translate_ft:nobel-eu:regex:$I/closed_loop.jsonl"
+        "translate_ft:germany50:regex:$I/germany50.jsonl" "translate_ft_free:nobel-eu:none:$TESTS" \
+        "translate_ft:nobel-eu:regex:$I/closed_loop.jsonl"
     ;;
 phase1-closed)
     : "${CLOSED_POLICIES:?set CLOSED_POLICIES, e.g. \"translate_few translate_ft\"}"

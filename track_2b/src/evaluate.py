@@ -354,6 +354,7 @@ def closed(args: argparse.Namespace) -> None:
     if partial.exists():
         wanted = {job_key(job) for job in jobs}
         rows = [r for r in map(json.loads, partial.read_text().splitlines()) if job_key(r) in wanted]
+        rows = [r for r in rows if all(m in r for m in METRICS)]  # a checkpoint of an older version is redone
         done = {job_key(r) for r in rows}
         jobs = [job for job in jobs if job_key(job) not in done]
         print(f"resuming: {len(rows)} episodes in {partial.name}, {len(jobs)} to run", flush=True)

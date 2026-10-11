@@ -1,0 +1,217 @@
+{
+  "policy": "apertus_ft",
+  "what": "decisions on instructions with two preferences (I2+I3); shares are of the valid decisions on requests with a feasible path",
+  "offline_heldout": {
+    "agree: follows hops over the other": {
+      "count": 34,
+      "share": 0.10967741935483871
+    },
+    "agree: meets both": {
+      "count": 232,
+      "share": 0.7483870967741936
+    },
+    "agree: meets the first-stated only": {
+      "count": 25,
+      "share": 0.08064516129032258
+    },
+    "agree: meets the second-stated only": {
+      "count": 9,
+      "share": 0.02903225806451613
+    },
+    "conflict: follows hops over the other": {
+      "count": 31,
+      "share": 0.1
+    },
+    "conflict: follows load over the other": {
+      "count": 13,
+      "share": 0.041935483870967745
+    },
+    "conflict: meets the first-stated only": {
+      "count": 35,
+      "share": 0.11290322580645161
+    },
+    "conflict: meets the second-stated only": {
+      "count": 9,
+      "share": 0.02903225806451613
+    },
+    "decisions": {
+      "count": 310,
+      "share": 1.0
+    },
+    "nothing feasible": {
+      "count": 4,
+      "share": 0.012903225806451613
+    },
+    "preferences agree": {
+      "count": 266,
+      "share": 0.8580645161290322
+    },
+    "preferences conflict": {
+      "count": 44,
+      "share": 0.14193548387096774
+    },
+    "right under intersection": {
+      "count": 232,
+      "share": 0.7483870967741936
+    },
+    "right under ordered": {
+      "count": 264,
+      "share": 0.8516129032258064
+    }
+  },
+  "closed_loop": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "load_240": {
+      "agree: follows hops over the other": {
+        "count": 278,
+        "share": 0.09530339389784025
+      },
+      "agree: follows load over the other": {
+        "count": 1,
+        "share": 0.00034281796366129587
+      },
+      "agree: meets both": {
+        "count": 2178,
+        "share": 0.7466575248543024
+      },
+      "agree: meets neither": {
+        "count": 1,
+        "share": 0.00034281796366129587
+      },
+      "agree: meets the first-stated only": {
+        "count": 224,
+        "share": 0.07679122386013026
+      },
+      "agree: meets the second-stated only": {
+        "count": 55,
+        "share": 0.01885498800137127
+      },
+      "agree: rejects": {
+        "count": 3,
+        "share": 0.0010284538909838875
+      },
+      "conflict: follows hops over the other": {
+        "count": 303,
+        "share": 0.10387384298937265
+      },
+      "conflict: follows load over the other": {
+        "count": 150,
+        "share": 0.051422694549194375
+      },
+      "conflict: meets neither": {
+        "count": 3,
+        "share": 0.0010284538909838875
+      },
+      "conflict: meets the first-stated only": {
+        "count": 327,
+        "share": 0.11210147411724375
+      },
+      "conflict: meets the second-stated only": {
+        "count": 126,
+        "share": 0.04319506342132328
+      },
+      "decisions": {
+        "count": 2917,
+        "share": 1.0
+      },
+      "nothing feasible": {
+        "count": 44,
+        "share": 0.015083990401097017
+      },
+      "preferences agree": {
+        "count": 2461,
+        "share": 0.8436750085704491
+      },
+      "preferences conflict": {
+        "count": 456,
+        "share": 0.15632499142955092
+      },
+      "right under intersection": {
+        "count": 2178,
+        "share": 0.7466575248543024
+      },
+      "right under ordered": {
+        "count": 2475,
+        "share": 0.8484744600617072
+      }
+    },
+    "load_390": {
+      "agree: follows hops over the other": {
+        "count": 301,
+        "share": 0.10647329324372126
+      },
+      "agree: follows load over the other": {
+        "count": 1,
+        "share": 0.00035373187124159886
+      },
+      "agree: meets both": {
+        "count": 2166,
+        "share": 0.7661832331093031
+      },
+      "agree: meets the first-stated only": {
+        "count": 238,
+        "share": 0.08418818535550053
+      },
+      "agree: meets the second-stated only": {
+        "count": 64,
+        "share": 0.022638839759462327
+      },
+      "agree: rejects": {
+        "count": 3,
+        "share": 0.0010611956137247967
+      },
+      "conflict: follows hops over the other": {
+        "count": 228,
+        "share": 0.08065086664308455
+      },
+      "conflict: follows load over the other": {
+        "count": 124,
+        "share": 0.04386275203395826
+      },
+      "conflict: meets neither": {
+        "count": 4,
+        "share": 0.0014149274849663955
+      },
+      "conflict: meets the first-stated only": {
+        "count": 259,
+        "share": 0.0916165546515741
+      },
+      "conflict: meets the second-stated only": {
+        "count": 93,
+        "share": 0.03289706402546869
+      },
+      "decisions": {
+        "count": 2827,
+        "share": 1.0
+      },
+      "invalid answer": {
+        "count": 3,
+        "share": 0.0010611956137247967
+      },
+      "nothing feasible": {
+        "count": 192,
+        "share": 0.06791651927838699
+      },
+      "preferences agree": {
+        "count": 2471,
+        "share": 0.8740714538379908
+      },
+      "preferences conflict": {
+        "count": 356,
+        "share": 0.1259285461620092
+      },
+      "right under intersection": {
+        "count": 2166,
+        "share": 0.7661832331093031
+      },
+      "right under ordered": {
+        "count": 2404,
+        "share": 0.8503714184648037
+      }
+    }
+  }
+}

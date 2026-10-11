@@ -32,6 +32,11 @@ POLICIES = {  # display order and names; other result files are appended under t
     "apertus_ft_unconstrained": "Apertus 8B fine-tuned, no answer constraint",
     "apertus_ft_epoch1_unconstrained": "Apertus 8B fine-tuned, after epoch 1, no answer constraint",
     "apertus_ft_epoch2_unconstrained": "Apertus 8B fine-tuned, after epoch 2, no answer constraint",
+    "apertus_fewshot": "Apertus 8B, 7 solved examples in the prompt",
+    "translate_keyword": "Translator: keyword parser + rule engine",
+    "translate_zero": "Translator: Apertus as is + rule engine",
+    "translate_few": "Translator: Apertus with 7 examples + rule engine",
+    "translate_ft": "Translator: Apertus fine-tuned + rule engine",
 }
 CONDITIONS = {
     "I0": "No intent",
@@ -172,6 +177,8 @@ def offline_table(results: dict[str, dict]) -> tuple[str, list[str], list[list[s
     ]
     rows = []
     for name, result in results.items():
+        if not set(SPLITS) & set(result["splits"]):
+            continue  # scores on the probe sets of phase 1: see report_phase1.py
         row = [POLICIES.get(name, name)]
         for split in SPLITS:
             entry = result["splits"].get(split, {}).get("all")

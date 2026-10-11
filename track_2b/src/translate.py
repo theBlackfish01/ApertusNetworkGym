@@ -288,7 +288,7 @@ def parse(args: argparse.Namespace) -> None:
 
     translator = make_translator(args.policy, args.topology, **_llm(args))
     texts = sorted({row["text"] for row in read_rows(args.sets)})
-    started = time.perf_counter()
+    started = synced = time.perf_counter()
     for start in range(0, len(texts), args.chunk):
         translator.lines(texts[start : start + args.chunk])
         done = min(start + args.chunk, len(texts))
@@ -297,8 +297,10 @@ def parse(args: argparse.Namespace) -> None:
             flush=True,
         )
         cache = getattr(getattr(translator, "llm", None), "cache_path", None)
-        if args.sync_repo and cache is not None and cache.exists():
+        due = done == len(texts) or time.perf_counter() - synced > 120  # the cache is the only thing to lose
+        if args.sync_repo and cache is not None and cache.exists() and due:
             upload_results(args.sync_repo, [cache])
+            synced = time.perf_counter()
 
 
 def score(args: argparse.Namespace) -> None:

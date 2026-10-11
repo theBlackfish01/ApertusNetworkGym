@@ -4,8 +4,8 @@
       "name": "translate_keyword",
       "topology": "nobel-eu"
     },
-    "command": "src/translate.py score --policy translate_keyword --sets data/instructions/templates.jsonl data/instructions/independent.jsonl data/instructions/de.jsonl data/instructions/fr.jsonl data/instructions/it.jsonl data/instructions/gsw.jsonl data/instructions/noisy.jsonl data/instructions/faulty.jsonl data/instructions/out_of_scope.jsonl",
-    "finished_utc": "2026-10-11T18:14:00.710411+00:00",
+    "command": "src/translate.py score --policy translate_keyword --sets data/instructions/templates.jsonl data/instructions/independent.jsonl data/instructions/de.jsonl data/instructions/fr.jsonl data/instructions/it.jsonl data/instructions/gsw.jsonl data/instructions/noisy.jsonl data/instructions/faulty.jsonl data/instructions/out_of_scope.jsonl data/instructions/closed_loop.jsonl",
+    "finished_utc": "2026-10-11T18:30:33.101803+00:00",
     "sets": [
       "templates.jsonl",
       "independent.jsonl",
@@ -15,10 +15,102 @@
       "gsw.jsonl",
       "noisy.jsonl",
       "faulty.jsonl",
-      "out_of_scope.jsonl"
+      "out_of_scope.jsonl",
+      "closed_loop.jsonl"
     ]
   },
   "groups": [
+    {
+      "set": "closed_loop",
+      "lang": "all",
+      "kind": "all",
+      "n": 8505,
+      "correct": 8498,
+      "flagged": 7,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8498,
+      "ms_per_instruction": 0.014734203175886463
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I1",
+      "n": 3033,
+      "correct": 3033,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3033,
+      "ms_per_instruction": 0.01263728552656795
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 5344,
+      "correct": 5344,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 5344,
+      "ms_per_instruction": 0.015936684694514487
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 9,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 9,
+      "ms_per_instruction": 0.010717899999690417
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 98,
+      "correct": 98,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 98,
+      "ms_per_instruction": 0.015547846953954924
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 7,
+      "flagged": 3,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 0.009362300033899373
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 7,
+      "flagged": 3,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 0.009537699952488765
+    },
     {
       "set": "de",
       "lang": "all",
@@ -30,7 +122,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 174,
-      "ms_per_instruction": 0.0370654854508239
+      "ms_per_instruction": 0.020910430326682897
     },
     {
       "set": "de",
@@ -43,7 +135,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 36,
-      "ms_per_instruction": 0.02498949132985091
+      "ms_per_instruction": 0.01416404624424787
     },
     {
       "set": "de",
@@ -56,7 +148,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 33,
-      "ms_per_instruction": 0.04109727848128985
+      "ms_per_instruction": 0.023130645576190857
     },
     {
       "set": "de",
@@ -69,7 +161,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 19,
-      "ms_per_instruction": 0.041250924994784555
+      "ms_per_instruction": 0.02283412501924431
     },
     {
       "set": "de",
@@ -82,7 +174,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 59,
-      "ms_per_instruction": 0.04306917689448148
+      "ms_per_instruction": 0.024491350182010277
     },
     {
       "set": "de",
@@ -95,7 +187,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 0.026827499993942183
+      "ms_per_instruction": 0.011884499997449893
     },
     {
       "set": "de",
@@ -108,7 +200,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 24,
-      "ms_per_instruction": 0.035522875000637555
+      "ms_per_instruction": 0.0197237187720134
     },
     {
       "set": "de",
@@ -121,7 +213,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.01970849999111124
+      "ms_per_instruction": 0.010410749951006437
     },
     {
       "set": "de",
@@ -134,7 +226,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.020195749996787526
+      "ms_per_instruction": 0.01140900002383205
     },
     {
       "set": "faulty",
@@ -147,7 +239,7 @@
       "applied": 45,
       "malformed": 0,
       "same_status": 398,
-      "ms_per_instruction": 0.015107449541072834
+      "ms_per_instruction": 0.013583539751293937
     },
     {
       "set": "faulty",
@@ -160,7 +252,7 @@
       "applied": 23,
       "malformed": 0,
       "same_status": 200,
-      "ms_per_instruction": 0.014885820988999153
+      "ms_per_instruction": 0.013874975310539602
     },
     {
       "set": "faulty",
@@ -173,7 +265,7 @@
       "applied": 22,
       "malformed": 0,
       "same_status": 198,
-      "ms_per_instruction": 0.015325048483108812
+      "ms_per_instruction": 0.013297403020398193
     },
     {
       "set": "fr",
@@ -186,7 +278,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 198,
-      "ms_per_instruction": 0.02558498932844292
+      "ms_per_instruction": 0.022381905487222645
     },
     {
       "set": "fr",
@@ -199,7 +291,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 59,
-      "ms_per_instruction": 0.017916732239393014
+      "ms_per_instruction": 0.013218792344540035
     },
     {
       "set": "fr",
@@ -212,7 +304,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 24,
-      "ms_per_instruction": 0.026720862498308406
+      "ms_per_instruction": 0.026525787507125642
     },
     {
       "set": "fr",
@@ -225,7 +317,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 25,
-      "ms_per_instruction": 0.0312517999965678
+      "ms_per_instruction": 0.026091587500332025
     },
     {
       "set": "fr",
@@ -238,7 +330,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 90,
-      "ms_per_instruction": 0.029959070632374272
+      "ms_per_instruction": 0.02661298513094254
     },
     {
       "set": "fr",
@@ -251,7 +343,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.010956750003288107
+      "ms_per_instruction": 0.013325749989689939
     },
     {
       "set": "fr",
@@ -264,7 +356,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.020917718744684066
+      "ms_per_instruction": 0.023716812492580175
     },
     {
       "set": "fr",
@@ -277,7 +369,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.010113000016076512
+      "ms_per_instruction": 0.009404500019627449
     },
     {
       "set": "fr",
@@ -290,7 +382,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.013635500010877877
+      "ms_per_instruction": 0.011337249986809184
     },
     {
       "set": "gsw",
@@ -303,7 +395,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 67,
-      "ms_per_instruction": 0.021568008264459183
+      "ms_per_instruction": 0.018666987606337906
     },
     {
       "set": "gsw",
@@ -316,7 +408,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 13,
-      "ms_per_instruction": 0.01389834722450208
+      "ms_per_instruction": 0.011756208323276951
     },
     {
       "set": "gsw",
@@ -329,7 +421,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 14,
-      "ms_per_instruction": 0.032567678577574304
+      "ms_per_instruction": 0.02208971429646616
     },
     {
       "set": "gsw",
@@ -342,7 +434,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 5,
-      "ms_per_instruction": 0.027354043476921303
+      "ms_per_instruction": 0.02964200000307123
     },
     {
       "set": "gsw",
@@ -355,7 +447,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 21,
-      "ms_per_instruction": 0.02440911956299537
+      "ms_per_instruction": 0.020462478269801857
     },
     {
       "set": "gsw",
@@ -368,7 +460,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 2,
-      "ms_per_instruction": 0.011926333343126316
+      "ms_per_instruction": 0.010981333389281644
     },
     {
       "set": "gsw",
@@ -381,7 +473,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 12,
-      "ms_per_instruction": 0.01861105555020812
+      "ms_per_instruction": 0.022019999998216615
     },
     {
       "set": "gsw",
@@ -394,7 +486,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.009314333321223481
+      "ms_per_instruction": 0.008440333355489807
     },
     {
       "set": "gsw",
@@ -407,7 +499,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.011126333333777438
+      "ms_per_instruction": 0.011171000020719172
     },
     {
       "set": "heldout_indist",
@@ -420,7 +512,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 309,
-      "ms_per_instruction": 0.02401778964160764
+      "ms_per_instruction": 0.015558498385801004
     },
     {
       "set": "heldout_indist",
@@ -433,7 +525,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 129,
-      "ms_per_instruction": 0.02176845736121604
+      "ms_per_instruction": 0.014240209305333606
     },
     {
       "set": "heldout_indist",
@@ -446,7 +538,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 81,
-      "ms_per_instruction": 0.029512654318301586
+      "ms_per_instruction": 0.018026703712705597
     },
     {
       "set": "heldout_indist",
@@ -459,7 +551,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 78,
-      "ms_per_instruction": 0.02487758974340091
+      "ms_per_instruction": 0.016861269238268924
     },
     {
       "set": "heldout_indist",
@@ -472,7 +564,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 7,
-      "ms_per_instruction": 0.01652828570643448
+      "ms_per_instruction": 0.010103857091183142
     },
     {
       "set": "heldout_indist",
@@ -485,7 +577,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 7,
-      "ms_per_instruction": 0.012081857123900721
+      "ms_per_instruction": 0.00880899996705661
     },
     {
       "set": "heldout_indist",
@@ -498,7 +590,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 7,
-      "ms_per_instruction": 0.011731142868549276
+      "ms_per_instruction": 0.008979571443238197
     },
     {
       "set": "heldout_pairs",
@@ -511,7 +603,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 377,
-      "ms_per_instruction": 0.02966292307825103
+      "ms_per_instruction": 0.015632270558863282
     },
     {
       "set": "heldout_pairs",
@@ -524,7 +616,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 284,
-      "ms_per_instruction": 0.030447154930262628
+      "ms_per_instruction": 0.016033792255263545
     },
     {
       "set": "heldout_pairs",
@@ -537,7 +629,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 93,
-      "ms_per_instruction": 0.02726806451941992
+      "ms_per_instruction": 0.014406118281683991
     },
     {
       "set": "heldout_paraphrase",
@@ -550,7 +642,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 126,
-      "ms_per_instruction": 0.026740323305671325
+      "ms_per_instruction": 0.024157796988083305
     },
     {
       "set": "heldout_paraphrase",
@@ -563,7 +655,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 124,
-      "ms_per_instruction": 0.027086532254414916
+      "ms_per_instruction": 0.02510562902011037
     },
     {
       "set": "heldout_paraphrase",
@@ -576,7 +668,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 2,
-      "ms_per_instruction": 0.030444333352382575
+      "ms_per_instruction": 0.013666333416040288
     },
     {
       "set": "heldout_paraphrase",
@@ -589,7 +681,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.01831266668735528
+      "ms_per_instruction": 0.010283333419162469
     },
     {
       "set": "heldout_paraphrase",
@@ -602,7 +694,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.017153999995874376
+      "ms_per_instruction": 0.009346666805261824
     },
     {
       "set": "independent",
@@ -615,7 +707,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 679,
-      "ms_per_instruction": 0.02617562998713552
+      "ms_per_instruction": 0.018306374847777477
     },
     {
       "set": "independent",
@@ -628,7 +720,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 168,
-      "ms_per_instruction": 0.020858543568618233
+      "ms_per_instruction": 0.013955219913694243
     },
     {
       "set": "independent",
@@ -641,7 +733,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 75,
-      "ms_per_instruction": 0.026282172838964918
+      "ms_per_instruction": 0.020874543207793504
     },
     {
       "set": "independent",
@@ -654,7 +746,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 72,
-      "ms_per_instruction": 0.028692999996842623
+      "ms_per_instruction": 0.01939505195228516
     },
     {
       "set": "independent",
@@ -667,7 +759,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 242,
-      "ms_per_instruction": 0.031477860804715
+      "ms_per_instruction": 0.020241223436918542
     },
     {
       "set": "independent",
@@ -680,7 +772,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 6,
-      "ms_per_instruction": 0.014146299997719325
+      "ms_per_instruction": 0.010694900015550957
     },
     {
       "set": "independent",
@@ -693,7 +785,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 105,
-      "ms_per_instruction": 0.025552351999976963
+      "ms_per_instruction": 0.021830240011695423
     },
     {
       "set": "independent",
@@ -706,7 +798,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 5,
-      "ms_per_instruction": 0.015929599993569354
+      "ms_per_instruction": 0.011033499981749628
     },
     {
       "set": "independent",
@@ -719,7 +811,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 6,
-      "ms_per_instruction": 0.019386100001383966
+      "ms_per_instruction": 0.01199890000407322
     },
     {
       "set": "it",
@@ -732,7 +824,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 7,
-      "ms_per_instruction": 0.02169715701449158
+      "ms_per_instruction": 0.020086280488770883
     },
     {
       "set": "it",
@@ -745,7 +837,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 0.015278432434459662
+      "ms_per_instruction": 0.014279940547272123
     },
     {
       "set": "it",
@@ -758,7 +850,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 1,
-      "ms_per_instruction": 0.025230737502113243
+      "ms_per_instruction": 0.024808787497931917
     },
     {
       "set": "it",
@@ -771,7 +863,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.026213012498743637
+      "ms_per_instruction": 0.02163367499861124
     },
     {
       "set": "it",
@@ -784,7 +876,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 0.02438413108893315
+      "ms_per_instruction": 0.022877509362832612
     },
     {
       "set": "it",
@@ -797,7 +889,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.010363750021724627
+      "ms_per_instruction": 0.011854500030494819
     },
     {
       "set": "it",
@@ -810,7 +902,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.020498687502978896
+      "ms_per_instruction": 0.01718731249411576
     },
     {
       "set": "it",
@@ -823,7 +915,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.009354000013672703
+      "ms_per_instruction": 0.008371249919036927
     },
     {
       "set": "it",
@@ -836,7 +928,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 0,
-      "ms_per_instruction": 0.01148325002020556
+      "ms_per_instruction": 0.020055500044691144
     },
     {
       "set": "noisy",
@@ -849,7 +941,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 153,
-      "ms_per_instruction": 0.01610554687410115
+      "ms_per_instruction": 0.015098562497684043
     },
     {
       "set": "noisy",
@@ -862,7 +954,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 7,
-      "ms_per_instruction": 0.012251977270626536
+      "ms_per_instruction": 0.011242340907425718
     },
     {
       "set": "noisy",
@@ -875,7 +967,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 22,
-      "ms_per_instruction": 0.01752971428662217
+      "ms_per_instruction": 0.016625857142571476
     },
     {
       "set": "noisy",
@@ -888,7 +980,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 17,
-      "ms_per_instruction": 0.01847558332931006
+      "ms_per_instruction": 0.01586787501158445
     },
     {
       "set": "noisy",
@@ -901,7 +993,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 43,
-      "ms_per_instruction": 0.01983000000150435
+      "ms_per_instruction": 0.018305457446176468
     },
     {
       "set": "noisy",
@@ -914,7 +1006,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 6,
-      "ms_per_instruction": 0.009507699996902375
+      "ms_per_instruction": 0.010785899962684198
     },
     {
       "set": "noisy",
@@ -927,7 +1019,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 47,
-      "ms_per_instruction": 0.01700005357057372
+      "ms_per_instruction": 0.016786178568801397
     },
     {
       "set": "noisy",
@@ -940,7 +1032,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 5,
-      "ms_per_instruction": 0.010131199991292306
+      "ms_per_instruction": 0.010948499971163983
     },
     {
       "set": "noisy",
@@ -953,7 +1045,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 6,
-      "ms_per_instruction": 0.012894299999288705
+      "ms_per_instruction": 0.01177780000034545
     },
     {
       "set": "out_of_scope",
@@ -966,7 +1058,7 @@
       "applied": 1,
       "malformed": 0,
       "same_status": 112,
-      "ms_per_instruction": 0.011346535088027292
+      "ms_per_instruction": 0.01117861402913708
     },
     {
       "set": "out_of_scope",
@@ -979,10 +1071,58 @@
       "applied": 1,
       "malformed": 0,
       "same_status": 112,
-      "ms_per_instruction": 0.011346535088027292
+      "ms_per_instruction": 0.01117861402913708
     }
   ],
   "examples": [
+    {
+      "set": "closed_loop",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Avoid crowded routes: the roomiest feasible path is the right choice.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Conserve bandwidth by taking the candidate with the lowest slot demand.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Even out utilisation by selecting the candidate with the largest number of free slots.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Go through as few intermediate nodes as possible.",
+          "expected": "avoid=none; prefer=hops",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Go with whichever feasible path gives the most compact channel.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Occupy as little spectrum as you can for this request.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Send this one where there is the most room left.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
     {
       "set": "de",
       "outcome": "flagged",
@@ -1336,7 +1476,7 @@
           "status": "ok"
         },
         {
-          "text": "D Aazahl Hops söll so chlii wie möglich sii. Für die Aafrag d Verbindig zwüsche Budapest und Warschau vermiide.",
+          "text": "D Aazahl Hops söll so chlii wie möglich sii. Für die Aafrag di diräkt Verbindig zwüsche Budapest und Warschau vermiide.",
           "expected": "avoid=Budapest-Warsaw; prefer=hops",
           "answer": "avoid=none; prefer=hops",
           "status": "ok"
@@ -1576,13 +1716,13 @@
       "outcome": "wrong",
       "cases": [
         {
-          "text": "Finestra di manutenzione su Amsterdam–Glasgow: questo lightpath non deve attraversarlo. Risparmia spettro: scegli l'opzione che richiede meno slot.",
+          "text": "Finestra di manutenzione sul collegamento Amsterdam–Glasgow: questo lightpath non deve attraversarlo. Risparmia spettro: scegli l'opzione che richiede meno slot.",
           "expected": "avoid=Amsterdam-Glasgow; prefer=slots",
           "answer": "avoid=Amsterdam-Glasgow; prefer=none",
           "status": "ok"
         },
         {
-          "text": "Finestra di manutenzione su Bordeaux–Madrid: questo lightpath non deve attraversarlo. Prendi il percorso la cui modulazione richiede meno slot.",
+          "text": "Finestra di manutenzione sul collegamento Bordeaux–Madrid: questo lightpath non deve attraversarlo. Prendi il percorso la cui modulazione richiede meno slot.",
           "expected": "avoid=Bordeaux-Madrid; prefer=slots",
           "answer": "avoid=Bordeaux-Madrid; prefer=none",
           "status": "ok"

@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate_keyword",
+      "topology": "germany50"
+    },
+    "command": "src/translate.py score --policy translate_keyword --topology germany50 --sets data/instructions/germany50.jsonl --out results/translate/translate_keyword_germany50.json",
+    "finished_utc": "2026-10-11T18:30:34.555361+00:00",
+    "sets": [
+      "germany50.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "germany50",
+      "lang": "all",
+      "kind": "all",
+      "n": 528,
+      "correct": 521,
+      "flagged": 7,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 521,
+      "ms_per_instruction": 0.017000893946877142
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1",
+      "n": 144,
+      "correct": 144,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 144,
+      "ms_per_instruction": 0.01649820139309415
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 38,
+      "correct": 38,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 38,
+      "ms_per_instruction": 0.02041192104977534
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 33,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 33,
+      "ms_per_instruction": 0.01901596969715187
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 201,
+      "correct": 201,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 201,
+      "ms_per_instruction": 0.01819432837529253
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 9,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 9,
+      "ms_per_instruction": 0.010474399982740579
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 82,
+      "correct": 82,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 82,
+      "ms_per_instruction": 0.015187670736095909
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 7,
+      "flagged": 3,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 0.010403799979030737
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 7,
+      "flagged": 3,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 0.008632000003672147
+    }
+  ],
+  "examples": [
+    {
+      "set": "germany50",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Avoid crowded routes: the roomiest feasible path is the right choice.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Conserve bandwidth by taking the candidate with the lowest slot demand.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Even out utilisation by selecting the candidate with the largest number of free slots.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Go through as few intermediate nodes as possible.",
+          "expected": "avoid=none; prefer=hops",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Go with whichever feasible path gives the most compact channel.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Occupy as little spectrum as you can for this request.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Send this one where there is the most room left.",
+          "expected": "avoid=none; prefer=load",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    }
+  ]
+}

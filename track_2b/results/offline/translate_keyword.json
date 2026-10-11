@@ -9,7 +9,7 @@
       }
     },
     "command": "src/evaluate.py offline --policy translate_keyword",
-    "finished_utc": "2026-10-11T18:14:10.533709+00:00"
+    "finished_utc": "2026-10-11T18:30:36.015162+00:00"
   },
   "splits": {
     "heldout_indist": {

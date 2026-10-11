@@ -9,7 +9,7 @@
       }
     },
     "command": "src/evaluate.py offline --policy translate_keyword --data data/probes --splits independent de fr it gsw noisy faulty out_of_scope --out results/offline/translate_keyword_probes.json",
-    "finished_utc": "2026-10-11T18:14:12.114247+00:00"
+    "finished_utc": "2026-10-11T18:30:37.742951+00:00"
   },
   "splits": {
     "independent": {
