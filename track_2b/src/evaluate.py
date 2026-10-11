@@ -7,12 +7,17 @@ closed   The protocol applied identically to every policy. For each condition, l
          4. window: the policy decides the next 2,000 requests, each carrying an intent drawn
             from the condition. A decision that is not a valid action counts as invalid and is
             replaced by ONG's first fit; a violation is an executed decision outside the
-            intent's admissible set.
+            intent's admissible set. Counted next to it: violations under the ordered reading
+            of several preferences (``spec.py``), and decisions for which a translator flagged
+            the instruction instead of applying it.
          The intent of request i is the same for every policy (it depends on the condition, load,
          seed and the request's candidate paths only), so policies are compared like for like.
 
 offline  Agreement with the teacher on the held-out dataset splits, without the simulator:
          exact match and admissible-set agreement (the number that matters for intents).
+         ``--data data/probes`` scores the probe sets of ``corpora.py`` the same way; for
+         instructions that should not be applied it also reports how often the decision is
+         the policy's own decision without an instruction.
 
 demo     A short live run that prints a few prompt/answer exchanges (used by ``make run``).
 
@@ -50,6 +55,7 @@ from intents import (
 )
 from policies import Decision, Policy, Request, make_policy
 from prompt import format_choice, parse_answer, render_prompt
+from spec import EMPTY, Spec, from_intent, respects
 from view import RequestView
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +64,13 @@ EVAL_SEEDS = (1, 2, 3)
 WARMUP, WINDOW = 1_000, 2_000
 CONDITIONS = ("I0", "I1", "I2", "I3", "I4", "mixed_heldout_paraphrases", "heldout_pairs")
 HELDOUT_SPLITS = ("heldout_indist", "heldout_paraphrase", "heldout_pairs")
-METRICS = ("service_blocking_rate", "bit_rate_blocking_rate", "violation_rate", "invalid_rate", "decision_ms")
+METRICS = ("service_blocking_rate", "bit_rate_blocking_rate", "violation_rate", "invalid_rate", "decision_ms",
+           "ordered_violation_rate")  # fmt: skip
+FLAGS = (
+    "unsupported",
+    "unresolved",
+    "malformed",
+)  # a translator's answer when it does not apply an instruction
 
 
 def condition_intent(condition: str, view: RequestView, rng: random.Random) -> Intent:
@@ -120,6 +132,7 @@ class Episode:
             action = select_first_fit_action(self.env.action_masks())
             executed = choice_from_action(analysis, action)
         violation = not is_admissible(view, intent, executed)
+        flagged = decision.raw in FLAGS
         binding = not is_admissible(view, intent, teacher_choice(view, NO_INTENT))
         oracle = teacher_choice(view, intent)
         tally = {
@@ -133,6 +146,10 @@ class Episode:
             # the two kinds of violation that are about the reject decision itself
             "needless_rejects": violation and executed is None,
             "wrong_accepts": violation and executed is not None and not admissible_paths(view, intent),
+            # first-stated preference decides, later ones break ties, preferences never reject
+            "ordered_violations": not respects(view, from_intent(intent), executed, "ordered"),
+            "flagged": flagged,  # the translator did not apply the instruction and says so
+            "silent_violations": violation and not flagged,
             "oracle_exact": decision.well_formed and decision.choice == oracle,
             "oracle_path": (executed[0] if executed else None) == (oracle[0] if oracle else None),
         }
@@ -170,6 +187,10 @@ class Episode:
             "binding_violations": counts["binding_violations"],
             "needless_rejects": counts["needless_rejects"],
             "wrong_accepts": counts["wrong_accepts"],
+            "ordered_violations": counts["ordered_violations"],
+            "ordered_violation_rate": counts["ordered_violations"] / n,
+            "flagged": counts["flagged"],
+            "silent_violations": counts["silent_violations"],
             "by_intent": {
                 key: dict(sorted(counter.items())) for key, counter in sorted(self.by_intent.items())
             },
@@ -426,6 +447,13 @@ def offline(args: argparse.Namespace) -> None:
                 decisions.append(Decision(choice, well_formed, answers[record["id"]]))
         for start in range(0, len(requests) if policy else 0, args.batch_envs):
             decisions += policy.decide(requests[start : start + args.batch_envs])
+        # Probe instructions that should not be applied: what does the policy decide without one?
+        plain: dict[str, Decision] = {}
+        inapplicable = [r for r in records if not r["meta"].get("probe", {}).get("apply", True)]
+        for start in range(0, len(inapplicable) if policy else 0, args.batch_envs):
+            chunk = inapplicable[start : start + args.batch_envs]
+            bare = [Request(RequestView.from_json(r["meta"]["view"]), NO_INTENT) for r in chunk]
+            plain.update(zip((r["id"] for r in chunk), policy.decide(bare), strict=True))
         per_intent: dict[str, Counter] = defaultdict(Counter)
         for record, request, decision in zip(records, requests, decisions, strict=True):
             teacher = tuple(record["meta"]["teacher_choice"]) if record["meta"]["teacher_choice"] else None
@@ -442,9 +470,25 @@ def offline(args: argparse.Namespace) -> None:
                 counter["invalid"] += not valid
                 counter["exact"] += decision.well_formed and choice == teacher
                 counter["admissible"] += valid and is_admissible(request.view, request.intent, choice)
+                meant = (
+                    Spec.from_json(record["meta"]["spec"])
+                    if "spec" in record["meta"]
+                    else from_intent(request.intent)
+                )
+                counter["ordered"] += valid and respects(
+                    request.view, meant if meant.applies else EMPTY, choice, "ordered"
+                )
+                counter["flagged"] += decision.raw in FLAGS
+                if record["id"] in plain:
+                    counter["inapplicable"] += 1
+                    counter["unchanged"] += decision.well_formed and choice == plain[record["id"]].choice
+                    counter["rejects"] += decision.well_formed and choice is None
         result["splits"][split] = {
             key: {"n": c["n"], "exact_match": c["exact"] / c["n"], "admissible": c["admissible"] / c["n"],
+                  "admissible_ordered": c["ordered"] / c["n"], "flagged": c["flagged"] / c["n"],
                   "invalid": c["invalid"] / c["n"], "malformed": c["malformed"] / c["n"]}
+            | ({"unchanged_without_instruction": c["unchanged"] / c["inapplicable"],
+                "rejects": c["rejects"] / c["inapplicable"]} if c["inapplicable"] else {})
             for key, c in sorted(per_intent.items())
         }  # fmt: skip
         overall = result["splits"][split]["all"]
@@ -481,10 +525,17 @@ def demo(args: argparse.Namespace) -> None:
 def llm_options(args: argparse.Namespace) -> dict:
     if args.policy in ("first_fit", "teacher", "oracle", "mlp"):
         return {}
+    local = {"model": args.model, "adapter": args.adapter,
+             "structured": "none" if args.structured == "none" else "regex",
+             "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
+    if args.policy.startswith("translate_"):
+        return local | {"topology": args.topology}
     if args.backend == "transformers":
-        return {"backend": "transformers", "model": args.model, "adapter": args.adapter,
-                "structured": "none" if args.structured == "none" else "regex",
-                "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
+        shots = []
+        for line in args.shots.read_text(encoding="utf-8").splitlines() if args.shots else []:
+            record = json.loads(line)
+            shots += [record["prompt"][-1], record["completion"][0]]
+        return local | {"backend": "transformers", "shots": shots}
     return {"backend": "endpoint", "base_url": args.base_url, "model": args.model, "structured": args.structured,
             "extra_body": json.loads(args.extra_body), "concurrency": args.concurrency}  # fmt: skip
 
@@ -516,6 +567,12 @@ def main() -> None:
     parser.add_argument("--backend", choices=["endpoint", "transformers"], default="endpoint")
     parser.add_argument("--adapter", default=None, help="transformers backend: LoRA adapter to merge")
     parser.add_argument("--template-kwargs", default="{}", help="transformers backend: chat-template JSON")
+    parser.add_argument(
+        "--shots", type=Path, help="transformers backend: solved records put before every prompt"
+    )
+    parser.add_argument(
+        "--topology", default="nobel-eu", help="translate_* policies: topology of the node list"
+    )
     parser.add_argument(
         "--sim-workers", type=int, default=1, help="processes stepping the environments (LLM)"
     )

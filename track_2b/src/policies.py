@@ -8,7 +8,10 @@ treats heuristics, the MLP and the language model identically:
     oracle           the intent-aware teacher of ``intents.py`` (upper bound for each condition)
     mlp              the numeric control of ``mlp.py``
     llm              Apertus, zero-shot or fine-tuned: behind an OpenAI-compatible endpoint (vLLM)
-                     or loaded in this process with transformers
+                     or loaded in this process with transformers; with ``shots`` a few solved
+                     requests are put in front of every prompt (the few-shot decider)
+    translate_*      the translator arm of ``translate.py``: the model (or a keyword parser) turns
+                     the instruction into a spec once, and the rule engine of ``spec.py`` decides
 
 ``decide`` takes a list so the language model can be queried for many environments at once.
 """
@@ -129,8 +132,9 @@ class CachedLLM(Policy):
 
     parallel_safe = False
 
-    def __init__(self, name: str, cache: Path | None = None) -> None:
+    def __init__(self, name: str, cache: Path | None = None, shots: list[dict] | None = None) -> None:
         self.name = name
+        self.shots = list(shots or [])  # solved examples (user and assistant turns) after the system turn
         self.cache_path = cache or ROOT / "results" / "cache" / f"{name}.jsonl"
         self._cache: dict[str, dict] = {}
         self._lock = threading.Lock()
@@ -144,8 +148,8 @@ class CachedLLM(Policy):
         """``(answer text, seconds)`` for each prompt; only called for prompts not in the cache."""
         raise NotImplementedError
 
-    def decide(self, requests: list[Request]) -> list[Decision]:
-        prompts = [chat_messages(request.view, request.intent) for request in requests]
+    def ask(self, prompts: list[list[dict]]) -> list[dict]:
+        """The cache entry (``answer``, ``seconds``) of each prompt; the model is asked for new ones."""
         keys = [hashlib.sha256(json.dumps(p, sort_keys=True).encode()).hexdigest() for p in prompts]
         missing = {key: prompt for key, prompt in zip(keys, prompts, strict=True) if key not in self._cache}
         if missing:
@@ -156,9 +160,15 @@ class CachedLLM(Policy):
                     entry = {"key": key, "answer": answer, "seconds": round(seconds, 4)}
                     self._cache[key] = entry
                     handle.write(json.dumps(entry) + "\n")
+        return [self._cache[key] for key in keys]
+
+    def decide(self, requests: list[Request]) -> list[Decision]:
+        prompts = []
+        for request in requests:
+            system, user = chat_messages(request.view, request.intent)
+            prompts.append([system, *self.shots, user])
         decisions = []
-        for key in keys:
-            entry = self._cache[key]
+        for entry in self.ask(prompts):
             well_formed, choice = parse_answer(entry["answer"])
             decisions.append(Decision(choice, well_formed, entry["answer"], entry["seconds"]))
         return decisions
@@ -240,6 +250,9 @@ class LocalLLMPolicy(CachedLLM):
     constraint a server applies with structured outputs; ``"none"`` decodes freely for at most
     16 new tokens. ``adapter`` is a LoRA adapter merged into the base model at load time.
     The model is loaded on first use, so replaying a cached run never needs it.
+
+    ``grammar`` (a ``grammar.Dfa``) replaces the decision format as the constraint and
+    ``max_new_tokens`` the length limit; the translator uses both for its answer lines.
     """
 
     MAX_NEW_TOKENS = 18  # the longest answer is 15 characters plus the end token
@@ -254,9 +267,13 @@ class LocalLLMPolicy(CachedLLM):
         template_kwargs: dict | None = None,
         cache: Path | None = None,
         max_batch: int = 64,
+        shots: list[dict] | None = None,
+        grammar: Any = None,
+        max_new_tokens: int | None = None,
     ) -> None:
-        super().__init__(name, cache)
+        super().__init__(name, cache, shots)
         self.model_id = model or os.environ.get("LLM_NAME", "")
+        self.grammar, self.max_new_tokens = grammar, max_new_tokens
         self.adapter, self.structured = adapter, structured
         self.template_kwargs, self.max_batch = dict(template_kwargs or {}), max_batch
         self._model = None
@@ -264,7 +281,7 @@ class LocalLLMPolicy(CachedLLM):
     def describe(self) -> dict:
         return {"name": self.name, "backend": "transformers", "model": self.model_id, "adapter": self.adapter,
                 "structured": self.structured, "template_kwargs": self.template_kwargs,
-                "cache": self.cache_path.name}  # fmt: skip
+                "shots": len(self.shots) // 2, "cache": self.cache_path.name}  # fmt: skip
 
     def _load(self) -> None:
         import torch
@@ -309,7 +326,12 @@ class LocalLLMPolicy(CachedLLM):
             self._last_only = False
         if self.structured == "regex":
             strings = tokenizer.batch_decode([[i] for i in range(len(tokenizer))], skip_special_tokens=False)
-            self._automaton = TokenAutomaton(strings, self._eos)
+            if self.grammar is None:
+                self._automaton = TokenAutomaton(strings, self._eos)
+            else:
+                from grammar import TokenAutomaton as GrammarAutomaton
+
+                self._automaton = GrammarAutomaton(self.grammar, strings, self._eos)
             self._allowed = {
                 state: torch.tensor(self._automaton.allowed(state), device=model.device)
                 for state in self._automaton.next
@@ -340,7 +362,7 @@ class LocalLLMPolicy(CachedLLM):
         constrained = self.structured == "regex"
         with torch.no_grad():
             logits, past = self._forward(input_ids=batch["input_ids"], attention_mask=mask)
-            for _ in range(self.MAX_NEW_TOKENS if constrained else 16):
+            for _ in range(self.max_new_tokens or (self.MAX_NEW_TOKENS if constrained else 16)):
                 if constrained:
                     bias = torch.full_like(logits, float("-inf"))
                     for row in range(rows):
@@ -379,7 +401,7 @@ class LocalLLMPolicy(CachedLLM):
 
 
 def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Policy:
-    """``first_fit``, ``teacher``, ``oracle``, ``mlp``, or any other name for a language-model run.
+    """``first_fit``, ``teacher``, ``oracle``, ``mlp``, ``translate_*``, or any other name for a language-model run.
 
     For a language model, ``backend`` is ``endpoint`` (an OpenAI-compatible server) or
     ``transformers`` (the model loaded in this process).
@@ -390,6 +412,10 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         return Oracle()
     if name == "mlp":
         return MLPPolicy()
+    if name.startswith("translate_"):
+        from translate import make_translator_policy
+
+        return make_translator_policy(name, **llm_options)
     if backend == "transformers":
         return LocalLLMPolicy(name, **llm_options)
     return LLMPolicy(name, **llm_options)
