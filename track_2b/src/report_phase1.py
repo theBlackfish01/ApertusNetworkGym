@@ -206,6 +206,30 @@ def closed_tables(results: Path) -> list:
                     "–" if c not in index else f"{100 * index[c][f'{metric}_mean']:.2f} ± {100 * index[c][f'{metric}_std']:.2f}"
                     for c in CONDITIONS])  # fmt: skip
             tables.append((f"Closed loop, {title} — load {load} E", ["Policy", *CONDITIONS.values()], rows))
+        # The two unseen pairs apart, and the pair of two preferences under both readings.
+        rows = []
+        for name, data in found.items():
+            entry = next(
+                (e for e in data["summary"] if e["load"] == load and e["condition"] == "heldout_pairs"), None
+            )
+            if entry is None:
+                continue
+            pairs = entry["by_intent"]
+            cells = [CLOSED[name]] + [
+                pct(pairs[k]["violations"], pairs[k]["requests"]) for k in ("I1+I4", "I2+I3")
+            ]
+            ordered = read(results / "eval" / f"{name}_ordered.json")
+            counts = next(
+                (e["by_intent"]["I2+I3"] for e in (ordered or {}).get("summary", []) if e["load"] == load),
+                None,
+            )
+            cells.append("–" if counts is None else pct(counts["ordered_violations"], counts["requests"]))
+            rows.append(cells)
+        header = ["Policy", "Avoid link + fewest slots", "Two preferences, intersection (SPEC section 3)",
+                  "Two preferences, ordered reading (engine and scoring)"]  # fmt: skip
+        tables.append(
+            (f"Closed loop, the unseen pairs apart: violations, % of decisions — load {load} E", header, rows)
+        )
         # A translator's violations split by whether it had flagged the instruction (pooled over seeds).
         rows = []
         for name, data in found.items():

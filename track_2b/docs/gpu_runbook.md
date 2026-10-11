@@ -104,6 +104,35 @@ adapter nor on the intent rules; re-score them from `results/cache/` on the lapt
 (`evaluate.py closed --policy apertus_zero_shot --backend transformers --seeds 1 --loads 390`).
 Measured on 2026-10-10: 68.5 and 68.8 min per epoch, 100 min for the evaluation.
 
+## Phase 1: translator against decider
+
+```bash
+# laptop, no GPU: test sets, the other topology, every instruction of the closed loop
+uv run python src/corpora.py
+uv run python src/transfer.py --loads 300 600 900 1200
+uv run python src/translate.py texts --workers 3
+bash jobs/phase1_local.sh translate_keyword          # the baseline through the whole pipeline
+
+# GPU: a CPU dry run with a tiny model first (cents), then two A100 jobs
+source ~/hfenv2.sh
+bash jobs/push_bundle.sh "phase 1"
+bash jobs/launch.sh check cpu-upgrade 30m
+ADAPTER_REPO=<user>/...-e2 bash jobs/launch.sh phase1 a100-large 80m          # the decider's adapter
+TRANSLATOR_REPO=<user>/apertus-lightpath-translator bash jobs/launch.sh phase1-ft a100-large 75m
+
+# laptop again: fetch the answer caches, replay the translators, render results/tables/phase1.md
+bash jobs/phase1_local.sh translate_zero translate_few translate_ft
+```
+
+Measured on 2026-10-11: `phase1` needs about 75 minutes (it was given 65 and lost its last step,
+the few-shot decider, which a second launch finished from the caches in 8 minutes); `phase1-ft`
+44 minutes, of which 24 are training. The two jobs are independent and can run side by side.
+
+Fetch single files from the work repo with `huggingface_hub.hf_hub_download(...,
+force_download=True)`. `hf download --include` with several patterns left one cache out and kept
+a stale copy of another; a translator replay then stops with "No module named 'torch'", which
+means an answer is missing from the cache and the model would have to be loaded.
+
 ## Alternative: a rented machine with vLLM
 
 ```bash

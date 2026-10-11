@@ -9,6 +9,7 @@ set -e
 cd "$(dirname "$0")"
 
 python src/report_tables.py
+python src/report_phase1.py > /dev/null && echo && echo "Translator against decider (phase 1): results/tables/phase1.md"
 
 echo
 if [ -n "$LLM_BASE_URL" ]; then

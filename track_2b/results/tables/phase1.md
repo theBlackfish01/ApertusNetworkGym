@@ -109,6 +109,17 @@ Rendered by `src/report_phase1.py` from `results/translate/`, `results/offline/`
 | Decider: Apertus fine-tuned | 5.00 ± 0.66 | 2.18 ± 0.64 | 1.30 ± 0.15 | 2.27 ± 0.86 | 2.53 ± 0.55 | 3.43 ± 0.51 |
 | Rule engine given the true instruction (oracle) | 4.78 ± 0.90 | 1.78 ± 0.66 | 1.38 ± 0.18 | 2.28 ± 0.84 | 2.52 ± 0.54 | 10.32 ± 0.20 |
 
+## Closed loop, the unseen pairs apart: violations, % of decisions — load 240 E
+
+| Policy | Avoid link + fewest slots | Two preferences, intersection (SPEC section 3) | Two preferences, ordered reading (engine and scoring) |
+|---|---|---|---|
+| Translator: keyword parser | 0.0 | 0.0 | 0.0 |
+| Translator: Apertus as is | 1.4 | 21.6 | 17.8 |
+| Translator: Apertus, 7 examples | 0.0 | 9.5 | 6.7 |
+| Translator: Apertus fine-tuned | 0.0 | 6.1 | 4.3 |
+| Decider: Apertus fine-tuned | 3.7 | 25.0 | – |
+| Rule engine given the true instruction (oracle) | 0.0 | 0.0 | – |
+
 ## Closed loop, a translator's violations: instruction applied with a wrong meaning (silent) / instruction flagged and not applied (visible), % of decisions — load 240 E
 
 | Policy | Avoid link | Fewest hops | Least loaded | Fewest slots | Unseen wording | Unseen pairs |
@@ -139,6 +150,17 @@ Rendered by `src/report_phase1.py` from `results/translate/`, `results/offline/`
 | Translator: Apertus fine-tuned | 9.95 ± 0.75 | 7.05 ± 0.79 | 6.30 ± 0.80 | 7.53 ± 0.73 | 7.73 ± 0.58 | 12.22 ± 1.01 |
 | Decider: Apertus fine-tuned | 10.23 ± 0.85 | 7.40 ± 0.78 | 6.25 ± 1.13 | 7.52 ± 0.78 | 7.67 ± 0.83 | 8.72 ± 1.10 |
 | Rule engine given the true instruction (oracle) | 9.95 ± 0.75 | 7.05 ± 0.79 | 6.30 ± 0.80 | 7.53 ± 0.73 | 7.73 ± 0.58 | 13.45 ± 0.56 |
+
+## Closed loop, the unseen pairs apart: violations, % of decisions — load 390 E
+
+| Policy | Avoid link + fewest slots | Two preferences, intersection (SPEC section 3) | Two preferences, ordered reading (engine and scoring) |
+|---|---|---|---|
+| Translator: keyword parser | 0.0 | 0.0 | 0.0 |
+| Translator: Apertus as is | 1.8 | 18.9 | 15.9 |
+| Translator: Apertus, 7 examples | 0.0 | 8.2 | 6.9 |
+| Translator: Apertus fine-tuned | 0.0 | 5.5 | 3.3 |
+| Decider: Apertus fine-tuned | 3.7 | 22.0 | – |
+| Rule engine given the true instruction (oracle) | 0.0 | 0.0 | – |
 
 ## Closed loop, a translator's violations: instruction applied with a wrong meaning (silent) / instruction flagged and not applied (visible), % of decisions — load 390 E
 
