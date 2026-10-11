@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate_keyword",
+      "rule": "intersection",
+      "translator": {
+        "name": "translate_keyword",
+        "topology": "nobel-eu"
+      }
+    },
+    "command": "src/evaluate.py offline --policy translate_keyword",
+    "finished_utc": "2026-10-11T18:14:10.533709+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 134,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 129,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 115,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 123,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1000,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 152,
+        "exact_match": 0.9078947368421053,
+        "admissible": 0.9276315789473685,
+        "admissible_ordered": 0.9276315789473685,
+        "flagged": 0.3026315789473684,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 149,
+        "exact_match": 0.5704697986577181,
+        "admissible": 0.5704697986577181,
+        "admissible_ordered": 0.5704697986577181,
+        "flagged": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 160,
+        "exact_match": 0.5625,
+        "admissible": 0.95625,
+        "admissible_ordered": 0.95625,
+        "flagged": 1.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.7533333333333333,
+        "admissible": 0.8633333333333333,
+        "admissible_ordered": 0.8633333333333333,
+        "flagged": 0.5916666666666667,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 0.8598726114649682,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 0.9266666666666666,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

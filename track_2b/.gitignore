@@ -32,3 +32,5 @@ data/full/
 # Training outputs (adapter and merged model go to the Hub)
 runs/
 data/pass1/
+data/probes/
+data/translate/

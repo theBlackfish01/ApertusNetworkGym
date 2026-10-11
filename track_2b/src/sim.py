@@ -43,14 +43,20 @@ def build_env(
     seed: int,
     episode_length: int,
     env_class: type[OpticalEnv] = ProvisioningEnv,
+    topology: str | None = None,
     **env_kwargs,
 ) -> OpticalEnv:
     """The ``jocn_benchmark`` preset at ``load`` (Erlang) and ``seed``, built like ONG's ``make_env``.
 
     ``env_class`` lets the data generator pass its own subclass (which should derive from
     :class:`ProvisioningEnv` to keep the memory fix); ``env_kwargs`` go to its constructor.
+    ``topology`` replaces the preset's nobel-eu by another topology shipped with ONG; everything
+    else of the preset is kept (used only for the unseen-topology probe of ``transfer.py``).
     """
-    config = build_scenario(SCENARIO, load=float(load), seed=int(seed), episode_length=int(episode_length))
+    other = {"topology_id": topology} if topology else {}
+    config = build_scenario(
+        SCENARIO, load=float(load), seed=int(seed), episode_length=int(episode_length), **other
+    )
     if config.topology_dir is not None:
         set_topology_dir(config.topology_dir)
     topology = TopologyModel.from_file(

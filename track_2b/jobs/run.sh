@@ -6,6 +6,10 @@
 #   smoke   a few training steps and a short closed loop with the real model: measures throughput
 #   train   full fine-tuning; resumes from the Hub if an earlier job left a checkpoint
 #   eval    closed-loop and offline evaluation of the fine-tuned and the zero-shot model
+#   phase1  translate versus decide: the translator (as is, with examples, fine-tuned) on the test
+#           instructions; the fine-tuned decider on the probe sets; the few-shot decider
+#   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
+#           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
 # Nothing a job computes is kept only in the job. Training pushes a checkpoint (adapter, optimizer,
 # scheduler) every 100 optimizer steps and the adapter at every epoch; evaluation appends every
@@ -16,9 +20,10 @@
 # Environment: WORK_REPO (dataset repo holding this bundle; results are copied back to it),
 # ADAPTER_REPO (model repo for the adapter), HF_TOKEN (secret); optional MODEL, TRAIN_ARGS,
 # EVAL_ARGS (fine-tuned closed loop), ZS_ARGS (zero-shot closed loop), SKIP_ZERO_SHOT (any value:
-# the eval stage evaluates the fine-tuned model only).
+# the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
+# the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | smoke | train | eval}
+STAGE=${1:?stage: check | smoke | train | eval | phase1 | phase1-closed}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -56,6 +61,10 @@ uv pip install --python /opt/venv/bin/python -q "torch>=2.4" "transformers~=5.19
 $PY -c "import torch; print('torch', torch.__version__, '| cuda', torch.cuda.is_available(), '|', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu', '| threads', torch.get_num_threads())"
 WORKERS=$((CPUS > 3 ? CPUS - 2 : 1))
 SYNC="--sync-repo $WORK_REPO --sync-every 120"
+# Phase 1: instruction files (data/instructions) and probe sets (data/probes), built by corpora.py.
+I=data/instructions
+TESTS="$I/templates.jsonl,$I/independent.jsonl,$I/de.jsonl,$I/fr.jsonl,$I/it.jsonl,$I/gsw.jsonl,$I/noisy.jsonl,$I/faulty.jsonl,$I/out_of_scope.jsonl"
+PROBES="independent de fr it gsw noisy faulty out_of_scope germany50"
 
 # Copy files or folders (paths relative to the repo root) back to the work repo.
 keep() {
@@ -114,6 +123,22 @@ check)
     $PY src/evaluate.py closed --policy check_local --backend transformers --model $TINY \
         --adapter runs/check/adapter --conditions I0 I1 --loads 390 --seeds 1 --warmup 50 --window 10 \
         --sim-workers 2 $SYNC
+    stamp "phase 1 plumbing: translator (grammar, examples, shared model), probes, few-shot decider"
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs \
+        "translate_check_few:nobel-eu:regex:$I/out_of_scope.jsonl" \
+        "translate_check_zero:germany50:regex:$I/out_of_scope.jsonl" \
+        "translate_check_few_free:nobel-eu:none:$I/out_of_scope.jsonl"
+    $PY src/train.py --model $TINY --data-dir data/translate --out runs/check-translator --no-4bit \
+        --limit-train 16 --limit-heldout 4 --max-steps 2 --save-steps 0 --batch 4 --accumulation 1 \
+        --eval-records 4 --max-length 1024 --max-new-tokens 48
+    $PY src/translate.py batch --model $TINY --adapter runs/check-translator/adapter --batch 8 --jobs \
+        "translate_check_ft:nobel-eu:regex:$I/out_of_scope.jsonl"
+    $PY src/evaluate.py offline --policy check_probes --backend transformers --model $TINY \
+        --adapter runs/check/adapter --data data/probes --splits faulty germany50 --limit 8
+    $PY src/evaluate.py offline --policy check_fewshot --backend transformers --model $TINY \
+        --shots data/fewshot/decider.jsonl --limit 4 --batch-envs 4
+    $PY src/evaluate.py offline --policy translate_check_few --model $TINY --data data/probes \
+        --splits out_of_scope --limit 8
     $PY -c "from huggingface_hub import HfApi; HfApi().delete_repo('$CHECK_REPO', missing_ok=True)"
     ;;
 smoke)
@@ -188,6 +213,53 @@ print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_pattern
     # shellcheck disable=SC2086
     $PY src/evaluate.py closed --policy apertus_zero_shot --backend transformers --model "$MODEL" \
         --sim-workers "$WORKERS" $SYNC ${ZS_ARGS:-}
+    ;;
+phase1)
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}" "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+    # One process per model state, so the weights are loaded five times in all. Short steps first.
+    stamp "translator as is: the test instructions, with and without examples in the prompt"
+    $PY src/translate.py batch --model "$MODEL" --batch 96 --sync-repo "$WORK_REPO" --jobs \
+        "translate_few:nobel-eu:regex:$TESTS" "translate_zero:nobel-eu:regex:$TESTS" \
+        "translate_few:germany50:regex:$I/germany50.jsonl" "translate_zero:germany50:regex:$I/germany50.jsonl" \
+        "translate_few_free:nobel-eu:none:$TESTS"         "translate_few:nobel-eu:regex:$I/closed_loop.jsonl" "translate_zero:nobel-eu:regex:$I/closed_loop.jsonl"
+    keep results/translate
+    stamp "fine-tuned decider: the probe sets"
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_patterns=['adapter_*', '*.jinja']))"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model "$MODEL" \
+        --adapter runs/adapter --data data/probes --splits $PROBES --batch-envs 64 $SYNC
+    stamp "few-shot decider: the held-out splits"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py offline --policy apertus_fewshot --backend transformers --model "$MODEL" \
+        --shots data/fewshot/decider.jsonl --batch-envs 16 $SYNC
+    stamp "fine-tune the translator (resumes from $TRANSLATOR_REPO if a checkpoint is there)"
+    # shellcheck disable=SC2086
+    $PY src/train.py --model "$MODEL" --data-dir data/translate --out runs/translator \
+        --hub-adapter "$TRANSLATOR_REPO" --resume --save-steps 50 --max-length 640 --max-new-tokens 48 \
+        --eval-records 100 ${TRAIN_ARGS:-}
+    keep runs/translator/training_log.json runs/translator/heldout_predictions.jsonl
+    stamp "fine-tuned translator: the test instructions"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator/adapter --batch 96 \
+        --sync-repo "$WORK_REPO" --jobs "translate_ft:nobel-eu:regex:$TESTS" \
+        "translate_ft:germany50:regex:$I/germany50.jsonl" "translate_ft_free:nobel-eu:none:$TESTS"         "translate_ft:nobel-eu:regex:$I/closed_loop.jsonl"
+    ;;
+phase1-closed)
+    : "${CLOSED_POLICIES:?set CLOSED_POLICIES, e.g. \"translate_few translate_ft\"}"
+    for policy in $CLOSED_POLICIES; do
+        adapter=()
+        if [[ "$policy" == *_ft* ]]; then
+            : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+            $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator/adapter', allow_patterns=['adapter_*', '*.jinja']))"
+            adapter=(--adapter runs/translator/adapter)
+        fi
+        stamp "$policy: every instruction of the closed-loop protocol"
+        $PY src/translate.py batch --model "$MODEL" "${adapter[@]}" --batch 96 --sync-repo "$WORK_REPO" \
+            --jobs "$policy:nobel-eu:regex:$I/closed_loop.jsonl"
+    done
     ;;
 *)
     echo "unknown stage $STAGE" >&2

@@ -21,6 +21,7 @@ protocol will show, ``parse`` asks the model for them next to a GPU, and ``evalu
     uv run python src/translate.py texts                                   # needs the simulator
     uv run python src/translate.py parse --policy translate_few --model <id> --sets data/instructions/*.jsonl
     uv run python src/translate.py score --policy translate_few --sets data/instructions/*.jsonl
+    uv run python src/translate.py batch --model <id> --jobs translate_few:nobel-eu:regex:data/instructions/de.jsonl ...
 """
 
 from __future__ import annotations
@@ -125,7 +126,7 @@ class KeywordTranslator(Translator):
     """
 
     name = "translate_keyword"
-    _NAME = r"([A-Z][\w.'’]*)"
+    _NAME = r"([A-Z][\w'’]*)"  # no full stop: a name at the end of a sentence must still match a node
     _LINKS = (re.compile(_NAME + r"\s?[-–—]\s?" + _NAME), re.compile(r"between " + _NAME + r" and " + _NAME))
     _KEYWORDS = (
         ("hops", r"\bhops?\b|fewest links"),
@@ -366,6 +367,23 @@ def score(args: argparse.Namespace) -> None:
         upload_results(args.sync_repo, [out])
 
 
+def batch(args: argparse.Namespace) -> None:
+    """Several ``parse`` and ``score`` runs in one process, so the model is loaded once.
+
+    A job is ``policy:topology:regex|none:file,file,...``; its scores go to
+    ``results/translate/<policy>.json`` (``<policy>_<topology>.json`` off nobel-eu).
+    """
+    for job in args.jobs:
+        policy, topology, structured, files = job.split(":")
+        name = policy if topology == "nobel-eu" else f"{policy}_{topology}"
+        one = argparse.Namespace(**{**vars(args), "policy": policy, "topology": topology, "structured": structured,
+                                    "sets": [Path(f) for f in files.split(",")],
+                                    "out": ROOT / "results" / "translate" / f"{name}.json"})  # fmt: skip
+        print(f"=== {job}", flush=True)
+        parse(one)
+        score(one)
+
+
 def _llm(args: argparse.Namespace) -> dict:
     return {"model": args.model, "adapter": args.adapter, "structured": args.structured,
             "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch}  # fmt: skip
@@ -375,7 +393,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("mode", choices=["texts", "parse", "score"])
+    parser.add_argument("mode", choices=["texts", "parse", "score", "batch"])
+    parser.add_argument(
+        "--jobs", nargs="+", default=[], help="batch: policy:topology:regex|none:file,file,..."
+    )
     parser.add_argument("--policy", default="translate_keyword")
     parser.add_argument("--sets", type=Path, nargs="+", default=[], help="instruction files (JSON lines)")
     parser.add_argument("--topology", default="nobel-eu")
@@ -394,7 +415,7 @@ def main() -> None:
         args.out = args.out or ROOT / "data" / "instructions" / "closed_loop.jsonl"
         collect_texts(args)
     else:
-        {"parse": parse, "score": score}[args.mode](args)
+        {"parse": parse, "score": score, "batch": batch}[args.mode](args)
 
 
 if __name__ == "__main__":

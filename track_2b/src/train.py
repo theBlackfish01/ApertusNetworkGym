@@ -105,6 +105,7 @@ def parse_args() -> argparse.Namespace:
         "--die-at-step", type=int, default=0, help="test only: fail after this optimizer step"
     )
     parser.add_argument("--predict-batch", type=int, default=32)
+    parser.add_argument("--max-new-tokens", type=int, default=16, help="length limit of the held-out answers")
     parser.add_argument(
         "--init-adapter",
         help="start from this adapter (Hub repo or directory) with a fresh optimizer and schedule: a further epoch",
@@ -422,7 +423,10 @@ def main() -> None:
                 )
                 with torch.no_grad():
                     output = predictor.generate(
-                        **inputs, max_new_tokens=16, do_sample=False, pad_token_id=tokenizer.pad_token_id
+                        **inputs,
+                        max_new_tokens=args.max_new_tokens,
+                        do_sample=False,
+                        pad_token_id=tokenizer.pad_token_id,
                     )
                 answers = tokenizer.batch_decode(
                     output[:, inputs["input_ids"].shape[1] :], skip_special_tokens=True

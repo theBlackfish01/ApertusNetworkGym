@@ -37,6 +37,7 @@ from view import Choice, RequestView
 
 ROOT = Path(__file__).resolve().parents[1]
 HEURISTICS = {"first_fit": "first_fit", "teacher": "jocn_ls_bm_ksp"}  # policy name -> ONG heuristic
+_LOADED: dict[tuple, Any] = {}  # (model, adapter) -> the LocalLLMPolicy that loaded it, to share the weights
 
 
 @dataclass
@@ -287,11 +288,15 @@ class LocalLLMPolicy(CachedLLM):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
-        from decoding import TokenAutomaton
-
         if not self.model_id:
             raise RuntimeError(f"{self.name}: answer not in {self.cache_path.name} and no model was given")
         self._torch = torch
+        first = _LOADED.get((self.model_id, self.adapter))
+        if first is not None:  # several policies of one process (translator variants) share the weights
+            for field in ("_tokenizer", "_model", "_eos", "_head", "_last_only"):
+                setattr(self, field, getattr(first, field))
+            self._constrain(self._tokenizer, self._model)
+            return
         cuda = torch.cuda.is_available()
         tokenizer = AutoTokenizer.from_pretrained(self.model_id)
         tokenizer.padding_side = "left"
@@ -324,6 +329,14 @@ class LocalLLMPolicy(CachedLLM):
             self._last_only = same
         except (AttributeError, RuntimeError, TypeError, ValueError):
             self._last_only = False
+        _LOADED[(self.model_id, self.adapter)] = self
+        self._constrain(tokenizer, model)
+
+    def _constrain(self, tokenizer, model) -> None:
+        """Build the token automaton of this policy's answer format."""
+        from decoding import TokenAutomaton
+
+        torch = self._torch
         if self.structured == "regex":
             strings = tokenizer.batch_decode([[i] for i in range(len(tokenizer))], skip_special_tokens=False)
             if self.grammar is None:
