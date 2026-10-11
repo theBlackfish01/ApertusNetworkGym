@@ -9,6 +9,14 @@ Intent-aware teacher (oracle) & 1.20 $\pm$ 0.44 & 4.78 $\pm$ 0.90 & 1.78 $\pm$ 0
 MLP control & 1.17 $\pm$ 0.40 & 4.70 $\pm$ 0.66 & 1.82 $\pm$ 0.68 & 1.30 $\pm$ 0.45 & 2.15 $\pm$ 0.83 & 2.55 $\pm$ 0.79 & 3.08 $\pm$ 0.58 \\
 Apertus 8B zero-shot & -- & -- & -- & -- & -- & -- & -- \\
 Apertus 8B fine-tuned & 1.32 $\pm$ 0.43 & 5.00 $\pm$ 0.66 & 2.18 $\pm$ 0.64 & 1.30 $\pm$ 0.15 & 2.27 $\pm$ 0.86 & 2.53 $\pm$ 0.55 & 3.43 $\pm$ 0.51 \\
+Translator: keyword parser + rule engine & 1.20 $\pm$ 0.44 & 4.78 $\pm$ 0.90 & 1.78 $\pm$ 0.66 & 1.38 $\pm$ 0.18 & 2.28 $\pm$ 0.84 & 2.22 $\pm$ 0.31 & 10.32 $\pm$ 0.20 \\
+Translator: Apertus as is + rule engine & 1.20 $\pm$ 0.44 & 6.55 $\pm$ 0.56 & 1.78 $\pm$ 0.66 & 1.73 $\pm$ 0.42 & 2.05 $\pm$ 0.59 & 2.62 $\pm$ 0.55 & 7.07 $\pm$ 0.86 \\
+Translator: Apertus with 7 examples + rule engine & 1.20 $\pm$ 0.44 & 4.75 $\pm$ 0.87 & 1.78 $\pm$ 0.66 & 1.68 $\pm$ 0.65 & 2.28 $\pm$ 0.84 & 2.57 $\pm$ 0.45 & 9.03 $\pm$ 0.29 \\
+Translator: Apertus fine-tuned + rule engine & 1.20 $\pm$ 0.44 & 4.78 $\pm$ 0.90 & 1.78 $\pm$ 0.66 & 1.38 $\pm$ 0.18 & 2.28 $\pm$ 0.84 & 2.52 $\pm$ 0.54 & 8.85 $\pm$ 0.43 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 3.38 $\pm$ 0.71 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 3.27 $\pm$ 0.58 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 3.28 $\pm$ 0.64 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 3.45 $\pm$ 0.90 \\
 \bottomrule
 \end{tabular}
 
@@ -23,6 +31,14 @@ Intent-aware teacher (oracle) & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 
 MLP control & 0.0 $\pm$ 0.0 & 0.4 $\pm$ 0.1 & 2.9 $\pm$ 0.6 & 10.9 $\pm$ 1.0 & 0.2 $\pm$ 0.0 & 3.5 $\pm$ 0.5 & 27.1 $\pm$ 1.1 \\
 Apertus 8B zero-shot & -- & -- & -- & -- & -- & -- & -- \\
 Apertus 8B fine-tuned & 0.0 $\pm$ 0.0 & 3.9 $\pm$ 0.3 & 0.7 $\pm$ 0.1 & 0.5 $\pm$ 0.2 & 0.2 $\pm$ 0.1 & 0.9 $\pm$ 0.0 & 14.2 $\pm$ 0.7 \\
+Translator: keyword parser + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 13.4 $\pm$ 0.7 & 0.0 $\pm$ 0.0 \\
+Translator: Apertus as is + rule engine & 0.0 $\pm$ 0.0 & 2.8 $\pm$ 0.2 & 0.0 $\pm$ 0.0 & 27.3 $\pm$ 2.2 & 0.5 $\pm$ 0.1 & 8.1 $\pm$ 1.2 & 11.4 $\pm$ 0.7 \\
+Translator: Apertus with 7 examples + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 13.0 $\pm$ 0.6 & 0.0 $\pm$ 0.0 & 3.8 $\pm$ 0.7 & 4.7 $\pm$ 0.6 \\
+Translator: Apertus fine-tuned + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 3.0 $\pm$ 0.2 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 9.4 $\pm$ 0.9 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 8.2 $\pm$ 0.3 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 7.4 $\pm$ 0.1 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 14.6 $\pm$ 0.4 \\
 \bottomrule
 \end{tabular}
 
@@ -37,6 +53,14 @@ Intent-aware teacher (oracle) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0
 MLP control & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.02 $\pm$ 0.03 & 0.02 $\pm$ 0.03 & 0.33 $\pm$ 0.19 \\
 Apertus 8B zero-shot & -- & -- & -- & -- & -- & -- & -- \\
 Apertus 8B fine-tuned & 0.00 $\pm$ 0.00 & 0.10 $\pm$ 0.00 & 0.20 $\pm$ 0.05 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.05 $\pm$ 0.05 & 0.03 $\pm$ 0.06 \\
+Translator: keyword parser + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus as is + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus with 7 examples + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus fine-tuned + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
 \bottomrule
 \end{tabular}
 
@@ -51,6 +75,14 @@ Intent-aware teacher (oracle) & 5.97 $\pm$ 0.68 & 9.95 $\pm$ 0.75 & 7.05 $\pm$ 0
 MLP control & 5.93 $\pm$ 0.98 & 9.58 $\pm$ 1.09 & 7.20 $\pm$ 0.58 & 6.37 $\pm$ 0.71 & 7.37 $\pm$ 0.78 & 7.52 $\pm$ 0.68 & 8.30 $\pm$ 0.85 \\
 Apertus 8B zero-shot & 9.20 & 14.60 & 8.50 & 9.05 & 8.95 & 9.05 & 9.25 \\
 Apertus 8B fine-tuned & 6.42 $\pm$ 0.83 & 10.23 $\pm$ 0.85 & 7.40 $\pm$ 0.78 & 6.25 $\pm$ 1.13 & 7.52 $\pm$ 0.78 & 7.67 $\pm$ 0.83 & 8.72 $\pm$ 1.10 \\
+Translator: keyword parser + rule engine & 5.97 $\pm$ 0.68 & 9.95 $\pm$ 0.75 & 7.05 $\pm$ 0.79 & 6.30 $\pm$ 0.80 & 7.53 $\pm$ 0.73 & 7.12 $\pm$ 0.80 & 13.45 $\pm$ 0.56 \\
+Translator: Apertus as is + rule engine & 5.97 $\pm$ 0.68 & 10.97 $\pm$ 0.86 & 7.05 $\pm$ 0.79 & 7.07 $\pm$ 0.65 & 7.30 $\pm$ 0.48 & 8.00 $\pm$ 0.78 & 10.72 $\pm$ 0.72 \\
+Translator: Apertus with 7 examples + rule engine & 5.97 $\pm$ 0.68 & 10.03 $\pm$ 0.83 & 7.05 $\pm$ 0.79 & 6.68 $\pm$ 0.63 & 7.53 $\pm$ 0.73 & 7.72 $\pm$ 0.48 & 12.45 $\pm$ 0.30 \\
+Translator: Apertus fine-tuned + rule engine & 5.97 $\pm$ 0.68 & 9.95 $\pm$ 0.75 & 7.05 $\pm$ 0.79 & 6.30 $\pm$ 0.80 & 7.53 $\pm$ 0.73 & 7.73 $\pm$ 0.58 & 12.22 $\pm$ 1.01 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 8.37 $\pm$ 1.10 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 8.42 $\pm$ 1.42 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 8.48 $\pm$ 0.95 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 8.47 $\pm$ 0.97 \\
 \bottomrule
 \end{tabular}
 
@@ -65,6 +97,14 @@ Intent-aware teacher (oracle) & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 
 MLP control & 0.0 $\pm$ 0.0 & 0.8 $\pm$ 0.2 & 2.7 $\pm$ 0.5 & 11.4 $\pm$ 1.0 & 0.1 $\pm$ 0.1 & 3.2 $\pm$ 0.4 & 24.9 $\pm$ 1.6 \\
 Apertus 8B zero-shot & 0.1 & 28.1 & 10.2 & 42.1 & 0.1 & 19.2 & 32.6 \\
 Apertus 8B fine-tuned & 0.0 $\pm$ 0.0 & 3.3 $\pm$ 0.2 & 0.6 $\pm$ 0.2 & 0.7 $\pm$ 0.1 & 0.1 $\pm$ 0.0 & 1.0 $\pm$ 0.1 & 12.9 $\pm$ 0.7 \\
+Translator: keyword parser + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 11.3 $\pm$ 0.5 & 0.0 $\pm$ 0.0 \\
+Translator: Apertus as is + rule engine & 0.0 $\pm$ 0.0 & 2.2 $\pm$ 0.3 & 0.0 $\pm$ 0.0 & 22.5 $\pm$ 1.5 & 0.4 $\pm$ 0.1 & 7.2 $\pm$ 1.0 & 10.4 $\pm$ 0.4 \\
+Translator: Apertus with 7 examples + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 10.6 $\pm$ 1.6 & 0.0 $\pm$ 0.0 & 3.5 $\pm$ 0.4 & 4.2 $\pm$ 0.8 \\
+Translator: Apertus fine-tuned + rule engine & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 2.8 $\pm$ 0.4 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 8.5 $\pm$ 0.2 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 6.3 $\pm$ 0.5 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 5.9 $\pm$ 0.2 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 12.2 $\pm$ 0.5 \\
 \bottomrule
 \end{tabular}
 
@@ -79,6 +119,14 @@ Intent-aware teacher (oracle) & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0
 MLP control & 0.00 $\pm$ 0.00 & 0.03 $\pm$ 0.03 & 0.03 $\pm$ 0.06 & 0.02 $\pm$ 0.03 & 0.10 $\pm$ 0.09 & 0.02 $\pm$ 0.03 & 0.70 $\pm$ 0.54 \\
 Apertus 8B zero-shot & 94.05 & 87.95 & 96.50 & 98.25 & 97.85 & 96.65 & 96.95 \\
 Apertus 8B fine-tuned & 0.00 $\pm$ 0.00 & 0.12 $\pm$ 0.03 & 0.52 $\pm$ 0.13 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.10 $\pm$ 0.09 & 0.07 $\pm$ 0.06 \\
+Translator: keyword parser + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus as is + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus with 7 examples + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+Translator: Apertus fine-tuned + rule engine & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 & 0.00 $\pm$ 0.00 \\
+translate\_few\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_ft\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
+translate\_zero\_ordered & -- & -- & -- & -- & -- & -- & 0.00 $\pm$ 0.00 \\
 \bottomrule
 \end{tabular}
 
@@ -93,6 +141,14 @@ Intent-aware teacher (oracle) & 0.0 & 0.0 & 0.0 & 0.0 \\
 MLP control & 5.1 & 49.6 & 6.5 & 43.1 \\
 Apertus 8B zero-shot & -- & -- & 23.4 & 42.3 \\
 Apertus 8B fine-tuned & 3.7 & 25.0 & 3.7 & 22.0 \\
+Translator: keyword parser + rule engine & 0.0 & 0.0 & 0.0 & 0.0 \\
+Translator: Apertus as is + rule engine & 1.4 & 21.6 & 1.8 & 18.9 \\
+Translator: Apertus with 7 examples + rule engine & 0.0 & 9.5 & 0.0 & 8.2 \\
+Translator: Apertus fine-tuned + rule engine & 0.0 & 6.1 & 0.0 & 5.5 \\
+translate\_few\_ordered & 0.0 & 19.0 & 0.0 & 16.9 \\
+translate\_ft\_ordered & 0.0 & 16.5 & 0.0 & 12.4 \\
+translate\_keyword\_ordered & 0.0 & 14.9 & 0.0 & 11.8 \\
+translate\_zero\_ordered & 1.7 & 27.8 & 1.7 & 22.4 \\
 \bottomrule
 \end{tabular}
 
@@ -107,6 +163,14 @@ Intent-aware teacher (oracle) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
 MLP control & 0.1 & 0.2 & 0.1 & 0.1 & 0.1 & 0.1 \\
 Apertus 8B zero-shot & -- & 6.0 & -- & 0.5 & -- & 0.2 \\
 Apertus 8B fine-tuned & 1.2 & 1.2 & 0.3 & 0.4 & 0.7 & 0.6 \\
+Translator: keyword parser + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+Translator: Apertus as is + rule engine & 2.2 & 1.4 & 0.1 & 0.1 & 0.6 & 0.5 \\
+Translator: Apertus with 7 examples + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 0.1 & 0.1 \\
+Translator: Apertus fine-tuned + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 0.3 & 0.3 \\
+translate\_few\_ordered & -- & -- & -- & -- & 0.0 & 0.0 \\
+translate\_ft\_ordered & -- & -- & -- & -- & 0.0 & 0.0 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & 0.0 & 0.0 \\
+translate\_zero\_ordered & -- & -- & -- & -- & 0.0 & 0.0 \\
 \bottomrule
 \end{tabular}
 
@@ -121,6 +185,14 @@ Intent-aware teacher (oracle) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
 MLP control & 0.1 & 0.2 & 0.0 & 0.0 & 8.9 & 6.5 \\
 Apertus 8B zero-shot & -- & 3.7 & -- & 0.8 & -- & 8.2 \\
 Apertus 8B fine-tuned & 0.8 & 0.7 & 0.1 & 0.2 & 8.1 & 6.6 \\
+Translator: keyword parser + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+Translator: Apertus as is + rule engine & 0.0 & 0.1 & 0.0 & 0.0 & 4.8 & 4.1 \\
+Translator: Apertus with 7 examples + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 2.1 & 1.8 \\
+Translator: Apertus fine-tuned + rule engine & 0.0 & 0.0 & 0.0 & 0.0 & 2.0 & 1.8 \\
+translate\_few\_ordered & -- & -- & -- & -- & 7.2 & 6.1 \\
+translate\_ft\_ordered & -- & -- & -- & -- & 7.6 & 5.7 \\
+translate\_keyword\_ordered & -- & -- & -- & -- & 7.4 & 5.9 \\
+translate\_zero\_ordered & -- & -- & -- & -- & 8.2 & 6.3 \\
 \bottomrule
 \end{tabular}
 
@@ -135,5 +207,13 @@ Intent-aware teacher (oracle) & 0.03 & 0.0 & 1, 2, 3 \\
 MLP control & 0.07 & 20.8 & 1, 2, 3 \\
 Apertus 8B zero-shot & 690.10 & 59.6 & 1 \\
 Apertus 8B fine-tuned & 2693.54 & 10.3 & 1, 2, 3 \\
+Translator: keyword parser + rule engine & 0.02 & 8.2 & 1, 2, 3 \\
+Translator: Apertus as is + rule engine & 0.03 & 20.0 & 1, 2, 3 \\
+Translator: Apertus with 7 examples + rule engine & 0.03 & 8.7 & 1, 2, 3 \\
+Translator: Apertus fine-tuned + rule engine & 0.04 & 1.6 & 1, 2, 3 \\
+translate\_few\_ordered & 0.05 & 21.7 & 1, 2, 3 \\
+translate\_ft\_ordered & 0.07 & 19.0 & 1, 2, 3 \\
+translate\_keyword\_ordered & 0.02 & 17.9 & 1, 2, 3 \\
+translate\_zero\_ordered & 0.02 & 30.2 & 1, 2, 3 \\
 \bottomrule
 \end{tabular}

@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate_few",
+      "rule": "intersection",
+      "translator": {
+        "name": "translate_few",
+        "topology": "germany50",
+        "few_shot": true,
+        "llm": {
+          "name": "translate_few",
+          "backend": "transformers",
+          "model": "",
+          "adapter": null,
+          "structured": "regex",
+          "template_kwargs": {},
+          "shots": 0,
+          "cache": "translate_few.jsonl"
+        }
+      }
+    },
+    "command": "src/evaluate.py offline --policy translate_few --topology germany50 --data data/probes --splits germany50 --out results/offline/translate_few_probes_germany50.json",
+    "finished_utc": "2026-10-11T19:41:13.347513+00:00"
+  },
+  "splits": {
+    "germany50": {
+      "I0": {
+        "n": 122,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 149,
+        "exact_match": 0.9932885906040269,
+        "admissible": 0.9932885906040269,
+        "admissible_ordered": 0.9932885906040269,
+        "flagged": 0.006711409395973154,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 38,
+        "exact_match": 0.9473684210526315,
+        "admissible": 0.9736842105263158,
+        "admissible_ordered": 0.9736842105263158,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 33,
+        "exact_match": 0.8787878787878788,
+        "admissible": 0.8787878787878788,
+        "admissible_ordered": 0.8787878787878788,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 201,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.004975124378109453,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 167,
+        "exact_match": 0.9760479041916168,
+        "admissible": 0.9820359281437125,
+        "admissible_ordered": 0.9820359281437125,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 199,
+        "exact_match": 0.9246231155778895,
+        "admissible": 0.9246231155778895,
+        "admissible_ordered": 0.7889447236180904,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 146,
+        "exact_match": 0.8767123287671232,
+        "admissible": 0.8767123287671232,
+        "admissible_ordered": 0.8767123287671232,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 145,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1200,
+        "exact_match": 0.9633333333333334,
+        "admissible": 0.965,
+        "admissible_ordered": 0.9425,
+        "flagged": 0.0016666666666666668,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

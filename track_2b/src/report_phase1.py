@@ -110,6 +110,20 @@ def probe_tables(results: Path) -> list:
         splits = {split: scores for data in files if data for split, scores in data["splits"].items()}
         if splits:
             found[name] = splits
+            # The same requests with the dataset's own wording: the held-out splits without the
+            # requests that carry no instruction (the probe sets have none of those either).
+            base = read(results / "offline" / f"{name.removesuffix('_probes')}.json")
+            pooled = {"n": 0, "admissible": 0.0, "admissible_ordered": 0.0}
+            for split in TEMPLATE_SETS if base else ():
+                for key, scores in base["splits"].get(split, {}).items():
+                    if key not in ("all", "I0"):
+                        pooled["n"] += scores["n"]
+                        for field in ("admissible", "admissible_ordered"):
+                            pooled[field] += scores["n"] * scores.get(field, float("nan"))
+            if pooled["n"]:
+                splits["templates"] = {
+                    "all": {f: pooled[f] / pooled["n"] for f in ("admissible", "admissible_ordered")}
+                }
     if not found:
         return []
     tables = []
@@ -119,9 +133,11 @@ def probe_tables(results: Path) -> list:
     )
     ordered_rule = "The same under the ordered reading of two preferences, %"
     for field, title in (("admissible", spec_rule), ("admissible_ordered", ordered_rule)):
-        rows = [[DECIDERS[name]] + [pct(s[p]["all"][field], 1) if p in s else "–" for p in PROBES]
+        columns = ("templates", *PROBES)
+        rows = [[DECIDERS[name]] + [pct(s[p]["all"][field], 1) if p in s and s[p]["all"][field] == s[p]["all"][field]
+                                    else "–" for p in columns]
                 for name, s in found.items()]  # fmt: skip
-        tables.append((title, ["Policy", *(SETS[p] for p in PROBES)], rows))
+        tables.append((title, ["Policy", *(SETS[p] for p in columns)], rows))
     rows = []
     for name, splits in found.items():
         cells = [DECIDERS[name]]
@@ -140,6 +156,40 @@ def probe_tables(results: Path) -> list:
     return tables
 
 
+def decider_table(results: Path) -> list:
+    """Does the decider need fine-tuning? The same model with no, seven and 12,000 solved requests."""
+    names = {"apertus_zero_shot": "Apertus as is", "apertus_fewshot": "Apertus, 7 solved requests in the prompt",
+             "apertus_ft": "Apertus fine-tuned on 12,000 requests"}  # fmt: skip
+    labels = {
+        "heldout_indist": "New traffic",
+        "heldout_paraphrase": "Unseen wording",
+        "heldout_pairs": "Unseen pairs",
+    }
+    rows = []
+    for name, label in names.items():
+        data = read(results / "offline" / f"{name}.json")
+        if data:
+            cells = [label]
+            for split in labels:
+                entry = data["splits"].get(split, {}).get("all")
+                cells += (
+                    ["–", "–"] if entry is None else [pct(entry["admissible"], 1), pct(entry["invalid"], 1)]
+                )
+            rows.append(cells)
+    if len(rows) < 2:
+        return []
+    header = ["Decider"] + [
+        f"{label}: {kind}" for label in labels.values() for kind in ("admissible %", "invalid %")
+    ]
+    return [
+        (
+            "The decider with and without fine-tuning: decisions on the held-out splits (answer format enforced)",
+            header,
+            rows,
+        )
+    ]
+
+
 def closed_tables(results: Path) -> list:
     found = {name: read(results / "eval" / f"{name}.json") for name in CLOSED}
     found = {name: data for name, data in found.items() if data}
@@ -156,6 +206,24 @@ def closed_tables(results: Path) -> list:
                     "–" if c not in index else f"{100 * index[c][f'{metric}_mean']:.2f} ± {100 * index[c][f'{metric}_std']:.2f}"
                     for c in CONDITIONS])  # fmt: skip
             tables.append((f"Closed loop, {title} — load {load} E", ["Policy", *CONDITIONS.values()], rows))
+        # A translator's violations split by whether it had flagged the instruction (pooled over seeds).
+        rows = []
+        for name, data in found.items():
+            if not name.startswith("translate_"):
+                continue
+            cells = [CLOSED[name]]
+            for condition in CONDITIONS:
+                episodes = [e for e in data["episodes"] if e["load"] == load and e["condition"] == condition]
+                window = sum(e["window"] for e in episodes)
+                silent = sum(e["silent_violations"] for e in episodes)
+                flagged = sum(e["violations"] - e["silent_violations"] for e in episodes)
+                cells.append(f"{pct(silent, window, 2)} / {pct(flagged, window, 2)}" if window else "–")
+            rows.append(cells)
+        title = (
+            f"Closed loop, a translator's violations: instruction applied with a wrong meaning (silent) / "
+            f"instruction flagged and not applied (visible), % of decisions — load {load} E"
+        )
+        tables.append((title, ["Policy", *CONDITIONS.values()], rows))
     return tables
 
 
@@ -165,7 +233,12 @@ def main() -> None:
     )
     parser.add_argument("--results", type=Path, default=ROOT / "results")
     args = parser.parse_args()
-    tables = translation_tables(args.results) + probe_tables(args.results) + closed_tables(args.results)
+    tables = (
+        translation_tables(args.results)
+        + probe_tables(args.results)
+        + decider_table(args.results)
+        + closed_tables(args.results)
+    )
     note = (
         "Rendered by `src/report_phase1.py` from `results/translate/`, `results/offline/` and `results/eval/`; "
         "do not edit by hand. A translator turns the instruction into constraints and preferences once and the "

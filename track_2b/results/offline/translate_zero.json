@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate_zero",
+      "rule": "intersection",
+      "translator": {
+        "name": "translate_zero",
+        "topology": "nobel-eu",
+        "few_shot": false,
+        "llm": {
+          "name": "translate_zero",
+          "backend": "transformers",
+          "model": "",
+          "adapter": null,
+          "structured": "regex",
+          "template_kwargs": {},
+          "shots": 0,
+          "cache": "translate_zero.jsonl"
+        }
+      }
+    },
+    "command": "src/evaluate.py offline --policy translate_zero",
+    "finished_utc": "2026-10-11T19:53:03.346097+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 134,
+        "exact_match": 0.9701492537313433,
+        "admissible": 0.9776119402985075,
+        "admissible_ordered": 0.9776119402985075,
+        "flagged": 0.022388059701492536,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.975609756097561,
+        "admissible": 0.9878048780487805,
+        "admissible_ordered": 0.9878048780487805,
+        "flagged": 0.036585365853658534,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.825,
+        "admissible": 0.825,
+        "admissible_ordered": 0.825,
+        "flagged": 0.0125,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 129,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 115,
+        "exact_match": 0.7304347826086957,
+        "admissible": 0.7304347826086957,
+        "admissible_ordered": 0.7304347826086957,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 123,
+        "exact_match": 0.9105691056910569,
+        "admissible": 0.991869918699187,
+        "admissible_ordered": 0.991869918699187,
+        "flagged": 0.13821138211382114,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1000,
+        "exact_match": 0.938,
+        "admissible": 0.95,
+        "admissible_ordered": 0.95,
+        "flagged": 0.024,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact_match": 0.9856115107913669,
+        "admissible": 0.9928057553956835,
+        "admissible_ordered": 0.9928057553956835,
+        "flagged": 0.014388489208633094,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 152,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 149,
+        "exact_match": 0.5771812080536913,
+        "admissible": 0.5771812080536913,
+        "admissible_ordered": 0.5771812080536913,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 160,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.8916666666666667,
+        "admissible": 0.8933333333333333,
+        "admissible_ordered": 0.8933333333333333,
+        "flagged": 0.0033333333333333335,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.9790209790209791,
+        "admissible": 0.9825174825174825,
+        "admissible_ordered": 0.9825174825174825,
+        "flagged": 0.04195804195804196,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.7834394904458599,
+        "admissible": 0.7834394904458599,
+        "admissible_ordered": 0.767515923566879,
+        "flagged": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.8766666666666667,
+        "admissible": 0.8783333333333333,
+        "admissible_ordered": 0.87,
+        "flagged": 0.02,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

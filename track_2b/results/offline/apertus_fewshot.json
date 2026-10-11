@@ -1,0 +1,168 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "apertus_fewshot",
+      "backend": "transformers",
+      "model": "andreasmartin/apertus-v1.5-8b-text",
+      "adapter": null,
+      "structured": "regex",
+      "template_kwargs": {},
+      "shots": 7,
+      "cache": "apertus_fewshot.jsonl"
+    },
+    "command": "src/evaluate.py offline --policy apertus_fewshot --backend transformers --model andreasmartin/apertus-v1.5-8b-text --shots data/fewshot/decider.jsonl --batch-envs 16 --sync-repo blackfish021/apertus-lightpath-work-v2 --sync-every 120",
+    "finished_utc": "2026-10-11T20:06:53.852898+00:00"
+  },
+  "splits": {
+    "heldout_indist": {
+      "I0": {
+        "n": 337,
+        "exact_match": 0.4391691394658754,
+        "admissible": 0.7359050445103857,
+        "admissible_ordered": 0.7359050445103857,
+        "flagged": 0.0,
+        "invalid": 0.09198813056379822,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 134,
+        "exact_match": 0.3805970149253731,
+        "admissible": 0.5373134328358209,
+        "admissible_ordered": 0.5373134328358209,
+        "flagged": 0.0,
+        "invalid": 0.05223880597014925,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.47560975609756095,
+        "admissible": 0.5853658536585366,
+        "admissible_ordered": 0.5853658536585366,
+        "flagged": 0.0,
+        "invalid": 0.0975609756097561,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.5,
+        "admissible": 0.5125,
+        "admissible_ordered": 0.5125,
+        "flagged": 0.0,
+        "invalid": 0.2625,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 129,
+        "exact_match": 0.6511627906976745,
+        "admissible": 0.7596899224806202,
+        "admissible_ordered": 0.7596899224806202,
+        "flagged": 0.0,
+        "invalid": 0.14728682170542637,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 115,
+        "exact_match": 0.6434782608695652,
+        "admissible": 0.6608695652173913,
+        "admissible_ordered": 0.6608695652173913,
+        "flagged": 0.0,
+        "invalid": 0.22608695652173913,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 123,
+        "exact_match": 0.3333333333333333,
+        "admissible": 0.4796747967479675,
+        "admissible_ordered": 0.4796747967479675,
+        "flagged": 0.0,
+        "invalid": 0.4634146341463415,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1000,
+        "exact_match": 0.477,
+        "admissible": 0.642,
+        "admissible_ordered": 0.642,
+        "flagged": 0.0,
+        "invalid": 0.169,
+        "malformed": 0.0
+      }
+    },
+    "heldout_paraphrase": {
+      "I1": {
+        "n": 139,
+        "exact_match": 0.381294964028777,
+        "admissible": 0.5827338129496403,
+        "admissible_ordered": 0.5827338129496403,
+        "flagged": 0.0,
+        "invalid": 0.18705035971223022,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 152,
+        "exact_match": 0.6907894736842105,
+        "admissible": 0.7368421052631579,
+        "admissible_ordered": 0.7368421052631579,
+        "flagged": 0.0,
+        "invalid": 0.21710526315789475,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 149,
+        "exact_match": 0.5369127516778524,
+        "admissible": 0.5637583892617449,
+        "admissible_ordered": 0.5637583892617449,
+        "flagged": 0.0,
+        "invalid": 0.3087248322147651,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 160,
+        "exact_match": 0.4375,
+        "admissible": 0.575,
+        "admissible_ordered": 0.575,
+        "flagged": 0.0,
+        "invalid": 0.39375,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.5133333333333333,
+        "admissible": 0.615,
+        "admissible_ordered": 0.615,
+        "flagged": 0.0,
+        "invalid": 0.28,
+        "malformed": 0.0
+      }
+    },
+    "heldout_pairs": {
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.3951048951048951,
+        "admissible": 0.479020979020979,
+        "admissible_ordered": 0.479020979020979,
+        "flagged": 0.0,
+        "invalid": 0.2972027972027972,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.4585987261146497,
+        "admissible": 0.4968152866242038,
+        "admissible_ordered": 0.5573248407643312,
+        "flagged": 0.0,
+        "invalid": 0.24203821656050956,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.42833333333333334,
+        "admissible": 0.48833333333333334,
+        "admissible_ordered": 0.52,
+        "flagged": 0.0,
+        "invalid": 0.2683333333333333,
+        "malformed": 0.0
+      }
+    }
+  }
+}

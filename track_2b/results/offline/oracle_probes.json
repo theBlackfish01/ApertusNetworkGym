@@ -4,7 +4,7 @@
       "name": "oracle"
     },
     "command": "src/evaluate.py offline --policy oracle --data data/probes --splits independent de fr it gsw noisy faulty out_of_scope germany50 --out results/offline/oracle_probes.json",
-    "finished_utc": "2026-10-11T18:38:03.537128+00:00"
+    "finished_utc": "2026-10-11T20:20:39.366171+00:00"
   },
   "splits": {
     "independent": {

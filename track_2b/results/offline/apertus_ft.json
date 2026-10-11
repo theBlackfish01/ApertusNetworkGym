@@ -3,14 +3,15 @@
     "policy": {
       "name": "apertus_ft",
       "backend": "transformers",
-      "model": "andreasmartin/apertus-v1.5-8b-text",
-      "adapter": "runs/adapter",
+      "model": "",
+      "adapter": null,
       "structured": "regex",
       "template_kwargs": {},
+      "shots": 0,
       "cache": "apertus_ft.jsonl"
     },
-    "command": "src/evaluate.py offline --policy apertus_ft --backend transformers --model andreasmartin/apertus-v1.5-8b-text --adapter runs/adapter --sync-repo blackfish021/apertus-lightpath-work-v2 --sync-every 120",
-    "finished_utc": "2026-10-10T20:18:25.040992+00:00"
+    "command": "src/evaluate.py offline --policy apertus_ft --backend transformers",
+    "finished_utc": "2026-10-11T19:41:41.370651+00:00"
   },
   "splits": {
     "heldout_indist": {
@@ -18,6 +19,8 @@
         "n": 337,
         "exact_match": 0.9851632047477745,
         "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -25,6 +28,8 @@
         "n": 134,
         "exact_match": 0.9402985074626866,
         "admissible": 0.9925373134328358,
+        "admissible_ordered": 0.9925373134328358,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -32,6 +37,8 @@
         "n": 82,
         "exact_match": 0.9390243902439024,
         "admissible": 0.9390243902439024,
+        "admissible_ordered": 0.9390243902439024,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -39,6 +46,8 @@
         "n": 80,
         "exact_match": 0.9375,
         "admissible": 0.9375,
+        "admissible_ordered": 0.9375,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -46,6 +55,8 @@
         "n": 129,
         "exact_match": 1.0,
         "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -53,6 +64,8 @@
         "n": 115,
         "exact_match": 1.0,
         "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -60,6 +73,8 @@
         "n": 123,
         "exact_match": 1.0,
         "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -67,6 +82,8 @@
         "n": 1000,
         "exact_match": 0.977,
         "admissible": 0.989,
+        "admissible_ordered": 0.989,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -76,6 +93,8 @@
         "n": 139,
         "exact_match": 0.8489208633093526,
         "admissible": 0.9784172661870504,
+        "admissible_ordered": 0.9784172661870504,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -83,6 +102,8 @@
         "n": 152,
         "exact_match": 0.9868421052631579,
         "admissible": 0.993421052631579,
+        "admissible_ordered": 0.993421052631579,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -90,6 +111,8 @@
         "n": 149,
         "exact_match": 0.9865771812080537,
         "admissible": 0.9865771812080537,
+        "admissible_ordered": 0.9865771812080537,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -97,6 +120,8 @@
         "n": 160,
         "exact_match": 0.8625,
         "admissible": 0.9875,
+        "admissible_ordered": 0.9875,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -104,6 +129,8 @@
         "n": 600,
         "exact_match": 0.9216666666666666,
         "admissible": 0.9866666666666667,
+        "admissible_ordered": 0.9866666666666667,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -113,6 +140,8 @@
         "n": 286,
         "exact_match": 0.9265734265734266,
         "admissible": 0.972027972027972,
+        "admissible_ordered": 0.972027972027972,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -120,6 +149,8 @@
         "n": 314,
         "exact_match": 0.7547770700636943,
         "admissible": 0.7547770700636943,
+        "admissible_ordered": 0.8598726114649682,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -127,6 +158,8 @@
         "n": 600,
         "exact_match": 0.8366666666666667,
         "admissible": 0.8583333333333333,
+        "admissible_ordered": 0.9133333333333333,
+        "flagged": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
