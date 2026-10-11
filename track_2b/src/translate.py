@@ -59,7 +59,7 @@ Answer with exactly one line, in one of these two forms:
 avoid=<links>; prefer=<preferences>
 unsupported
 
-<links> is "none", or the links the route must not use. Write each link as NodeA-NodeB with the node names exactly as in the node list below, and separate several links with commas. If the instruction names a place that is not in the node list, write "unknown" for that place.
+<links> is "none", or the links the route must not use. Write each link as NodeA-NodeB with the node names exactly as in the node list below, and separate several links with commas. The instruction may name a node in another language or misspell it; write the node of the list it refers to. Write "unknown" only for a place that is none of the nodes.
 <preferences> is "none", or what the instruction asks to optimise, in the order it states them, separated by commas:
 hops = the fewest hops (the fewest links crossed, the most direct route)
 load = the least loaded path (the most free slots or free spectrum on the path)

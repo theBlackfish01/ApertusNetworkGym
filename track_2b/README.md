@@ -70,6 +70,9 @@ All commands run from `track_2b/` in the uv environment (see Development setup).
 | Fine-tune Apertus (GPU job) | `bash jobs/launch.sh train a100-large <timeout>` | adapter and held-out predictions on the Hub |
 | Closed loop, Apertus (GPU job) | `bash jobs/launch.sh eval a100-large <timeout>` | `results/eval/apertus_*.json`, `results/cache/` |
 | Tables and figure | `uv run python src/report_tables.py` | `results/tables/`, `docs/figures/` |
+| Phase 1: test sets and translator data | `uv run python src/corpora.py`; `uv run python src/transfer.py --loads 300 600 900 1200`; `uv run python src/translate.py texts` | `data/probes/`, `data/instructions/`, `data/translate/`, `data/fewshot/`, `data/topologies/` |
+| Phase 1: Apertus as translator, decider on the probes (GPU jobs) | `bash jobs/launch.sh phase1 a100-large <timeout>`, then `phase1-ft` | answer caches in `results/cache/`, `results/translate/`, `results/offline/*_probes.json` |
+| Phase 1: translators on the laptop (keyword parser, or Apertus from its answer cache) | `bash jobs/phase1_local.sh translate_keyword translate_few ...` | `results/translate/`, `results/offline/`, `results/eval/translate_*.json`, `results/tables/phase1.md` |
 
 The GPU steps, with the checks between them, are in [`docs/gpu_runbook.md`](docs/gpu_runbook.md).
 Long runs checkpoint every finished episode and resume when the same command is run again.
@@ -122,11 +125,21 @@ track_2b/
     evaluate.py        closed-loop protocol (optionally with parallel simulator workers), offline agreement, demo
     train.py           QLoRA fine-tuning (self-contained script)
     report_tables.py   results JSON -> markdown/LaTeX tables and the figure
-  jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh
+    spec.py            phase 1: an instruction as constraints plus ordered preferences; the rule engine
+    grammar.py         phase 1: regular grammars as token-level constraints (the translator's answer line)
+    translate.py       phase 1: the translator arm (keyword parser, Apertus), its policy, scoring
+    corpora.py         phase 1: re-worded, multilingual and inapplicable instructions; translator training data
+    transfer.py        phase 1: held-out-style records on a topology no model has seen
+    report_phase1.py   phase 1: results JSON -> results/tables/phase1.md
+  jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
+                       phase1_local.sh (translators on the laptop, from the answer caches)
   tests/               pytest (`make test`)
   data/                sample/ and stats.json are committed; full/ is git-ignored (goes to the Hub)
+                       instructions/ fewshot/ topologies/: phase 1 test instructions (committed);
+                       probes/ translate/: rebuilt by corpora.py and transfer.py (git-ignored)
   results/
     calibration/  eval/  offline/  mlp/  tables/  cache/    one JSON per run, rendered tables
+    translate/         phase 1: translation accuracy per translator and instruction set
     train/             training logs and held-out answers of the fine-tuning runs
     pass1/             everything of the first pass (intersection rule, one epoch), frozen
     design/            one-off measurements behind the design decisions
