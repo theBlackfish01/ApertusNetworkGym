@@ -8,6 +8,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 |---|---|---|---|---|---|---|---|---|
 | Apertus 8B, 15 examples, no training | 89.5 | 81.0 | 91.1 | 85.6 | 90.6 | 87.2 | 9.6 | 2078 |
 | Apertus 70B (first generation), 15 examples, no training | 77.3 | 71.7 | 65.0 | 67.8 | 75.0 | 71.9 | 6.3 | 2078 |
+| Apertus 70B (generation 1.5), 15 examples, no training | 92.8 | 87.6 | 85.7 | 86.6 | 93.8 | 89.2 | 7.6 | 2078 |
 | Apertus 8B fine-tuned (reader 1) | 94.6 | 95.6 | 96.5 | 91.2 | 96.9 | 94.8 | 4.6 | 2078 |
 | Apertus 8B fine-tuned (reader 2) | 93.4 | 93.6 | 94.9 | 90.9 | 87.5 | 93.3 | 5.9 | 2078 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 96.6 | 96.4 | 90.2 | 83.8 | 84.4 | 93.1 | 6.5 | 2078 |
@@ -18,6 +19,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 |---|---|---|---|---|---|---|---|---|
 | Apertus 8B, 15 examples, no training | 94.6 | 97.3 | 82.7 | 82.8 | 88.5 | 88.8 | 82.9 | 86.2 |
 | Apertus 70B (first generation), 15 examples, no training | 77.7 | 72.7 | 73.0 | 68.8 | 72.5 | 65.2 | 64.4 | 58.0 |
+| Apertus 70B (generation 1.5), 15 examples, no training | 93.5 | 90.4 | 84.8 | 84.4 | 91.6 | 86.6 | 86.7 | 83.0 |
 | Apertus 8B fine-tuned (reader 1) | 96.7 | 97.3 | 91.4 | 88.7 | 96.0 | 97.3 | 94.8 | 93.6 |
 | Apertus 8B fine-tuned (reader 2) | 96.2 | 96.3 | 89.5 | 88.2 | 94.5 | 95.2 | 92.9 | 93.1 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 93.7 | 88.2 | 90.5 | 82.3 | 96.2 | 92.5 | 91.9 | 86.7 |
@@ -30,6 +32,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Second translator, fine-tuned | 95.0 | 96.6 | 94.5 | 98.0 | 76.9 | 86.9 | 98.3 |
 | Apertus 8B, 15 examples, no training | – | – | – | – | – | – | – |
 | Apertus 70B (first generation), 15 examples, no training | – | – | – | – | – | – | – |
+| Apertus 70B (generation 1.5), 15 examples, no training | – | – | – | – | – | – | – |
 | Apertus 8B fine-tuned (reader 1) | 96.0 | 93.3 | 98.9 | 94.5 | 72.7 | 85.9 | 97.3 |
 | Apertus 8B fine-tuned (reader 2) | 94.3 | 92.5 | 96.9 | 90.7 | – | 83.3 | – |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | – | – | – | – | – | – | – |
@@ -40,6 +43,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Apertus 8B, 15 examples, no training | 43.9 | 8.3 | 47.8 | 30.7 | 2.4 | 8.5 | 58.5 | 18.8 | 100.0 | 0.0 | 64.7 | 33.3 |
 | Apertus 70B (first generation), 15 examples, no training | 65.6 | 7.5 | 26.9 | 30.7 | 21.7 | 4.7 | 42.9 | 56.2 | 96.7 | 0.0 | 57.3 | 11.3 |
+| Apertus 70B (generation 1.5), 15 examples, no training | 65.2 | 28.1 | 6.7 | 15.6 | 24.1 | 17.5 | 42.9 | 18.8 | 100.0 | 0.0 | 63.3 | 11.3 |
 | Apertus 8B fine-tuned (reader 1) | 51.0 | 2.4 | 46.6 | 27.4 | 0.0 | 31.1 | 41.5 | 18.8 | 96.7 | 3.3 | 77.3 | 20.0 |
 | Apertus 8B fine-tuned (reader 2) | 54.9 | 1.2 | 43.9 | 24.1 | 0.0 | 13.7 | 62.3 | 50.0 | 96.7 | 3.3 | 78.0 | 19.3 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 54.9 | 0.0 | 45.1 | 29.7 | 0.0 | 54.2 | 16.0 | 50.0 | 96.7 | 3.3 | 88.0 | 10.0 |
@@ -59,6 +63,9 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Apertus 8B fine-tuned (reader 1) / Apertus 70B (first generation), 15 examples, no training | The policy language, four languages | 2078 | 5.2 | 0.4 | 4.6 | 0.2 | 30.3 | 25.5 |
 | Apertus 8B fine-tuned (reader 1) / Apertus 70B (first generation), 15 examples, no training | Carried in part | 212 | 72.6 | 17.0 | 72.2 | 17.0 | 72.6 | 17.0 |
 | Apertus 8B fine-tuned (reader 1) / Apertus 70B (first generation), 15 examples, no training | New types | 253 | 49.0 | 17.8 | 46.6 | 17.8 | 44.3 | 13.0 |
+| Apertus 8B fine-tuned (reader 1) / Apertus 70B (generation 1.5), 15 examples, no training | The policy language, four languages | 2078 | 5.2 | 0.5 | 4.6 | 0.2 | 13.4 | 8.7 |
+| Apertus 8B fine-tuned (reader 1) / Apertus 70B (generation 1.5), 15 examples, no training | Carried in part | 212 | 72.6 | 33.0 | 72.2 | 33.0 | 53.3 | 13.7 |
+| Apertus 8B fine-tuned (reader 1) / Apertus 70B (generation 1.5), 15 examples, no training | New types | 253 | 49.0 | 1.2 | 46.6 | 0.0 | 69.2 | 21.3 |
 
 ## On the laptop (RTX 4060, 8 GB; llama.cpp, 4-bit base model, adapters switched per request): seconds per answer
 

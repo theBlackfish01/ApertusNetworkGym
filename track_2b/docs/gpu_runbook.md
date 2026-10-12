@@ -142,3 +142,31 @@ uv run python src/evaluate.py closed --policy apertus_ft --base-url http://local
 ```
 
 Older vLLM takes `--structured guided_regex`. This path is tested only against a mock endpoint.
+
+## Third round (12 October): two readers, evaluation, GGUF files, Apertus 70B
+
+All from `track_2b/` with `HF_TOKEN` and `WORK_REPO` set; push the bundle first
+(`bash jobs/push_bundle.sh "<message>"`). Durations are the running seconds of the job records.
+
+| Step | Command | Machine, time, cost |
+| --- | --- | --- |
+| Dry runs on a tiny model | `bash jobs/launch.sh check4 cpu-upgrade 25m`, then `check5` | CPU, 4 to 5 min each, under a cent |
+| Train one reader | `READER=1 TRANSLATOR_REPO=<user>/apertus-lightpath-translator-v3 TRAIN_ARGS='--epochs 1.0' bash jobs/launch.sh train3 a100-large 55m`; the same with `READER=2` and a second repo | A100, 38 min, USD 1.58 each (both at once on two machines) |
+| Score the readers, the decider on the probes, the mixed stream in closed loop | `ADAPTER_REPO=<decider> TRANSLATOR_REPO=<reader 1> SECOND_REPO=<reader 2> bash jobs/launch.sh phase4 a100-large 110m` | A100, 90 min, USD 3.76 |
+| Adapters and base model as GGUF for llama.cpp | `GGUF_REPO=<user>/apertus-lightpath-translator-v3-gguf bash jobs/launch.sh gguf cpu-upgrade 75m`; the decider's adapter with `gguf-lora` | CPU, 5 and 2 min |
+| A larger Apertus as a reader | `JOB_IMAGE=ghcr.io/astral-sh/uv:python3.12-trixie BIG_MODEL='<repo>:<file>.gguf' BIG_NAME=translate3_few70 bash jobs/launch.sh big a100-large 55m` | A100, 34 to 36 min, USD 1.41 to 1.50 |
+| Fetch and tabulate | `uv run jobs/fetch.py results/cache/translate3_ft.jsonl ...`; `uv run python src/readers3.py`; `uv run python src/report_phase3.py` | laptop |
+
+What to know before repeating it:
+
+- **Two model processes at a time on one A100.** One translator process with 96 to 128 prompts of
+  620 tokens peaks at 25 to 32 GB; four at once ran out of memory after two minutes. The stage
+  runs the two readers together, then the reader with examples next to the decider, then the three
+  closed loops (small batches) together.
+- **The prebuilt llama.cpp needs a newer C library than `bookworm` has.** The `big` stage runs on
+  the `trixie` image (`JOB_IMAGE`) and checks `llama-server --version` before it downloads the
+  40 GB model.
+- **Translating is the slow part:** about four instructions per second and process (the line of
+  slots has 30 to 35 tokens), so 9,854 instructions take 40 minutes. The closed loops of the
+  hybrid are short because only one request in six goes to the decider.
+- A job that is still being scheduled costs nothing and can be cancelled.
