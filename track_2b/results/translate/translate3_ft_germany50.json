@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate3_ft",
+      "topology": "germany50",
+      "few_shot": false,
+      "format_version": 3,
+      "llm": {
+        "name": "translate3_ft",
+        "backend": "transformers",
+        "model": "andreasmartin/apertus-v1.5-8b-text",
+        "adapter": "runs/reader1",
+        "structured": "regex",
+        "template_kwargs": {},
+        "shots": 0,
+        "cache": "translate3_ft.jsonl"
+      }
+    },
+    "command": "src/translate.py batch --model andreasmartin/apertus-v1.5-8b-text --adapter runs/reader1 --batch 96 --jobs translate3_ft:nobel-eu:regex:data/instructions/v3_en.jsonl,data/instructions/v3_de.jsonl,data/instructions/v3_fr.jsonl,data/instructions/v3_it.jsonl,data/instructions/v3_new.jsonl,data/instructions/v3_new_hard.jsonl,data/instructions/v3_new_impossible.jsonl,data/instructions/v3_partial.jsonl,data/instructions/v3_other.jsonl,data/instructions/v3_not.jsonl,data/instructions/v3_faulty.jsonl,data/instructions/independent.jsonl,data/instructions/de_ind.jsonl,data/instructions/fr_ind.jsonl,data/instructions/it_ind.jsonl,data/instructions/gsw.jsonl,data/instructions/noisy.jsonl,data/instructions/mix3.jsonl translate3_ft:germany50:regex:data/instructions/germany50.jsonl",
+    "finished_utc": "2026-10-12T10:27:02.520046+00:00",
+    "sets": [
+      "germany50.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "germany50",
+      "lang": "all",
+      "kind": "all",
+      "n": 528,
+      "correct": 514,
+      "flagged": 7,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 521,
+      "ms_per_instruction": 10445.236363636288
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1",
+      "n": 144,
+      "correct": 142,
+      "flagged": 2,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 142,
+      "ms_per_instruction": 10943.928472222251
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 38,
+      "correct": 37,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 37,
+      "ms_per_instruction": 9876.807894736834
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 33,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 33,
+      "ms_per_instruction": 10491.212121212118
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 201,
+      "correct": 198,
+      "flagged": 3,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 198,
+      "ms_per_instruction": 10625.533333333373
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 9704.770000000002
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 82,
+      "correct": 75,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 82,
+      "ms_per_instruction": 9490.293902439016
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 9,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 9,
+      "ms_per_instruction": 10255.770000000002
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 10408.870000000003
+    }
+  ],
+  "examples": [
+    {
+      "set": "germany50",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Fewest slots needed wins. Route around the Augsburg-Wuerzburg link.",
+          "expected": "avoid=Augsburg-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Aachen-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Field crews are working on Augsburg-Ulm, so pick a route that skips it.",
+          "expected": "avoid=Augsburg-Ulm; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Aachen-Ulm; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Maintenance window on the link between Augsburg and Wuerzburg: keep this lightpath off it. Minimise the number of slots this service occupies.",
+          "expected": "avoid=Augsburg-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Aachen-Augsburg,Wuerzburg; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Send this one where there is the most room left.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "The Augsburg-Wuerzburg link is under maintenance; do not route through it. Latency-sensitive: use the path with the fewest hops that fits.",
+          "expected": "avoid=Augsburg-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=Aachen-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "The link between Augsburg and Wuerzburg must not carry this service.",
+          "expected": "avoid=Augsburg-Wuerzburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Aachen-Augsburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Use the path whose modulation needs the fewest slots. Augsburg-Ulm is under maintenance; do not route through it.",
+          "expected": "avoid=Augsburg-Ulm; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Aachen-Ulm; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "germany50",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Keep busy routes clear; take the path with the most spare slots. Keep the number of hops as low as possible.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep busy routes clear; take the path with the most spare slots. Latency-sensitive: use the path with the fewest hops that fits.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep busy routes clear; take the path with the most spare slots. Low latency required: fewest hops among the paths that fit.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep busy routes clear; take the path with the most spare slots. This service is delay-critical; take the route with the fewest hops that can carry it.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. Latency-sensitive: use the path with the fewest hops that fits.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. Low latency required: fewest hops among the paths that fit.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. This service is delay-critical; take the route with the fewest hops that can carry it.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}

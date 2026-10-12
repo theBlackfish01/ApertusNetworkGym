@@ -84,7 +84,7 @@ def answer_tags(raw: str | None) -> dict[str, bool]:
     operator is told), ``decider:`` (handed to the decider) or ``guard:`` (handed to the decider,
     whose choice broke the part the slots carry and was replaced by the rule engine's).
     """
-    body = (raw or "").removeprefix("asked+")
+    body = (raw or "").removeprefix("asked+").split("\t")[0]
     return {
         "asked": (raw or "").startswith("asked+"),
         "flagged": body in FLAGS or body.endswith("rest=more"),
@@ -566,10 +566,11 @@ def demo(args: argparse.Namespace) -> None:
                    else "handed to the decider" if tags["forwarded"]
                    else "not applied, operator told" if body in FLAGS
                    else "rule engine" + (", operator told that a part was not carried" if tags["flagged"] else ""))  # fmt: skip
-            understood = body.split(":", 1)[0] if tags["forwarded"] else body
+            carried = body.split("\t")[1] if "\t" in body else ""
+            understood = (carried or "outside the format") if tags["forwarded"] else body
             print(f"{request}\n  instruction: {instruction.removeprefix('Intent: ')}")
             print(
-                f"  understood:  {'outside the format' if tags['forwarded'] else understood}"
+                f"  understood:  {understood}"
                 + ("   [two readers disagreed: the operator was asked]" if tags["asked"] else "")
             )
             print(f"  decision:    {step['decision']}  ({how}; reference {step['oracle']}; "

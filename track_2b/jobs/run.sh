@@ -331,7 +331,7 @@ big)
     SERVER=$(find /tmp/llama -name llama-server -type f | head -1)
     CUDA_LIBS=$(dirname "$(find /tmp/llama -name 'libcublas.so*' | head -1)")
     export LD_LIBRARY_PATH="$(dirname "$SERVER"):$CUDA_LIBS:${LD_LIBRARY_PATH:-}"
-    ls "$(dirname "$SERVER")" | head -30
+    "$SERVER" --version  # fails here, before the model is downloaded, if the image's C library is too old
     BIG_MODEL="$BIG_MODEL" $PY -c "
 import os
 from huggingface_hub import hf_hub_download

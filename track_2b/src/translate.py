@@ -423,7 +423,9 @@ class HybridPolicy(TranslatorPolicy):
                 )
                 if checkable and (choice[0] >= len(paths) or not meets(paths[choice[0]], spec)):
                     choice, tag = decisions[i].choice, "guard:"  # the engine's choice under the carried part
-                raw = self.report(requests[i].intent.text, tag + (d.raw or ""))
+                # after a tab: what the slots carry of an instruction that was handed on in part
+                carried = "\t" + format_spec(spec, self.version) if spec.applies else ""
+                raw = self.report(requests[i].intent.text, tag + (d.raw or "") + carried)
                 decisions[i] = Decision(choice, well_formed, raw, d.seconds)
         return decisions
 
