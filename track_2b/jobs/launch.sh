@@ -11,7 +11,7 @@ stage=${1:?stage} flavor=${2:?flavor} timeout=${3:?timeout}
 : "${WORK_REPO:?set WORK_REPO}" "${HF_TOKEN:?set HF_TOKEN}"
 env_flags=(-e "WORK_REPO=$WORK_REPO")
 for name in ADAPTER_REPO MODEL TRAIN_ARGS EVAL_ARGS ZS_ARGS SKIP_ZERO_SHOT TRANSLATOR_REPO CLOSED_POLICIES READER \
-    SECOND_REPO BIG_MODEL BIG_NAME BIG_SETS GGUF_REPO LLAMA_TAG; do
+    SECOND_REPO BIG_MODEL BIG_NAME BIG_SETS GGUF_REPO LLAMA_TAG SECOND; do
     [ -n "${!name:-}" ] && env_flags+=(-e "$name=${!name}")
 done
 uvx --from "huggingface_hub[cli]" hf jobs run --detach --flavor "$flavor" --timeout "$timeout" \

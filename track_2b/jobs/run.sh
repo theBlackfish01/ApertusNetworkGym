@@ -27,6 +27,9 @@
 #           instructions; the decider on the probes of the new types; the mixed condition
 #           operations_mix3 in closed loop for the decider alone, the hybrid, and the hybrid that
 #           asks when its two readers disagree (three processes on one GPU)
+#   phase5  the same mixed condition in closed loop for the hybrid that asks with another second
+#           reader (SECOND, default few70b: the untrained Apertus 70B, read beforehand by the
+#           stage big); EVAL_ARGS narrows the episodes, e.g. "--loads 390"
 #   gguf    CPU only: both readers' adapters and the base model as GGUF files for llama.cpp
 #           (the adapters first; the base is converted from the published weights and quantised
 #           to 4 bits), uploaded to GGUF_REPO. This is what runs on a laptop
@@ -50,7 +53,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | gguf | gguf-lora | big}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -487,6 +490,22 @@ PYEOF
         "$PY src/evaluate.py closed --policy apertus_ft_mix3 --backend transformers --adapter runs/adapter $CLOSED $SYNC" \
         "$PY src/evaluate.py closed --policy hybrid3_ft --decider apertus_ft_hybrid3 --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid3_ft_mix3.json" \
         "$PY src/evaluate.py closed --policy hybrid3_ft_ask-ft2 --decider apertus_ft_hybrid3ask --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid3_ft_ask-ft2_mix3.json"
+    ;;
+phase5)
+    # Both readers answer from their caches only, so every instruction of the episodes must have
+    # been read before (reader 1 in phase4; the larger model in the stage big with BIG_SETS). A
+    # missing one stops the run. Only the decider is loaded.
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}"
+    SECOND=${SECOND:-few70b}
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
+    stamp "closed loop, operations_mix3: the hybrid that asks, second reader translate3_$SECOND from its cache"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy "hybrid3_ft_ask-$SECOND" --decider "apertus_ft_hybrid3ask${SECOND#few}" \
+        --decider-adapter runs/adapter --model $MODEL --conditions operations_mix3 --sim-workers 2 \
+        ${EVAL_ARGS:-} $SYNC --out "results/eval/hybrid3_ft_ask-${SECOND}_mix3.json"
     ;;
 check2)
     TINY=HuggingFaceTB/SmolLM2-135M-Instruct
