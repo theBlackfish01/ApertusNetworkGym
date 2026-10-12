@@ -1,7 +1,7 @@
 # Technical report — Operator instructions for lightpath provisioning with Apertus 8B
 
 > DRAFT for the owner's review. Every number is copied from the file named next to it. Open
-> items are marked TODO: team, video, public links, the final commit, and four laptop runs still
+> items are marked TODO: team, video, public links, the final commit, and three laptop runs still
 > queued (marked PENDING). The long account of the first two rounds is in
 > `docs/report_rounds_1_2.md`.
 
@@ -175,8 +175,11 @@ follow. **Asking by consequence** (`translate3_ft_askif-ft2`, both loads, one pr
 translator that always asks puts 397 questions and asks on 8.9 % of requests at 390 Erlang for
 10.28 % violations; asking on the first request that tells the readings apart puts 332 (65 pairs
 of readings were never told apart) and asks on 7.8 % for 10.25 %. On the laptop, with the 4-bit
-models, the hybrid that asks breaks 9.18 % (job: 8.47 %); PENDING: the same with asking by
-consequence.
+models and the decider live, the hybrid that asks breaks 9.18 % (job: 8.47 %) with 225
+questions; asking by consequence breaks 9.53 % with 152 questions (73 pairs never told apart),
+asking on 7.4 % of requests instead of 9.6 %. The small cost has a cause: when both readers are
+wrong in different ways, asking at once fixes the reading, asking by consequence only once the
+two wrong readings diverge.
 
 **Standing policies** (`results/eval/*_standing4.json`). The fourth-format reader on the 800
 blind policy sentences: right meaning, scope and lifetime included, 95.0 (en), 92.0 (de), 95.0
