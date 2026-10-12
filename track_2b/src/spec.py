@@ -70,6 +70,14 @@ _LINE3 = re.compile(
     r"avoid=(none|[^;,=]+(?:,[^;,=]+)*); via=(none|[^;,=-]+); hops=(any|[1-9]); km=(any|[1-9][0-9]{2,3}); "
     r"path=(any|[0-4]); prefer=(none|[a-z]+(?:,[a-z]+)*); rest=(none|more)"
 )
+# The fourth version: the third, with the scope of a standing policy and how long it holds.
+RATES = (10, 40, 100, 400)  # bit rates of the preset, Gb/s
+MAX_HOURS = 99
+_LINE4 = re.compile(
+    r"avoid=(none|[^;,=]+(?:,[^;,=]+)*); via=(none|[^;,=-]+); hops=(any|[1-9]); km=(any|[1-9][0-9]{2,3}); "
+    r"path=(any|[0-4]); prefer=(none|[a-z]+(?:,[a-z]+)*); scope=(any|rate:[0-9]+|from:[^;,=-]+|to:[^;,=-]+); "
+    r"until=(open|[1-9][0-9]?h); rest=(none|more)"
+)
 
 
 @dataclass(frozen=True)
@@ -84,6 +92,10 @@ class Spec:
     max_km: int | None = None
     path: int | None = None  # one candidate, by its number in the list
     rest: bool = False  # the instruction also asks for something the slots cannot carry
+    # The slots of the fourth version: a standing policy's scope (None: every request; "rate:400",
+    # "from:<node>", "to:<node>") and lifetime in hours of simulated time (None: until withdrawn).
+    scope: str | None = None
+    until: int | None = None
 
     @property
     def applies(self) -> bool:
@@ -104,7 +116,11 @@ class Spec:
             return (self.status,)
         links = frozenset(frozenset(link) for link in self.avoid)
         return ("ok", links, self.prefer, frozenset(self.nodes), frozenset(self.via),
-                self.max_hops, self.max_km, self.path, self.rest)  # fmt: skip
+                self.max_hops, self.max_km, self.path, self.rest, self.scope, self.until)  # fmt: skip
+
+    def routing(self) -> Spec:
+        """The same spec without scope and lifetime: what the rule engine applies to one request."""
+        return replace(self, scope=None, until=None)
 
     def to_json(self) -> dict:
         data = {
@@ -113,7 +129,8 @@ class Spec:
             "prefer": list(self.prefer),
         }
         extra = {"nodes": list(self.nodes), "via": list(self.via), "max_hops": self.max_hops,
-                 "max_km": self.max_km, "path": self.path, "rest": self.rest}  # fmt: skip
+                 "max_km": self.max_km, "path": self.path, "rest": self.rest, "scope": self.scope,
+                 "until": self.until}  # fmt: skip
         # by identity: candidate number 0 is a value, and 0 == False
         return data | {k: v for k, v in extra.items() if v is not None and v is not False and v != []}
 
@@ -129,6 +146,8 @@ class Spec:
             data.get("max_km"),
             data.get("path"),
             data.get("rest", False),
+            data.get("scope"),
+            data.get("until"),
         )
 
 
@@ -163,10 +182,13 @@ def format_spec(spec: Spec, version: int = 1) -> str:
     def slot(value: int | None) -> str:
         return "any" if value is None else str(value)
 
-    return (
+    line = (
         f"avoid={avoid}; via={','.join(spec.via) or 'none'}; hops={slot(spec.max_hops)}; km={slot(spec.max_km)}; "
-        f"path={slot(spec.path)}; prefer={','.join(spec.prefer) or 'none'}; rest={'more' if spec.rest else 'none'}"
+        f"path={slot(spec.path)}; prefer={','.join(spec.prefer) or 'none'}"
     )
+    if version >= 4:
+        line += f"; scope={spec.scope or 'any'}; until={'open' if spec.until is None else f'{spec.until}h'}"
+    return line + f"; rest={'more' if spec.rest else 'none'}"
 
 
 PREFERENCE_WORDS = {
@@ -206,14 +228,20 @@ def describe(spec: Spec) -> str:
         parts.append(f"use candidate {spec.path}")
     if spec.prefer:
         parts.append("prefer " + ", then ".join(PREFERENCE_WORDS[p] for p in spec.prefer))
+    if spec.scope:
+        kind, _, value = spec.scope.partition(":")
+        parts.append({"rate": f"only for {value} Gb/s requests", "from": f"only for requests from {value}",
+                      "to": f"only for requests to {value}"}[kind])  # fmt: skip
+    if spec.until is not None:
+        parts.append(f"for the next {spec.until} hours")
     text = "; ".join(parts) if parts else "no constraint and no preference"
     if spec.rest:
         text += "; a part of the instruction is not carried by the language and goes to the decider"
     return text[0].upper() + text[1:] + "."
 
 
-def _parse3(match: re.Match) -> Spec:
-    items, via, hops, km, path, preferences, rest = match.groups()
+def _parse3(match: re.Match, scope: str = "any", until: str = "open") -> Spec:
+    items, via, hops, km, path, preferences, rest = match.groups()[:6] + (match.groups()[-1],)
     parts = [] if items == "none" else [tuple(item.split("-")) for item in items.split(",")]
     prefer = () if preferences == "none" else tuple(preferences.split(","))
     if any(len(part) > 2 for part in parts) or any(p not in PREFERENCES3 for p in prefer):
@@ -228,7 +256,11 @@ def _parse3(match: re.Match) -> Spec:
         None if km == "any" else int(km),
         None if path == "any" else int(path),
         rest == "more",
+        None if scope == "any" else scope,
+        None if until == "open" else int(until.removesuffix("h")),
     )
+    if spec.scope and spec.scope.startswith("rate:") and int(spec.scope[5:]) not in RATES:
+        return Spec(status="malformed")
     # Nothing in the slots and something left over: the instruction is outside the format.
     return Spec(status="unsupported") if spec.rest and not (spec.constrains or spec.prefer) else spec
 
@@ -238,6 +270,8 @@ def parse_spec(text: str) -> Spec:
     text = text.strip()
     if text in ("unsupported", "no_instruction"):
         return Spec(status=text)
+    if (fourth := _LINE4.fullmatch(text)) is not None:
+        return _parse3(fourth, fourth.group(7), fourth.group(8))
     if (third := _LINE3.fullmatch(text)) is not None:
         return _parse3(third)
     match = _LINE.fullmatch(text)
@@ -269,6 +303,12 @@ def validate(spec: Spec, topology: Topology) -> Spec:
             avoid.append((a, b))
     if any(node not in topology.nodes for node in spec.nodes + spec.via):
         return replace(spec, status="unresolved")
+    if (
+        spec.scope
+        and spec.scope.split(":", 1)[0] in ("from", "to")
+        and spec.scope.split(":", 1)[1] not in topology.nodes
+    ):
+        return replace(spec, status="unresolved")
     return replace(
         spec,
         avoid=tuple(avoid),
@@ -295,7 +335,7 @@ def _repeat(item: tuple, most: int) -> tuple:
     return items
 
 
-def _expression3(topology: Topology) -> tuple:
+def _expression3(topology: Topology, version: int = 3) -> tuple:
     city = alt(*(lit(node) for node in topology.nodes), lit(UNKNOWN))
     digit, nonzero = alt(*(lit(d) for d in "0123456789")), alt(*(lit(d) for d in "123456789"))
     preference = alt(*(lit(p) for p in PREFERENCES3))
@@ -306,8 +346,13 @@ def _expression3(topology: Topology) -> tuple:
         lit("; km="), alt(lit("any"), seq(nonzero, digit, digit, opt(digit))),
         lit("; path="), alt(lit("any"), *(lit(d) for d in "01234")),
         lit("; prefer="), alt(lit("none"), _repeat(preference, 3)),
-        lit("; rest="), alt(lit("none"), lit("more")),
     )  # fmt: skip
+    if version >= 4:
+        scope = alt(lit("any"), seq(lit("rate:"), alt(*(lit(str(r)) for r in RATES))), seq(lit("from:"), city),
+                    seq(lit("to:"), city))  # fmt: skip
+        hours = seq(nonzero, opt(digit), lit("h"))
+        line = seq(line, lit("; scope="), scope, lit("; until="), alt(lit("open"), hours))
+    line = seq(line, lit("; rest="), alt(lit("none"), lit("more")))
     return alt(lit("unsupported"), lit("no_instruction"), line)
 
 
@@ -316,8 +361,8 @@ def answer_expression(topology: Topology, version: int = 1) -> tuple:
     clash = {"none", "any", UNKNOWN} & set(topology.nodes)
     if clash or any("-" in node or "," in node or ";" in node for node in topology.nodes):
         raise ValueError(f"node names the answer format cannot carry: {sorted(clash) or topology.nodes}")
-    if version == 3:
-        return _expression3(topology)
+    if version >= 3:
+        return _expression3(topology, version)
     city = alt(*(lit(node) for node in topology.nodes), lit(UNKNOWN))
     link = seq(city, lit("-"), city)
     links = link

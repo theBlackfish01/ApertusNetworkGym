@@ -64,6 +64,7 @@ from spec import (
 ROOT = Path(__file__).resolve().parents[1]
 MAX_NEW_TOKENS = 48  # the longest answer line (two links, three preferences) is about 40 tokens
 MAX_NEW_TOKENS3 = 96  # the line of slots of the third version
+MAX_NEW_TOKENS4 = 120  # the fourth version's line is two slots longer
 
 SYSTEM = """You translate an operator's instruction about one lightpath request into one line that a path computation engine can execute. The instruction can be in any language.
 
@@ -195,9 +196,52 @@ SHOTS3 = (
 )
 
 
+SYSTEM4 = SYSTEM3.replace(
+    "avoid=<items>; via=<node>; hops=<limit>; km=<limit>; path=<number>; prefer=<preferences>; rest=<none or more>",
+    "avoid=<items>; via=<node>; hops=<limit>; km=<limit>; path=<number>; prefer=<preferences>; "
+    "scope=<which requests>; until=<how long>; rest=<none or more>",
+).replace(
+    'rest: "more" if the instruction',
+    'scope: "any", or which requests the instruction applies to: "rate:<Gb/s>" for requests of one bit rate '
+    '(10, 40, 100 or 400), "from:<node>" for requests that start at a node, "to:<node>" for requests that '
+    "end at a node.\n"
+    'until: "open" if no end is stated or the instruction holds until further notice, or "<hours>h" when it '
+    "holds for a number of hours.\n"
+    'rest: "more" if the instruction',
+)
+
+
+def _line4(**slots: str) -> str:
+    """An answer line of the fourth version with the named slots filled and the others empty."""
+    empty = {"avoid": "none", "via": "none", "hops": "any", "km": "any", "path": "any", "prefer": "none",
+             "scope": "any", "until": "open", "rest": "none"}  # fmt: skip
+    return "; ".join(f"{name}={value}" for name, value in (empty | slots).items())
+
+
+# The examples of the third version in the fourth format, and three with a scope or a lifetime.
+SHOTS4 = tuple(
+    (
+        text,
+        line
+        if line in ("unsupported", "no_instruction")
+        else line.replace("; rest=", "; scope=any; until=open; rest="),
+    )
+    for text, line in SHOTS3
+) + (
+    ("For the next 6 hours, avoid the link between {a} and {b}.", _line4(avoid="{a}-{b}", until="6h")),
+    ("Only for 400G services: route through {c}.", _line4(via="{c}", scope="rate:400")),
+    (
+        "Everything leaving {d} takes the least loaded path until further notice.",
+        _line4(prefer="load", scope="from:{d}"),
+    ),
+)
+
+
 def messages(text: str, topology: Topology, few: bool = False, version: int = 1) -> list[dict[str, str]]:
     """The chat messages that ask for the translation of one instruction."""
-    system, shots = {2: (SYSTEM2, SHOTS2), 3: (SYSTEM3, SHOTS3)}.get(version, (SYSTEM, SHOTS))
+    system, shots = {2: (SYSTEM2, SHOTS2), 3: (SYSTEM3, SHOTS3), 4: (SYSTEM4, SHOTS4)}.get(
+        version, (SYSTEM, SHOTS)
+    )
     chat = [{"role": "system", "content": system.format(nodes=", ".join(topology.nodes))}]
     if few:
         (a, b), (c, d) = (sorted(link) for link in sorted(topology.links, key=sorted)[:2])
@@ -277,7 +321,7 @@ class LLMTranslator(Translator):
         super().__init__(topology)
         self.name, self.few, self.version = name, few, version
         constrained = llm.get("structured") != "none"
-        limit = MAX_NEW_TOKENS3 if version == 3 else MAX_NEW_TOKENS
+        limit = MAX_NEW_TOKENS4 if version >= 4 else MAX_NEW_TOKENS3 if version == 3 else MAX_NEW_TOKENS
         if llm.get("base_url"):
             self.llm = GrammarEndpoint(
                 name,
@@ -311,7 +355,7 @@ class LLMTranslator(Translator):
 
 def format_version(name: str) -> int:
     """The answer format of a translator or hybrid, from its name (``translate3_ft``, ``hybrid2_few``)."""
-    return next((v for v in (3, 2) if name.startswith((f"translate{v}_", f"hybrid{v}_"))), 1)
+    return next((v for v in (4, 3, 2) if name.startswith((f"translate{v}_", f"hybrid{v}_"))), 1)
 
 
 def make_translator(name: str, topology: str = "nobel-eu", **llm) -> Translator:
@@ -593,7 +637,11 @@ def _episode_texts(job: dict) -> list[dict]:
     episode, policy, rows = Episode(job), Oracle(), {}
     while episode.remaining:
         intent = episode.intent
-        if intent.text not in rows and intent.text != "none":
+        if getattr(intent, "arrivals", ()):  # standing policies: each text that arrives, with its true line
+            for text, line in intent.arrivals:
+                rows.setdefault(text, {"text": text, "expect": parse_spec(line).to_json(), "set": job["condition"],
+                                       "lang": "any", "kind": "standing"})  # fmt: skip
+        elif intent.text not in rows and intent.text != "none":
             rows[intent.text] = {"text": intent.text, "expect": meant(intent).to_json(), "set": job["condition"],
                                  "lang": getattr(intent, "lang", "en"), "kind": intent.key}  # fmt: skip
         (decision,) = policy.decide([episode.request()])

@@ -1,0 +1,251 @@
+{
+  "written_by": "a separate AI instance from a brief, without access to the repository",
+  "en": {
+    "rate": [
+      "for {g}G services",
+      "only for {g} Gb/s demands",
+      "This applies to all {g} Gbit/s requests",
+      "but only where the requested rate is {g}G",
+      "{g}G circuits only",
+      "Rule for {g} gig lightpaths",
+      "whenever a {g}G connection is requested",
+      "- applies to {g}Gbps demands, nothing else",
+      "for any request at {g} Gb/s",
+      "Scope = {g}G reqs only"
+    ],
+    "from": [
+      "for everything leaving {f}",
+      "For all demands originating in {f}",
+      "if the source node is {f}",
+      "src={f} only",
+      "whenever a request starts at {f}",
+      "- for traffic sourced from {f}",
+      "This covers lightpaths that begin in {f}",
+      "for requests with {f} as A-end",
+      "applies to anything coming out of {f}",
+      "for connections set up from {f}"
+    ],
+    "to": [
+      "for traffic terminating in {t}",
+      "For every request destined for {t}",
+      "if the destination is {t}",
+      "dst={t} only",
+      "whenever a demand ends at {t}",
+      "- for lightpaths with {t} as Z-end",
+      "This is for all connections towards {t}",
+      "for anything that lands in {t}",
+      "applies to requests headed to {t}",
+      "for all demans going to {t}"
+    ],
+    "hours": [
+      "for the next {h} hours",
+      "valid for {h}h",
+      "For the coming {h} hours",
+      "- expires in {h} hrs",
+      "this stays in force for {h} hours, then lapses",
+      "During the next {h} hours",
+      "for {h} more hours",
+      "keep this for {h} hours only",
+      "Temporary rule, {h}h window",
+      "untill {h} hours from now"
+    ],
+    "open": [
+      "until further notice",
+      "from now on",
+      "until I say otherwise",
+      "Standing order",
+      "with immediate effect and no end date",
+      "indefinitely",
+      "Permanent policy, effective now",
+      "until this is revoked",
+      "going forward",
+      "til further notice -- no expiry"
+    ]
+  },
+  "de": {
+    "rate": [
+      "für {g}G-Dienste",
+      "nur für Anfragen mit {g} Gbit/s",
+      "Für alle {g}G-Verbindungen gilt",
+      "aber nur bei einer Bitrate von {g} Gbit/s",
+      "nur {g}G-Pfade",
+      "Regel für {g}-Gigabit-Lichtpfade",
+      "immer wenn eine {g}G-Verbindung angefordert wird",
+      "- gilt ausschliesslich für {g}Gbps-Anforderungen",
+      "bei allen Anfragen mit {g} Gb/s",
+      "Gilt nur fuer {g}G-Anforderungen"
+    ],
+    "from": [
+      "für alles, was von {f} ausgeht",
+      "Für alle Anfragen mit Quelle {f}",
+      "wenn der Startknoten {f} ist",
+      "Quelle={f} only",
+      "sobald eine Anfrage in {f} beginnt",
+      "- für Verkehr aus {f}",
+      "Dies betrifft Lichtpfade, die in {f} starten",
+      "für Anforderungen mit A-Ende {f}",
+      "gilt für alles, was aus {f} herauskommt",
+      "bei Verbindungen ab {f}"
+    ],
+    "to": [
+      "für Verkehr, der in {t} endet",
+      "Für jede Anfrage mit Ziel {t}",
+      "wenn das Ziel {t} ist",
+      "Ziel={t} only",
+      "sobald eine Anforderung in {t} terminiert",
+      "- für Lichtpfade mit Z-Ende {t}",
+      "Das gilt für alle Verbindungen nach {t}",
+      "für alles, was in {t} ankommt",
+      "gilt für Anfragen Richtung {t}",
+      "bei allen Anfrgen nach {t}"
+    ],
+    "hours": [
+      "für die nächsten {h} Stunden",
+      "gültig für {h}h",
+      "Für die kommenden {h} Stunden",
+      "- läuft in {h} Std. ab",
+      "das bleibt {h} Stunden in Kraft und verfällt dann",
+      "Während der nächsten {h} Stunden gilt",
+      "noch {h} Stunden lang",
+      "nur für {h} Stunden beibehalten",
+      "Temporäre Regel, Zeitfenster {h}h",
+      "bis in {h} Stunden"
+    ],
+    "open": [
+      "bis auf Widerruf",
+      "ab sofort",
+      "bis ich etwas anderes sage",
+      "Dauerhafte Anweisung",
+      "mit sofortiger Wirkung und ohne Enddatum",
+      "auf unbestimmte Zeit",
+      "Permanente Richtlinie, gilt ab jetzt",
+      "bis diese Regel zurückgenommen wird",
+      "von nun an",
+      "bis auf weiteres, kein Ablauf"
+    ]
+  },
+  "fr": {
+    "rate": [
+      "pour les services {g}G",
+      "uniquement pour les demandes à {g} Gbit/s",
+      "Pour toutes les connexions {g}G",
+      "mais seulement si le débit demandé est de {g}G",
+      "circuits {g}G seulement",
+      "Règle pour les lightpaths à {g} gigabits",
+      "chaque fois qu'une connexion {g}G est demandée",
+      "- s'applique aux demandes {g}Gbps, rien d'autre",
+      "pour toute requête à {g} Gb/s",
+      "Valable uniqument pour les demandes {g}G"
+    ],
+    "from": [
+      "pour tout ce qui part de {f}",
+      "Pour toutes les demandes en provenance de {f}",
+      "si le nœud source est {f}",
+      "src={f} uniquement",
+      "dès qu'une demande démarre à {f}",
+      "- pour le trafic issu de {f}",
+      "Ceci concerne les lightpaths qui commencent à {f}",
+      "pour les requêtes ayant {f} comme extrémité A",
+      "s'applique à tout ce qui sort de {f}",
+      "pour les connexions établies depuis {f}"
+    ],
+    "to": [
+      "pour le trafic qui se termine à {t}",
+      "Pour chaque demande à destination de {t}",
+      "si la destination est {t}",
+      "dst={t} uniquement",
+      "dès qu'une demande aboutit à {t}",
+      "- pour les lightpaths avec {t} comme extrémité Z",
+      "Ceci vaut pour toutes les connexions vers {t}",
+      "pour tout ce qui arrive à {t}",
+      "s'applique aux requêtes en direction de {t}",
+      "pour ttes les demandes vers {t}"
+    ],
+    "hours": [
+      "pour les {h} prochaines heures",
+      "valable {h}h",
+      "Pendant les {h} heures à venir",
+      "- expire dans {h} h",
+      "ceci reste en vigueur {h} heures, puis tombe",
+      "Durant les {h} prochaines heures",
+      "pendant encore {h} heures",
+      "à conserver {h} heures seulement",
+      "Règle temporaire, fenêtre de {h}h",
+      "pr les {h} heures qui viennent"
+    ],
+    "open": [
+      "jusqu'à nouvel ordre",
+      "à partir de maintenant",
+      "jusqu'à ce que je dise le contraire",
+      "Consigne permanente",
+      "avec effet immédiat et sans date de fin",
+      "pour une durée indéterminée",
+      "Politique permanente, applicable dès maintenant",
+      "jusqu'à révocation de cette règle",
+      "dorénavant",
+      "jusqu'a nouvel ordre, pas d'expiration"
+    ]
+  },
+  "it": {
+    "rate": [
+      "per i servizi {g}G",
+      "solo per le richieste a {g} Gbit/s",
+      "Per tutte le connessioni {g}G",
+      "ma solo se la velocità richiesta è {g}G",
+      "circuiti {g}G soltanto",
+      "Regola per i lightpath a {g} gigabit",
+      "ogni volta che viene richiesta una connessione {g}G",
+      "- vale per le richieste {g}Gbps, nient'altro",
+      "per qualsiasi richiesta a {g} Gb/s",
+      "Vale solo per le richeste {g}G"
+    ],
+    "from": [
+      "per tutto ciò che parte da {f}",
+      "Per tutte le richieste provenienti da {f}",
+      "se il nodo sorgente è {f}",
+      "src={f} soltanto",
+      "appena una richiesta ha origine in {f}",
+      "- per il traffico in uscita da {f}",
+      "Questo riguarda i lightpath che iniziano a {f}",
+      "per le richieste con {f} come estremità A",
+      "si applica a tutto quello che esce da {f}",
+      "per le connessioni instaurate da {f}"
+    ],
+    "to": [
+      "per il traffico che termina a {t}",
+      "Per ogni richiesta destinata a {t}",
+      "se la destinazione è {t}",
+      "dst={t} soltanto",
+      "quando una richiesta termina in {t}",
+      "- per i lightpath con {t} come estremità Z",
+      "Questo vale per tutte le connessioni verso {t}",
+      "per tutto ciò che finisce a {t}",
+      "si applica alle richieste dirette a {t}",
+      "per tt le richieste verso {t}"
+    ],
+    "hours": [
+      "per le prossime {h} ore",
+      "valido per {h}h",
+      "Per le {h} ore a venire",
+      "- scade tra {h} ore",
+      "questo resta in vigore per {h} ore, poi decade",
+      "Durante le prossime {h} ore",
+      "per altre {h} ore",
+      "da mantenere solo per {h} ore",
+      "Regola temporanea, finestra di {h}h",
+      "fino a {h} ore da adesso"
+    ],
+    "open": [
+      "fino a nuovo avviso",
+      "da ora in avanti",
+      "finché non dico il contrario",
+      "Disposizione permanente",
+      "con effetto immediato e senza data di fine",
+      "a tempo indeterminato",
+      "Politica permanente, in vigore da subito",
+      "finché questa regola non viene revocata",
+      "d'ora in poi",
+      "fino a nuovo aviso, nessuna scadenza"
+    ]
+  }
+}

@@ -42,6 +42,11 @@
   .warn { color:var(--warn); } .ok { color:var(--ok); } .muted { color:var(--muted); }
   .badge { display:inline-block; padding:1px 6px; border-radius:10px; font-size:11.5px; background:var(--soft); }
   .audit { grid-column: 1 / -1; overflow-x:auto; }
+  .policies { grid-column: 1 / -1; overflow-x:auto; }
+  .conflict { padding:6px 8px; border-radius:6px; margin-top:6px; font-size:12.5px; }
+  .conflict.contradiction { background:#fbe9e5; color:var(--warn); }
+  .conflict.override { background:#fff4d6; color:#7a5a00; }
+  .policies tr.expired td { color:var(--muted); text-decoration: line-through; }
   .audit tbody tr { cursor:pointer; } .audit tbody tr:hover { background:var(--soft); }
   .legend { display:flex; gap:14px; font-size:12px; color:var(--muted); margin-top:6px; flex-wrap:wrap; }
   .legend span::before { content:""; display:inline-block; width:18px; height:4px; margin-right:5px; vertical-align:middle; border-radius:2px; }
@@ -81,6 +86,17 @@
     <div id="readings"></div>
     <div id="preview"></div>
     <div id="current" class="muted" style="margin-top:10px"></div>
+  </section>
+  <section class="card policies" id="policiesCard" style="display:none">
+    <h2>Standing policies <span class="muted" id="hour"></span></h2>
+    <textarea id="ptext" rows="2" placeholder="e.g. for the next 6 hours, 400G services avoid the Zurich–Milan link"></textarea>
+    <div class="row">
+      <button class="primary" id="preadBtn" onclick="readPolicy()">Read policy</button>
+      <select id="precordedSel" onchange="pickPolicy(this)" style="max-width:420px"><option value="">recorded policies (no model server needed)…</option></select>
+    </div>
+    <div id="perror" class="warn"></div>
+    <div id="preading"></div>
+    <table style="margin-top:10px"><thead><tr><th>#</th><th>Policy</th><th>Scope</th><th>Holds</th><th class="num">Covered</th><th class="num">Changed</th><th class="num">Rejected</th><th class="num">Violations</th><th></th></tr></thead><tbody id="policyBody"></tbody></table>
   </section>
   <section class="card audit">
     <h2>Audit trail <span class="muted" id="auditCount"></span></h2>
@@ -134,9 +150,47 @@ function drawMap() {
   $("map").innerHTML = svg;
 }
 
+function renderPolicies() {
+  if (!STATE || !STATE.standing) return;
+  $("policiesCard").style.display = "";
+  $("hour").textContent = `(simulator hour ${STATE.now})`;
+  $("policyBody").innerHTML = STATE.policies.slice().reverse().map(p => `<tr class="${p.active ? "" : "expired"}">
+    <td class="num">${p.id}</td><td>${esc(p.text)}</td><td>${esc(p.scope)}</td>
+    <td>${p.until === null ? "until withdrawn" : `${p.until} h (until hour ${p.expires})`}${p.active ? "" : " · no longer in force"}</td>
+    <td class="num">${p.in_scope}</td><td class="num">${p.changed}</td><td class="num">${p.rejected}</td><td class="num">${p.violations}</td>
+    <td>${p.active ? `<button onclick="withdrawPolicy(${p.id})">Withdraw</button>` : ""}</td></tr>`).join("");
+}
+
+let PREAD = null;
+function pickPolicy(sel) { if (sel.value) { $("ptext").value = sel.value; readPolicy(); } }
+async function readPolicy() {
+  const text = $("ptext").value.trim();
+  $("perror").textContent = ""; $("preading").innerHTML = "";
+  $("preadBtn").disabled = true; $("preadBtn").textContent = "Reading…";
+  const r = await api("/api/policy/read", {text});
+  $("preadBtn").disabled = false; $("preadBtn").textContent = "Read policy";
+  if (r.error) { $("perror").textContent = r.error; return; }
+  PREAD = r;
+  let html = `<div class="reading"><b>Reading</b> <span class="badge">${esc(r.status)}</span><div class="readback">${esc(r.readback)}</div><div class="mono">${esc(r.line)}</div>
+    <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(r.tapi, null, 1))}</pre></details>`;
+  for (const c of r.conflicts) html += `<div class="conflict ${c.kind}"><b>${c.kind}</b>: ${esc(c.why)}${c.with_text ? ` — policy #${c.with}: “${esc(c.with_text)}”` : ""}</div>`;
+  if (r.preview) html += `<p style="margin:8px 0 4px">Preview, next ${r.preview.horizon} requests: this policy covers <b>${r.preview.covers}</b> of them and changes <b>${r.preview.with.changed}</b> decisions; rejected ${r.preview.without.blocked} → ${r.preview.with.blocked}.</p>`;
+  html += `<div class="row"><button class="primary" ${r.applies ? "" : "disabled"} onclick="addPolicy()">${r.conflicts.some(c => c.kind === "contradiction") ? "Add despite the contradiction" : "Add policy"}</button>
+    <input type="text" id="pline" value="${esc(r.line)}" style="max-width:600px"><button onclick="addPolicy(true)">Add my line</button></div></div>`;
+  $("preading").innerHTML = html;
+}
+async function addPolicy(own) {
+  const r = await api("/api/policy/add", {text: PREAD.text, line: own ? $("pline").value : PREAD.line});
+  if (r.error) { $("perror").textContent = r.error; return; }
+  $("preading").innerHTML = ""; $("ptext").value = "";
+  await refresh();
+}
+async function withdrawPolicy(id) { await api("/api/policy/withdraw", {id}); await refresh(); }
+
 function render() {
   if (!STATE) return;
   const m = STATE.mode, s = STATE.stats;
+  if (STATE.standing) { document.querySelector("section.card:nth-of-type(2)").style.display = "none"; renderPolicies(); }
   $("mode").textContent = (m.live ? `live, models at ${m.base_url}` : "recorded answers, no model server") + ` · ${STATE.topology}, load ${s.load} E, seed ${s.seed} · ${m.policy}`;
   $("stats").innerHTML = `<span>served <b>${s.served}</b></span><span>blocking so far <b>${(100*s.blocking).toFixed(1)} %</b></span>`;
   $("pending").textContent = `pending: ${STATE.pending.source} → ${STATE.pending.destination}, ${STATE.pending.bit_rate} Gb/s`;
@@ -217,7 +271,7 @@ async function clearInstruction() {
   await refresh();
   const rec = await api("/api/recorded");
   if (rec.length) {
-    const sel = $("recordedSel");
+    const sel = STATE.standing ? $("precordedSel") : $("recordedSel");
     const byLang = {};
     for (const r of rec) (byLang[r.lang] ||= []).push(r);
     for (const lang of Object.keys(byLang).sort()) {
@@ -225,7 +279,7 @@ async function clearInstruction() {
       for (const r of byLang[lang].slice(0, 400)) { const o = document.createElement("option"); o.value = r.text; o.textContent = r.text.slice(0, 90); g.appendChild(o); }
       sel.appendChild(g);
     }
-  } else { $("recordedSel").parentElement.style.display = "none"; }
+  } else { $("recordedSel").parentElement.style.display = "none"; $("precordedSel").style.display = "none"; }
 })();
 </script>
 </body>

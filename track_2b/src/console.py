@@ -13,6 +13,14 @@ and nodes an instruction avoids or requires, and the route of the last decision.
 
     uv run python src/console.py                      # readers and decider from recorded answers
     uv run python src/console.py --base-url http://127.0.0.1:8089/v1   # live, behind llama.cpp
+    uv run python src/console.py --standing --reader translate4_ft_laptop   # standing policies
+
+With ``--standing`` the console keeps a table of standing policies instead of one instruction:
+a policy is read by one reader of the fourth format (scope and lifetime), checked for conflicts
+against the policies in force, previewed, and added; it covers the requests its scope names
+until it expires or is withdrawn; the rule engine decides every request under the policies that
+cover it, and the table reports what each policy did. One simulator hour is ``standing_stream.HOUR``
+time units.
 
 Without a server only instructions answered before can be read (the page lists them); with one,
 anything can be typed. The simulator always runs: the episode starts after a warm-up at the
@@ -35,12 +43,15 @@ from evaluate import Episode, answer_tags
 from intents import Intent
 from policies import Decision
 from spec import EMPTY, Spec, choose, describe, format_spec, load_topology, parse_spec, respects, validate
+from standing import PolicyTable
+from standing_stream import HOUR
 from tapi import constraints
-from translate import format_version, make_hybrid_policy, messages, read_rows
+from translate import format_version, make_hybrid_policy, make_translator, messages, read_rows
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = Path(__file__).with_name("console.html")
 RECORDED_SETS = ("owner", "mix3", "v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_partial", "v3_not")
+RECORDED_SETS4 = ("v4_en", "v4_de", "v4_fr", "v4_it")
 NOT_APPLIED = ("unsupported", "no_instruction", "unresolved", "malformed")
 
 
@@ -94,23 +105,40 @@ class Console:
         job = {"policy": self.policy_name, "condition": "I0", "load": args.load, "seed": args.seed,
                "warmup": args.warmup, "window": 10**6}  # fmt: skip
         self.episode = Episode(job)
-        self.policy = make_hybrid_policy(
-            self.policy_name, args.topology, decider=self.decider_name,
-            base_url=args.base_url or None, concurrency=1,
-        )  # fmt: skip
+        self.standing = bool(args.standing)
+        if self.standing:
+            self.reader_name = args.reader
+            if self.live and self.reader_name not in json.loads(os.environ.get("LLM_LORA_IDS", "{}")):
+                raise SystemExit(f"LLM_LORA_IDS must name the adapter of {self.reader_name}")
+            self.reader = make_translator(
+                self.reader_name, args.topology, base_url=args.base_url or None, concurrency=1
+            )
+            self.table = PolicyTable(self.topology)
+            self.policy = None
+        else:
+            self.policy = make_hybrid_policy(
+                self.policy_name, args.topology, decider=self.decider_name,
+                base_url=args.base_url or None, concurrency=1,
+            )  # fmt: skip
         self.text, self.spec = "none", EMPTY
         self.audit: list[dict] = []
         self.last_route: tuple[str, ...] | None = None
         self.recorded = [] if self.live else self._recorded()
 
+    @property
+    def now(self) -> float:
+        """The simulator's clock in hours."""
+        return float(self.episode.env.simulator.state.current_time) / HOUR
+
     # ---- what the page shows -----------------------------------------------------------------
     def _recorded(self) -> list[dict]:
         """Instructions both readers answered before, so the console works without a server."""
-        readers = (self.policy.translator, self.policy.second)
+        readers = (self.reader,) if self.standing else (self.policy.translator, self.policy.second)
         caches = [getattr(getattr(t, "llm", None), "_cache", {}) for t in readers]
         few = [getattr(t, "few", False) for t in readers]
-        version = format_version(self.policy_name)
-        paths = [ROOT / "data" / "instructions" / f"{name}.jsonl" for name in RECORDED_SETS]
+        version = format_version(self.reader_name if self.standing else self.policy_name)
+        sets = RECORDED_SETS4 + RECORDED_SETS if self.standing and version >= 4 else RECORDED_SETS
+        paths = [ROOT / "data" / "instructions" / f"{name}.jsonl" for name in sets]
         out, seen = [], set()
         for row in read_rows([p for p in paths if p.exists()]):
             text = row["text"]
@@ -150,8 +178,14 @@ class Console:
             )
         snap = env.simulator.statistics.snapshot()
         view = self.episode.view
+        if self.standing:  # the map shows what every policy in force avoids or requires
+            self.spec = self.table.effective(view, self.now) if self.table.active(self.now) else EMPTY
+            self.text = "; ".join(p.text for p in self.table.active(self.now)) or "none"
         return {
             "topology": self.args.topology,
+            "standing": self.standing,
+            "now": round(self.now, 2),
+            "policies": self.table.report(self.now) if self.standing else [],
             "nodes": [{"name": n, "lon": x, "lat": y} for n, (x, y) in self.coordinates.items()],
             "links": links,
             "instruction": {"text": self.text, "line": format_spec(self.spec, 3) if self.spec.applies else self.spec.status,
@@ -162,7 +196,8 @@ class Console:
             "stats": {"served": len(self.audit), "processed": int(snap.episode_services_processed),
                       "blocking": round(float(snap.episode_service_blocking_rate), 4),
                       "load": self.args.load, "seed": self.args.seed},
-            "mode": {"live": self.live, "policy": self.policy_name, "decider": self.decider_name,
+            "mode": {"live": self.live, "policy": self.reader_name if self.standing else self.policy_name,
+                     "decider": "rule engine" if self.standing else self.decider_name,
                      "base_url": self.args.base_url or ""},
             "audit": self.audit[-80:],
         }  # fmt: skip
@@ -194,8 +229,9 @@ class Console:
                 candidates.append(effective)
         return {"text": text, "readings": readings, "differ": differ, "preview": self.preview(candidates)}
 
-    def _rollout(self, spec: Spec, horizon: int) -> list[dict]:
-        """The next requests on a copy of the simulator, decided by the rule engine under ``spec``."""
+    def _rollout(self, spec, horizon: int) -> list[dict]:
+        """The next requests on a copy of the simulator, decided by the rule engine under ``spec``
+        (a spec, or a function of the request's view and the hour that gives one)."""
         from optical_networking_gym.heuristics import select_first_fit_action
 
         from sim import action_from_choice, view_from_analysis
@@ -205,7 +241,8 @@ class Console:
         for _ in range(horizon):
             analysis = env.simulator.current_analysis
             view = view_from_analysis(analysis)
-            choice = choose(view, spec)
+            applied = spec(view, float(env.simulator.state.current_time) / HOUR) if callable(spec) else spec
+            choice = choose(view, applied)
             action = action_from_choice(analysis, choice)
             if action is None:
                 action = select_first_fit_action(env.action_masks())
@@ -246,6 +283,86 @@ class Console:
             )
         return out
 
+    # ---- standing policies -------------------------------------------------------------------
+    def read_policy(self, text: str) -> dict:
+        text = " ".join(text.split())
+        if not text:
+            return {"error": "type a policy first"}
+        try:
+            line = self.reader.lines([text])[0][0]
+        except (RuntimeError, ImportError) as error:
+            return {"error": f"no model server, and this policy was not read before ({error})"}
+        spec = validate(parse_spec(line), self.topology)
+        now, view = self.now, self.episode.view
+        conflicts = self.table.conflicts(spec, now) if spec.applies else []
+        preview = None
+        if spec.applies:
+            trial = copy.deepcopy(self.table)
+            trial.add(text, spec, now)
+            horizon = self.args.horizon
+            without = self._rollout(self.table.effective, horizon)
+            with_it = self._rollout(trial.effective, horizon)
+            changed = sum(a["path"] != b["path"] for a, b in zip(with_it, without, strict=True))
+            preview = {"horizon": horizon,
+                       "without": {"blocked": sum(r["blocked"] for r in without)},
+                       "with": {"blocked": sum(r["blocked"] for r in with_it), "changed": changed},
+                       "covers": sum(spec.scope is None or self._covers(spec.scope, r) for r in with_it)}  # fmt: skip
+        return {"text": text, "line": line, "status": spec.status, "applies": spec.applies, "readback": describe(spec),
+                "tapi": constraints(spec, view), "conflicts": conflicts, "preview": preview}  # fmt: skip
+
+    @staticmethod
+    def _covers(scope: str, row: dict) -> bool:
+        kind, _, value = scope.partition(":")
+        return {"rate": str(row["bit_rate"]) == value, "from": row["source"] == value,
+                "to": row["destination"] == value}.get(kind, True)  # fmt: skip
+
+    def add_policy(self, text: str, line: str) -> dict:
+        text = " ".join(text.split())
+        spec = validate(parse_spec(line), self.topology)
+        if not spec.applies:
+            return {"error": f"not a policy the table can hold: {spec.status}"}
+        policy, conflicts = self.table.add(text, spec, self.now)
+        return {"ok": True, "id": policy.id, "conflicts": conflicts}
+
+    def withdraw_policy(self, policy_id: int) -> dict:
+        gone = self.table.withdraw(int(policy_id))
+        return {"ok": gone is not None}
+
+    def step_standing(self, count: int) -> list[dict]:
+        from sim import action_from_choice
+
+        rows = []
+        for _ in range(count):
+            episode, now = self.episode, self.now
+            episode.intent = Intent(text="none")
+            view = episode.request().view
+            expired = self.table.expire(now)
+            covering = self.table.applicable(view, now)
+            effective = self.table.effective(view, now)
+            choice = choose(view, effective)
+            without = choose(view, EMPTY)
+            analysis = episode.env.simulator.current_analysis
+            invalid = action_from_choice(analysis, choice) is None
+            ok = respects(view, effective, choice) if covering and not invalid else None
+            self.table.record(view, now, choice, without, ok)
+            row = {
+                "n": len(self.audit) + 1, "hour": round(now, 2),
+                "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
+                "instruction": "; ".join(f"#{p.id}" for p in covering) or "none",
+                "line": format_spec(effective, 3) if covering else "none",
+                "who": "rule engine" + (f" (policies {', '.join(str(p.id) for p in covering)})" if covering else ""),
+                "asked": False, "answer": format_spec(effective, 3),
+                "path": choice[0] if choice else None, "slot": choice[1] if choice else None,
+                "route": list(view.paths[choice[0]].nodes) if choice else None,
+                "blocked": choice is None, "invalid": invalid, "respects": ok,
+                "expired": [p.text for p in expired], "tapi": constraints(effective, view) if covering else None,
+            }  # fmt: skip
+            episode.apply(Decision(choice, raw=format_spec(effective, 3)))
+            self.last_route = tuple(row["route"]) if row["route"] else None
+            self.audit.append(row)
+            rows.append(row)
+        return rows
+
     # ---- applying and stepping ---------------------------------------------------------------
     def apply(self, text: str, line: str, asked: bool) -> dict:
         text = " ".join(text.split()) or "none"
@@ -261,6 +378,8 @@ class Console:
     def step(self, count: int) -> list[dict]:
         from sim import action_from_choice
 
+        if self.standing:
+            return self.step_standing(count)
         rows = []
         for _ in range(count):
             episode = self.episode
@@ -347,6 +466,12 @@ class Handler(BaseHTTPRequestHandler):
             elif self.path == "/api/step":
                 count = max(1, min(int(payload.get("count", 1)), 200))
                 self._json({"rows": console.step(count), "state": console.state()})
+            elif self.path == "/api/policy/read" and console.standing:
+                self._json(console.read_policy(str(payload.get("text", ""))))
+            elif self.path == "/api/policy/add" and console.standing:
+                self._json(console.add_policy(str(payload.get("text", "")), str(payload.get("line", ""))))
+            elif self.path == "/api/policy/withdraw" and console.standing:
+                self._json(console.withdraw_policy(int(payload.get("id", 0))))
             else:
                 self._json({"error": "not found"}, 404)
 
@@ -363,6 +488,12 @@ def main() -> None:
     parser.add_argument("--base-url", default=os.environ.get("LLM_BASE_URL", ""))
     parser.add_argument("--policy", default=None, help="hybrid policy name (default by mode)")
     parser.add_argument("--decider", default=None, help="decider policy name (default by mode)")
+    parser.add_argument(
+        "--standing", action="store_true", help="a table of standing policies instead of one instruction"
+    )
+    parser.add_argument(
+        "--reader", default="translate4_ft_laptop", help="standing: the reader of the fourth format"
+    )
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
     print("building the simulator and the policies ...", flush=True)
@@ -374,6 +505,7 @@ def main() -> None:
         if args.base_url
         else f"recorded answers only ({len(Handler.console.recorded)} instructions)"
     )
+    mode += "; standing policies" if args.standing else ""
     print(
         f"console: http://{args.host}:{args.port}/  ({mode}; {args.topology}, load {args.load}, seed {args.seed})",
         flush=True,

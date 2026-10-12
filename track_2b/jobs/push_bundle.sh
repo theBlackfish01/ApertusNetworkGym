@@ -16,7 +16,7 @@ for dir in instructions probes translate translate2 fewshot topologies; do
     cp data/$dir/*.json* "$stage/data/$dir/" 2>/dev/null || true
 done
 # Third round: one training set per reader (corpora3.py).
-for reader in data/translate3/s*; do
+for reader in data/translate3/s* data/translate4/s*; do
     [ -d "$reader" ] && mkdir -p "$stage/$reader" && cp "$reader"/*.jsonl "$stage/$reader/"
 done
 cp results/mlp/* "$stage/results/mlp/"

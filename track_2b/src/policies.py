@@ -501,6 +501,10 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         from translate import make_hybrid_policy
 
         return make_hybrid_policy(name, **llm_options)
+    if name.startswith("standing"):
+        from standing_stream import make_standing_policy
+
+        return make_standing_policy(name, **llm_options)
     if backend == "transformers":
         return LocalLLMPolicy(name, **llm_options)
     if llm_options.get("structured") == "gbnf":

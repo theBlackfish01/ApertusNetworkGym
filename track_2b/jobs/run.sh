@@ -27,6 +27,8 @@
 #           instructions; the decider on the probes of the new types; the mixed condition
 #           operations_mix3 in closed loop for the decider alone, the hybrid, and the hybrid that
 #           asks when its two readers disagree (three processes on one GPU)
+#   train4  fine-tune the reader of the fourth format (scope and lifetime of a standing policy) and
+#           score it on the fourth and third rounds' test sets
 #   phase5  the same mixed condition in closed loop for the hybrid that asks with another second
 #           reader (SECOND, default few70b: the untrained Apertus 70B, read beforehand by the
 #           stage big); EVAL_ARGS narrows the episodes, e.g. "--loads 390"
@@ -53,7 +55,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -319,6 +321,19 @@ train3)
     mkdir -p results/train/translator3-s$READER
     cp runs/translator3/training_log.json runs/translator3/heldout_predictions.jsonl results/train/translator3-s$READER/
     keep results/train/translator3-s$READER
+    ;;
+train4)
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+    stamp "fine-tune the reader of the fourth format (standing policies: scope and lifetime), then score it"
+    # shellcheck disable=SC2086
+    $PY src/train.py --model "$MODEL" --data-dir data/translate4/s1 --out runs/translator4         --hub-adapter "$TRANSLATOR_REPO" --resume --save-steps 50 --max-length 1024 --max-new-tokens 120         --eval-records 100 --seed 1 --skip-merge --epochs 1.15 ${TRAIN_ARGS:-}
+    mkdir -p results/train/translator4
+    cp runs/translator4/training_log.json runs/translator4/heldout_predictions.jsonl results/train/translator4/
+    keep results/train/translator4
+    V4="$I/v4_en.jsonl,$I/v4_de.jsonl,$I/v4_fr.jsonl,$I/v4_it.jsonl"
+    stamp "translate4_ft on the test sets of the fourth round, then those of the third"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator4 --batch 96         --jobs "translate4_ft:nobel-eu:regex:$V4,$I/owner.jsonl,$V3"
+    keep results/translate results/cache
     ;;
 big)
     : "${BIG_MODEL:?set BIG_MODEL to <repo>:<file> of a GGUF build}"

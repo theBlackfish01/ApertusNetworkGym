@@ -39,7 +39,7 @@ from intents import (
     sample_intent,
 )
 from intents import teacher_choice as intent_teacher
-from spec import EMPTY, Spec, from_intent, load_topology, mention_order, respects
+from spec import EMPTY, Spec, admissible, choose, from_intent, load_topology, mention_order, respects
 from view import Choice, PathView, RequestView
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -142,6 +142,8 @@ def _complies(path: PathView, rule: tuple, shortest: int) -> bool:
 
 def allowed(view: RequestView, instruction: Intent) -> tuple[int, ...]:
     """Indices of the paths that respect the instruction; empty means the request must be rejected."""
+    if hasattr(instruction, "truth_spec"):  # standing policies: the true effective spec of the request
+        return admissible(view, instruction.truth_spec())
     if isinstance(instruction, mixed3.Instruction):  # the third round has its own rules
         return mixed3.allowed(view, instruction)
     if getattr(instruction, "kind", "") != "unseen":
@@ -153,6 +155,8 @@ def allowed(view: RequestView, instruction: Intent) -> tuple[int, ...]:
 
 def respected(view: RequestView, instruction: Intent, choice: Choice, rule: str = "intersection") -> bool:
     """Whether a valid decision respects the instruction (``intents.is_admissible`` for every kind)."""
+    if hasattr(instruction, "truth_spec"):
+        return respects(view, instruction.truth_spec(), choice)
     if isinstance(instruction, mixed3.Instruction):
         return mixed3.respected(view, instruction, choice)
     kind = getattr(instruction, "kind", "")
@@ -171,6 +175,8 @@ def respected(view: RequestView, instruction: Intent, choice: Choice, rule: str 
 
 def oracle(view: RequestView, instruction: Intent) -> Choice:
     """The reference decision: the teacher inside the paths that respect the instruction."""
+    if hasattr(instruction, "truth_spec"):
+        return choose(view, instruction.truth_spec())
     if isinstance(instruction, mixed3.Instruction):
         return mixed3.oracle(view, instruction)
     if getattr(instruction, "kind", "") != "unseen":

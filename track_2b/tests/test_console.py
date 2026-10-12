@@ -30,7 +30,7 @@ def test_who_decided_and_readback():
 
 @pytest.fixture(scope="module")
 def console():
-    args = argparse.Namespace(topology="nobel-eu", load=390, seed=11, warmup=0, horizon=6, base_url="",
+    args = argparse.Namespace(topology="nobel-eu", load=390, seed=11, warmup=0, horizon=6, base_url="", standing=False, reader=None,
                               policy=None, decider=None)  # fmt: skip
     return Console(args)
 

@@ -44,6 +44,7 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import mixed3
+import standing_stream
 from intents import (
     HELDOUT_PAIRS,
     NO_INTENT,
@@ -69,7 +70,16 @@ ROOT = Path(__file__).resolve().parents[1]
 EVAL_LOADS = (240, 390)  # teacher blocking ~1.2 % and ~6.0 % (results/calibration, docs/decisions.md)
 EVAL_SEEDS = (1, 2, 3)
 WARMUP, WINDOW = 1_000, 2_000
-CONDITIONS = ("I0", "I1", "I2", "I3", "I4", "mixed_heldout_paraphrases", "heldout_pairs")
+CONDITIONS = (
+    "I0",
+    "I1",
+    "I2",
+    "I3",
+    "I4",
+    "mixed_heldout_paraphrases",
+    "heldout_pairs",
+    standing_stream.CONDITION,
+)
 HELDOUT_SPLITS = ("heldout_indist", "heldout_paraphrase", "heldout_pairs")
 METRICS = ("service_blocking_rate", "bit_rate_blocking_rate", "violation_rate", "invalid_rate", "decision_ms",
            "ordered_violation_rate")  # fmt: skip
@@ -135,13 +145,19 @@ class Episode:
         self.seconds = 0.0
         self.remaining = job["window"]
         self.trace: list[dict] = []
+        self.stream = standing_stream.Stream(job) if job["condition"] == standing_stream.CONDITION else None
         self._prepare()
 
     def _prepare(self) -> None:
         from sim import view_from_analysis
 
         self.view = view_from_analysis(self.env.simulator.current_analysis)
-        self.intent = condition_intent(self.job["condition"], self.view, self.rng)
+        if self.stream is not None:  # standing policies: arrivals and the truth come from the schedule
+            self.intent = self.stream.intent(
+                self.view, float(self.env.simulator.state.current_time) / standing_stream.HOUR
+            )
+        else:
+            self.intent = condition_intent(self.job["condition"], self.view, self.rng)
 
     def request(self) -> Request:
         return Request(self.view, self.intent, self.env, self.info)
@@ -256,7 +272,9 @@ def run_group(policy: Policy, jobs: list[dict], on_done=None) -> list[dict]:
 
 
 def _run_single(job: dict) -> dict:
-    options = {"topology": job["topology"]} if job["policy"].startswith(("translate", "hybrid")) else {}
+    options = (
+        {"topology": job["topology"]} if job["policy"].startswith(("translate", "hybrid", "standing")) else {}
+    )
     return run_group(make_policy(job["policy"], **options), [job])[0]
 
 

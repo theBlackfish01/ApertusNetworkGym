@@ -1,0 +1,65 @@
+{"key": "32920d7fb991c25c90ee444af60f21ff5d877bb8423d7b31a977be3b8bc08b5c", "answer": "path=3 slot=163", "seconds": 0.8428}
+{"key": "cda1b3ad4c053b3786a128d61ef3c2c425736e9e627efcb6bad905a61bea4247", "answer": "path=2 slot=187", "seconds": 0.8075}
+{"key": "3205d3b6939e4136041ea553ac892bf356e774218194c4a196400c0ccfdc5bc3", "answer": "path=0 slot=9", "seconds": 0.6407}
+{"key": "e016a6f7b44c8af970564a51c36cda7b61593b84bc51e417e6d761a962e788ed", "answer": "path=2 slot=2", "seconds": 0.7929}
+{"key": "6992286f578e328115b80d39843637f36619b8b32c562b8668db89d8cc264c04", "answer": "path=1 slot=62", "seconds": 0.6398}
+{"key": "3d7eed60cb2e41a82b78fcb8dda2459f981152ce77dbcc81811bd0c5e4a0f6cb", "answer": "path=0 slot=10", "seconds": 0.8275}
+{"key": "ea692fa5db275bbe0a678b25ea22aa840634c701cfc3ab7f19f803aa81ed5aa0", "answer": "reject", "seconds": 0.6293}
+{"key": "0c824623e2e176cb03f045dfa55b87349a2b661dfd08ac7e1c9e54b487bb9735", "answer": "path=0 slot=9", "seconds": 0.7262}
+{"key": "0f76cae023ac41901d99b9cacd71c8f82bd2140f8793dc7c9d68d134052d5d90", "answer": "path=0 slot=69", "seconds": 0.8407}
+{"key": "c076477815082f8d0a715cc1e34a12273864695f213ef13423de60283c1f3fd7", "answer": "path=0 slot=91", "seconds": 0.8303}
+{"key": "763222332d86eaa03088be75944c210c261099d78674de1a909be3a65d9f1404", "answer": "path=0 slot=126", "seconds": 0.8328}
+{"key": "5368458cda1fa4ebcd8242f8d960a73dba0854532989662a97fdc962e6755e35", "answer": "path=1 slot=148", "seconds": 0.8772}
+{"key": "5f90e523117e78d1a35506e42f9c356beb488efb88322e579ff354330f420967", "answer": "path=0 slot=244", "seconds": 0.812}
+{"key": "121933e83785fe0056f266b231175cf345c12a856cd234181ebf928cda2ff4f0", "answer": "path=4 slot=51", "seconds": 0.769}
+{"key": "1d04cf6225ea6c47f98632b531999373c32b3bdcd6e59273df58d944df89703c", "answer": "path=4 slot=128", "seconds": 0.8485}
+{"key": "c216e12987d2deddbb334ee43968dab6109eb9b9475a338f591a079e7b95905a", "answer": "path=0 slot=0", "seconds": 0.8042}
+{"key": "5a620903d5a0ff5eccf6356a5e706384309a39e538b26fbe2774d1b71f72276e", "answer": "path=3 slot=187", "seconds": 0.7994}
+{"key": "116c3e0a4501be5c39c0ec6ea11d02963cc467b7279499ce5174c06a773c6c92", "answer": "path=0 slot=256", "seconds": 0.7065}
+{"key": "4825716e83628e8b06584a9a7008db514702e3e90cfbaac20910efd4e2a59a18", "answer": "path=0 slot=22", "seconds": 0.7731}
+{"key": "4fdb10ada9b70c7f958971183a03af8ca38a797bad739c5fad72b1d74941669d", "answer": "path=2 slot=297", "seconds": 0.8162}
+{"key": "53305b4214ac12465a7536ac2e45c6b13a28cff09aa41826eb283aa5bff7c67a", "answer": "path=1 slot=140", "seconds": 0.6744}
+{"key": "5c5097bdac7b35ccfba7497bc724936f8c99d92afac5dd53fa7670bb0627ece8", "answer": "path=0 slot=50", "seconds": 0.7999}
+{"key": "ddef64a10bfe02c4590c1c8e62d32f2a5621b8eaa74838eadb478ad8a6c10a9d", "answer": "path=0 slot=115", "seconds": 0.8653}
+{"key": "a0abfb6dfd874c379e28ae9513bd7fa43757b20817d4d6aa82e01e90579f02a4", "answer": "path=2 slot=189", "seconds": 0.7983}
+{"key": "f7aa526ca927b5703041970d269d7e9d016aff9785371d6c2b1462979e283ba8", "answer": "path=1 slot=69", "seconds": 0.8075}
+{"key": "36738c93f599c9b97c12ec37a7a539fabf09822a7cc6b46e472ce95823106712", "answer": "path=0 slot=0", "seconds": 0.7574}
+{"key": "80a134bedf9bca096063482d5afe98540e134d97bcd0da41ae36dfd5113c3d8c", "answer": "path=0 slot=29", "seconds": 0.7726}
+{"key": "1d8c8bc77a84b9d261c6604fddbc8293fa06b01e690cf0b7f4f7c2c72abcc4d9", "answer": "path=0 slot=15", "seconds": 0.7862}
+{"key": "d2cc9c972c9aabede00b3caefe4611e1fcc643a556d3a0ac55f5386df4be9d6f", "answer": "path=0 slot=19", "seconds": 0.818}
+{"key": "0f282cbc92f5684179dcbd7480977556cf3c6c62837d4e9225c5f0e1ebd7ed18", "answer": "path=0 slot=142", "seconds": 0.7982}
+{"key": "e7219d78094ffe337d52dd889debfc11f559fdb3c0ab0e50661329f9678302cc", "answer": "path=1 slot=145", "seconds": 0.7629}
+{"key": "a341a480f8045902ab3dc17d5080923d34ed74aa738f303f2fd3e7d3596bb00b", "answer": "path=1 slot=100", "seconds": 0.8115}
+{"key": "841c1b31f4f15f39c8539cf64d30786a4f81bc51ed25a5641389ae66ec934954", "answer": "path=0 slot=44", "seconds": 0.7473}
+{"key": "9d4b6150a9ec1d192aef7872a087c7849615a77296a80d093aea46a90f7e8405", "answer": "path=0 slot=58", "seconds": 0.7731}
+{"key": "1a7dad79fe76ac41082e544f073c4aa4905bb55db440e5446147e26ff91a7325", "answer": "path=3 slot=258", "seconds": 0.7869}
+{"key": "016fc9e5f5eb9318f72806786fe51716b061d8b24e318a596a653beee02cfb56", "answer": "path=1 slot=6", "seconds": 0.7153}
+{"key": "24aa298d6d8cabcd6f9e61998cd6ad41082fa12c0116990c0f1bf78f1ff13aa7", "answer": "path=0 slot=195", "seconds": 0.7854}
+{"key": "3b4c2b851106dafcd57efe7595583d5b259defeab3fc9ad966d837608087df07", "answer": "path=0 slot=2", "seconds": 0.7157}
+{"key": "a2d93704628ea16fcffe998f0cb3806f6cfe9707e3e1dd9390e31ff2df1856c9", "answer": "path=3 slot=242", "seconds": 0.6482}
+{"key": "6ed8fb2cf50880004069dcf47d7fb0c8e98085d896a3af38cfa739575fce439e", "answer": "path=1 slot=7", "seconds": 0.6373}
+{"key": "a76a0df8824edde2ed90c587bb1d35d6774d61d87749460b869fde0bbdf80b72", "answer": "path=1 slot=24", "seconds": 0.8607}
+{"key": "e315bf74eb736c11ad5dc91f54594fbfeaa75dfa44baf4d57a781bcc9de317a9", "answer": "path=0 slot=158", "seconds": 0.6897}
+{"key": "f210459f6974354329acb726f7d31fee67ca10b5fe3862477fe1616589e71ba5", "answer": "path=0 slot=42", "seconds": 0.7618}
+{"key": "d445a2368a2925c19d339b06aa5397e44c7aff86be518beffc5d72182c8a404f", "answer": "path=1 slot=7", "seconds": 0.7223}
+{"key": "71b0af684b7f8bf9dbc68dcd1104f1313d8d12b8008044f956823ae5d65af39f", "answer": "path=2 slot=290", "seconds": 0.8019}
+{"key": "fd4af6debf680d4a817809fe84c65366a340df405adfbc3b9e322e8bee89f2f7", "answer": "path=2 slot=11", "seconds": 0.8136}
+{"key": "f8b3a7b934082c762d811d3a1e4c0539e0e5aaac5e6c81625d57b95b0ca2f397", "answer": "reject", "seconds": 0.3712}
+{"key": "2c30184af6363d0a1b772985240f85e7ceb62d47dd09ec71e1ae9214353018e6", "answer": "reject", "seconds": 0.4479}
+{"key": "70a059f4e56db7828eb1e1f84978cf060a7ea3950a4eb4f4e97250625cbc0957", "answer": "path=1 slot=58", "seconds": 0.8176}
+{"key": "9355e0f3ce35516cd6f08d0a9b4dee219f7211354fb2aba6f631a60745fcbb69", "answer": "reject", "seconds": 0.544}
+{"key": "f0248baaee50765e775fe4676e773e066e7ec9bbc82402cd93c053c43856313d", "answer": "path=0 slot=90", "seconds": 0.7625}
+{"key": "5d64e8cea587ffe5611003b3dd3be0fb812050693140d50b977a5ccf0d3179b4", "answer": "path=0 slot=127", "seconds": 0.734}
+{"key": "10fdf5db327f4e80479a11ed556d9d9cf00d0e370df5e4ce51030c423932dadf", "answer": "path=2 slot=22", "seconds": 0.7713}
+{"key": "8aa6001b19ff8d265e9d45371590c0f6649485837198b4bea86c8c63317d7ab0", "answer": "path=0 slot=24", "seconds": 1.0364}
+{"key": "db5125d51129908626cba039b9e488021c9952fcc579466443aa0acd7cbb4eba", "answer": "path=1 slot=29", "seconds": 0.7585}
+{"key": "ef203b549570f561c1484727f20e028efd4bcaaecdd6b5b6e5a4292ceebbd61c", "answer": "path=0 slot=294", "seconds": 0.9067}
+{"key": "1f208f7796554a6197626c7b9d9620124705efeea38441f95cbbf6acdad818ce", "answer": "path=0 slot=31", "seconds": 0.6975}
+{"key": "eb0300a37912df9d57ebd97742a5d7ffb4d457e5554ef8c15d0f82d5f3bf36e4", "answer": "reject", "seconds": 0.4704}
+{"key": "5db135f0f3edb369654e9e43289947ab60017b361a0c88c4cb124114b246f701", "answer": "path=2 slot=292", "seconds": 0.5773}
+{"key": "fa33029e0fa0f8e7f4a575b06cc86863b3472c763ed08a35379629dfc670513e", "answer": "path=0 slot=2", "seconds": 0.7146}
+{"key": "acc3129227e6a37cd4f9ab2d1e1f2768ce6f2bbe1c6a0303d76d5433eae4e759", "answer": "path=0 slot=8", "seconds": 0.6188}
+{"key": "12ee1e9620b868c5bb0ecf55daae3f6e8e4d7fcab77cefd42013c1da88de4c04", "answer": "path=0 slot=156", "seconds": 0.8613}
+{"key": "433c5a364cbbfa15bf08aebbea82ed7390358ed7d6e5860c1f31c6b6ebaa3241", "answer": "path=0 slot=225", "seconds": 0.7826}
+{"key": "ed2cf57c101150ea6882d8b254774d1e8d59a8642dd7c23c74992220f1d863a6", "answer": "path=1 slot=147", "seconds": 0.7328}
+{"key": "ca64f0d92c16d9e0eed96f499c174d528b98117df3820e3521a8c83092fba308", "answer": "path=0 slot=19", "seconds": 0.7761}

@@ -295,6 +295,44 @@ NOTES = (
 )
 
 
+STANDING = {
+    "standing_oracle_standing4": "The true policy table (reference)",
+    "first_fit_standing4": "First fit (ignores the policies)",
+    "teacher_standing4": "No-intent teacher (ignores the policies)",
+    "standing_noscope_standing4": "True policies, scope ignored (every policy covers every request)",
+    "standing_nountil_standing4": "True policies, lifetime ignored (no policy ever expires)",
+    "standing3_ft_laptop_standing4": "Policies read by the third-format reader (no scope, no lifetime)",
+    "standing4_ft_standing4": "Policies read by the fourth-format reader",
+    "standing4_ft_laptop_standing4": "Policies read by the fourth-format reader, on the laptop",
+}
+
+
+def standing_tables(results: Path) -> list:
+    """Standing policies in closed loop: violations against the true policy table."""
+    found = {name: data for name in STANDING if (data := read(results / "eval" / f"{name}.json"))}
+    out = []
+    for load in sorted({e["load"] for d in found.values() for e in d["summary"]}):
+        table = []
+        for name, data in found.items():
+            entry = next((e for e in data["summary"] if e["load"] == load), None)
+            if entry is None:
+                continue
+            b = entry["by_intent"]["all"]
+            runs = sorted((e["seed"], e["violation_rate"]) for e in data["episodes"] if e["load"] == load)
+            dropped = data["metadata"]["policy"].get("dropped_policies")
+            table.append([STANDING[name], pct(b["violations"], b["requests"]), pct(b["binding_violations"], b["binding"]),
+                          pct(b["rejects"], b["requests"]), f"{100 * entry['service_blocking_rate_mean']:.2f}",
+                          "–" if dropped is None else str(dropped),
+                          " / ".join(f"{100 * rate:.1f}" for _, rate in runs)])  # fmt: skip
+        if table:
+            title = ("Standing policies in closed loop (policies arrive, hold for the hours they state or until "
+                     f"withdrawn, and cover the requests their scope names): violations against the true table, % — load {load} E")  # fmt: skip
+            out.append((title,
+                        ["Policy", "Violations, % of requests", "Where a policy changes the right answer, %",
+                         "Rejected, %", "Blocking, %", "Policies the reader dropped", "Per seed"], table))  # fmt: skip
+    return out
+
+
 def owner_tables(results: Path) -> list:
     """The project owner's own instructions (``design/owner.json``, written by ``corpora3_owner.py``)."""
     owner = read(results / "design" / "owner.json")
@@ -332,7 +370,7 @@ def main() -> None:
     args = parser.parse_args()
     design = read(args.results / "design" / "readers3.json")
     tables = (reader_tables(design, args.results) if design else []) + offline_tables(args.results)
-    tables += closed_tables(args.results) + owner_tables(args.results)
+    tables += closed_tables(args.results) + standing_tables(args.results) + owner_tables(args.results)
     lines = ["# Third round: a policy language, two readers, and a guarded fallback", "", NOTES, ""]
     for title, header, rows in tables:
         lines += [f"## {title}", "", "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
