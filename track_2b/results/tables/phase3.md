@@ -175,6 +175,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid | 1.0 | 1.6 | 31.6 | 40.4 | 0.0 | 6.7 | 9.5 | 12.12 | 11.5 | 0.7 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.4 | 28.9 | 34.7 | 0.0 | 6.3 | 8.5 | 12.25 | 17.3 | 1.0 | 8.9 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.3 | 0.5 | 28.3 | 37.0 | 0.0 | 3.7 | 8.3 | 12.03 | 21.2 | 0.9 | 24.1 |
+| Hybrid that asks, all three models on the laptop (4-bit) | 1.2 | 3.3 | 31.1 | 38.4 | 0.0 | 2.6 | 9.2 | 11.98 | 15.4 | 0.6 | 9.6 |
 
 ## The same, only requests on which the instruction changes the right answer — load 390 E
 
@@ -190,6 +191,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid | 2.0 | 2.3 | 68.7 | 63.5 | 1169 | 476 | 383 | 348 |
 | Hybrid that asks when its two readers disagree | 1.8 | 2.3 | 65.3 | 55.5 | 1138 | 472 | 360 | 344 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.7 | 0.9 | 60.2 | 58.9 | 1163 | 470 | 377 | 341 |
+| Hybrid that asks, all three models on the laptop (4-bit) | 2.1 | 4.7 | 70.4 | 59.4 | 1179 | 472 | 379 | 352 |
 
 ## All requests, violations in % per seed — load 390 E
 
@@ -205,6 +207,29 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid | 8.50 | 10.25 | 9.85 |
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 7.95 | 8.60 | 8.25 |
+| Hybrid that asks, all three models on the laptop (4-bit) | 8.80 | 9.40 | 9.35 |
+
+## Standing policies in closed loop (policies arrive, hold for the hours they state or until withdrawn, and cover the requests their scope names): violations against the true table, % — load 240 E
+
+| Policy | Violations, % of requests | Where a policy changes the right answer, % | Rejected, % | Blocking, % | Policies the reader dropped | Per seed |
+|---|---|---|---|---|---|---|
+| The true policy table (reference) | 0.0 | 0.0 | 31.4 | 31.35 | 0 | 0.0 / 0.0 / 0.0 |
+| First fit (ignores the policies) | 42.0 | 77.6 | 2.7 | 2.68 | – | 41.9 / 40.6 / 43.4 |
+| No-intent teacher (ignores the policies) | 47.9 | 100.0 | 1.2 | 1.22 | – | 47.1 / 49.5 / 46.9 |
+| True policies, scope ignored (every policy covers every request) | 12.7 | 8.9 | 43.5 | 43.55 | 0 | 7.2 / 17.0 / 13.7 |
+| True policies, lifetime ignored (no policy ever expires) | 11.9 | 8.8 | 42.7 | 42.73 | 0 | 3.9 / 13.4 / 18.4 |
+| Policies read by the fourth-format reader | 1.1 | 2.1 | 30.7 | 30.67 | 0 | 0.9 / 0.0 / 2.4 |
+
+## Standing policies in closed loop (policies arrive, hold for the hours they state or until withdrawn, and cover the requests their scope names): violations against the true table, % — load 390 E
+
+| Policy | Violations, % of requests | Where a policy changes the right answer, % | Rejected, % | Blocking, % | Policies the reader dropped | Per seed |
+|---|---|---|---|---|---|---|
+| The true policy table (reference) | 0.0 | 0.0 | 34.7 | 34.73 | 0 | 0.0 / 0.0 / 0.1 |
+| First fit (ignores the policies) | 38.1 | 75.2 | 8.2 | 8.23 | – | 38.6 / 43.2 / 32.6 |
+| No-intent teacher (ignores the policies) | 45.6 | 99.9 | 6.0 | 5.98 | – | 50.9 / 51.9 / 33.9 |
+| True policies, scope ignored (every policy covers every request) | 30.0 | 17.1 | 61.4 | 61.37 | 0 | 54.4 / 0.0 / 35.5 |
+| True policies, lifetime ignored (no policy ever expires) | 6.4 | 5.3 | 39.8 | 39.80 | 0 | 6.0 / 7.6 / 5.5 |
+| Policies read by the fourth-format reader | 1.5 | 2.4 | 34.2 | 34.18 | 0 | 0.0 / 4.4 / 0.1 |
 
 ## The project owner's own instructions, on the laptop (4-bit base model, llama.cpp): number of instructions
 
