@@ -333,6 +333,56 @@ def standing_tables(results: Path) -> list:
     return out
 
 
+def consistency_tables(results: Path) -> list:
+    """Self-consistency of reader 1 against the two other checks (``design/consistency3.json``)."""
+    data = read(results / "design" / "consistency3.json")
+    if not data:
+        return []
+    names = {"translate3_ft2_laptop": "reader 2 (same recipe, on the laptop)", "translate3_few70b": "untrained Apertus 70B",
+             **{f"samples>={t}": f"{t} or more of {data['samples']} samples of reader 1 differ" for t in range(1, 6)},
+             "translate3_ft2_laptop+samples>=1": "reader 2, or a sample differs",
+             "translate3_few70b+samples>=1": "the 70B, or a sample differs"}  # fmt: skip
+    rows = [[e["group"], names.get(e["signal"], e["signal"]), str(e["n"]), pct(e["asked"], e["n"]), pct(e["wrong"], e["n"]),
+             pct(e["wrong_left"], e["n"]), pct(e["silent_left"], e["n"]), pct(e["right_asked"], e["n"])]
+            for e in data["signals"] if e["group"] in ("policy language", "types never shown", "carried in part")
+            and e["signal"] in names]  # fmt: skip
+    return [("Three signals that could make the system ask, on the laptop's greedy reading of reader 1: % of instructions",
+             ["Instructions", "Signal", "n", "Asked", "Not right alone", "Not right and not asked",
+              "Applied wrongly and not asked", "Asked although right"], rows)]  # fmt: skip
+
+
+def swiss_tables(results: Path) -> list:
+    """The readers on the Swiss network (``translate/<reader>_swiss.json``)."""
+    names = {
+        "translate3_ft_laptop": "Reader 1 on the laptop",
+        "translate3_ft2_laptop": "Reader 2 on the laptop",
+    }
+    langs = {"en": "English", "de": "German", "fr": "French", "it": "Italian"}
+    rows = []
+    for reader, label in names.items():
+        data = read(results / "translate" / f"{reader}_swiss.json")
+        if not data:
+            continue
+        for lang, language in langs.items():
+            total = next(
+                (g for g in data["groups"] if g["set"] == f"v3_swiss_{lang}" and g["lang"] == "all"), None
+            )
+            if not total:
+                continue
+            kinds = {
+                g["kind"]: g for g in data["groups"] if g["set"] == f"v3_swiss_{lang}" and g["lang"] == lang
+            }
+            rows.append([label, language, str(total["n"]), pct(total["correct"], total["n"]), pct(total["wrong"], total["n"]),
+                         pct(total["flagged"], total["n"])]
+                        + [pct(kinds[k]["correct"], kinds[k]["n"]) if k in kinds else "–" for k in GROUPS])  # fmt: skip
+    if not rows:
+        return []
+    title = ("The policy language on a Swiss network (24 cities named in each language's own form, never in training): "
+             "right meaning, % of instructions")  # fmt: skip
+    return [(title, ["Reader", "Language", "n", "Right", "Applied with another meaning", "Not applied",
+                     *GROUPS.values()], rows)]  # fmt: skip
+
+
 def owner_tables(results: Path) -> list:
     """The project owner's own instructions (``design/owner.json``, written by ``corpora3_owner.py``)."""
     owner = read(results / "design" / "owner.json")
@@ -370,7 +420,8 @@ def main() -> None:
     args = parser.parse_args()
     design = read(args.results / "design" / "readers3.json")
     tables = (reader_tables(design, args.results) if design else []) + offline_tables(args.results)
-    tables += closed_tables(args.results) + standing_tables(args.results) + owner_tables(args.results)
+    tables += closed_tables(args.results) + standing_tables(args.results) + swiss_tables(args.results)
+    tables += consistency_tables(args.results) + owner_tables(args.results)
     lines = ["# Third round: a policy language, two readers, and a guarded fallback", "", NOTES, ""]
     for title, header, rows in tables:
         lines += [f"## {title}", "", "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]

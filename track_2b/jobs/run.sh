@@ -55,7 +55,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -330,6 +330,18 @@ train4)
     mkdir -p results/train/translator4
     cp runs/translator4/training_log.json runs/translator4/heldout_predictions.jsonl results/train/translator4/
     keep results/train/translator4
+    V4="$I/v4_en.jsonl,$I/v4_de.jsonl,$I/v4_fr.jsonl,$I/v4_it.jsonl"
+    stamp "translate4_ft on the test sets of the fourth round, then those of the third"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator4/adapter --batch 96         --jobs "translate4_ft:nobel-eu:regex:$V4,$I/owner.jsonl,$V3"
+    keep results/translate results/cache
+    ;;
+score4)
+    # The scoring half of train4 on its own (the adapter from the Hub), after a train4 whose scoring failed.
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator4', allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
     V4="$I/v4_en.jsonl,$I/v4_de.jsonl,$I/v4_fr.jsonl,$I/v4_it.jsonl"
     stamp "translate4_ft on the test sets of the fourth round, then those of the third"
     $PY src/translate.py batch --model "$MODEL" --adapter runs/translator4 --batch 96         --jobs "translate4_ft:nobel-eu:regex:$V4,$I/owner.jsonl,$V3"

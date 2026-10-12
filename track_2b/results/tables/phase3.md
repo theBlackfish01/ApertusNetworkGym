@@ -128,6 +128,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 44.0 | 58.5 | 38.7 | 59.2 | 0.0 | 0.0 | 31.5 | 1.22 | 0.0 | 0.0 | 0.0 |
 | Decider alone | 19.0 | 35.4 | 24.3 | 39.2 | 2.3 | 0.3 | 16.4 | 2.68 | 0.0 | 0.0 | 0.0 |
 | Translator alone (reader 1) | 1.2 | 2.4 | 35.6 | 42.7 | 0.0 | 6.1 | 10.5 | 6.03 | 0.0 | 0.0 | 0.0 |
+| Translator that asks when its two readers disagree | 0.8 | 1.5 | 35.6 | 40.6 | 0.0 | 5.1 | 10.1 | 6.13 | 0.0 | 0.0 | 9.5 |
+| Translator that asks only when a request tells the readings apart | 0.9 | 1.7 | 35.7 | 41.1 | 0.0 | 5.1 | 10.2 | 5.97 | 0.0 | 0.0 | 8.1 |
 | Hybrid | 1.1 | 1.9 | 27.3 | 37.1 | 0.0 | 6.1 | 8.7 | 6.47 | 11.6 | 0.9 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.5 | 28.7 | 32.4 | 0.0 | 5.1 | 8.2 | 6.60 | 17.2 | 1.1 | 9.5 |
 
@@ -140,6 +142,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 99.7 | 100.0 | 100.0 | 100.0 | 1185 | 491 | 341 | 367 |
 | Decider alone | 40.3 | 60.1 | 54.7 | 59.6 | 1201 | 476 | 362 | 364 |
 | Translator alone (reader 1) | 2.1 | 3.6 | 91.9 | 65.1 | 1216 | 497 | 321 | 378 |
+| Translator that asks when its two readers disagree | 1.6 | 2.5 | 91.3 | 64.9 | 1182 | 477 | 335 | 356 |
+| Translator that asks only when a request tells the readings apart | 1.8 | 2.9 | 91.9 | 62.3 | 1162 | 476 | 334 | 374 |
 | Hybrid | 2.1 | 3.1 | 62.0 | 57.2 | 1221 | 490 | 353 | 369 |
 | Hybrid that asks when its two readers disagree | 1.6 | 2.5 | 65.5 | 49.9 | 1206 | 488 | 348 | 361 |
 
@@ -152,6 +156,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 32.85 | 31.85 | 29.80 |
 | Decider alone | 17.40 | 16.95 | 14.85 |
 | Translator alone (reader 1) | 10.60 | 11.60 | 9.30 |
+| Translator that asks when its two readers disagree | 10.70 | 10.40 | 9.10 |
+| Translator that asks only when a request tells the readings apart | 10.40 | 10.50 | 9.55 |
 | Hybrid | 8.90 | 9.10 | 8.00 |
 | Hybrid that asks when its two readers disagree | 8.85 | 8.15 | 7.60 |
 
@@ -164,6 +170,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 42.8 | 54.1 | 42.5 | 55.4 | 0.0 | 0.0 | 31.2 | 5.98 | 0.0 | 0.0 | 0.0 |
 | Decider alone | 19.2 | 34.8 | 27.9 | 36.3 | 3.1 | 0.4 | 16.8 | 8.27 | 0.0 | 0.0 | 0.0 |
 | Translator alone (reader 1) | 0.9 | 1.5 | 36.7 | 43.6 | 0.0 | 6.7 | 10.6 | 11.73 | 0.0 | 0.0 | 0.0 |
+| Translator that asks when its two readers disagree | 0.8 | 1.3 | 35.8 | 42.4 | 0.0 | 6.3 | 10.3 | 11.73 | 0.0 | 0.0 | 8.9 |
+| Translator that asks only when a request tells the readings apart | 0.8 | 1.3 | 35.6 | 42.4 | 0.0 | 6.3 | 10.2 | 11.78 | 0.0 | 0.0 | 7.8 |
 | Hybrid | 1.0 | 1.6 | 31.6 | 40.4 | 0.0 | 6.7 | 9.5 | 12.12 | 11.5 | 0.7 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.4 | 28.9 | 34.7 | 0.0 | 6.3 | 8.5 | 12.25 | 17.3 | 1.0 | 8.9 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.3 | 0.5 | 28.3 | 37.0 | 0.0 | 3.7 | 8.3 | 12.03 | 21.2 | 0.9 | 24.1 |
@@ -177,6 +185,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 100.0 | 100.0 | 100.0 | 100.0 | 1156 | 463 | 386 | 331 |
 | Decider alone | 42.6 | 60.3 | 57.6 | 58.7 | 1143 | 469 | 394 | 339 |
 | Translator alone (reader 1) | 2.1 | 2.6 | 88.5 | 67.8 | 1155 | 453 | 365 | 338 |
+| Translator that asks when its two readers disagree | 1.7 | 2.1 | 89.1 | 64.6 | 1181 | 479 | 357 | 345 |
+| Translator that asks only when a request tells the readings apart | 1.7 | 2.1 | 89.2 | 65.6 | 1185 | 481 | 353 | 337 |
 | Hybrid | 2.0 | 2.3 | 68.7 | 63.5 | 1169 | 476 | 383 | 348 |
 | Hybrid that asks when its two readers disagree | 1.8 | 2.3 | 65.3 | 55.5 | 1138 | 472 | 360 | 344 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.7 | 0.9 | 60.2 | 58.9 | 1163 | 470 | 377 | 341 |
@@ -190,6 +200,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the instruction) | 30.70 | 31.85 | 31.15 |
 | Decider alone | 16.45 | 16.90 | 17.15 |
 | Translator alone (reader 1) | 9.95 | 11.20 | 10.65 |
+| Translator that asks when its two readers disagree | 10.15 | 10.60 | 10.10 |
+| Translator that asks only when a request tells the readings apart | 10.15 | 10.60 | 10.00 |
 | Hybrid | 8.50 | 10.25 | 9.85 |
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 7.95 | 8.60 | 8.25 |
