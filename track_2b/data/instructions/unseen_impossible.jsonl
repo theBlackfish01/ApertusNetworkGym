@@ -1,0 +1,154 @@
+{"text": "Any route is fine as long as it does not transit Amsterdam.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Any route is fine as long as it does not transit Berlin.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Any route is fine as long as it does not transit Copenhagen.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Any route is fine as long as it does not transit Hamburg.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Any route is fine as long as it does not transit Lyon.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Berlin is to be excluded from the route for this request.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Cap it at 3 hops, I don't want it bouncing through half the network.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Cap it at 5 hops, I don't want it bouncing through half the network.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Copenhagen is to be excluded from the route for this request.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Amsterdam.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Berlin.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Frankfurt.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Lyon.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Paris.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Vienna.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Do not route through Zagreb.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Hop count must not exceed 1; too many ROADM pass-throughs hurt the OSNR.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Hop count must not exceed 3; too many ROADM pass-throughs hurt the OSNR.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Hop count must not exceed 4; too many ROADM pass-throughs hurt the OSNR.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Keep this off Berlin, there is a maintenance window there tonight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Keep this off Milan, there is a maintenance window there tonight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Keep this off Paris, there is a maintenance window there tonight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Limit is 1100 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Limit is 1200 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Limit is 1500 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Limit is 1650 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Limit is 1800 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Limit is 950 km end to end, otherwise we run out of transponder reach.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Milan is to be excluded from the route for this request.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Must transit the Belgrade PoP - the customer wants their regen site on the path.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Must transit the Copenhagen PoP - the customer wants their regen site on the path.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Must transit the Hamburg PoP - the customer wants their regen site on the path.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Must transit the Oslo PoP - the customer wants their regen site on the path.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Must transit the Zurich PoP - the customer wants their regen site on the path.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Need Athens as a transit node on this circuit, we have spare ROADM ports there.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Need Madrid as a transit node on this circuit, we have spare ROADM ports there.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Need Warsaw as a transit node on this circuit, we have spare ROADM ports there.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "No more than 1 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "No more than 3 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "No more than 4 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "No more than 5 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "No more than 7 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "No transit via Amsterdam please - we have open alarms on that node.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "No transit via London please - we have open alarms on that node.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "No transit via Milan please - we have open alarms on that node.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "No transit via Paris please - we have open alarms on that node.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Nothing over 1700 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 1750 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 2150 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 2600 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 600 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 800 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Nothing over 850 km, the latency budget is tight.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Only accept a candidate whose route passes through Amsterdam.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through Belgrade.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through Dublin.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through Hamburg.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through London.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through Vienna.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only accept a candidate whose route passes through Warsaw.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Only candidates up to 1450 km are acceptable for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Only candidates up to 2050 km are acceptable for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Only candidates up to 2300 km are acceptable for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Only candidates up to 2750 km are acceptable for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Only candidates up to 450 km are acceptable for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Paris is to be excluded from the route for this request.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Path length must not exceed 2200 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Path length must not exceed 450 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Path length must not exceed 600 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Path length must not exceed 800 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please choose a candidate that stays clear of Berlin; the customer does not want their traffic passing through that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Please choose a candidate that stays clear of Paris; the customer does not want their traffic passing through that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Please choose a candidate that stays clear of Zurich; the customer does not want their traffic passing through that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "Please keep the route to 2 hops or fewer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Please keep the route to 3 hops or fewer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Please keep the route to 4 hops or fewer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Please keep the route to 5 hops or fewer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Please make sure the chosen route includes a pass-through at the Athens site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the Copenhagen site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the London site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the Madrid site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the Prague site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the Rome site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please make sure the chosen route includes a pass-through at the Zagreb site; compliance asked for the traffic to cross that city.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Please pick a route that is no longer than 1150 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please pick a route that is no longer than 1300 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please pick a route that is no longer than 1500 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please pick a route that is no longer than 550 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please pick a route that is no longer than 700 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Please pick a route that is no longer than 750 km.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "Reject any candidate with more than 2 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Reject any candidate with more than 3 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Reject any candidate with more than 4 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Reject any candidate with more than 6 hops.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "Route this one via Glasgow, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Route this one via Madrid, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Route this one via Oslo, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Route this one via Stockholm, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "Route this one via Warsaw, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Belgrade is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Bordeaux is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Copenhagen is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Madrid is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Oslo is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The lightpath should be routed so that Zagreb is one of the intermediate nodes.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "The path must not touch the Amsterdam site, the ROADM there is being upgraded.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "The path must not touch the Berlin site, the ROADM there is being upgraded.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "The path must not touch the Hamburg site, the ROADM there is being upgraded.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "The path must not touch the Paris site, the ROADM there is being upgraded.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "The selected path is to be limited to at most 1 links.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "The selected path is to be limited to at most 2 links.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "The selected path is to be limited to at most 3 links.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "The selected path is to be limited to at most 4 links.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "The selected path is to be limited to at most 5 links.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "The total route length is to be kept at or below 1700 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "The total route length is to be kept at or below 2100 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "The total route length is to be kept at or below 450 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "The total route length is to be kept at or below 550 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "The total route length is to be kept at or below 600 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "The total route length is to be kept at or below 750 kilometres.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "avoid Amsterdam PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "avoid Berlin PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "avoid Copenhagen PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "avoid Hamburg PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "avoid Paris PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "avoid Prague PoP", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "avoid_node"}
+{"text": "distance cap 1100 km, discard anything longer", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "distance cap 1400 km, discard anything longer", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "distance cap 1500 km, discard anything longer", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "hop limit = 1", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "hop limit = 2", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "hop limit = 3", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "hop limit = 5", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "max 1150 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 1200 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 1750 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 2 hops on this one", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "max 200 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 2550 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 3 hops on this one", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "max 3350 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 350 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "max 4 hops on this one", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_hops"}
+{"text": "max 850 km", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "max_km"}
+{"text": "pick a path that goes through Amsterdam", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "pick a path that goes through Athens", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "pick a path that goes through Budapest", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "pick a path that goes through Warsaw", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "pick a path that goes through Zagreb", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "via Barcelona only", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "via Oslo only", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "via Prague only", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "via Stockholm only", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}
+{"text": "via Zagreb only", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "unseen_impossible", "lang": "en", "kind": "via_node"}

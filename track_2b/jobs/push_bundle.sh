@@ -6,13 +6,13 @@ set -euo pipefail
 : "${WORK_REPO:?set WORK_REPO}" "${HF_TOKEN:?set HF_TOKEN}"
 stage=$(mktemp -d)
 trap 'rm -rf "$stage"' EXIT
-mkdir -p "$stage"/{src,jobs,data/full,results/mlp,data/instructions,data/probes,data/translate,data/fewshot,data/topologies}
+mkdir -p "$stage"/{src,jobs,data/full,results/mlp,data/instructions,data/probes,data/translate,data/translate2,data/fewshot,data/topologies}
 cp src/*.py "$stage/src/"
 cp jobs/run.sh "$stage/jobs/"
 cp pyproject.toml uv.lock .python-version README.md "$stage/"
 cp data/full/*.jsonl "$stage/data/full/"
 # Phase 1 (built by corpora.py, transfer.py and "translate.py texts"); absent before that.
-for dir in instructions probes translate fewshot topologies; do
+for dir in instructions probes translate translate2 fewshot topologies; do
     cp data/$dir/*.json* "$stage/data/$dir/" 2>/dev/null || true
 done
 cp results/mlp/* "$stage/results/mlp/"

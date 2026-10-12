@@ -535,7 +535,9 @@ def llm_options(args: argparse.Namespace) -> dict:
     local = {"model": args.model, "adapter": args.adapter,
              "structured": "none" if args.structured == "none" else "regex",
              "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
-    if args.policy.startswith(("translate", "hybrid")):
+    if args.policy.startswith("hybrid"):
+        return local | {"topology": args.topology, "decider": args.decider}
+    if args.policy.startswith("translate"):
         return local | {"topology": args.topology}
     if args.backend == "transformers":
         shots = []
@@ -579,6 +581,11 @@ def main() -> None:
     )
     parser.add_argument(
         "--topology", default="nobel-eu", help="translate_* policies: topology of the node list"
+    )
+    parser.add_argument(
+        "--decider",
+        default="apertus_ft_probes",
+        help="hybrid* policies: the decider whose answer cache is used",
     )
     parser.add_argument(
         "--sim-workers", type=int, default=1, help="processes stepping the environments (LLM)"

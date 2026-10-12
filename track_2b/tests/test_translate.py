@@ -89,3 +89,53 @@ def test_misspelling_changes_one_city_name():
     noisy = misspell("Stay off the Hamburg-Berlin span.", intent, random.Random(4))
     assert noisy == noisy.lower() and not noisy.endswith(".")
     assert ("hamburg" in noisy) != ("berlin" in noisy)  # exactly one of the two is misspelt
+
+
+def test_second_format_has_two_refusals():
+    topology = load_topology("nobel-eu")
+    assert answer_grammar(topology, 2).accepts("no_instruction")
+    assert not answer_grammar(topology).accepts("no_instruction")
+    assert (
+        parse_spec("no_instruction").status == "no_instruction" and not parse_spec("no_instruction").applies
+    )
+    few = messages("x", topology, few=True, version=2)
+    answers = [m["content"] for m in few if m["role"] == "assistant"]
+    assert all(answer_grammar(topology, 2).accepts(a) for a in answers)
+    assert {"unsupported", "no_instruction", "avoid=none; prefer=load,hops"} <= set(answers)
+
+
+def test_hybrid_sends_only_unsupported_instructions_to_the_decider(view):
+    from policies import Decision, Policy
+    from translate import HybridPolicy, Translator
+
+    class Fixed(Translator):
+        def lines(self, texts):
+            table = {"via": "unsupported", "chat": "no_instruction", "hops": "avoid=none; prefer=hops"}
+            return [(table[t], 0.0) for t in texts]
+
+    class Decider(Policy):
+        def decide(self, requests):
+            return [Decision((2, 40), raw="path=2 slot=40") for _ in requests]
+
+    hybrid = HybridPolicy("hybrid2_test", Fixed(load_topology("nobel-eu")), Decider(), "intersection")
+    texts = ("via", "chat", "hops", "none")
+    via, chat, hops, plain = hybrid.decide([Request(view, Intent(text=t)) for t in texts])
+    assert via.choice == (2, 40) and via.raw == "decider:path=2 slot=40"  # the decider's answer
+    assert chat.raw == "no_instruction" and chat.choice == plain.choice == (1, 12)  # not applied, flagged
+    assert hops.choice == (0, 88) and hops.raw == "avoid=none; prefer=hops"  # the rule engine
+
+
+def test_unseen_instruction_types_bind_on_the_request(view):
+    from corpora2 import instance
+
+    plain = view.paths[1]  # the choice without an instruction
+    rng = random.Random(0)
+    assert instance("max_hops", view, plain, rng) == ({"n": 2}, [0])
+    assert instance("max_km", view, plain, rng) == ({"km": 1400}, [0])
+    assert instance("shortest_km", view, plain, rng) == ({}, [0])
+    assert instance("via_node", view, plain, rng) in (({"a": "Munich"}, [0]), ({"a": "Warsaw"}, [2]))
+    assert instance("avoid_node", view, plain, rng) in (({"a": "Hamburg"}, [0, 2]), ({"a": "Vienna"}, [0]))
+    assert instance("path_index", view, plain, rng) in (({"n": 0}, [0]), ({"n": 2}, [2]))
+    assert instance("max_hops", view, plain, rng, impossible=True) == ({"n": 1}, [])
+    assert instance("max_km", view, plain, rng, impossible=True) == ({"km": 850}, [])
+    assert instance("shortest_km", view, view.paths[0], rng) is None  # already the shortest: does not bind

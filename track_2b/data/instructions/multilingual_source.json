@@ -1,0 +1,308 @@
+{
+  "de": {
+    "avoid_link": [
+      "Bitte nicht über den Link {a}–{b} routen, dort laufen gerade Wartungsarbeiten.",
+      "Strecke {a}-{b} meiden (Faserarbeiten bis Freitag).",
+      "Der Abschnitt zwischen {a} und {b} darf für diese Verbindung nicht verwendet werden.",
+      "Kein Pfad über {a}–{b}! Die Faser wird heute Nacht umgespleißt.",
+      "Wegen einer geplanten Wartung ist die Verbindung zwischen {a} und {b} gesperrt, den Lightpath bitte anders führen.",
+      "Achtung: {a}–{b} liegt im Wartungsfenster, diesen Link bitte komplett auslassen.",
+      "Könntest du darauf achten, dass der Lightpath nicht über die Kante von {a} nach {b} läuft? Die Trasse ist derzeit unzuverlässig.",
+      "Link {a} <-> {b} ausschließen, alles andere ist egal."
+    ],
+    "fewest_hops": [
+      "Bitte den Pfad mit den wenigsten Hops nehmen.",
+      "Möglichst wenige Hops.",
+      "Unter den möglichen Pfaden soll derjenige gewählt werden, der die geringste Anzahl an Links durchläuft.",
+      "Hop-Anzahl minimieren, je weniger Zwischenknoten, desto besser.",
+      "Nimm die Route, die über die wenigsten Knoten führt; jeder zusätzliche Hop ist eine weitere mögliche Fehlerquelle.",
+      "Zu bevorzugen ist der Kandidat mit der kleinsten Hop-Zahl."
+    ],
+    "least_loaded": [
+      "Bitte den am wenigsten ausgelasteten Pfad wählen.",
+      "Den Pfad nehmen, auf dem noch am meisten Spektrum frei ist.",
+      "Lastverteilung: Route mit der geringsten Auslastung bevorzugen.",
+      "Am liebsten über den Pfad mit den größten Reserven im Spektrum, damit wir die vollen Links nicht noch weiter zustopfen.",
+      "Leersten Pfad nehmen (meiste freie Slots).",
+      "Bevorzugt werden soll der Pfad, dessen Links aktuell am schwächsten belegt sind."
+    ],
+    "fewest_slots": [
+      "Bitte den Pfad wählen, auf dem diese Anforderung die wenigsten Slots braucht.",
+      "Slot-Bedarf minimieren: die Variante mit dem schmalsten Kanal für diesen Request.",
+      "Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt.",
+      "Spektral effizienteste Option für diese Verbindung, also die mit der geringsten Slot-Anzahl.",
+      "Für diesen Request soll derjenige Pfad genommen werden, der mit der kleinsten Kanalbreite auskommt.",
+      "Die Anfrage soll so wenige Frequenzslots wie möglich verbrauchen – nimm also den Pfad, auf dem das effizienteste Modulationsformat geht."
+    ],
+    "combined": [
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "Nicht über {a}–{b} routen (Wartung), ansonsten den Pfad mit den wenigsten Hops nehmen."
+      },
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "Der Link zwischen {a} und {b} fällt wegen eines Faserbruchs aus. Von dem, was übrig bleibt, bitte die Route mit der kleinsten Hop-Anzahl."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Möglichst wenige Hops, aber auf keinen Fall über die Strecke {a}-{b}."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Gewünscht ist der Pfad mit den wenigsten Zwischenknoten, wobei der Abschnitt zwischen {a} und {b} nicht benutzt werden darf."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "{a}–{b} ist gesperrt, bitte umgehen; von den verbleibenden Pfaden den am wenigsten ausgelasteten nehmen."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "Ausschluss: Link {a}-{b}. Präferenz: Pfad mit dem meisten freien Spektrum."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Den Pfad mit der geringsten Auslastung wählen, allerdings ohne die Verbindung zwischen {a} und {b}."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Wir wollen die Last verteilen, also bitte dorthin, wo am meisten Spektrum frei ist – nur nicht über {a}–{b}, da ist heute Wartungsfenster."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Die Trasse zwischen {a} und {b} bitte meiden und dann den Pfad nehmen, auf dem dieser Request die wenigsten Slots benötigt."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Kein Routing über {a}–{b}. Im Übrigen zählt die spektrale Effizienz: schmalster Kanal für diese Anforderung."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "Slot-Bedarf dieser Verbindung so klein wie möglich halten, der Link {a}-{b} bleibt dabei außen vor."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "Ich hätte gern die Variante, bei der dieser Lightpath die wenigsten Frequenzslots belegt. Die Faser von {a} nach {b} darf aber nicht im Pfad liegen, die wird gerade umgebaut."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "In erster Linie wenige Hops; bei gleicher Hop-Zahl den Pfad mit der geringeren Auslastung."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "Bitte den Pfad mit den wenigsten Hops nehmen. Falls mehrere gleichauf liegen, entscheidet das meiste freie Spektrum."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "Primär den am schwächsten ausgelasteten Pfad wählen, bei Gleichstand den mit weniger Hops."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "Am wichtigsten ist mir, dass auf dem Pfad möglichst viel Spektrum frei ist; nehmen sich zwei Kandidaten da nichts, dann den mit der kleineren Hop-Anzahl."
+      }
+    ]
+  },
+  "fr": {
+    "avoid_link": [
+      "Ne pas emprunter le lien {a}–{b}, il est en maintenance jusqu'à demain matin.",
+      "Tronçon {a}-{b} à éviter (réfection de la fibre).",
+      "Merci de router cette demande sans passer par la liaison entre {a} et {b}.",
+      "Interdiction d'utiliser l'artère {a}–{b} : un amplificateur doit y être remplacé ce soir.",
+      "La fibre qui relie {a} à {b} a été signalée dégradée, je ne veux aucun lightpath dessus.",
+      "Exclure {a} <-> {b} du calcul de route.",
+      "Suite à un incident côté génie civil, le segment entre {a} et {b} est condamné pour l'instant ; il faudra passer ailleurs.",
+      "Est-ce que tu peux contourner le lien entre {a} et {b} ? On a une fenêtre de travaux dessus cette nuit."
+    ],
+    "fewest_hops": [
+      "Le moins de sauts possible.",
+      "Merci de privilégier le chemin qui passe par le moins de nœuds intermédiaires.",
+      "Minimiser le nombre de hops, c'est tout ce que je demande.",
+      "Je voudrais le chemin le plus court en nombre de liens traversés, pour limiter les points de panne.",
+      "À retenir : le candidat avec le plus petit nombre de sauts.",
+      "On prend la route qui traverse le moins de liens ; chaque nœud franchi en plus coûte un passage ROADM supplémentaire."
+    ],
+    "least_loaded": [
+      "Chemin le moins chargé svp.",
+      "Choisir la route sur laquelle il reste le plus de spectre libre.",
+      "Pour équilibrer la charge du réseau, merci de privilégier le chemin dont le taux d'occupation du spectre est le plus bas.",
+      "Je préfère qu'on passe par le chemin le plus vide, histoire de ne pas saturer davantage les liens déjà bien remplis.",
+      "Priorité au chemin le moins utilisé (max de spectre dispo).",
+      "Le chemin dont le spectre est le moins occupé doit être retenu."
+    ],
+    "fewest_slots": [
+      "Prendre le chemin sur lequel cette demande consomme le moins de slots.",
+      "Canal le plus étroit possible pour cette requête.",
+      "Merci de choisir l'option la plus efficace spectralement pour cette connexion, autrement dit celle qui lui demande le moins de slots.",
+      "Minimiser le nombre de slots de fréquence alloués à ce lightpath.",
+      "Je veux que cette demande occupe la plus petite largeur de spectre possible, même si le chemin n'est pas le plus direct.",
+      "Est à privilégier le chemin où le format de modulation permet de servir cette demande avec le moins de slots."
+    ],
+    "combined": [
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "Pas de passage par {a}–{b} (maintenance) ; pour le reste, le chemin avec le moins de sauts."
+      },
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "La liaison entre {a} et {b} est à exclure. Parmi les chemins restants, merci de prendre celui qui compte le moins de hops."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Le moins de sauts possible, mais en aucun cas via le tronçon {a}-{b}."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Merci de retenir la route qui traverse le moins de nœuds intermédiaires, en veillant à ne pas utiliser le lien entre {a} et {b}, actuellement en travaux."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "Le lien {a}–{b} est coupé pour travaux, il faut le contourner ; ensuite, prendre le chemin le moins chargé parmi ceux qui restent."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "Éviter {a}-{b}, puis choisir selon le spectre libre : c'est le chemin le plus vide qui l'emporte."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Choisir le chemin où il reste le plus de spectre disponible, sans toutefois emprunter la fibre entre {a} et {b}."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Équilibrage de charge : chemin le moins occupé svp. Seule contrainte, ne pas passer par {a}–{b}, il y a une fenêtre de maintenance aujourd'hui."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Merci d'éviter le segment entre {a} et {b}, puis de prendre le chemin sur lequel cette demande nécessite le moins de slots."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Aucun routage par {a}–{b}. Sinon, c'est l'efficacité spectrale qui prime : le canal le plus étroit pour cette demande."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "Réduire au minimum le nombre de slots occupés par cette connexion ; le lien {a}-{b} reste exclu."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "J'aimerais l'option où ce lightpath prend le moins de slots de fréquence. En revanche, la liaison reliant {a} à {b} ne doit pas figurer dans le chemin."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "D'abord le moins de sauts ; à nombre de sauts égal, le chemin le moins chargé."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "Merci de choisir le chemin avec le moins de hops. En cas d'égalité, on départage par le spectre libre et on prend le plus vide."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "Critère principal : le chemin le moins occupé. En cas d'égalité, celui qui a le moins de sauts."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "Ce qui compte avant tout, c'est qu'il reste un maximum de spectre libre sur le chemin ; si deux candidats se valent sur ce point, retenir celui qui a le plus petit nombre de hops."
+      }
+    ]
+  },
+  "it": {
+    "avoid_link": [
+      "Per favore non passare dal link {a}–{b}, è in manutenzione fino a domani.",
+      "Evitare la tratta {a}-{b} (fibra in riparazione).",
+      "Il collegamento tra {a} e {b} non deve essere utilizzato per questa connessione.",
+      "Niente instradamento via {a}–{b}: stanotte ci lavora la squadra di giunzione.",
+      "Segnalo che la tratta fra {a} e {b} ha attenuazione fuori soglia; finché non la sistemano il lightpath va fatto passare altrove.",
+      "Link {a} <-> {b} escluso, per il resto fai tu.",
+      "Puoi fare in modo che il percorso scelto non attraversi la fibra che collega {a} con {b}? Al momento è instabile.",
+      "Causa lavori stradali il segmento {a}–{b} va considerato non disponibile: non usarlo."
+    ],
+    "fewest_hops": [
+      "Percorso con meno hop, grazie.",
+      "Minimizzare il numero di salti.",
+      "Tra i percorsi disponibili va preferito quello che attraversa il minor numero di link.",
+      "Vorrei passare per meno nodi intermedi possibile: ogni attraversamento in più è un altro punto di guasto.",
+      "Si prega di instradare sul cammino con il minor numero di hop.",
+      "Scegli la rotta più corta come numero di tratte, non mi interessa altro."
+    ],
+    "least_loaded": [
+      "Percorso meno carico.",
+      "Usare il cammino su cui c'è più spettro libero.",
+      "Per bilanciare il carico, si chiede di preferire il percorso con l'occupazione spettrale più bassa.",
+      "Mettilo sul percorso più scarico, così non andiamo a saturare i link che sono già quasi pieni.",
+      "Priorità al percorso meno utilizzato (massimo spettro disponibile).",
+      "Va scelto il percorso i cui link risultano al momento meno occupati."
+    ],
+    "fewest_slots": [
+      "Scegli il percorso su cui questa richiesta occupa meno slot.",
+      "Canale più stretto possibile per questa richiesta.",
+      "Minimizzare gli slot spettrali necessari a questa connessione.",
+      "Si prega di usare l'opzione spettralmente più efficiente per questo lightpath, cioè quella che gli richiede meno slot.",
+      "Per questa richiesta va preso il percorso che richiede la minore larghezza di canale.",
+      "Mi serve la soluzione che impegna meno slot di frequenza per questa richiesta, tutto il resto è secondario."
+    ],
+    "combined": [
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "Escludere {a}–{b} (manutenzione) e, tra i percorsi rimasti, prendere quello con meno hop."
+      },
+      {
+        "order": ["avoid_link", "fewest_hops"],
+        "text": "Il collegamento tra {a} e {b} è interrotto per un guasto, quindi non va usato; per il resto mi basta il percorso con il minor numero di salti."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Meno hop possibile, ma assolutamente non sulla tratta {a}-{b}."
+      },
+      {
+        "order": ["fewest_hops", "avoid_link"],
+        "text": "Si prega di scegliere il cammino con meno nodi intermedi, tenendo presente che il link fra {a} e {b} è in lavorazione e non può essere attraversato."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "{a}–{b} chiuso per lavori, da aggirare; poi prendere il percorso meno carico tra quelli che restano."
+      },
+      {
+        "order": ["avoid_link", "least_loaded"],
+        "text": "Dato che sulla tratta tra {a} e {b} stanno sostituendo un amplificatore, lì non si passa; fra le alternative scegli quella con più spettro libero."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Usare il percorso con l'occupazione più bassa, senza però passare dal collegamento tra {a} e {b}."
+      },
+      {
+        "order": ["least_loaded", "avoid_link"],
+        "text": "Vorrei bilanciare il carico, quindi instrada dove c'è più spettro disponibile; unica cosa, evita {a}–{b} perché oggi c'è la finestra di manutenzione."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Evitare la fibra tra {a} e {b} e poi scegliere il percorso su cui questa richiesta ha bisogno di meno slot."
+      },
+      {
+        "order": ["avoid_link", "fewest_slots"],
+        "text": "Nessun instradamento su {a}–{b}. Per il resto conta l'efficienza spettrale: canale più stretto possibile per questa richiesta."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "Tenere al minimo gli slot occupati da questa connessione; il link {a}-{b} resta comunque escluso."
+      },
+      {
+        "order": ["fewest_slots", "avoid_link"],
+        "text": "Mi serve l'opzione in cui questo lightpath impegna meno slot di frequenza. Attenzione però: la tratta che collega {a} con {b} non deve comparire nel percorso."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "Prima di tutto meno hop; a parità di hop, il percorso meno carico."
+      },
+      {
+        "order": ["fewest_hops", "least_loaded"],
+        "text": "Scegli il percorso con il minor numero di salti. Se ce n'è più di uno alla pari, decide lo spettro libero: prendi il più scarico."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "Criterio principale: percorso meno occupato. In caso di parità, quello con meno hop."
+      },
+      {
+        "order": ["least_loaded", "fewest_hops"],
+        "text": "La cosa più importante è che sul percorso resti più spettro libero possibile; se due candidati si equivalgono, allora quello con il numero di salti più basso."
+      }
+    ]
+  }
+}

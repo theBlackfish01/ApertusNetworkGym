@@ -10,6 +10,11 @@
 #           test and closed-loop instructions; the fine-tuned decider on the probe sets; the
 #           few-shot decider on the held-out splits
 #   phase1-ft  fine-tune the translator and run it on the same instructions
+#   check2  the second translator format and the new probe sets on a tiny model, CPU only
+#   phase2  second translator format with examples on all instruction sets; the fine-tuned
+#           decider on the new probe sets (unseen instruction types, text that is no instruction,
+#           independently written German, French and Italian)
+#   phase2-ft  fine-tune the second translator and run it on all instruction sets
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
@@ -25,7 +30,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | smoke | train | eval | phase1 | phase1-ft | phase1-closed}
+STAGE=${1:?stage: check | check2 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -67,6 +72,10 @@ SYNC="--sync-repo $WORK_REPO --sync-every 120"
 I=data/instructions
 TESTS="$I/templates.jsonl,$I/independent.jsonl,$I/de.jsonl,$I/fr.jsonl,$I/it.jsonl,$I/gsw.jsonl,$I/noisy.jsonl,$I/faulty.jsonl,$I/out_of_scope.jsonl"
 PROBES="independent de fr it gsw noisy faulty out_of_scope germany50"
+# Second round (corpora2.py): instruction types without a rule, text that is no instruction, and the
+# supported instructions written natively in German, French and Italian.
+NEW="$I/unseen.jsonl,$I/unseen_impossible.jsonl,$I/not_instruction.jsonl,$I/de_ind.jsonl,$I/fr_ind.jsonl,$I/it_ind.jsonl"
+PROBES2="unseen unseen_impossible not_instruction de_ind fr_ind it_ind"
 
 # Copy files or folders (paths relative to the repo root) back to the work repo.
 keep() {
@@ -251,6 +260,50 @@ phase1-ft)
         --sync-repo "$WORK_REPO" --jobs "translate_ft:nobel-eu:regex:$TESTS" \
         "translate_ft:germany50:regex:$I/germany50.jsonl" "translate_ft_free:nobel-eu:none:$TESTS" \
         "translate_ft:nobel-eu:regex:$I/closed_loop.jsonl"
+    ;;
+check2)
+    TINY=HuggingFaceTB/SmolLM2-135M-Instruct
+    stamp "second translator format on the tiny model: examples, training, adapter, probes"
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs \
+        "translate2_check_few:nobel-eu:regex:$I/not_instruction.jsonl"
+    $PY src/train.py --model $TINY --data-dir data/translate2 --out runs/check-translator2 --no-4bit \
+        --limit-train 16 --limit-heldout 4 --max-steps 2 --save-steps 0 --batch 4 --accumulation 1 \
+        --eval-records 4 --max-length 1536 --max-new-tokens 48
+    $PY src/translate.py batch --model $TINY --adapter runs/check-translator2/adapter --batch 8 --jobs \
+        "translate2_check_ft:nobel-eu:regex:$I/not_instruction.jsonl"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py offline --policy check_probes2 --backend transformers --model $TINY \
+        --data data/probes --splits $PROBES2 --limit 6
+    $PY src/evaluate.py offline --policy hybrid2_check_few --decider check_probes2 --data data/probes \
+        --splits not_instruction --limit 6
+    ;;
+phase2)
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}"
+    stamp "second translator format, with examples: all instruction sets"
+    $PY src/translate.py batch --model "$MODEL" --batch 96 --sync-repo "$WORK_REPO" --jobs \
+        "translate2_few:nobel-eu:regex:$TESTS,$NEW"
+    keep results/translate
+    stamp "fine-tuned decider: the new probe sets"
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_patterns=['adapter_*', '*.jinja']))"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model "$MODEL" \
+        --adapter runs/adapter --data data/probes --splits $PROBES2 --batch-envs 64 \
+        --out results/offline/apertus_ft_probes2.json $SYNC
+    ;;
+phase2-ft)
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+    stamp "fine-tune the second translator (resumes from $TRANSLATOR_REPO if a checkpoint is there)"
+    # shellcheck disable=SC2086
+    $PY src/train.py --model "$MODEL" --data-dir data/translate2 --out runs/translator2 \
+        --hub-adapter "$TRANSLATOR_REPO" --resume --save-steps 50 --max-length 768 --max-new-tokens 48 \
+        --eval-records 100 ${TRAIN_ARGS:-}
+    keep runs/translator2/training_log.json runs/translator2/heldout_predictions.jsonl
+    stamp "second translator, fine-tuned: all instruction sets"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator2/adapter --batch 96 \
+        --sync-repo "$WORK_REPO" --jobs "translate2_ft:nobel-eu:regex:$TESTS,$NEW" \
+        "translate2_ft:germany50:regex:$I/germany50.jsonl" "translate2_ft:nobel-eu:regex:$I/closed_loop.jsonl"
     ;;
 phase1-closed)
     : "${CLOSED_POLICIES:?set CLOSED_POLICIES, e.g. \"translate_few translate_ft\"}"
