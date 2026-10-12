@@ -1,0 +1,150 @@
+{
+ "generated_utc": "2026-10-12T19:56:51.323693+00:00",
+ "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
+ "no_personal_data": true,
+ "topologies": {
+  "nobel-eu": "SNDlib reference network, 28 nodes, 41 links (shipped with Optical Networking Gym)",
+  "swiss": "24 Swiss cities, 33 links along the main corridors, built for this project from public geography"
+ },
+ "sets": {
+  "v3_en": {
+   "rows": 521,
+   "written_by": "a separate AI instance, from a brief naming the clause kinds and none of the project's wording",
+   "topology": "nobel-eu"
+  },
+  "v3_de": {
+   "rows": 514,
+   "written_by": "a separate AI instance (German)",
+   "topology": "nobel-eu"
+  },
+  "v3_fr": {
+   "rows": 523,
+   "written_by": "a separate AI instance (French)",
+   "topology": "nobel-eu"
+  },
+  "v3_it": {
+   "rows": 520,
+   "written_by": "a separate AI instance (Italian)",
+   "topology": "nobel-eu"
+  },
+  "v3_new": {
+   "rows": 108,
+   "written_by": "a separate AI instance: four instruction types shown to no component",
+   "topology": "nobel-eu"
+  },
+  "v3_new_hard": {
+   "rows": 79,
+   "written_by": "as v3_new, on requests where neither instruction-blind choice complies",
+   "topology": "nobel-eu"
+  },
+  "v3_new_impossible": {
+   "rows": 66,
+   "written_by": "as v3_new, on requests no path can satisfy",
+   "topology": "nobel-eu"
+  },
+  "v3_partial": {
+   "rows": 212,
+   "written_by": "a separate AI instance: one clause the language carries with one it cannot",
+   "topology": "nobel-eu"
+  },
+  "v3_other": {
+   "rows": 16,
+   "written_by": "a separate AI instance: routing instructions of yet other kinds",
+   "topology": "nobel-eu"
+  },
+  "v3_not": {
+   "rows": 30,
+   "written_by": "a separate AI instance: text that is no routing instruction",
+   "topology": "nobel-eu"
+  },
+  "v3_faulty": {
+   "rows": 150,
+   "written_by": "v3 sentences naming a place outside the network",
+   "topology": "nobel-eu"
+  },
+  "owner": {
+   "rows": 22,
+   "written_by": "the project's author (17 English, 5 Urdu in Latin script)",
+   "topology": "nobel-eu"
+  },
+  "v4_en": {
+   "rows": 200,
+   "written_by": "v3 sentences with a scope or lifetime phrase by another separate AI instance",
+   "topology": "nobel-eu"
+  },
+  "v4_de": {
+   "rows": 200,
+   "written_by": "as v4_en (German)",
+   "topology": "nobel-eu"
+  },
+  "v4_fr": {
+   "rows": 200,
+   "written_by": "as v4_en (French)",
+   "topology": "nobel-eu"
+  },
+  "v4_it": {
+   "rows": 200,
+   "written_by": "as v4_en (Italian)",
+   "topology": "nobel-eu"
+  },
+  "v3_swiss_en": {
+   "rows": 287,
+   "written_by": "v3 sentences filled with Swiss cities in their English names",
+   "topology": "swiss"
+  },
+  "v3_swiss_de": {
+   "rows": 288,
+   "written_by": "v3 sentences filled with Swiss cities in their German names",
+   "topology": "swiss"
+  },
+  "v3_swiss_fr": {
+   "rows": 293,
+   "written_by": "v3 sentences filled with Swiss cities in their French names",
+   "topology": "swiss"
+  },
+  "v3_swiss_it": {
+   "rows": 283,
+   "written_by": "v3 sentences filled with Swiss cities in their Italian names",
+   "topology": "swiss"
+  }
+ },
+ "readers": {
+  "translate3_ft": {
+   "rows": 2739,
+   "model": "Apertus v1.5 8B, fine-tuned reader 1 (third format), A100, bf16"
+  },
+  "translate3_ft2": {
+   "rows": 2739,
+   "model": "Apertus v1.5 8B, fine-tuned reader 2 (third format), A100, bf16"
+  },
+  "translate3_few": {
+   "rows": 2739,
+   "model": "Apertus v1.5 8B, 15 examples, no training"
+  },
+  "translate3_few70": {
+   "rows": 2739,
+   "model": "Apertus 70B (first generation), 15 examples, no training, 4-bit GGUF"
+  },
+  "translate3_few70b": {
+   "rows": 2739,
+   "model": "Apertus v1.5 70B, 15 examples, no training, 4-bit GGUF"
+  },
+  "translate3_ft_laptop": {
+   "rows": 2761,
+   "model": "reader 1, 4-bit GGUF under llama.cpp on an RTX 4060 laptop"
+  },
+  "translate3_ft2_laptop": {
+   "rows": 792,
+   "model": "reader 2, 4-bit GGUF on the laptop"
+  }
+ },
+ "outcomes": {
+  "right": "the reader's line means what the sentence means (status, links, nodes, limits, preferences in order, scope, lifetime)",
+  "silent": "the reader applied the sentence with another meaning, without saying so",
+  "part_only": "the reader carried a part and said that a part was not carried",
+  "flagged": "the reader did not apply the sentence and said so (unsupported, no_instruction or unresolved)",
+  "handed_on": "a sentence outside the language that the reader handed on to the decider (unsupported)",
+  "other_refusal": "a sentence that should not be applied, refused with another status than expected"
+ },
+ "line_format": "avoid=<links,nodes>; via=<node>; hops=<n|any>; km=<n|any>; path=<0-4|any>; prefer=<hops,km,load,slots>; scope=<any|rate:G|from:node|to:node>; until=<open|Nh>; rest=<none|more> | unsupported | no_instruction"
+}

@@ -385,11 +385,12 @@ from huggingface_hub import snapshot_download
 print(snapshot_download(os.environ['MODEL'], local_dir='/tmp/base', allow_patterns=['*.json', '*.jinja', 'tokenizer*']))
 print(snapshot_download(os.environ['ADAPTER_REPO'], local_dir='/tmp/decider', allow_patterns=['adapter_*']))"
     /tmp/convert/bin/python /tmp/llama.cpp/convert_lora_to_gguf.py /tmp/decider --base /tmp/base \
-        --outtype f16 --outfile /tmp/lightpath-decider-v2-lora-f16.gguf
+        --outtype f16 --outfile "/tmp/${LORA_NAME:-lightpath-decider-v2-lora-f16}.gguf"
     $PY -c "
 import os
 from huggingface_hub import HfApi
-HfApi().upload_file(repo_id=os.environ['GGUF_REPO'], path_or_fileobj='/tmp/lightpath-decider-v2-lora-f16.gguf', path_in_repo='lightpath-decider-v2-lora-f16.gguf')
+name = os.environ.get('LORA_NAME', 'lightpath-decider-v2-lora-f16') + '.gguf'
+HfApi().upload_file(repo_id=os.environ['GGUF_REPO'], path_or_fileobj='/tmp/' + name, path_in_repo=name)
 print('uploaded')"
     ;;
 gguf)

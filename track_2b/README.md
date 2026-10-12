@@ -109,6 +109,36 @@ about at once, because what the decider would do with it cannot be foreseen. The
 the same thing to a person: the first requests on which the readings disagree, with both routes.
 Measured in `results/tables/phase3.md` (closed loop, `*_askif-*` rows).
 
+## Standing policies
+
+An operator does not type an instruction per request. The fourth format of the policy language
+adds a scope and a lifetime to the third: `scope=<any | rate:400 | from:Zurich | to:Milan>` and
+`until=<open | 6h>`. A reader of that format (`translate4_ft`) was fine-tuned on the third round's
+material re-answered in the fourth format plus sentences with a scope or lifetime clause; its
+test sentences carry phrases written by a separate AI instance (`data/instructions/v4_*.jsonl`).
+`src/standing.py` keeps the policy table: which policies are active, which cover a request, the
+one line they combine to (constraints add up, the tighter limit wins, the newest preference
+decides), the conflicts a new policy raises (a contradiction, an override, a node cut off), and a
+report per policy. `src/standing_stream.py` is the closed-loop condition `standing4`: policies
+arrive, hold for the hours they state or until withdrawn, and the evaluator judges every
+decision against the true table; `standing_noscope` and `standing_nountil` are the ablations.
+The console runs the table with `--standing`.
+
+## A Swiss network
+
+`data/topologies/swiss.xml` is a 24-city, 33-link backbone built for this project from public
+geography along the main corridors (the links are the author's construction, not an operator's).
+`data/topologies/swiss_names.json` gives every city's name in German, French, Italian and
+English, and `mixed3.set_topology("swiss")` makes the instruction stream use them, so an
+instruction says *Genf*, *Genève*, *Ginevra* or *Geneva* for the node `Genève`. `src/swiss.py`
+builds test sets of the third round's sentences on this network; any closed-loop run takes
+`--topology swiss`.
+
+## The benchmark
+
+`uv run python src/benchmark_export.py` writes `data/benchmark/`: every test instruction with
+the line it means, every reader's answer and its outcome, and the metadata, with a dataset card.
+
 ## The policy language as a standard constraint
 
 One line of the policy language is also one TAPI constraint (ONF Transport API 2.1.3, the
@@ -244,6 +274,13 @@ track_2b/
     readers3.py        third round: what each reader does with every test instruction; two readers
     tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
     console.py         the operator console (http server); console.html is its page
+    corpora4.py        fourth round: training data of the fourth format (scope and lifetime)
+    corpora4_tests.py  fourth round: test sets from the separately written scope and lifetime phrases
+    standing.py        the policy table: scope, lifetime, combination, conflicts, report
+    standing_stream.py the closed-loop condition with standing policies and its policies
+    swiss.py           the Swiss network: test sets with the cities in each language's name
+    consistency3.py    self-consistency of reader 1 as a third check
+    benchmark_export.py the test instructions and every reader's answers as a dataset
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
   jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
                        phase1_local.sh (translators on the laptop, from the answer caches)
