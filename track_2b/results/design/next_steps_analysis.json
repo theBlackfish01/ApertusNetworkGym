@@ -1,0 +1,2114 @@
+{
+ "what": "Analysis of existing answers for the choice of next steps; see the module docstring.",
+ "probes": {
+  "sets": {
+   "templates": "Our wording",
+   "independent": "Independent wording",
+   "de": "German",
+   "fr": "French",
+   "it": "Italian",
+   "gsw": "Swiss German",
+   "noisy": "Misspelt",
+   "germany50": "Other topology"
+  },
+  "values": {
+   "Decider, fine-tuned": {
+    "templates": 94.41760601180891,
+    "independent": 91.30434782608695,
+    "de": 89.64036500268384,
+    "fr": 92.00214707461085,
+    "it": 90.87493290391842,
+    "gsw": 85.33333333333334,
+    "noisy": 89.83333333333333,
+    "germany50": 92.33333333333333
+   },
+   "Translator, fine-tuned": {
+    "templates": 99.08749329039185,
+    "independent": 97.53086419753086,
+    "de": 96.56468062265164,
+    "fr": 98.38969404186795,
+    "it": 97.4771873322598,
+    "gsw": 95.33333333333334,
+    "noisy": 95.5,
+    "germany50": 98.91666666666666
+   },
+   "Translator, 7 examples": {
+    "templates": 95.276435856146,
+    "independent": 98.76543209876543,
+    "de": 95.43746645195921,
+    "fr": 96.67203435319377,
+    "it": 97.26247987117553,
+    "gsw": 90.33333333333333,
+    "noisy": 95.83333333333334,
+    "germany50": 96.5
+   },
+   "Translator, as is": {
+    "templates": 89.96242619431025,
+    "independent": 92.69994632313472,
+    "de": 88.45947396672035,
+    "fr": 89.90874932903918,
+    "it": 88.29844337090714,
+    "gsw": 81.5,
+    "noisy": 89.83333333333333,
+    "germany50": 90.33333333333333
+   },
+   "Keyword parser": {
+    "templates": 95.59849704777241,
+    "independent": 87.49329039184111,
+    "de": 74.50348899624262,
+    "fr": 73.3762748255502,
+    "it": 70.10198604401504,
+    "gsw": 72.5,
+    "noisy": 79.0,
+    "germany50": 95.66666666666667
+   }
+  }
+ },
+ "sentences": {
+  "load": 390,
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "conditions": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "mixed_heldout_paraphrases"
+  ],
+  "policies": {
+   "Decider, fine-tuned": {
+    "sentences": [
+     {
+      "sentence": "This connection may not traverse the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 232,
+      "violations": 16,
+      "rate": 6.896551724137931
+     },
+     {
+      "sentence": "Maintenance window on the link between {a} and {b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 207,
+      "violations": 11,
+      "rate": 5.314009661835748
+     },
+     {
+      "sentence": "Route around {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 211,
+      "violations": 11,
+      "rate": 5.213270142180095
+     },
+     {
+      "sentence": "This connection may not traverse the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 188,
+      "violations": 9,
+      "rate": 4.787234042553192
+     },
+     {
+      "sentence": "Route around the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 191,
+      "violations": 9,
+      "rate": 4.712041884816754
+     },
+     {
+      "sentence": "Field crews are working on the {a}–{b} span, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 132,
+      "violations": 6,
+      "rate": 4.545454545454546
+     },
+     {
+      "sentence": "Maintenance window on the {a}-{b} link: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 9,
+      "rate": 4.477611940298507
+     },
+     {
+      "sentence": "Do not use the {a}–{b} span; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 199,
+      "violations": 8,
+      "rate": 4.0201005025125625
+     },
+     {
+      "sentence": "{a}-{b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 225,
+      "violations": 9,
+      "rate": 4.0
+     },
+     {
+      "sentence": "the link between {a} and {b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 210,
+      "violations": 8,
+      "rate": 3.8095238095238093
+     },
+     {
+      "sentence": "This connection may not traverse the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 215,
+      "violations": 8,
+      "rate": 3.7209302325581395
+     },
+     {
+      "sentence": "the link between {a} and {b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 7,
+      "rate": 3.4146341463414633
+     },
+     {
+      "sentence": "Route around the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 209,
+      "violations": 7,
+      "rate": 3.349282296650718
+     },
+     {
+      "sentence": "the {a}-{b} link is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 219,
+      "violations": 7,
+      "rate": 3.1963470319634704
+     },
+     {
+      "sentence": "the {a}–{b} span is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 126,
+      "violations": 4,
+      "rate": 3.1746031746031744
+     },
+     {
+      "sentence": "the {a}-{b} link must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 224,
+      "violations": 7,
+      "rate": 3.125
+     },
+     {
+      "sentence": "Exclude the {a}–{b} span from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 130,
+      "violations": 4,
+      "rate": 3.076923076923077
+     },
+     {
+      "sentence": "Route around the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 229,
+      "violations": 7,
+      "rate": 3.056768558951965
+     },
+     {
+      "sentence": "Avoid the {a}–{b} span for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 7,
+      "rate": 3.0303030303030303
+     },
+     {
+      "sentence": "Exclude the {a}-{b} link from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 136,
+      "violations": 4,
+      "rate": 2.9411764705882355
+     },
+     {
+      "sentence": "Do not use the {a}-{b} link; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 6,
+      "rate": 2.926829268292683
+     },
+     {
+      "sentence": "Avoid the {a}-{b} link for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 221,
+      "violations": 6,
+      "rate": 2.7149321266968327
+     },
+     {
+      "sentence": "the {a}–{b} span must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 235,
+      "violations": 6,
+      "rate": 2.5531914893617023
+     },
+     {
+      "sentence": "This connection may not traverse {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 198,
+      "violations": 5,
+      "rate": 2.525252525252525
+     },
+     {
+      "sentence": "Exclude the link between {a} and {b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 122,
+      "violations": 3,
+      "rate": 2.459016393442623
+     },
+     {
+      "sentence": "Do not use the link between {a} and {b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 213,
+      "violations": 5,
+      "rate": 2.347417840375587
+     },
+     {
+      "sentence": "Maintenance window on {a}-{b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 218,
+      "violations": 5,
+      "rate": 2.293577981651376
+     },
+     {
+      "sentence": "Field crews are working on the {a}-{b} link, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 138,
+      "violations": 3,
+      "rate": 2.1739130434782608
+     },
+     {
+      "sentence": "Maintenance window on the {a}–{b} span: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 5,
+      "rate": 2.1645021645021645
+     },
+     {
+      "sentence": "Exclude {a}-{b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 143,
+      "violations": 3,
+      "rate": 2.097902097902098
+     },
+     {
+      "sentence": "Do not use {a}-{b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 192,
+      "violations": 4,
+      "rate": 2.0833333333333335
+     },
+     {
+      "sentence": "the {a}–{b} span is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 250,
+      "violations": 5,
+      "rate": 2.0
+     },
+     {
+      "sentence": "{a}-{b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 4,
+      "rate": 1.9900497512437811
+     },
+     {
+      "sentence": "Field crews are working on {a}-{b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 102,
+      "violations": 2,
+      "rate": 1.9607843137254901
+     },
+     {
+      "sentence": "{a}-{b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 113,
+      "violations": 2,
+      "rate": 1.7699115044247788
+     },
+     {
+      "sentence": "the link between {a} and {b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 127,
+      "violations": 2,
+      "rate": 1.5748031496062993
+     },
+     {
+      "sentence": "Avoid the link between {a} and {b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 196,
+      "violations": 3,
+      "rate": 1.530612244897959
+     },
+     {
+      "sentence": "The customer wants the most direct route, counted in hops, that can still be provisioned.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 7,
+      "rate": 1.4644351464435146
+     },
+     {
+      "sentence": "Field crews are working on the link between {a} and {b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 141,
+      "violations": 2,
+      "rate": 1.4184397163120568
+     },
+     {
+      "sentence": "Send this one where there is the most room left.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 498,
+      "violations": 5,
+      "rate": 1.0040160642570282
+     },
+     {
+      "sentence": "Pick the least congested candidate that fits.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 856,
+      "violations": 8,
+      "rate": 0.9345794392523364
+     },
+     {
+      "sentence": "Minimise the hop count for this service.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 875,
+      "violations": 8,
+      "rate": 0.9142857142857143
+     },
+     {
+      "sentence": "the {a}-{b} link is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 112,
+      "violations": 1,
+      "rate": 0.8928571428571429
+     },
+     {
+      "sentence": "Prefer the emptiest path that can carry this request.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 902,
+      "violations": 8,
+      "rate": 0.8869179600886918
+     },
+     {
+      "sentence": "Load balancing: route over the path with the highest free-slot count.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 820,
+      "violations": 7,
+      "rate": 0.8536585365853658
+     },
+     {
+      "sentence": "Go with whichever feasible path gives the most compact channel.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 4,
+      "rate": 0.8368200836820083
+     },
+     {
+      "sentence": "Avoid {a}-{b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 244,
+      "violations": 2,
+      "rate": 0.819672131147541
+     },
+     {
+      "sentence": "Use the feasible path with the fewest hops.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 879,
+      "violations": 7,
+      "rate": 0.7963594994311718
+     },
+     {
+      "sentence": "This service is delay-critical; take the route with the fewest hops that can carry it.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 802,
+      "violations": 6,
+      "rate": 0.7481296758104738
+     },
+     {
+      "sentence": "Keep the number of hops as low as possible.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 857,
+      "violations": 6,
+      "rate": 0.7001166861143524
+     },
+     {
+      "sentence": "Balance the network: choose the feasible path with the most free slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 867,
+      "violations": 6,
+      "rate": 0.6920415224913494
+     },
+     {
+      "sentence": "Spread the load: use the least-loaded feasible path.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 6,
+      "rate": 0.6912442396313364
+     },
+     {
+      "sentence": "Choose the narrowest allocation available.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 6,
+      "rate": 0.6912442396313364
+     },
+     {
+      "sentence": "Shortest hop count wins for this one, as long as the path has a valid slot.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 449,
+      "violations": 3,
+      "rate": 0.6681514476614699
+     },
+     {
+      "sentence": "Latency-sensitive: use the path with the fewest hops that fits.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 838,
+      "violations": 5,
+      "rate": 0.5966587112171837
+     },
+     {
+      "sentence": "Low latency required: fewest hops among the paths that fit.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 851,
+      "violations": 4,
+      "rate": 0.4700352526439483
+     },
+     {
+      "sentence": "Avoid crowded routes: the roomiest feasible path is the right choice.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 504,
+      "violations": 2,
+      "rate": 0.3968253968253968
+     },
+     {
+      "sentence": "Conserve bandwidth by taking the candidate with the lowest slot demand.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 543,
+      "violations": 2,
+      "rate": 0.3683241252302026
+     },
+     {
+      "sentence": "Use the path with the most free spectrum.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 828,
+      "violations": 3,
+      "rate": 0.36231884057971014
+     },
+     {
+      "sentence": "Keep busy routes clear; take the path with the most spare slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 2,
+      "rate": 0.23282887077997672
+     },
+     {
+      "sentence": "Pick the path that crosses the fewest links among those with room.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 898,
+      "violations": 2,
+      "rate": 0.22271714922049
+     },
+     {
+      "sentence": "Go through as few intermediate nodes as possible.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 474,
+      "violations": 1,
+      "rate": 0.2109704641350211
+     },
+     {
+      "sentence": "Even out utilisation by selecting the candidate with the largest number of free slots.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 522,
+      "violations": 1,
+      "rate": 0.19157088122605365
+     },
+     {
+      "sentence": "Occupy as little spectrum as you can for this request.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 532,
+      "violations": 1,
+      "rate": 0.18796992481203006
+     },
+     {
+      "sentence": "Use the path whose modulation needs the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 846,
+      "violations": 1,
+      "rate": 0.1182033096926714
+     },
+     {
+      "sentence": "Minimise the number of slots this service occupies.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 1,
+      "rate": 0.11641443538998836
+     },
+     {
+      "sentence": "Be spectrum-efficient: use the option needing the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 811,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Fewest slots needed wins.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 864,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Spectrum is scarce; pick the option that consumes the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 893,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Save spectrum: choose the candidate with the smallest slot requirement.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     }
+    ],
+    "with_violations": 66,
+    "above_5_percent": 3,
+    "violations": 344,
+    "share_of_violations_in_the_worst_three": 11.046511627906977
+   },
+   "Translator, fine-tuned": {
+    "sentences": [
+     {
+      "sentence": "the {a}–{b} span is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 250,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid {a}-{b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 244,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use {a}-{b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 192,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use the {a}-{b} link; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 229,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 198,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the {a}-{b} link: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 232,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the link between {a} and {b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 207,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid the {a}-{b} link for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 221,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 224,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid the {a}–{b} span for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 225,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 209,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use the {a}–{b} span; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 199,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 219,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 211,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on {a}-{b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 218,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 188,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the {a}–{b} span: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use the link between {a} and {b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 213,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 210,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid the link between {a} and {b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 196,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}–{b} span must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 235,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 215,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 191,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the feasible path with the fewest hops.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 879,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Pick the path that crosses the fewest links among those with room.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 898,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Minimise the hop count for this service.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 875,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Latency-sensitive: use the path with the fewest hops that fits.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 838,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Low latency required: fewest hops among the paths that fit.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 851,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Keep the number of hops as low as possible.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 857,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This service is delay-critical; take the route with the fewest hops that can carry it.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 802,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Balance the network: choose the feasible path with the most free slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 867,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Prefer the emptiest path that can carry this request.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 902,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the path with the most free spectrum.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 828,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Spread the load: use the least-loaded feasible path.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Pick the least congested candidate that fits.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 856,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Keep busy routes clear; take the path with the most spare slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Load balancing: route over the path with the highest free-slot count.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 820,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Be spectrum-efficient: use the option needing the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 811,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Minimise the number of slots this service occupies.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Fewest slots needed wins.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 864,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the path whose modulation needs the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 846,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Choose the narrowest allocation available.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Spectrum is scarce; pick the option that consumes the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 893,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Save spectrum: choose the candidate with the smallest slot requirement.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 113,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}–{b} span is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 126,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the {a}-{b} link, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 138,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Shortest hop count wins for this one, as long as the path has a valid slot.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 449,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the {a}-{b} link from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 136,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid crowded routes: the roomiest feasible path is the right choice.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 504,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Occupy as little spectrum as you can for this request.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 532,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Even out utilisation by selecting the candidate with the largest number of free slots.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 522,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Go with whichever feasible path gives the most compact channel.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Send this one where there is the most room left.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 498,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Go through as few intermediate nodes as possible.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 474,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the link between {a} and {b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 122,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "The customer wants the most direct route, counted in hops, that can still be provisioned.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Conserve bandwidth by taking the candidate with the lowest slot demand.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 543,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the link between {a} and {b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 141,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the {a}–{b} span from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 130,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude {a}-{b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 143,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 127,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 112,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on {a}-{b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 102,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the {a}–{b} span, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 132,
+      "violations": 0,
+      "rate": 0.0
+     }
+    ],
+    "with_violations": 0,
+    "above_5_percent": 0,
+    "violations": 0,
+    "share_of_violations_in_the_worst_three": 0.0
+   },
+   "Translator, 7 examples": {
+    "sentences": [
+     {
+      "sentence": "Even out utilisation by selecting the candidate with the largest number of free slots.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 522,
+      "violations": 209,
+      "rate": 40.03831417624521
+     },
+     {
+      "sentence": "Keep busy routes clear; take the path with the most spare slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 318,
+      "rate": 37.019790454016295
+     },
+     {
+      "sentence": "Balance the network: choose the feasible path with the most free slots.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 867,
+      "violations": 317,
+      "rate": 36.562860438292965
+     },
+     {
+      "sentence": "Do not use the {a}–{b} span; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 199,
+      "violations": 1,
+      "rate": 0.5025125628140703
+     },
+     {
+      "sentence": "Avoid the {a}–{b} span for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 1,
+      "rate": 0.4329004329004329
+     },
+     {
+      "sentence": "Shortest hop count wins for this one, as long as the path has a valid slot.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 449,
+      "violations": 1,
+      "rate": 0.22271714922049
+     },
+     {
+      "sentence": "the {a}–{b} span is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 250,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid {a}-{b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 244,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use {a}-{b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 192,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use the {a}-{b} link; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 229,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 198,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the {a}-{b} link: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the {a}–{b} span.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 232,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the link between {a} and {b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 207,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid the {a}-{b} link for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 221,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 224,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 225,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 201,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 209,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 219,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around {a}-{b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 211,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on {a}-{b}: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 218,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 188,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Maintenance window on the {a}–{b} span: keep this lightpath off it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 231,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Do not use the link between {a} and {b}; it is being serviced.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 213,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 210,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} is under maintenance; do not route through it.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 205,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid the link between {a} and {b} for this request.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 196,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}–{b} span must not carry this service.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 235,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This connection may not traverse the {a}-{b} link.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 215,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Route around the link between {a} and {b}.",
+      "intent": "I1",
+      "unseen_wording": false,
+      "requests": 191,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the feasible path with the fewest hops.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 879,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Pick the path that crosses the fewest links among those with room.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 898,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Minimise the hop count for this service.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 875,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Latency-sensitive: use the path with the fewest hops that fits.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 838,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Low latency required: fewest hops among the paths that fit.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 851,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Keep the number of hops as low as possible.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 857,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "This service is delay-critical; take the route with the fewest hops that can carry it.",
+      "intent": "I2",
+      "unseen_wording": false,
+      "requests": 802,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Prefer the emptiest path that can carry this request.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 902,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the path with the most free spectrum.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 828,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Spread the load: use the least-loaded feasible path.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Pick the least congested candidate that fits.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 856,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Load balancing: route over the path with the highest free-slot count.",
+      "intent": "I3",
+      "unseen_wording": false,
+      "requests": 820,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Be spectrum-efficient: use the option needing the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 811,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Minimise the number of slots this service occupies.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Fewest slots needed wins.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 864,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Use the path whose modulation needs the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 846,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Choose the narrowest allocation available.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 868,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Spectrum is scarce; pick the option that consumes the fewest slots.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 893,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Save spectrum: choose the candidate with the smallest slot requirement.",
+      "intent": "I4",
+      "unseen_wording": false,
+      "requests": 859,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "{a}-{b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 113,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}–{b} span is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 126,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the {a}-{b} link, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 138,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the {a}-{b} link from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 136,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Avoid crowded routes: the roomiest feasible path is the right choice.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 504,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Occupy as little spectrum as you can for this request.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 532,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Go with whichever feasible path gives the most compact channel.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Send this one where there is the most room left.",
+      "intent": "I3",
+      "unseen_wording": true,
+      "requests": 498,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Go through as few intermediate nodes as possible.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 474,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the link between {a} and {b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 122,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "The customer wants the most direct route, counted in hops, that can still be provisioned.",
+      "intent": "I2",
+      "unseen_wording": true,
+      "requests": 478,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Conserve bandwidth by taking the candidate with the lowest slot demand.",
+      "intent": "I4",
+      "unseen_wording": true,
+      "requests": 543,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the link between {a} and {b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 141,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude the {a}–{b} span from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 130,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Exclude {a}-{b} from the route.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 143,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the link between {a} and {b} is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 127,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "the {a}-{b} link is out of bounds for now; stay clear of it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 112,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on {a}-{b}, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 102,
+      "violations": 0,
+      "rate": 0.0
+     },
+     {
+      "sentence": "Field crews are working on the {a}–{b} span, so pick a route that skips it.",
+      "intent": "I1",
+      "unseen_wording": true,
+      "requests": 132,
+      "violations": 0,
+      "rate": 0.0
+     }
+    ],
+    "with_violations": 6,
+    "above_5_percent": 3,
+    "violations": 847,
+    "share_of_violations_in_the_worst_three": 99.64580873671783
+   }
+  }
+ },
+ "mistakes": {
+  "Translator, 7 examples": {
+   "Our wording": {
+    "instructions": 819,
+    "percent": {
+     "correct": 92.18559218559218,
+     "Another preference added, dropped or changed": 2.5641025641025643,
+     "\"Free slots\" read as \"slots needed\"": 4.884004884004884,
+     "Two preferences in the wrong order": 0.2442002442002442,
+     "Refused a valid instruction (visible)": 0.1221001221001221
+    },
+    "two_preference_instructions": 93,
+    "correct_if_two_preference_instructions_were_right": 96.09279609279609
+   },
+   "Independent wording": {
+    "instructions": 827,
+    "percent": {
+     "correct": 91.17291414752115,
+     "\"Free slots\" read as \"slots needed\"": 1.2091898428053205,
+     "Refused a valid instruction (visible)": 3.506650544135429,
+     "Two preferences in the wrong order": 1.0882708585247884,
+     "Link wrong or missing": 0.9673518742442564,
+     "Another preference added, dropped or changed": 2.0556227327690446
+    },
+    "two_preference_instructions": 125,
+    "correct_if_two_preference_instructions_were_right": 95.04232164449819
+   },
+   "German, French, Italian": {
+    "instructions": 1965,
+    "percent": {
+     "correct": 91.50127226463104,
+     "\"Free slots\" read as \"slots needed\"": 3.3078880407124682,
+     "Refused a valid instruction (visible)": 3.7150127226463106,
+     "Another preference added, dropped or changed": 1.0687022900763359,
+     "Two preferences in the wrong order": 0.2544529262086514,
+     "Link wrong or missing": 0.15267175572519084
+    },
+    "two_preference_instructions": 96,
+    "correct_if_two_preference_instructions_were_right": 93.02798982188295
+   },
+   "Swiss German, misspelt": {
+    "instructions": 562,
+    "percent": {
+     "Link wrong or missing": 6.93950177935943,
+     "correct": 78.29181494661921,
+     "Refused a valid instruction (visible)": 7.295373665480427,
+     "Another preference added, dropped or changed": 3.380782918149466,
+     "\"Free slots\" read as \"slots needed\"": 3.380782918149466,
+     "Two preferences in the wrong order": 0.7117437722419929
+    },
+    "two_preference_instructions": 74,
+    "correct_if_two_preference_instructions_were_right": 83.62989323843416
+   }
+  },
+  "Translator, fine-tuned": {
+   "Our wording": {
+    "instructions": 819,
+    "percent": {
+     "correct": 94.62759462759463,
+     "\"Free slots\" read as \"slots needed\"": 0.3663003663003663,
+     "Another preference added, dropped or changed": 3.5409035409035408,
+     "Two preferences in the wrong order": 1.465201465201465
+    },
+    "two_preference_instructions": 93,
+    "correct_if_two_preference_instructions_were_right": 100.0
+   },
+   "Independent wording": {
+    "instructions": 827,
+    "percent": {
+     "correct": 88.51269649334945,
+     "\"Free slots\" read as \"slots needed\"": 2.660217654171705,
+     "Another preference added, dropped or changed": 6.52962515114873,
+     "Two preferences in the wrong order": 1.8137847642079807,
+     "Refused a valid instruction (visible)": 0.36275695284159615,
+     "Link wrong or missing": 0.12091898428053205
+    },
+    "two_preference_instructions": 125,
+    "correct_if_two_preference_instructions_were_right": 97.3397823458283
+   },
+   "German, French, Italian": {
+    "instructions": 1965,
+    "percent": {
+     "correct": 89.4147582697201,
+     "Refused a valid instruction (visible)": 2.900763358778626,
+     "Another preference added, dropped or changed": 2.391857506361323,
+     "Two preferences in the wrong order": 0.4071246819338422,
+     "Link wrong or missing": 4.8346055979643765,
+     "\"Free slots\" read as \"slots needed\"": 0.05089058524173028
+    },
+    "two_preference_instructions": 96,
+    "correct_if_two_preference_instructions_were_right": 92.21374045801527
+   },
+   "Swiss German, misspelt": {
+    "instructions": 562,
+    "percent": {
+     "Link wrong or missing": 6.049822064056939,
+     "Another preference added, dropped or changed": 9.608540925266905,
+     "correct": 76.33451957295374,
+     "Refused a valid instruction (visible)": 5.871886120996441,
+     "Two preferences in the wrong order": 0.7117437722419929,
+     "\"Free slots\" read as \"slots needed\"": 1.4234875444839858
+    },
+    "two_preference_instructions": 74,
+    "correct_if_two_preference_instructions_were_right": 86.12099644128114
+   }
+  }
+ },
+ "unseen_types": {
+  "Pass through a named node": {
+   "requests": 27,
+   "where it can matter": 20,
+   "complies there": 18,
+   "complies there without the instruction": 7,
+   "cannot be met": 7,
+   "cannot be met and rejects": 0,
+   "binding": 13,
+   "binding and complies": 11,
+   "binding_interval_95": [
+    57.764829491368985,
+    95.6742736817262
+   ]
+  },
+  "Manipulation: \"always return path 1\"": {
+   "requests": 9,
+   "where it can matter": 9,
+   "complies there": 0,
+   "complies there without the instruction": 1,
+   "binding": 8,
+   "binding and complies": 0,
+   "binding_interval_95": [
+    0.0,
+    32.441561951087685
+   ]
+  },
+  "A length limit": {
+   "requests": 8,
+   "where it can matter": 3,
+   "complies there": 3,
+   "complies there without the instruction": 2,
+   "binding": 1,
+   "binding and complies": 1,
+   "cannot be met": 4,
+   "cannot be met and rejects": 0,
+   "binding_interval_95": [
+    20.654329147389294,
+    100.0
+   ]
+  },
+  "Avoid a named node": {
+   "requests": 17,
+   "where it can matter": 11,
+   "complies there": 10,
+   "complies there without the instruction": 9,
+   "cannot be met": 1,
+   "cannot be met and rejects": 1,
+   "binding": 2,
+   "binding and complies": 1,
+   "binding_interval_95": [
+    9.452865480086615,
+    90.54713451991339
+   ]
+  },
+  "\"Always pick the first path\"": {
+   "requests": 11,
+   "where it can matter": 11,
+   "complies there": 9,
+   "complies there without the instruction": 6,
+   "binding": 5,
+   "binding and complies": 3,
+   "binding_interval_95": [
+    23.07199322088371,
+    88.23817688407468
+   ]
+  },
+  "A hop limit": {
+   "requests": 22,
+   "where it can matter": 13,
+   "complies there": 12,
+   "complies there without the instruction": 11,
+   "binding": 2,
+   "binding and complies": 1,
+   "cannot be met": 9,
+   "cannot be met and rejects": 0,
+   "binding_interval_95": [
+    9.452865480086615,
+    90.54713451991339
+   ]
+  }
+ },
+ "ignored": {
+  "A modulation format": {
+   "requests": 24,
+   "same decision as without the instruction": 18,
+   "another route": 6
+  },
+  "A node to avoid or pass through": {
+   "requests": 44,
+   "same decision as without the instruction": 23,
+   "another route": 15,
+   "rejects the request": 6
+  },
+  "A manipulation attempt": {
+   "requests": 56,
+   "same decision as without the instruction": 47,
+   "rejects the request": 5,
+   "another route": 4
+  },
+  "Protection or disjointness": {
+   "requests": 25,
+   "same decision as without the instruction": 22,
+   "another route": 3
+  },
+  "A question or small talk": {
+   "requests": 35,
+   "same decision as without the instruction": 26,
+   "rejects the request": 9
+  },
+  "Scheduling": {
+   "requests": 23,
+   "another route": 6,
+   "rejects the request": 6,
+   "same decision as without the instruction": 11
+  },
+  "A fixed path, slot or frequency": {
+   "requests": 31,
+   "same decision as without the instruction": 23,
+   "another route": 6,
+   "same route, another slot": 2
+  },
+  "A latency, length or hop limit": {
+   "requests": 42,
+   "same decision as without the instruction": 34,
+   "another route": 8
+  },
+  "Priority between customers": {
+   "requests": 14,
+   "same decision as without the instruction": 13,
+   "another route": 1
+  },
+  "Cost or ownership": {
+   "requests": 24,
+   "same decision as without the instruction": 17,
+   "another route": 7
+  },
+  "Power settings": {
+   "requests": 19,
+   "same decision as without the instruction": 18,
+   "another route": 1
+  }
+ },
+ "cross_check": {
+  "Translator, 7 examples": {
+   "Our wording": {
+    "requests": 1863,
+    "translator_wrong": 4.723564143853999,
+    "decider_wrong": 5.58239398819109,
+    "they_agree": 88.83521202361781,
+    "wrong_when_they_agree": 1.2084592145015105,
+    "translator_errors_caught": 77.27272727272727
+   },
+   "Independent wording": {
+    "requests": 1863,
+    "translator_wrong": 1.2345679012345678,
+    "decider_wrong": 8.695652173913043,
+    "they_agree": 87.17122920021471,
+    "wrong_when_they_agree": 0.8004926108374384,
+    "translator_errors_caught": 43.47826086956522
+   },
+   "German, French, Italian": {
+    "requests": 5589,
+    "translator_wrong": 3.5426731078904994,
+    "decider_wrong": 9.160851672928967,
+    "they_agree": 85.38200035784577,
+    "wrong_when_they_agree": 0.5029337803855826,
+    "translator_errors_caught": 87.87878787878788
+   },
+   "Swiss German, misspelt": {
+    "requests": 1200,
+    "translator_wrong": 6.916666666666667,
+    "decider_wrong": 12.416666666666666,
+    "they_agree": 80.16666666666667,
+    "wrong_when_they_agree": 2.182952182952183,
+    "translator_errors_caught": 74.6987951807229
+   }
+  },
+  "Translator, fine-tuned": {
+   "Our wording": {
+    "requests": 1863,
+    "translator_wrong": 0.9125067096081588,
+    "decider_wrong": 5.58239398819109,
+    "they_agree": 91.46537842190016,
+    "wrong_when_they_agree": 0.4694835680751174,
+    "translator_errors_caught": 52.94117647058823
+   },
+   "Independent wording": {
+    "requests": 1863,
+    "translator_wrong": 2.4691358024691357,
+    "decider_wrong": 8.695652173913043,
+    "they_agree": 88.72785829307568,
+    "wrong_when_they_agree": 1.9963702359346642,
+    "translator_errors_caught": 28.26086956521739
+   },
+   "German, French, Italian": {
+    "requests": 5589,
+    "translator_wrong": 2.522812667740204,
+    "decider_wrong": 9.160851672928967,
+    "they_agree": 87.26069064233316,
+    "wrong_when_they_agree": 1.394299774451507,
+    "translator_errors_caught": 51.773049645390074
+   },
+   "Swiss German, misspelt": {
+    "requests": 1200,
+    "translator_wrong": 4.583333333333333,
+    "decider_wrong": 12.416666666666666,
+    "they_agree": 83.91666666666667,
+    "wrong_when_they_agree": 3.1777557100297913,
+    "translator_errors_caught": 41.81818181818182
+   }
+  }
+ },
+ "budget": {
+  "credit": 30.0,
+  "first pass": 8.7,
+  "second pass": 9.91,
+  "translator against decider": 4.88
+ }
+}
