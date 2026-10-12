@@ -1,0 +1,113 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "first_candidate"
+    },
+    "command": "src/evaluate.py offline --policy first_candidate --data data/probes --splits germany50 --topology germany50 --out results/offline/first_candidate_probes_germany50.json",
+    "finished_utc": "2026-10-12T07:36:56.315308+00:00"
+  },
+  "splits": {
+    "germany50": {
+      "I0": {
+        "n": 122,
+        "exact_match": 0.45081967213114754,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1": {
+        "n": 149,
+        "exact_match": 0.4228187919463087,
+        "admissible": 0.6778523489932886,
+        "admissible_ordered": 0.6778523489932886,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 38,
+        "exact_match": 0.7368421052631579,
+        "admissible": 0.7368421052631579,
+        "admissible_ordered": 0.7368421052631579,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 33,
+        "exact_match": 0.30303030303030304,
+        "admissible": 0.30303030303030304,
+        "admissible_ordered": 0.30303030303030304,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 201,
+        "exact_match": 0.7313432835820896,
+        "admissible": 0.7313432835820896,
+        "admissible_ordered": 0.7313432835820896,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 167,
+        "exact_match": 0.8083832335329342,
+        "admissible": 0.8083832335329342,
+        "admissible_ordered": 0.8083832335329342,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 199,
+        "exact_match": 0.4271356783919598,
+        "admissible": 0.4271356783919598,
+        "admissible_ordered": 0.5175879396984925,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 146,
+        "exact_match": 0.4315068493150685,
+        "admissible": 0.4315068493150685,
+        "admissible_ordered": 0.4315068493150685,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 145,
+        "exact_match": 0.993103448275862,
+        "admissible": 0.993103448275862,
+        "admissible_ordered": 0.993103448275862,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1200,
+        "exact_match": 0.6083333333333333,
+        "admissible": 0.6958333333333333,
+        "admissible_ordered": 0.7108333333333333,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

@@ -31,6 +31,7 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 
 | Policy | Pass through a node | Avoid a node | Hop limit | Length limit | Shortest in km | A given candidate | All six | Cannot be met: rejected |
 |---|---|---|---|---|---|---|---|---|
+| First candidate that fits (ignores the instruction) | 16.5 | 32.5 | 75.5 | 100.0 | 100.0 | 11.5 | 56.0 | 0.0 |
 | Decider alone | 94.0 | 83.5 | 76.5 | 66.5 | 98.0 | 84.0 | 83.8 | 18.5 |
 | First translator, fine-tuned | – | – | – | – | – | – | – | – |
 | Second translator, 11 examples | 0.0 | 0.0 | 39.0 | 0.0 | 21.0 | 0.0 | 10.0 | 0.0 |
@@ -42,6 +43,7 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 
 | Policy | Same decision as without it | Rejected | Flagged | Sent to the decider |
 |---|---|---|---|---|
+| First candidate that fits (ignores the instruction) | 100.0 | 1.2 | 0.0 | 0.0 |
 | Decider alone | 89.3 | 5.9 | 0.0 | 0.0 |
 | First translator, fine-tuned | – | – | – | – |
 | Second translator, 11 examples | 100.0 | 1.2 | 100.0 | 0.0 |
@@ -53,6 +55,7 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 
 | Policy | Our wording | Independent wording | German † | French † | Italian † | German, native | French, native | Italian, native | Swiss German | Misspelt | Other topology |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| First candidate that fits (ignores the instruction) | – | 71.5 | 71.5 | 71.5 | 71.5 | 71.5 | 71.5 | 71.5 | 69.5 | 69.5 | 69.6 |
 | Decider alone | 94.4 | 91.3 | 89.6 | 92.0 | 90.9 | 92.3 | 91.8 | 90.3 | 85.3 | 89.8 | 92.3 |
 | First translator, fine-tuned | 99.1 | 97.5 | 96.6 | 98.4 | 97.5 | – | – | – | 95.3 | 95.5 | 98.9 |
 | Second translator, 11 examples | 93.8 | 96.2 | 90.3 | 93.0 | 91.8 | 92.8 | 96.6 | 94.9 | 86.3 | 93.7 | – |
@@ -81,6 +84,8 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 | Policy | Supported, independent wording | Types without a rule | Text that is no instruction | Link that does not exist | Nothing typed | All requests | Blocking, % | Sent to the decider, % |
 |---|---|---|---|---|---|---|---|---|
 | Rules for every kind (reference) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 3.95 | 0.0 |
+| First fit (ignores the instruction) | 33.3 | 30.3 | 0.0 | 0.0 | 0.0 | 22.2 | 2.68 | 0.0 |
+| No-intent teacher (ignores the instruction) | 32.1 | 39.9 | 0.0 | 0.0 | 0.0 | 24.1 | 1.22 | 0.0 |
 | Decider alone | 9.4 | 7.8 | 5.1 | 0.7 | 0.0 | 6.6 | 3.15 | 0.0 |
 | Second translator alone (fine-tuned) | 1.2 | 38.5 | 0.0 | 0.0 | 0.0 | 10.2 | 2.78 | 0.0 |
 | Hybrid: second translator, then decider | 1.1 | 13.9 | 1.6 | 0.0 | 0.0 | 4.1 | 3.43 | 19.0 |
@@ -90,6 +95,8 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 | Policy | Supported: violations, % | Types without a rule: violations, % | Supported: such requests | Types without a rule: such requests |
 |---|---|---|---|---|
 | Rules for every kind (reference) | 0.0 | 0.0 | 903 | 622 |
+| First fit (ignores the instruction) | 64.9 | 60.4 | 889 | 639 |
+| No-intent teacher (ignores the instruction) | 99.8 | 99.8 | 845 | 603 |
 | Decider alone | 24.1 | 17.1 | 866 | 614 |
 | Second translator alone (fine-tuned) | 2.6 | 90.3 | 871 | 630 |
 | Hybrid: second translator, then decider | 2.5 | 31.8 | 863 | 600 |
@@ -99,6 +106,8 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 | Policy | Supported, independent wording | Types without a rule | Text that is no instruction | Link that does not exist | Nothing typed | All requests | Blocking, % | Sent to the decider, % |
 |---|---|---|---|---|---|---|---|---|
 | Rules for every kind (reference) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 9.15 | 0.0 |
+| First fit (ignores the instruction) | 27.1 | 29.3 | 0.0 | 0.0 | 0.0 | 19.4 | 8.23 | 0.0 |
+| No-intent teacher (ignores the instruction) | 28.4 | 40.4 | 0.0 | 0.0 | 0.0 | 22.8 | 5.98 | 0.0 |
 | Decider alone | 8.4 | 7.7 | 4.5 | 3.7 | 0.0 | 6.3 | 8.17 | 0.0 |
 | Second translator alone (fine-tuned) | 0.7 | 36.2 | 0.0 | 0.0 | 0.0 | 9.3 | 7.80 | 0.0 |
 | Hybrid: second translator, then decider | 0.7 | 13.8 | 2.0 | 0.6 | 0.0 | 4.0 | 8.50 | 18.5 |
@@ -108,6 +117,8 @@ Rendered by `src/report_phase2.py`; do not edit by hand. The second translator h
 | Policy | Supported: violations, % | Types without a rule: violations, % | Supported: such requests | Types without a rule: such requests |
 |---|---|---|---|---|
 | Rules for every kind (reference) | 0.0 | 0.0 | 769 | 610 |
+| First fit (ignores the instruction) | 59.6 | 60.0 | 743 | 627 |
+| No-intent teacher (ignores the instruction) | 100.0 | 100.0 | 767 | 598 |
 | Decider alone | 23.7 | 16.1 | 777 | 628 |
 | Second translator alone (fine-tuned) | 2.0 | 90.0 | 787 | 590 |
 | Hybrid: second translator, then decider | 2.0 | 30.7 | 791 | 613 |

@@ -43,12 +43,14 @@ decider in 85 to 92 %. The translator's errors are of another kind, though: one 
 is wrong for every request that carries it. With seven examples in the prompt and no training it
 reads "most free slots" as "fewest slots" and violates 10.6 % of the least-loaded condition.
 
-The decider keeps one advantage. On six instruction types nobody wrote a rule for (pass through a
-node, a hop limit, ...) it complies on 84 % of 1,200 requests without ever having seen one; a
-translator can only refuse them. So the system we propose is a hybrid: the translator handles what
-has a rule and hands what it calls unsupported to the decider. On a mixed stream of instructions
-in closed loop the hybrid breaks 4.0 % of requests, the decider alone 6.3 %, the translator alone
-9.3 %.
+The decider keeps one advantage. On three instruction types nobody wrote a rule for (pass through
+a node, avoid a node, take a named candidate) it complies on 87 % of 600 requests without ever
+having seen one, where a choice that ignores the instruction complies on 20 %; a translator can
+only refuse them. On three further types (a hop limit, a length limit, the shortest route in km)
+it is no better than always taking the shortest candidate. So the system we propose is a hybrid:
+the translator handles what has a rule and hands what it calls unsupported to the decider. On a
+mixed stream of instructions in closed loop the hybrid breaks 4.0 % of requests, the decider alone
+6.3 %, the translator alone 9.3 %, first fit, which ignores instructions, 19.4 %.
 
 ## 2. Architecture
 
@@ -329,10 +331,18 @@ answer, and text that is no instruction (`src/corpora2.py`).
 | First translator, fine-tuned: right meaning, % | 88.5 | not run | 41.6 | 2.77 % violations |
 | Second translator, fine-tuned: right meaning, % | 95.0 | 96.6 / 94.5 / 98.0 | 86.4 | 0.20 % violations |
 
-The decider on the types without a rule, decisions that comply, %
-(`results/offline/apertus_ft_probes2.json`): pass through a node 94.0, avoid a node 83.5, a hop
-limit 76.5, a length limit 66.5, the shortest route in km 98.0, a given candidate 84.0; all six
-83.8. It was never trained on any of them. It treats a new constraint as a preference, though:
+The decider on the types without a rule, decisions that comply, %, next to the first candidate
+that fits, which ignores the instruction (`results/offline/apertus_ft_probes2.json`,
+`first_candidate_probes2.json`):
+
+| Policy | Pass through a node | Avoid a node | A given candidate | Hop limit | Length limit | Shortest in km |
+| --- | --- | --- | --- | --- | --- | --- |
+| First candidate that fits | 16.5 | 32.5 | 11.5 | 75.5 | 100.0 | 100.0 |
+| Decider | 94.0 | 83.5 | 84.0 | 76.5 | 66.5 | 98.0 |
+
+The decider was never trained on any of them. It follows the first three (87 % against 20 %). The
+last three say nothing: the requests were chosen so that the load-balancing teacher is wrong, and
+the shortest candidate then usually complies. The decider treats a new constraint as a preference:
 when the constraint cannot be met it rejects only 18.5 % of requests.
 
 The hybrid puts the second translator in front of the decider and forwards only what the
@@ -343,14 +353,17 @@ links that do not exist (5 %) and nothing (15 %), violations in % of the request
 
 | Policy | Supported | Types without a rule | No instruction | All requests |
 | --- | --- | --- | --- | --- |
+| First fit (ignores the instruction) | 27.1 | 29.3 | 0.0 | 19.4 |
 | Decider alone | 8.4 | 7.7 | 4.5 | 6.3 |
 | Second translator alone | 0.7 | 36.2 | 0.0 | 9.3 |
 | Hybrid | 0.7 | 13.8 | 2.0 | 4.0 |
 
-The hybrid is better than either part overall. It is worse than the decider alone on the types
-without a rule because its gate is imperfect: the translator forwards 72 % of those instructions,
-drops 23 % and applies 5 % as something else. Its main miss is node avoidance, which it writes as
-a link with a missing end.
+The hybrid is better than either part overall, in every seed and at both loads. It is worse than
+the decider alone on the types without a rule because its gate is imperfect: of those requests it
+forwards 68 %, flags 15 % and applies the rest as something else. Its main miss is node avoidance,
+which it writes as a link with a missing end. On requests where the instruction changes the right
+answer the violations are higher: supported instructions 23.7 % (decider) and 2.0 % (hybrid),
+types without a rule 16.1 % and 30.7 % (`results/tables/phase2.md`).
 
 ## 6. Limitations
 
@@ -383,9 +396,16 @@ a link with a missing end.
 - The second translator was trained on the German, French and Italian sentences that tested the
   first one; only the natively written sets are a test for it. The decider was not retrained, so
   it has still not seen two preferences.
-- The rules for the six unseen types were written for scoring, after the decider was trained.
-  The share of each kind in the mixed stream is our choice, and the ranking of the three designs
-  depends on it.
+- The rules for the six unseen types were written for scoring, after the decider was trained;
+  they could equally be added to the translator's format. The gate is not blind to these types:
+  the second translator was shown them, in other wording, as examples of `unsupported`.
+- The share of each kind in the mixed stream is our choice, and the ranking of the three designs
+  depends on it. The mixed stream also sets a translator trained in the second round against the
+  decider of the first, which never saw two of the pairs; without those two the decider has 5.3 %
+  and the hybrid 4.3 %.
+- The independent wording was a development set for the second translator; its blind tests are
+  the natively written language sets. On those it still applies a wrong meaning silently for 1.4
+  to 2.8 % of instructions (Swiss German 19 %).
 - Decision latency is that of batched Transformers calls inside a job, not of a tuned server.
 
 ## 7. Reproducibility

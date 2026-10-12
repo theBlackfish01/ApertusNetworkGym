@@ -21,6 +21,7 @@ TRANSLATORS = {
     "translate2_ft": "Second translator, fine-tuned",
 }
 POLICIES = {
+    "first_candidate_probes": "First candidate that fits (ignores the instruction)",
     "apertus_ft_probes": "Decider alone",
     "translate_ft_probes": "First translator, fine-tuned",
     "translate2_few_probes": "Second translator, 11 examples",
@@ -180,7 +181,9 @@ def tables(results: Path) -> list:
     return out
 
 
-MIXED = {"oracle_mix": "Rules for every kind (reference)", "apertus_ft_mix": "Decider alone",
+MIXED = {"oracle_mix": "Rules for every kind (reference)",
+         "first_fit_mix": "First fit (ignores the instruction)",
+         "teacher_mix": "No-intent teacher (ignores the instruction)", "apertus_ft_mix": "Decider alone",
          "translate2_ft_mix": "Second translator alone (fine-tuned)",
          "hybrid2_ft_mix": "Hybrid: second translator, then decider"}  # fmt: skip
 KINDS = {

@@ -5,7 +5,9 @@ treats heuristics, the MLP and the language model identically:
 
     first_fit        ONG masked first fit (KSP-BM-FF baseline); ignores the intent
     teacher          ONG BM-LS-KSP (no-intent teacher); ignores the intent
-    oracle           the intent-aware teacher of ``intents.py`` (upper bound for each condition)
+    first_candidate  the first candidate that fits; ignores the intent and needs only the request
+                     view, so it is the instruction-blind baseline on stored requests
+    oracle          the intent-aware teacher of ``intents.py`` (upper bound for each condition)
     mlp              the numeric control of ``mlp.py``
     llm              Apertus, zero-shot or fine-tuned: behind an OpenAI-compatible endpoint (vLLM)
                      or loaded in this process with transformers; with ``shots`` a few solved
@@ -99,6 +101,20 @@ class OngHeuristic(Timed):
 
     def describe(self) -> dict:
         return {"name": self.name, "ong_heuristic": self.heuristic}
+
+
+class FirstCandidate(Timed):
+    """Ignores the instruction: the first candidate (the shortest) that fits, at its first slot.
+
+    Decided from the request view alone, so it also runs on stored requests, where the simulator's
+    own first fit cannot. It shows how often a decision that never read the instruction complies.
+    """
+
+    name = "first_candidate"
+
+    def choose(self, request: Request) -> Choice:
+        path = next((p for p in request.view.paths if p.feasible), None)
+        return None if path is None else (path.index, path.first_slot)
 
 
 class Oracle(Timed):
@@ -425,6 +441,8 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         return OngHeuristic(name)
     if name == "oracle":
         return Oracle()
+    if name == "first_candidate":
+        return FirstCandidate()
     if name == "mlp":
         return MLPPolicy()
     if name.startswith("translate"):
