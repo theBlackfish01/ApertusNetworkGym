@@ -1,0 +1,39 @@
+# Instructions written by the project's owner: a blind test for the third round.
+#
+# One instruction per line, then " | " and what you meant, in plain words. Lines starting with # are ignored.
+# Write as the operator you would be. Do not open src/intents.py, src/corpora*.py or data/instructions/* first.
+#
+# Cities you may name (the network's nodes):
+#   Amsterdam, Athens, Barcelona, Belgrade, Berlin, Bordeaux, Brussels, Budapest, Copenhagen, Dublin, Frankfurt,
+#   Glasgow, Hamburg, London, Lyon, Madrid, Milan, Munich, Oslo, Paris, Prague, Rome, Stockholm, Strasbourg,
+#   Vienna, Warsaw, Zagreb, Zurich
+# A "link" is a direct span between two neighbouring cities, for example Berlin-Prague or Zurich-Milan. If you
+# are not sure two cities are neighbours, use one of: Berlin-Prague, Zurich-Milan, Paris-Brussels, Munich-Vienna,
+# Hamburg-Berlin, Lyon-Zurich, Madrid-Barcelona, London-Amsterdam, Frankfurt-Munich, Rome-Milan.
+#
+# What to write, about 40 lines in all (vary the style: ticket notes, full sentences, typos, abbreviations):
+#   12  one request: keep a link out of use (x4), fewest hops or lowest latency (x2), least loaded path (x2),
+#       fewest slots / most spectrum-efficient (x2), go through a city (x1), at most N hops (x1)
+#   10  two or three of those in one instruction
+#    8  anything else you would really type about the choice of route, slot or modulation
+#    5  text that is no routing instruction (a question, chatter, "set up protection too")
+#    5  in Urdu or any other language you speak
+#
+# How to write what you meant (after the "|"), using these words so I can label it without guessing:
+#   avoid A-B            the route must not use the link A-B
+#   avoid A              the route must not pass through city A
+#   via A                the route must pass through city A
+#   max N hops           at most N hops
+#   max N km             at most N km
+#   candidate N          use candidate number N of the list
+#   prefer hops | km | load | slots     fewest hops | shortest in km | least loaded | fewest slots
+#                        (several: in the order of importance, e.g. "prefer load, then hops")
+#   other: <what>        a routing instruction that is none of the above
+#   none                 not a routing instruction
+#
+# Examples of the format (do not reuse their wording):
+#   Berlin–Prague is down for maintenance, route around it, and keep it short in hops | avoid Berlin-Prague, prefer hops
+#   whats the weather like in zurich | none
+#
+# Your lines below:
+
