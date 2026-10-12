@@ -15,8 +15,8 @@
         "endpoint": "http://127.0.0.1:8080/v1"
       }
     },
-    "command": "src/translate.py batch --base-url http://127.0.0.1:8080/v1 --model katya228/Apertus-v1.5-70B-text-GGUF:apertus-70b-Q4_K_M.gguf --concurrency 8 --sync-repo blackfish021/apertus-lightpath-work-v2 --jobs translate3_few70b:nobel-eu:regex:data/instructions/v3_en.jsonl,data/instructions/v3_de.jsonl,data/instructions/v3_fr.jsonl,data/instructions/v3_it.jsonl,data/instructions/v3_new.jsonl,data/instructions/v3_new_hard.jsonl,data/instructions/v3_new_impossible.jsonl,data/instructions/v3_partial.jsonl,data/instructions/v3_other.jsonl,data/instructions/v3_not.jsonl,data/instructions/v3_faulty.jsonl",
-    "finished_utc": "2026-10-12T11:35:08.492555+00:00",
+    "command": "src/translate.py batch --base-url http://127.0.0.1:8080/v1 --model katya228/Apertus-v1.5-70B-text-GGUF:apertus-70b-Q4_K_M.gguf --concurrency 8 --sync-repo blackfish021/apertus-lightpath-work-v2 --jobs translate3_few70b:nobel-eu:regex:data/instructions/v3_en.jsonl,data/instructions/v3_de.jsonl,data/instructions/v3_fr.jsonl,data/instructions/v3_it.jsonl,data/instructions/v3_new.jsonl,data/instructions/v3_new_hard.jsonl,data/instructions/v3_new_impossible.jsonl,data/instructions/v3_partial.jsonl,data/instructions/v3_other.jsonl,data/instructions/v3_not.jsonl,data/instructions/v3_faulty.jsonl,data/instructions/mix3_390.jsonl",
+    "finished_utc": "2026-10-12T16:45:36.146798+00:00",
     "sets": [
       "v3_en.jsonl",
       "v3_de.jsonl",
@@ -28,10 +28,375 @@
       "v3_partial.jsonl",
       "v3_other.jsonl",
       "v3_not.jsonl",
-      "v3_faulty.jsonl"
+      "v3_faulty.jsonl",
+      "mix3_390.jsonl"
     ]
   },
   "groups": [
+    {
+      "set": "operations_mix3",
+      "lang": "all",
+      "kind": "all",
+      "n": 2613,
+      "correct": 1862,
+      "flagged": 428,
+      "wrong": 292,
+      "applied": 31,
+      "malformed": 0,
+      "same_status": 2381,
+      "ms_per_instruction": 6102.612399540761
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "atom",
+      "n": 112,
+      "correct": 93,
+      "flagged": 16,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 96,
+      "ms_per_instruction": 5819.883928571428
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "heldout_pair",
+      "n": 70,
+      "correct": 65,
+      "flagged": 4,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 66,
+      "ms_per_instruction": 6557.354285714283
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "pair",
+      "n": 71,
+      "correct": 54,
+      "flagged": 4,
+      "wrong": 13,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 67,
+      "ms_per_instruction": 6501.397183098593
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "triple",
+      "n": 46,
+      "correct": 34,
+      "flagged": 3,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 43,
+      "ms_per_instruction": 6685.4
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 7422.187500000001
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "atom",
+      "n": 319,
+      "correct": 313,
+      "flagged": 2,
+      "wrong": 4,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 317,
+      "ms_per_instruction": 6359.175862068963
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "faulty",
+      "n": 188,
+      "correct": 0,
+      "flagged": 164,
+      "wrong": 0,
+      "applied": 24,
+      "malformed": 0,
+      "same_status": 123,
+      "ms_per_instruction": 5290.918085106384
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "heldout_pair",
+      "n": 271,
+      "correct": 239,
+      "flagged": 2,
+      "wrong": 30,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 269,
+      "ms_per_instruction": 6566.876383763839
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "largest_block",
+      "n": 8,
+      "correct": 0,
+      "flagged": 4,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 3760.3750000000005
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "min_free",
+      "n": 74,
+      "correct": 0,
+      "flagged": 74,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 66,
+      "ms_per_instruction": 1486.5000000000005
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "min_mod",
+      "n": 32,
+      "correct": 0,
+      "flagged": 32,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 1692.1249999999993
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "not_first",
+      "n": 8,
+      "correct": 0,
+      "flagged": 5,
+      "wrong": 0,
+      "applied": 3,
+      "malformed": 0,
+      "same_status": 0,
+      "ms_per_instruction": 3723.75
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "not_instruction",
+      "n": 30,
+      "correct": 0,
+      "flagged": 30,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 30,
+      "ms_per_instruction": 1321.4466666666665
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "pair",
+      "n": 267,
+      "correct": 252,
+      "flagged": 0,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 267,
+      "ms_per_instruction": 6519.7640449438195
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "partial",
+      "n": 251,
+      "correct": 34,
+      "flagged": 64,
+      "wrong": 153,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 187,
+      "ms_per_instruction": 5166.215537848604
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "triple",
+      "n": 194,
+      "correct": 180,
+      "flagged": 0,
+      "wrong": 14,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 194,
+      "ms_per_instruction": 6486.088659793814
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 6641.1875
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "atom",
+      "n": 109,
+      "correct": 105,
+      "flagged": 3,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 106,
+      "ms_per_instruction": 6160.890825688074
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "heldout_pair",
+      "n": 65,
+      "correct": 58,
+      "flagged": 1,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 64,
+      "ms_per_instruction": 9667.198461538466
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "pair",
+      "n": 92,
+      "correct": 88,
+      "flagged": 3,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 89,
+      "ms_per_instruction": 7861.643478260868
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "triple",
+      "n": 49,
+      "correct": 42,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 49,
+      "ms_per_instruction": 8578.467346938774
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 6698.325000000001
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "atom",
+      "n": 118,
+      "correct": 105,
+      "flagged": 9,
+      "wrong": 4,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 109,
+      "ms_per_instruction": 6043.61525423729
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "heldout_pair",
+      "n": 79,
+      "correct": 64,
+      "flagged": 4,
+      "wrong": 11,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 75,
+      "ms_per_instruction": 6501.445569620252
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "pair",
+      "n": 88,
+      "correct": 75,
+      "flagged": 4,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 84,
+      "ms_per_instruction": 6280.654545454547
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "triple",
+      "n": 40,
+      "correct": 31,
+      "flagged": 0,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 6587.194999999998
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 6404.875
+    },
     {
       "set": "v3_de",
       "lang": "all",
@@ -658,6 +1023,168 @@
     }
   ],
   "examples": [
+    {
+      "set": "operations_mix3",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Because of the ongoing audit at our Lausanne PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Lyon-Zurich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Because of the ongoing audit at our Lugano PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Lyon-Zurich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Do not take the first candidate in the list; any of the others is fine.",
+          "expected": "unsupported",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep this lightpath out of Basel entirely.",
+          "expected": "unresolved",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep this lightpath out of Bern entirely.",
+          "expected": "unresolved",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep this lightpath out of Edinburgh entirely.",
+          "expected": "unresolved",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep this lightpath out of Turin entirely.",
+          "expected": "unresolved",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Only candidates going through Vilnius are acceptable for this service.",
+          "expected": "unresolved",
+          "answer": "avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "operations_mix3",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Among candidates running 16QAM or a more efficient format, take the one with the most free slots.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=more",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Among candidates running 32QAM or a more efficient format, take the one with the most free slots.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=more",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Among candidates running 8QAM or a more efficient format, take the one with the most free slots.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=more",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Auswahl: Eintrag 0.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
+          "answer": "no_instruction",
+          "status": "no_instruction"
+        },
+        {
+          "text": "Auswahl: Eintrag 1.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=1; prefer=none; rest=none",
+          "answer": "no_instruction",
+          "status": "no_instruction"
+        },
+        {
+          "text": "Auswahl: Eintrag 3.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte Kandidat 0 nehmen.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte Kandidat 1 nehmen.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=1; prefer=none; rest=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "operations_mix3",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "1800 km max, 5 sauts max, pas de fibre Hambourg/Berlin",
+          "expected": "avoid=Hamburg-Berlin; via=none; hops=5; km=1800; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=1800; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "2250 km max, 3 sauts max, pas de fibre Vienne/Munich",
+          "expected": "avoid=Vienna-Munich; via=none; hops=3; km=2250; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=2250; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Among candidates running QPSK or a more efficient format, take the one with the most free slots.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=more",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Amsterdam is under maintenance, so keep away from it; of the remaining routes take the one with the widest single free spectrum block.",
+          "expected": "avoid=Amsterdam; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Amsterdam; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "At least 100 free slots along the path, and it must not use the link between Amsterdam and Brussels.",
+          "expected": "avoid=Amsterdam-Brussels; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Amsterdam-Brussels; via=none; hops=any; km=any; path=any; prefer=slots; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "At least 100 free slots along the path, and it must not use the link between Frankfurt and Strasbourg.",
+          "expected": "avoid=Frankfurt-Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Frankfurt-Strasbourg; via=none; hops=any; km=any; path=any; prefer=slots; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "At least 100 free slots along the path, and it must not use the link between Vienna and Munich.",
+          "expected": "avoid=Vienna-Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Vienna-Munich; via=none; hops=any; km=any; path=any; prefer=slots; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "At least 110 free slots along the path, and it must not use the link between Amsterdam and Hamburg.",
+          "expected": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=slots; rest=more",
+          "status": "ok"
+        }
+      ]
+    },
     {
       "set": "v3_de",
       "outcome": "flagged",

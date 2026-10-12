@@ -1458,50 +1458,53 @@
    "set": "operations_mix3",
    "lang": "all",
    "kind": "all",
-   "n": 841,
-   "right": 587,
-   "handed_on": 29,
-   "silent": 106,
-   "other_refusal": 62,
-   "flagged": 22,
-   "part_only": 35
+   "n": 2815,
+   "right": 2239,
+   "silent": 314,
+   "handed_on": 70,
+   "other_refusal": 90,
+   "flagged": 60,
+   "part_only": 42
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "de",
    "kind": "atom",
-   "n": 74,
-   "right": 62,
-   "flagged": 10,
-   "silent": 2
+   "n": 136,
+   "right": 115,
+   "flagged": 18,
+   "silent": 3
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "de",
    "kind": "heldout_pair",
-   "n": 10,
+   "n": 75,
+   "right": 68,
    "silent": 3,
-   "right": 7
+   "flagged": 4
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "de",
    "kind": "pair",
-   "n": 9,
-   "right": 5,
-   "silent": 4
+   "n": 77,
+   "right": 57,
+   "silent": 16,
+   "flagged": 4
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "de",
    "kind": "triple",
-   "n": 2,
-   "right": 1,
-   "silent": 1
+   "n": 47,
+   "right": 35,
+   "silent": 9,
+   "flagged": 3
   },
   {
    "reader": "translate3_few70b",
@@ -1516,9 +1519,9 @@
    "set": "operations_mix3",
    "lang": "en",
    "kind": "atom",
-   "n": 115,
-   "right": 110,
-   "silent": 3,
+   "n": 339,
+   "right": 333,
+   "silent": 4,
    "flagged": 2
   },
   {
@@ -1526,19 +1529,20 @@
    "set": "operations_mix3",
    "lang": "en",
    "kind": "faulty",
-   "n": 88,
-   "right": 44,
-   "silent": 16,
-   "other_refusal": 28
+   "n": 217,
+   "right": 139,
+   "silent": 29,
+   "other_refusal": 49
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "en",
    "kind": "heldout_pair",
-   "n": 17,
-   "right": 11,
-   "silent": 6
+   "n": 280,
+   "right": 246,
+   "silent": 32,
+   "flagged": 2
   },
   {
    "reader": "translate3_few70b",
@@ -1554,8 +1558,8 @@
    "set": "operations_mix3",
    "lang": "en",
    "kind": "min_free",
-   "n": 77,
-   "right": 69,
+   "n": 78,
+   "right": 70,
    "other_refusal": 8
   },
   {
@@ -1563,9 +1567,9 @@
    "set": "operations_mix3",
    "lang": "en",
    "kind": "min_mod",
-   "n": 24,
-   "right": 3,
-   "other_refusal": 21
+   "n": 32,
+   "right": 4,
+   "other_refusal": 28
   },
   {
    "reader": "translate3_few70b",
@@ -1589,28 +1593,29 @@
    "set": "operations_mix3",
    "lang": "en",
    "kind": "pair",
-   "n": 31,
-   "right": 30,
-   "silent": 1
+   "n": 275,
+   "right": 260,
+   "silent": 15
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "en",
    "kind": "partial",
-   "n": 128,
-   "handed_on": 29,
-   "silent": 51,
-   "part_only": 35,
-   "right": 13
+   "n": 280,
+   "handed_on": 70,
+   "silent": 131,
+   "right": 37,
+   "part_only": 42
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "en",
    "kind": "triple",
-   "n": 3,
-   "right": 3
+   "n": 196,
+   "right": 182,
+   "silent": 14
   },
   {
    "reader": "translate3_few70b",
@@ -1626,35 +1631,39 @@
    "set": "operations_mix3",
    "lang": "fr",
    "kind": "atom",
-   "n": 64,
-   "right": 60,
+   "n": 128,
+   "right": 122,
    "silent": 1,
-   "flagged": 3
+   "flagged": 5
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "fr",
    "kind": "heldout_pair",
-   "n": 11,
-   "right": 10,
-   "silent": 1
+   "n": 71,
+   "right": 64,
+   "silent": 6,
+   "flagged": 1
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "fr",
    "kind": "pair",
-   "n": 11,
-   "right": 11
+   "n": 100,
+   "right": 96,
+   "flagged": 3,
+   "silent": 1
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "fr",
    "kind": "triple",
-   "n": 2,
-   "right": 2
+   "n": 51,
+   "silent": 7,
+   "right": 44
   },
   {
    "reader": "translate3_few70b",
@@ -1669,37 +1678,39 @@
    "set": "operations_mix3",
    "lang": "it",
    "kind": "atom",
-   "n": 74,
-   "right": 64,
-   "silent": 3,
-   "flagged": 7
+   "n": 138,
+   "right": 124,
+   "silent": 4,
+   "flagged": 10
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "it",
    "kind": "heldout_pair",
-   "n": 13,
-   "right": 10,
-   "silent": 3
+   "n": 84,
+   "right": 68,
+   "silent": 12,
+   "flagged": 4
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "it",
    "kind": "pair",
-   "n": 8,
-   "right": 7,
-   "silent": 1
+   "n": 92,
+   "right": 79,
+   "flagged": 4,
+   "silent": 9
   },
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "lang": "it",
    "kind": "triple",
-   "n": 2,
-   "silent": 1,
-   "right": 1
+   "n": 41,
+   "right": 32,
+   "silent": 9
   },
   {
    "reader": "translate3_few70b",
@@ -6940,13 +6951,13 @@
    "first": "translate3_few70b",
    "second": "translate3_ft",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 247,
-   "wrong_alone": 254,
-   "silent_alone": 141,
-   "silent_left": 68,
-   "wrong_left": 72,
-   "right_but_asked": 65
+   "n": 2815,
+   "asked": 578,
+   "wrong_alone": 576,
+   "silent_alone": 356,
+   "silent_left": 119,
+   "wrong_left": 136,
+   "right_but_asked": 138
   },
   {
    "first": "translate3_few70b",
@@ -7084,13 +7095,13 @@
    "first": "translate3_few70b",
    "second": "translate3_ft2",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 286,
-   "wrong_alone": 254,
-   "silent_alone": 141,
-   "silent_left": 46,
-   "wrong_left": 47,
-   "right_but_asked": 79
+   "n": 2815,
+   "asked": 658,
+   "wrong_alone": 576,
+   "silent_alone": 356,
+   "silent_left": 73,
+   "wrong_left": 84,
+   "right_but_asked": 166
   },
   {
    "first": "translate3_few70b",
@@ -7228,10 +7239,10 @@
    "first": "translate3_few70b",
    "second": "translate3_ft_laptop",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 262,
-   "wrong_alone": 254,
-   "silent_alone": 141,
+   "n": 844,
+   "asked": 263,
+   "wrong_alone": 255,
+   "silent_alone": 142,
    "silent_left": 46,
    "wrong_left": 49,
    "right_but_asked": 57
@@ -7660,13 +7671,13 @@
    "first": "translate3_ft",
    "second": "translate3_few70b",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 247,
-   "wrong_alone": 223,
-   "silent_alone": 213,
-   "silent_left": 68,
-   "wrong_left": 72,
-   "right_but_asked": 96
+   "n": 2815,
+   "asked": 578,
+   "wrong_alone": 439,
+   "silent_alone": 410,
+   "silent_left": 119,
+   "wrong_left": 136,
+   "right_but_asked": 275
   },
   {
    "first": "translate3_ft",
@@ -8440,13 +8451,13 @@
    "first": "translate3_ft2",
    "second": "translate3_few70b",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 286,
-   "wrong_alone": 228,
-   "silent_alone": 221,
-   "silent_left": 46,
-   "wrong_left": 47,
-   "right_but_asked": 105
+   "n": 2815,
+   "asked": 658,
+   "wrong_alone": 436,
+   "silent_alone": 416,
+   "silent_left": 73,
+   "wrong_left": 84,
+   "right_but_asked": 306
   },
   {
    "first": "translate3_ft2",
@@ -9220,10 +9231,10 @@
    "first": "translate3_ft_laptop",
    "second": "translate3_few70b",
    "set": "operations_mix3",
-   "n": 841,
-   "asked": 262,
-   "wrong_alone": 188,
-   "silent_alone": 185,
+   "n": 844,
+   "asked": 263,
+   "wrong_alone": 189,
+   "silent_alone": 186,
    "silent_left": 46,
    "wrong_left": 49,
    "right_but_asked": 123
@@ -9763,7 +9774,7 @@
   {
    "reader": "translate3_few70b",
    "set": "operations_mix3",
-   "instructions": 3758
+   "instructions": 1784
   },
   {
    "reader": "translate3_few70b",
@@ -9860,6 +9871,6 @@
    "translate3_ft_laptop"
   ],
   "instructions": 10857,
-  "finished_utc": "2026-10-12T14:54:56.311671+00:00"
+  "finished_utc": "2026-10-12T17:50:25.505907+00:00"
  }
 }

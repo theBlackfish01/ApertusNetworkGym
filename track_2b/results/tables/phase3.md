@@ -166,6 +166,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Translator alone (reader 1) | 0.9 | 1.5 | 36.7 | 43.6 | 0.0 | 6.7 | 10.6 | 11.73 | 0.0 | 0.0 | 0.0 |
 | Hybrid | 1.0 | 1.6 | 31.6 | 40.4 | 0.0 | 6.7 | 9.5 | 12.12 | 11.5 | 0.7 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.4 | 28.9 | 34.7 | 0.0 | 6.3 | 8.5 | 12.25 | 17.3 | 1.0 | 8.9 |
+| Hybrid that asks, the untrained Apertus 70B as second reader | 0.3 | 0.5 | 28.3 | 37.0 | 0.0 | 3.7 | 8.3 | 12.03 | 21.2 | 0.9 | 24.1 |
 
 ## The same, only requests on which the instruction changes the right answer — load 390 E
 
@@ -178,6 +179,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Translator alone (reader 1) | 2.1 | 2.6 | 88.5 | 67.8 | 1155 | 453 | 365 | 338 |
 | Hybrid | 2.0 | 2.3 | 68.7 | 63.5 | 1169 | 476 | 383 | 348 |
 | Hybrid that asks when its two readers disagree | 1.8 | 2.3 | 65.3 | 55.5 | 1138 | 472 | 360 | 344 |
+| Hybrid that asks, the untrained Apertus 70B as second reader | 0.7 | 0.9 | 60.2 | 58.9 | 1163 | 470 | 377 | 341 |
 
 ## All requests, violations in % per seed — load 390 E
 
@@ -190,6 +192,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Translator alone (reader 1) | 9.95 | 11.20 | 10.65 |
 | Hybrid | 8.50 | 10.25 | 9.85 |
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
+| Hybrid that asks, the untrained Apertus 70B as second reader | 7.95 | 8.60 | 8.25 |
 
 ## The project owner's own instructions, on the laptop (4-bit base model, llama.cpp): number of instructions
 

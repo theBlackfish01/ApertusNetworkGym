@@ -155,6 +155,7 @@ All from `track_2b/` with `HF_TOKEN` and `WORK_REPO` set; push the bundle first
 | Score the readers, the decider on the probes, the mixed stream in closed loop | `ADAPTER_REPO=<decider> TRANSLATOR_REPO=<reader 1> SECOND_REPO=<reader 2> bash jobs/launch.sh phase4 a100-large 110m` | A100, 90 min, USD 3.76 |
 | Adapters and base model as GGUF for llama.cpp | `GGUF_REPO=<user>/apertus-lightpath-translator-v3-gguf bash jobs/launch.sh gguf cpu-upgrade 75m`; the decider's adapter with `gguf-lora` | CPU, 5 and 2 min |
 | A larger Apertus as a reader | `JOB_IMAGE=ghcr.io/astral-sh/uv:python3.12-trixie BIG_MODEL='<repo>:<file>.gguf' BIG_NAME=translate3_few70 bash jobs/launch.sh big a100-large 55m` | A100, 34 to 36 min, USD 1.41 to 1.50 |
+| The hybrid that asks with the 70B as second reader, load 390 | `uv run python src/translate.py texts --conditions operations_mix3 --loads 390 --out data/instructions/mix3_390.jsonl`, push the bundle, then the `big` command above with `BIG_NAME=translate3_few70b BIG_SETS=<the test sets>,data/instructions/mix3_390.jsonl` (40m), then `ADAPTER_REPO=<decider> SECOND=few70b EVAL_ARGS='--loads 390' bash jobs/launch.sh phase5 a100-large 30m` | A100, 30 min and 10 min, USD 1.26 and 0.42 |
 | Fetch and tabulate | `uv run jobs/fetch.py results/cache/translate3_ft.jsonl ...`; `uv run python src/readers3.py`; `uv run python src/report_phase3.py` | laptop |
 
 What to know before repeating it:
@@ -169,4 +170,9 @@ What to know before repeating it:
 - **Translating is the slow part:** about four instructions per second and process (the line of
   slots has 30 to 35 tokens), so 9,854 instructions take 40 minutes. The closed loops of the
   hybrid are short because only one request in six goes to the decider.
-- A job that is still being scheduled costs nothing and can be cancelled.
+- A job that is still being scheduled costs nothing and can be cancelled. On the evening of
+  12 October one waited 18 minutes for an A100.
+- **In `phase5` the readers answer from their caches only.** A larger model as second reader must
+  have read every instruction of the episodes beforehand (`big` with `BIG_SETS`); the 70B takes
+  0.8 s per instruction at eight requests in parallel, which is most of the cost. Give `BIG_SETS`
+  the earlier sets as well, so that the scores file of that reader stays complete.

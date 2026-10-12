@@ -46,6 +46,7 @@ CLOSED = {
     "translate3_ft_mix3": "Translator alone (reader 1)",
     "hybrid3_ft_mix3": "Hybrid",
     "hybrid3_ft_ask-ft2_mix3": "Hybrid that asks when its two readers disagree",
+    "hybrid3_ft_ask-few70b_mix3": "Hybrid that asks, the untrained Apertus 70B as second reader",
 }
 KINDS = {
     "In the format": ("atom", "pair", "heldout_pair", "triple", "two_preferences"),

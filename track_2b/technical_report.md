@@ -30,8 +30,9 @@ three. On a mixed stream of instructions in closed loop the hybrid that asks bre
 requests, the translator alone 10.6 %, the decider alone 16.8 %, and first fit, which ignores
 instructions, 28.6 %. The weak point is measured too: of instruction types that no component was
 ever shown, the translator silently applies 47 % as something else. A second reader of the same
-size brings that to 16 %, and an untrained Apertus 70B as the second reader to zero, at the price
-of more questions to the operator.
+size brings that to 16 %, and an untrained Apertus 70B as the second reader to zero. In closed
+loop that check asks for 24 % of requests instead of 9 % and gains little (8.3 against 8.5 %):
+once the gate holds, the fallback behind it is the limit.
 
 ## 2. Architecture
 
@@ -93,7 +94,8 @@ source, the model weights) are fetched once; the container built by `make run` n
   token, which llama.cpp adds itself (`results/train/rendered_prompt3.txt`).
 - **Larger Apertus as a reference and as a check:** Apertus 70B of both generations (4-bit GGUF,
   15 examples in the prompt, no training) translated the same test instructions under the same
-  grammar, served by llama.cpp on the A100.
+  grammar, served by llama.cpp on the A100; generation 1.5 also read the instructions of the
+  closed loop at 390 Erlang.
 - **Other models:** none is part of the system or produced a result. Claude (Anthropic) wrote
   code and documentation under the author's direction, the sentence templates of the readers'
   training data, and, as separate instances that never saw the repository, the test instructions
@@ -184,11 +186,16 @@ seeds (`results/eval/*_mix3.json`):
 | Translator alone | 0.9 | 36.7 | 43.6 | 10.6 | 10.0 / 11.2 / 10.7 |
 | Hybrid (with guard) | 1.0 | 31.6 | 40.4 | 9.5 | 8.5 / 10.3 / 9.9 |
 | Hybrid that asks | 0.8 | 28.9 | 34.7 | 8.5 | 8.0 / 9.0 / 8.5 |
+| Hybrid that asks, untrained 70B as the check | 0.3 | 28.3 | 37.0 | 8.3 | 8.0 / 8.6 / 8.3 |
 
 The order is the same in every seed and at 240 Erlang (16.4, 10.5, 8.7, 8.2). The hybrid that
 asks puts a question to the operator for 8.9 % of requests and sends 17.3 % to the decider. Where
 the instruction changes the right answer the decider alone breaks 42.6 % of the instructions in
-the language and the hybrid 2.0 %.
+the language and the hybrid 2.0 %. With the untrained 70B as the check (390 Erlang only) the
+hybrid asks for 24.1 % of requests and sends 21.2 % to the decider. Inside the language
+violations fall from 0.8 to 0.3 %; on unknown types they stay at 28 %, because the decider that
+now receives nearly all of them follows only some. Overall, 8.3 against 8.5 % is within the
+spread of the seeds.
 
 **On the laptop.** With the 4-bit llama.cpp build reader 1 is right on 93.1 % of the 2,078
 instructions (94.8 % in the job). A 50-request episode of the whole hybrid ran in 1 min 50 s;
@@ -212,7 +219,8 @@ wording the decider broke 23.7 % of the instructions that mattered, a translator
   is right on 16 of 17 in English and on 2 of 5 in Urdu in Latin script, a language no reader
   was trained on; reader 2 disagrees with it on three of its four errors.
 - Unknown types remain the weak point: the hybrid that asks still breaks 28.9 % of those requests
-  in closed loop, and 65 % where the instruction changes the right answer.
+  in closed loop, and 65 % where the instruction changes the right answer. A better gate does
+  not change that (28.3 % with the 70B as the check): the limit is what the decider can follow.
 - The share of each kind in the mixed stream is our choice. Limits are drawn at random, so part
   cannot be met; the reference that follows every instruction blocks 14.6 %.
 - One training run per adapter. The simulated operator answers a question with the true meaning.
@@ -223,8 +231,8 @@ wording the decider broke 23.7 % of the instructions that mattered, a translator
 - Swiss German (72.7 % right) and misspelt names (85.9 %) are stress sets without training data.
 - The 4-bit laptop build loses 1.7 points, more on combinations (three clauses: 83.8 %).
 - The 70B ran from community 4-bit GGUF builds (generation 1.5: a text-only conversion by a Hub
-  user) that we did not verify beyond their results; as a second reader it was scored on the test
-  instructions, not in closed loop.
+  user) that we did not verify beyond their results; as a second reader in closed loop it ran at
+  390 Erlang only.
 
 ## 7. Reproducibility
 
@@ -233,9 +241,10 @@ and replays a 50-request episode of the hybrid. Each results file records the co
 simulator commit (`f7c4491`), seeds and loads; every model answer is in `results/cache/`. The
 pipeline and the GPU steps are in `README.md` and `docs/gpu_runbook.md`; every deviation from the
 plan, mistake and its cost in `docs/decisions.md`. Simulation, baselines and replays ran on a
-laptop (WSL2); fine-tuning and evaluation as Hugging Face Jobs on one A100 80 GB: 15.3 GPU-hours
-and about USD 38.36 over the three rounds (the third: 4.0 hours, USD 10.02, of which two readers
-USD 3.14, evaluation USD 3.76, the two 70B runs USD 2.91). TODO: exact commit of the submission.
+laptop (WSL2); fine-tuning and evaluation as Hugging Face Jobs on one A100 80 GB: 16.0 GPU-hours
+and about USD 40.04 over the three rounds (the third: 4.7 hours, USD 11.70, of which two readers
+USD 3.14, evaluation USD 3.76, the two 70B runs USD 2.91, the 70B as the check in closed loop
+USD 1.68). TODO: exact commit of the submission.
 
 ## 8. Next steps
 
