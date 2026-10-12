@@ -80,6 +80,21 @@ respects the instruction. No GPU is needed: the episode is replayed from the ans
 a laptop (`results/cache/*_laptop.jsonl`). With `LLM_BASE_URL` pointing at a llama.cpp server
 (next section) the same episode runs live. A few decisions of the decider alone follow.
 
+## The policy language as a standard constraint
+
+One line of the policy language is also one TAPI constraint (ONF Transport API 2.1.3, the
+northbound interface of transport SDN controllers): links and nodes to avoid become
+`exclude-link` and `exclude-node`, a node to pass through `include-node`, the limits
+`max-allowed-hops` and `max-allowed-cost`, a preference the `route-objective-function`
+(`MIN_WORK_ROUTE_HOP`, `MIN_WORK_ROUTE_COST`, `LOAD_BALANCE_MAX_UNUSED_CAPACITY`). What the
+standard cannot carry (the fewest-slots preference, the order of several preferences, a part
+handed on) travels in TAPI `name` entries. `src/tapi.py` does the mapping; the operator console
+shows it next to every reading.
+
+```bash
+uv run python src/tapi.py "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none"
+```
+
 ## On a laptop
 
 One base model and three adapters behind one [llama.cpp](https://github.com/ggml-org/llama.cpp)
@@ -198,6 +213,7 @@ track_2b/
     mixed3.py          third round: instructions tied to a request, rules of the new types, the mixed stream
     corpora3_owner.py  third round: the owner's own instructions as a test set, and what the readers made of them
     readers3.py        third round: what each reader does with every test instruction; two readers
+    tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
   jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
                        phase1_local.sh (translators on the laptop, from the answer caches)
