@@ -512,6 +512,7 @@ def offline(args: argparse.Namespace) -> None:
                 counter["forwarded"] += tags["forwarded"]
                 counter["asked"] += tags["asked"]
                 counter["guarded"] += tags["guarded"]
+                counter["rejected"] += decision.well_formed and choice is None
                 meant = (
                     Spec.from_json(record["meta"]["spec"])
                     if "spec" in record["meta"]
@@ -528,7 +529,8 @@ def offline(args: argparse.Namespace) -> None:
         result["splits"][split] = {
             key: {"n": c["n"], "exact_match": c["exact"] / c["n"], "admissible": c["admissible"] / c["n"],
                   "admissible_ordered": c["ordered"] / c["n"], "flagged": c["flagged"] / c["n"],
-                  "forwarded_to_decider": c["forwarded"] / c["n"],
+                  "forwarded_to_decider": c["forwarded"] / c["n"], "guarded": c["guarded"] / c["n"],
+                  "rejected": c["rejected"] / c["n"],
                   "invalid": c["invalid"] / c["n"], "malformed": c["malformed"] / c["n"]}
             | ({"unchanged_without_instruction": c["unchanged"] / c["inapplicable"],
                 "rejects": c["rejects"] / c["inapplicable"]} if c["inapplicable"] else {})

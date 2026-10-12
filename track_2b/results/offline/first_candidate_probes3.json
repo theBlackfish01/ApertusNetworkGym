@@ -4,7 +4,7 @@
       "name": "first_candidate"
     },
     "command": "src/evaluate.py offline --policy first_candidate --data data/probes --splits v3_en v3_de v3_fr v3_it v3_new v3_new_hard v3_new_impossible v3_partial --out results/offline/first_candidate_probes3.json",
-    "finished_utc": "2026-10-12T09:22:07.185985+00:00"
+    "finished_utc": "2026-10-12T09:24:41.920832+00:00"
   },
   "splits": {
     "v3_en": {
@@ -15,6 +15,8 @@
         "admissible_ordered": 0.6681547619047619,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -25,6 +27,8 @@
         "admissible_ordered": 0.70625,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -35,6 +39,8 @@
         "admissible_ordered": 0.625,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -45,6 +51,8 @@
         "admissible_ordered": 0.6328125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -55,6 +63,8 @@
         "admissible_ordered": 0.575,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -65,6 +75,8 @@
         "admissible_ordered": 0.8125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -77,6 +89,8 @@
         "admissible_ordered": 0.6845238095238095,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -87,6 +101,8 @@
         "admissible_ordered": 0.728125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -97,6 +113,8 @@
         "admissible_ordered": 0.6071428571428571,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -107,6 +125,8 @@
         "admissible_ordered": 0.6875,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -117,6 +137,8 @@
         "admissible_ordered": 0.575,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -127,6 +149,8 @@
         "admissible_ordered": 0.78125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -139,6 +163,8 @@
         "admissible_ordered": 0.6681547619047619,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -149,6 +175,8 @@
         "admissible_ordered": 0.725,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -159,6 +187,8 @@
         "admissible_ordered": 0.6607142857142857,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -169,6 +199,8 @@
         "admissible_ordered": 0.5859375,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -179,6 +211,8 @@
         "admissible_ordered": 0.5125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -189,6 +223,8 @@
         "admissible_ordered": 0.84375,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -201,6 +237,8 @@
         "admissible_ordered": 0.6666666666666666,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -211,6 +249,8 @@
         "admissible_ordered": 0.7125,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -221,6 +261,8 @@
         "admissible_ordered": 0.6071428571428571,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -231,6 +273,8 @@
         "admissible_ordered": 0.6640625,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -241,6 +285,8 @@
         "admissible_ordered": 0.55,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -251,6 +297,8 @@
         "admissible_ordered": 0.71875,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -263,6 +311,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -273,6 +323,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -283,6 +335,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -293,6 +347,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -303,6 +359,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -315,6 +373,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -325,6 +385,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -335,6 +397,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -345,6 +409,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -355,6 +421,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -367,6 +435,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.21195652173913043,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -377,6 +447,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.08571428571428572,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -387,6 +459,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.05714285714285714,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -397,6 +471,8 @@
         "admissible_ordered": 1.0,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.6590909090909091,
         "invalid": 0.0,
         "malformed": 0.0
       }
@@ -409,6 +485,8 @@
         "admissible_ordered": 0.7325,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       },
@@ -419,6 +497,8 @@
         "admissible_ordered": 0.7325,
         "flagged": 0.0,
         "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
         "invalid": 0.0,
         "malformed": 0.0
       }
