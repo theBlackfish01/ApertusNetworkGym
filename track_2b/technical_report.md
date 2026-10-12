@@ -43,6 +43,13 @@ decider in 85 to 92 %. The translator's errors are of another kind, though: one 
 is wrong for every request that carries it. With seven examples in the prompt and no training it
 reads "most free slots" as "fewest slots" and violates 10.6 % of the least-loaded condition.
 
+The decider keeps one advantage. On six instruction types nobody wrote a rule for (pass through a
+node, a hop limit, ...) it complies on 84 % of 1,200 requests without ever having seen one; a
+translator can only refuse them. So the system we propose is a hybrid: the translator handles what
+has a rule and hands what it calls unsupported to the decider. On a mixed stream of instructions
+in closed loop the hybrid breaks 4.0 % of requests, the decider alone 6.3 %, the translator alone
+9.3 %.
+
 ## 2. Architecture
 
 ```
@@ -306,6 +313,45 @@ What we read from this:
   decisions: in conflicts it never rejects and follows the first-stated preference in three of
   four (`results/design/two_preferences_apertus_ft.json`). We report both readings.
 
+### A stronger translator, and a hybrid
+
+An analysis of the answers above (`docs/analysis/next_steps.html`) set the order of a second
+round. Most errors of the fine-tuned translator were instructions with two preferences, which no
+arm had been shown. A second translator was therefore trained on them, on German, French and
+Italian, and on a second refusal: `unsupported` now means an instruction about the choice of route
+that the format cannot express, `no_instruction` everything else (4,050 instructions, 29 min). New
+tests, written by separate AI instances: the supported instructions written natively in the three
+languages, six instruction types without a rule on 200 requests each where they change the right
+answer, and text that is no instruction (`src/corpora2.py`).
+
+| | Independent wording | German, French, Italian (native) | Two preferences, independent wording | Closed loop, pairs |
+| --- | --- | --- | --- | --- |
+| First translator, fine-tuned: right meaning, % | 88.5 | not run | 41.6 | 2.77 % violations |
+| Second translator, fine-tuned: right meaning, % | 95.0 | 96.6 / 94.5 / 98.0 | 86.4 | 0.20 % violations |
+
+The decider on the types without a rule, decisions that comply, %
+(`results/offline/apertus_ft_probes2.json`): pass through a node 94.0, avoid a node 83.5, a hop
+limit 76.5, a length limit 66.5, the shortest route in km 98.0, a given candidate 84.0; all six
+83.8. It was never trained on any of them. It treats a new constraint as a preference, though:
+when the constraint cannot be met it rejects only 18.5 % of requests.
+
+The hybrid puts the second translator in front of the decider and forwards only what the
+translator calls `unsupported`. In closed loop on a stream that mixes supported instructions in
+independent wording (45 %), types without a rule (25 %), text that is no instruction (10 %),
+links that do not exist (5 %) and nothing (15 %), violations in % of the requests of each kind at
+390 Erlang, three seeds (`results/eval/*_mix.json`):
+
+| Policy | Supported | Types without a rule | No instruction | All requests |
+| --- | --- | --- | --- | --- |
+| Decider alone | 8.4 | 7.7 | 4.5 | 6.3 |
+| Second translator alone | 0.7 | 36.2 | 0.0 | 9.3 |
+| Hybrid | 0.7 | 13.8 | 2.0 | 4.0 |
+
+The hybrid is better than either part overall. It is worse than the decider alone on the types
+without a rule because its gate is imperfect: the translator forwards 72 % of those instructions,
+drops 23 % and applies 5 % as something else. Its main miss is node avoidance, which it writes as
+a link with a missing end.
+
 ## 6. Limitations
 
 - One topology, one traffic model, one simulator; results say nothing yet about other networks.
@@ -332,7 +378,14 @@ What we read from this:
   spelling. The translator's prompt and examples were fixed before any answer was seen.
 - A translator needs a rule for every instruction type; its advantage here says nothing about
   instructions no rule exists for, which is where a decider would have to earn its place.
-- The translators' closed loop uses the dataset's wording; the harder sets are scored offline.
+- The translators' closed loop of the first comparison uses the dataset's wording; the harder sets
+  are scored offline. The mixed stream of the second round uses the independent wording.
+- The second translator was trained on the German, French and Italian sentences that tested the
+  first one; only the natively written sets are a test for it. The decider was not retrained, so
+  it has still not seen two preferences.
+- The rules for the six unseen types were written for scoring, after the decider was trained.
+  The share of each kind in the mixed stream is our choice, and the ranking of the three designs
+  depends on it.
 - Decision latency is that of batched Transformers calls inside a job, not of a tuned server.
 
 ## 7. Reproducibility
@@ -343,9 +396,9 @@ and runs a 50-request demo. Each results file records the command, the ONG commi
 `README.md` and `docs/gpu_runbook.md`; deviations from the plan, with the measurements behind
 them, in `docs/decisions.md`. Simulation and the CPU baselines ran on a laptop (WSL2, 16
 logical CPUs). Fine-tuning and evaluation ran as Hugging Face Jobs on one NVIDIA A100 80 GB:
-9.4 GPU-hours and about USD 23.50 in total (first pass USD 8.70: smoke test 9 min, one epoch
+11.3 GPU-hours and about USD 28.30 in total (first pass USD 8.70: smoke test 9 min, one epoch
 69 min, evaluation 131 min; second pass USD 9.91: two epochs of 69 min, evaluation 100 min;
-translator against decider USD 4.88: 117 min).
+translator against decider USD 4.88: 117 min; second round USD 4.85: 116 min).
 TODO: exact commit of the submission.
 
 AI assistance: code and documentation were written with Claude Code (Anthropic) under the
@@ -355,8 +408,8 @@ test instructions of the translator comparison were written and checked by AI mo
 ## 8. Next steps
 
 The translator on a laptop (it is called once per instruction, and a GGUF build of this
-checkpoint exists); instruction types with quantities and hard limits, with a decider retrained
-on them to measure how its error grows with unseen combinations; instructions written by
+checkpoint exists); a better gate, starting with node avoidance; teaching the decider that a
+constraint which cannot be met means reject; instructions written by
 operators and native speakers; a second training seed for the label-leak result of the first
 pass; a physical-layer model the simulator does not pre-digest.
 

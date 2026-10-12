@@ -1,0 +1,1070 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate2_ft",
+      "rule": "intersection",
+      "translator": {
+        "name": "translate2_ft",
+        "topology": "nobel-eu",
+        "few_shot": false,
+        "format_version": 2,
+        "llm": {
+          "name": "translate2_ft",
+          "backend": "transformers",
+          "model": "",
+          "adapter": null,
+          "structured": "regex",
+          "template_kwargs": {},
+          "shots": 0,
+          "cache": "translate2_ft.jsonl"
+        }
+      }
+    },
+    "command": "src/evaluate.py offline --policy translate2_ft --data data/probes --splits independent de fr it gsw noisy faulty out_of_scope unseen unseen_impossible not_instruction de_ind fr_ind it_ind --out results/offline/translate2_ft_probes.json",
+    "finished_utc": "2026-10-12T06:11:20.303261+00:00"
+  },
+  "splits": {
+    "independent": {
+      "I1": {
+        "n": 273,
+        "exact_match": 0.989010989010989,
+        "admissible": 0.989010989010989,
+        "admissible_ordered": 0.989010989010989,
+        "flagged": 0.040293040293040296,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.975609756097561,
+        "admissible": 0.9878048780487805,
+        "admissible_ordered": 0.9878048780487805,
+        "flagged": 0.012195121951219513,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.9745222929936306,
+        "admissible": 0.9745222929936306,
+        "admissible_ordered": 0.8535031847133758,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9930220075147611,
+        "admissible": 0.9935587761674718,
+        "admissible_ordered": 0.9731615673644659,
+        "flagged": 0.00644122383252818,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "de": {
+      "I1": {
+        "n": 273,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.9808917197452229,
+        "admissible": 0.9808917197452229,
+        "admissible_ordered": 0.8407643312101911,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9967793880837359,
+        "admissible": 0.9967793880837359,
+        "admissible_ordered": 0.9731615673644659,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "fr": {
+      "I1": {
+        "n": 273,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 0.8598726114649682,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 0.97638217928073,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "it": {
+      "I1": {
+        "n": 273,
+        "exact_match": 0.9340659340659341,
+        "admissible": 0.9340659340659341,
+        "admissible_ordered": 0.9340659340659341,
+        "flagged": 0.19413919413919414,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 0.9878048780487805,
+        "admissible": 0.9878048780487805,
+        "admissible_ordered": 0.9878048780487805,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.925,
+        "admissible": 0.925,
+        "admissible_ordered": 0.925,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.9965034965034965,
+        "admissible": 0.9965034965034965,
+        "admissible_ordered": 0.9965034965034965,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 0.8598726114649682,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9860440150295223,
+        "admissible": 0.9860440150295223,
+        "admissible_ordered": 0.9624261943102523,
+        "flagged": 0.02844873859366613,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "gsw": {
+      "I1": {
+        "n": 88,
+        "exact_match": 0.8977272727272727,
+        "admissible": 0.9090909090909091,
+        "admissible_ordered": 0.9090909090909091,
+        "flagged": 0.11363636363636363,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 28,
+        "exact_match": 0.9285714285714286,
+        "admissible": 0.9285714285714286,
+        "admissible_ordered": 0.9285714285714286,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 24,
+        "exact_match": 0.9166666666666666,
+        "admissible": 0.9166666666666666,
+        "admissible_ordered": 0.9166666666666666,
+        "flagged": 0.041666666666666664,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 94,
+        "exact_match": 0.9148936170212766,
+        "admissible": 0.9148936170212766,
+        "admissible_ordered": 0.9148936170212766,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 95,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 104,
+        "exact_match": 0.9615384615384616,
+        "admissible": 0.9615384615384616,
+        "admissible_ordered": 0.9134615384615384,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 89,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 78,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.9583333333333334,
+        "admissible": 0.96,
+        "admissible_ordered": 0.9516666666666667,
+        "flagged": 0.018333333333333333,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "noisy": {
+      "I1": {
+        "n": 88,
+        "exact_match": 0.9090909090909091,
+        "admissible": 0.9204545454545454,
+        "admissible_ordered": 0.9204545454545454,
+        "flagged": 0.1590909090909091,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 28,
+        "exact_match": 0.9642857142857143,
+        "admissible": 0.9642857142857143,
+        "admissible_ordered": 0.9642857142857143,
+        "flagged": 0.03571428571428571,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 24,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.08333333333333333,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 94,
+        "exact_match": 0.925531914893617,
+        "admissible": 0.9574468085106383,
+        "admissible_ordered": 0.9574468085106383,
+        "flagged": 0.0851063829787234,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 95,
+        "exact_match": 0.9368421052631579,
+        "admissible": 0.9578947368421052,
+        "admissible_ordered": 0.9578947368421052,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 104,
+        "exact_match": 0.9711538461538461,
+        "admissible": 0.9711538461538461,
+        "admissible_ordered": 0.9038461538461539,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 89,
+        "exact_match": 0.9213483146067416,
+        "admissible": 0.9213483146067416,
+        "admissible_ordered": 0.9213483146067416,
+        "flagged": 0.1348314606741573,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 78,
+        "exact_match": 0.9358974358974359,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.07692307692307693,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 600,
+        "exact_match": 0.9383333333333334,
+        "admissible": 0.9566666666666667,
+        "admissible_ordered": 0.945,
+        "flagged": 0.07166666666666667,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "faulty": {
+      "all": {
+        "n": 674,
+        "exact_match": 0.9955489614243324,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.9673590504451038,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 0.9955489614243324,
+        "rejects": 0.011869436201780416
+      },
+      "not_a_link": {
+        "n": 337,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 1.0,
+        "rejects": 0.011869436201780416
+      },
+      "unknown_place": {
+        "n": 337,
+        "exact_match": 0.9910979228486647,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.9347181008902077,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 0.9910979228486647,
+        "rejects": 0.011869436201780416
+      }
+    },
+    "out_of_scope": {
+      "all": {
+        "n": 337,
+        "exact_match": 0.9970326409495549,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.9495548961424333,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 0.9970326409495549,
+        "rejects": 0.011869436201780416
+      },
+      "out_of_scope": {
+        "n": 337,
+        "exact_match": 0.9970326409495549,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.9495548961424333,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 0.9970326409495549,
+        "rejects": 0.011869436201780416
+      }
+    },
+    "unseen": {
+      "all": {
+        "n": 1200,
+        "exact_match": 0.10916666666666666,
+        "admissible": 0.11166666666666666,
+        "admissible_ordered": 1.0,
+        "flagged": 0.8491666666666666,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "avoid_node": {
+        "n": 200,
+        "exact_match": 0.035,
+        "admissible": 0.035,
+        "admissible_ordered": 1.0,
+        "flagged": 0.92,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "max_hops": {
+        "n": 200,
+        "exact_match": 0.08,
+        "admissible": 0.095,
+        "admissible_ordered": 1.0,
+        "flagged": 0.905,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "max_km": {
+        "n": 200,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "path_index": {
+        "n": 200,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "shortest_km": {
+        "n": 200,
+        "exact_match": 0.54,
+        "admissible": 0.54,
+        "admissible_ordered": 1.0,
+        "flagged": 0.285,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "via_node": {
+        "n": 200,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.985,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "unseen_impossible": {
+      "all": {
+        "n": 200,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.93,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "avoid_node": {
+        "n": 50,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.94,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "max_hops": {
+        "n": 50,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.88,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "max_km": {
+        "n": 50,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "via_node": {
+        "n": 50,
+        "exact_match": 0.0,
+        "admissible": 0.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.9,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "not_instruction": {
+      "all": {
+        "n": 337,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 1.0,
+        "rejects": 0.011869436201780416
+      },
+      "not_instruction": {
+        "n": 337,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 1.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0,
+        "unchanged_without_instruction": 1.0,
+        "rejects": 0.011869436201780416
+      }
+    },
+    "de_ind": {
+      "I1": {
+        "n": 273,
+        "exact_match": 0.9963369963369964,
+        "admissible": 0.9963369963369964,
+        "admissible_ordered": 0.9963369963369964,
+        "flagged": 0.003663003663003663,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.9875,
+        "admissible": 0.9875,
+        "admissible_ordered": 0.9875,
+        "flagged": 0.0125,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.972027972027972,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.006993006993006993,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.9936305732484076,
+        "admissible": 0.9936305732484076,
+        "admissible_ordered": 0.8535031847133758,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 0.9151943462897526,
+        "admissible": 0.9787985865724381,
+        "admissible_ordered": 0.9787985865724381,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9806763285024155,
+        "admissible": 0.9946323134728932,
+        "admissible_ordered": 0.9710144927536232,
+        "flagged": 0.0021470746108427268,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "fr_ind": {
+      "I1": {
+        "n": 273,
+        "exact_match": 0.9523809523809523,
+        "admissible": 0.9633699633699634,
+        "admissible_ordered": 0.9633699633699634,
+        "flagged": 0.12454212454212454,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 0.9965034965034965,
+        "admissible": 0.9965034965034965,
+        "admissible_ordered": 0.9965034965034965,
+        "flagged": 0.0034965034965034965,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 0.9395017793594306,
+        "admissible": 0.9857651245551602,
+        "admissible_ordered": 0.9857651245551602,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.9968152866242038,
+        "admissible": 0.9968152866242038,
+        "admissible_ordered": 0.856687898089172,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9828234031132582,
+        "admissible": 0.991411701556629,
+        "admissible_ordered": 0.9677938808373591,
+        "flagged": 0.01878690284487386,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "it_ind": {
+      "I1": {
+        "n": 273,
+        "exact_match": 0.9926739926739927,
+        "admissible": 0.9963369963369964,
+        "admissible_ordered": 0.9963369963369964,
+        "flagged": 0.003663003663003663,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I2": {
+        "n": 82,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I3": {
+        "n": 80,
+        "exact_match": 0.9875,
+        "admissible": 0.9875,
+        "admissible_ordered": 0.9875,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I1+I4": {
+        "n": 286,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0034965034965034965,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2": {
+        "n": 281,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I2+I3": {
+        "n": 314,
+        "exact_match": 0.9936305732484076,
+        "admissible": 0.9936305732484076,
+        "admissible_ordered": 0.856687898089172,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I3": {
+        "n": 264,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "I4": {
+        "n": 283,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "all": {
+        "n": 1863,
+        "exact_match": 0.9973161567364466,
+        "admissible": 0.9978529253891573,
+        "admissible_ordered": 0.974771873322598,
+        "flagged": 0.0010735373054213634,
+        "forwarded_to_decider": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

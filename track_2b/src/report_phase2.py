@@ -180,6 +180,56 @@ def tables(results: Path) -> list:
     return out
 
 
+MIXED = {"oracle_mix": "Rules for every kind (reference)", "apertus_ft_mix": "Decider alone",
+         "translate2_ft_mix": "Second translator alone (fine-tuned)",
+         "hybrid2_ft_mix": "Hybrid: second translator, then decider"}  # fmt: skip
+KINDS = {
+    "Supported, independent wording": ("I1", "I2", "I3", "I4", "I1+I2", "I1+I3", "I1+I4", "I2+I3"),
+    "Types without a rule": ("via_node", "avoid_node", "max_hops", "max_km", "shortest_km", "path_index"),
+    "Text that is no instruction": ("not_instruction",),
+    "Link that does not exist": ("faulty",),
+    "Nothing typed": ("I0",),
+    "All requests": ("all",),
+}
+
+
+def mixed_tables(results: Path) -> list:
+    """The mixed condition in closed loop: violations per kind of instruction, pooled over the seeds."""
+    found = {name: data for name in MIXED if (data := read(results / "eval" / f"{name}.json"))}
+    out = []
+    for load in sorted({e["load"] for d in found.values() for e in d["summary"]}):
+        rows, binding_rows = [], []
+        for name, data in found.items():
+            entry = next(
+                (e for e in data["summary"] if e["load"] == load and e["condition"] == "operations_mix"), None
+            )
+            if entry is None:
+                continue
+            counts = entry["by_intent"]
+
+            def total(keys, field, counts=counts):
+                return sum(counts.get(k, {}).get(field, 0) for k in keys)
+
+            cells = [MIXED[name]] + [
+                pct(total(keys, "violations"), total(keys, "requests")) for keys in KINDS.values()
+            ]
+            cells += [
+                f"{100 * entry['service_blocking_rate_mean']:.2f}",
+                pct(total(("all",), "forwarded"), total(("all",), "requests")),
+            ]
+            rows.append(cells)
+            binding_rows.append([MIXED[name]] + [
+                pct(total(keys, "binding_violations"), total(keys, "binding")) for keys in list(KINDS.values())[:2]
+            ] + [str(total(keys, "binding")) for keys in list(KINDS.values())[:2]])  # fmt: skip
+        if rows:
+            out.append((f"A mixed stream of instructions in closed loop: violations, % of the requests of each kind — load {load} E",
+                        ["Policy", *KINDS, "Blocking, %", "Sent to the decider, %"], rows))  # fmt: skip
+            out.append((f"The same, only requests on which the instruction changes the right answer — load {load} E",
+                        ["Policy", "Supported: violations, %", "Types without a rule: violations, %",
+                         "Supported: such requests", "Types without a rule: such requests"], binding_rows))  # fmt: skip
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -195,7 +245,7 @@ def main() -> None:
         "the fine-tuned decider. Test sets: `src/corpora2.py`."
     )
     lines = ["# Second round: a stronger translator and a hybrid", "", note]
-    for title, header, rows in tables(args.results):
+    for title, header, rows in tables(args.results) + mixed_tables(args.results):
         lines += ["", f"## {title}", "", "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
         lines += ["| " + " | ".join(row) + " |" for row in rows]
     out = args.results / "tables" / "phase2.md"

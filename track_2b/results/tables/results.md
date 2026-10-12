@@ -2,7 +2,7 @@
 
 Rendered by `src/report_tables.py` from `results/eval/` and `results/offline/`; do not edit by hand.
 
-Second pass (avoid-link pairs are filter-then-rank, two epochs). The first pass is in results/pass1/. The translator rows are from phase 1; its own tables are in phase1.md.
+Second pass (avoid-link pairs are filter-then-rank, two epochs). The first pass is in results/pass1/. The translator rows are from phase 1; its tables are in phase1.md, those of the second round in phase2.md.
 
 Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured requests per condition, load and seed. Cells are mean ± sample standard deviation over seeds; a cell without ± comes from a single seed (see the Seeds column of the latency table). An invalid answer is replaced by first fit; a violation is an executed decision outside the intent's admissible set. An intent binds on a request when the no-intent teacher's own choice is not admissible, so the no-intent teacher's violation rate is the share of binding requests; first fit ignores the intent in its own way.
 
@@ -20,6 +20,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 1.20 ± 0.44 | 6.55 ± 0.56 | 1.78 ± 0.66 | 1.73 ± 0.42 | 2.05 ± 0.59 | 2.62 ± 0.55 | 7.07 ± 0.86 |
 | Translator: Apertus with 7 examples + rule engine | 1.20 ± 0.44 | 4.75 ± 0.87 | 1.78 ± 0.66 | 1.68 ± 0.65 | 2.28 ± 0.84 | 2.57 ± 0.45 | 9.03 ± 0.29 |
 | Translator: Apertus fine-tuned + rule engine | 1.20 ± 0.44 | 4.78 ± 0.90 | 1.78 ± 0.66 | 1.38 ± 0.18 | 2.28 ± 0.84 | 2.52 ± 0.54 | 8.85 ± 0.43 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 1.20 ± 0.44 | 4.68 ± 0.81 | 1.78 ± 0.66 | 1.38 ± 0.18 | 2.28 ± 0.84 | 2.52 ± 0.54 | 10.45 ± 0.51 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Intent violations, % of decisions — load 240 E
 
@@ -35,6 +40,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.0 ± 0.0 | 2.8 ± 0.2 | 0.0 ± 0.0 | 27.3 ± 2.2 | 0.5 ± 0.1 | 8.1 ± 1.2 | 11.4 ± 0.7 |
 | Translator: Apertus with 7 examples + rule engine | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 13.0 ± 0.6 | 0.0 ± 0.0 | 3.8 ± 0.7 | 4.7 ± 0.6 |
 | Translator: Apertus fine-tuned + rule engine | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 3.0 ± 0.2 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 0.0 ± 0.0 | 0.1 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.1 ± 0.0 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Invalid answers, % of decisions — load 240 E
 
@@ -50,6 +60,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | Translator: Apertus with 7 examples + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | Translator: Apertus fine-tuned + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Service blocking probability, % — load 390 E
 
@@ -65,6 +80,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 5.97 ± 0.68 | 10.97 ± 0.86 | 7.05 ± 0.79 | 7.07 ± 0.65 | 7.30 ± 0.48 | 8.00 ± 0.78 | 10.72 ± 0.72 |
 | Translator: Apertus with 7 examples + rule engine | 5.97 ± 0.68 | 10.03 ± 0.83 | 7.05 ± 0.79 | 6.68 ± 0.63 | 7.53 ± 0.73 | 7.72 ± 0.48 | 12.45 ± 0.30 |
 | Translator: Apertus fine-tuned + rule engine | 5.97 ± 0.68 | 9.95 ± 0.75 | 7.05 ± 0.79 | 6.30 ± 0.80 | 7.53 ± 0.73 | 7.73 ± 0.58 | 12.22 ± 1.01 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 5.97 ± 0.68 | 9.95 ± 0.75 | 7.05 ± 0.79 | 6.30 ± 0.80 | 7.53 ± 0.73 | 7.73 ± 0.58 | 13.52 ± 1.25 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Intent violations, % of decisions — load 390 E
 
@@ -80,6 +100,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.0 ± 0.0 | 2.2 ± 0.3 | 0.0 ± 0.0 | 22.5 ± 1.5 | 0.4 ± 0.1 | 7.2 ± 1.0 | 10.4 ± 0.4 |
 | Translator: Apertus with 7 examples + rule engine | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 10.6 ± 1.6 | 0.0 ± 0.0 | 3.5 ± 0.4 | 4.2 ± 0.8 |
 | Translator: Apertus fine-tuned + rule engine | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 2.8 ± 0.4 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.2 ± 0.1 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Invalid answers, % of decisions — load 390 E
 
@@ -95,6 +120,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | Translator: Apertus with 7 examples + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
 | Translator: Apertus fine-tuned + rule engine | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
+| apertus_ft_mix | – | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – | – |
+| translate2_ft | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 | 0.00 ± 0.00 |
+| translate2_ft_mix | – | – | – | – | – | – | – |
 
 ## Unseen pairs by pair: intent violations, % of decisions (pooled over seeds)
 
@@ -110,6 +140,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 1.4 | 21.6 | 1.8 | 18.9 |
 | Translator: Apertus with 7 examples + rule engine | 0.0 | 9.5 | 0.0 | 8.2 |
 | Translator: Apertus fine-tuned + rule engine | 0.0 | 6.1 | 0.0 | 5.5 |
+| apertus_ft_mix | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – |
+| oracle_mix | – | – | – | – |
+| translate2_ft | 0.0 | 0.2 | 0.0 | 0.4 |
+| translate2_ft_mix | – | – | – | – |
 
 ## Needless rejects (a request with an admissible path is rejected), % of decisions (pooled over seeds)
 
@@ -125,6 +160,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 2.2 | 1.4 | 0.1 | 0.1 | 0.6 | 0.5 |
 | Translator: Apertus with 7 examples + rule engine | 0.0 | 0.0 | 0.0 | 0.0 | 0.1 | 0.1 |
 | Translator: Apertus fine-tuned + rule engine | 0.0 | 0.0 | 0.0 | 0.0 | 0.3 | 0.3 |
+| apertus_ft_mix | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – |
+| translate2_ft | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| translate2_ft_mix | – | – | – | – | – | – |
 
 ## Accepts although the intent leaves no admissible path, % of decisions (pooled over seeds)
 
@@ -140,6 +180,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.0 | 0.1 | 0.0 | 0.0 | 4.8 | 4.1 |
 | Translator: Apertus with 7 examples + rule engine | 0.0 | 0.0 | 0.0 | 0.0 | 2.1 | 1.8 |
 | Translator: Apertus fine-tuned + rule engine | 0.0 | 0.0 | 0.0 | 0.0 | 2.0 | 1.8 |
+| apertus_ft_mix | – | – | – | – | – | – |
+| hybrid2_ft_mix | – | – | – | – | – | – |
+| oracle_mix | – | – | – | – | – | – |
+| translate2_ft | 0.0 | 0.0 | 0.0 | 0.0 | 0.1 | 0.1 |
+| translate2_ft_mix | – | – | – | – | – | – |
 
 ## Decision latency and violations on binding requests (all loads and conditions)
 
@@ -155,6 +200,11 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 0.03 | 20.0 | 1, 2, 3 |
 | Translator: Apertus with 7 examples + rule engine | 0.03 | 8.7 | 1, 2, 3 |
 | Translator: Apertus fine-tuned + rule engine | 0.04 | 1.6 | 1, 2, 3 |
+| apertus_ft_mix | 749.32 | 20.8 | 1, 2, 3 |
+| hybrid2_ft_mix | 83.09 | 14.5 | 1, 2, 3 |
+| oracle_mix | 0.01 | 0.0 | 1, 2, 3 |
+| translate2_ft | 0.02 | 0.1 | 1, 2, 3 |
+| translate2_ft_mix | 0.02 | 39.6 | 1, 2, 3 |
 
 ## Offline agreement with the teacher on the held-out splits
 
@@ -172,3 +222,5 @@ Closed loop: 1000-request warm-up by the no-intent teacher, then 2000 measured r
 | Translator: Apertus as is + rule engine | 93.8 | 95.0 | 89.2 | 89.3 | 87.7 | 87.8 |
 | Translator: Apertus with 7 examples + rule engine | 98.1 | 98.1 | 93.8 | 93.8 | 94.7 | 94.7 |
 | Translator: Apertus fine-tuned + rule engine | 100.0 | 100.0 | 100.0 | 100.0 | 97.2 | 97.2 |
+| translate2_few | 96.5 | 97.1 | 93.8 | 93.8 | 91.8 | 91.8 |
+| translate2_ft | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 |

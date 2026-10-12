@@ -27,6 +27,7 @@ owner. The challenge text from the template is in [`docs/challenge.md`](docs/cha
 | Fine-tuning of Apertus | done in two passes. First pass: 1 epoch, every intent pair an intersection (held-out admissible agreement 95.9 / 95.7 / 77.5 %). Second pass: avoid-link pairs are filter-then-rank, 2 epochs: **99.0 % new traffic, 98.5 % unseen wording, 85.7 % unseen pairs**, no invalid answers. Adapters in private Hub repos |
 | Apertus closed-loop results, fine-tuned and zero-shot | done for both passes: fine-tuned model on the full grid (42 episodes); zero-shot model at 390 E on seed 1 (its answers are invalid 88–98 % of the time, so the first-fit fallback decides). 7.4 GPU-hours, USD 18.61 in total |
 | Phase 1: translate versus decide | done. The same model as a *translator* (instruction -> one line of constraints and preferences, executed by a rule engine) against the fine-tuned *decider*, on harder test sets: independent wording, German, French, Italian, Swiss German, misspelt cities, instructions that must not be applied, and a topology no model saw. Closed loop at 390 E: fine-tuned translator 0 % violations on single intents and unseen wording, 2.8 % on unseen pairs (decider 0.1–3.3 %, 1.0 %, 12.9 %); with 7 examples and no training the translator misreads one wording family (10.6 % on least loaded). Tables in [`results/tables/phase1.md`](results/tables/phase1.md); USD 4.88 of GPU time |
+| Second round: stronger translator and hybrid | done. A second translator (taught two preferences, German, French, Italian, and to tell an unsupported routing instruction from text that is no instruction) translates 95 % of independently worded and 94–98 % of natively written German, French and Italian instructions; closed loop 0.0–0.2 % violations. The fine-tuned decider follows six instruction types it never saw on 84 % of 1,200 requests. A hybrid (translator first, decider for what the translator calls unsupported) has 4.0 % violations on a mixed stream at 390 E, the decider alone 6.3 %, the translator alone 9.3 %. Tables in [`results/tables/phase2.md`](results/tables/phase2.md); analysis behind the plan in [`docs/analysis/next_steps.html`](docs/analysis/next_steps.html); USD 4.85 of GPU time |
 | Report | draft with all results in `technical_report.md`; awaits the owner's review (team, video, public links and the laptop measurement are marked TODO) |
 | Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
 
@@ -73,6 +74,7 @@ All commands run from `track_2b/` in the uv environment (see Development setup).
 | Tables and figure | `uv run python src/report_tables.py` | `results/tables/`, `docs/figures/` |
 | Phase 1: test sets and translator data | `uv run python src/corpora.py`; `uv run python src/transfer.py --loads 300 600 900 1200`; `uv run python src/translate.py texts` | `data/probes/`, `data/instructions/`, `data/translate/`, `data/fewshot/`, `data/topologies/` |
 | Phase 1: Apertus as translator, decider on the probes (GPU jobs) | `bash jobs/launch.sh phase1 a100-large <timeout>`, then `phase1-ft` | answer caches in `results/cache/`, `results/translate/`, `results/offline/*_probes.json` |
+| Second round: test sets, GPU jobs, laptop replay | `uv run python src/corpora2.py`; `uv run python src/translate.py texts --conditions operations_mix --out data/instructions/mix.jsonl`; `bash jobs/launch.sh phase2 ...`, `phase2-ft`, `phase3`; `bash jobs/phase2_local.sh`; `uv run python src/report_phase2.py` | `results/tables/phase2.md` |
 | Phase 1: translators on the laptop (keyword parser, or Apertus from its answer cache) | `bash jobs/phase1_local.sh translate_keyword translate_few ...` | `results/translate/`, `results/offline/`, `results/eval/translate_*.json`, `results/tables/phase1.md` |
 
 The GPU steps, with the checks between them, are in [`docs/gpu_runbook.md`](docs/gpu_runbook.md).
@@ -132,6 +134,9 @@ track_2b/
     corpora.py         phase 1: re-worded, multilingual and inapplicable instructions; translator training data
     transfer.py        phase 1: held-out-style records on a topology no model has seen
     report_phase1.py   phase 1: results JSON -> results/tables/phase1.md
+    corpora2.py        second round: training data of the second translator; tests for types without a rule
+    mixed.py           second round: a closed-loop condition that mixes kinds of instructions
+    report_phase2.py   second round: results JSON -> results/tables/phase2.md
   jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
                        phase1_local.sh (translators on the laptop, from the answer caches)
   tests/               pytest (`make test`)

@@ -1,0 +1,2620 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate2_ft",
+      "topology": "nobel-eu",
+      "few_shot": false,
+      "format_version": 2,
+      "llm": {
+        "name": "translate2_ft",
+        "backend": "transformers",
+        "model": "",
+        "adapter": null,
+        "structured": "regex",
+        "template_kwargs": {},
+        "shots": 0,
+        "cache": "translate2_ft.jsonl"
+      }
+    },
+    "command": "src/translate.py score --policy translate2_ft --sets data/instructions/templates.jsonl data/instructions/independent.jsonl data/instructions/de.jsonl data/instructions/fr.jsonl data/instructions/it.jsonl data/instructions/gsw.jsonl data/instructions/noisy.jsonl data/instructions/faulty.jsonl data/instructions/out_of_scope.jsonl data/instructions/unseen.jsonl data/instructions/unseen_impossible.jsonl data/instructions/not_instruction.jsonl data/instructions/de_ind.jsonl data/instructions/fr_ind.jsonl data/instructions/it_ind.jsonl data/instructions/closed_loop.jsonl",
+    "finished_utc": "2026-10-12T06:11:17.012443+00:00",
+    "sets": [
+      "templates.jsonl",
+      "independent.jsonl",
+      "de.jsonl",
+      "fr.jsonl",
+      "it.jsonl",
+      "gsw.jsonl",
+      "noisy.jsonl",
+      "faulty.jsonl",
+      "out_of_scope.jsonl",
+      "unseen.jsonl",
+      "unseen_impossible.jsonl",
+      "not_instruction.jsonl",
+      "de_ind.jsonl",
+      "fr_ind.jsonl",
+      "it_ind.jsonl",
+      "closed_loop.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "closed_loop",
+      "lang": "all",
+      "kind": "all",
+      "n": 8505,
+      "correct": 8500,
+      "flagged": 2,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8503,
+      "ms_per_instruction": 5604.616707818953
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I1",
+      "n": 3033,
+      "correct": 3032,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3032,
+      "ms_per_instruction": 5580.532410155007
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 5344,
+      "correct": 5343,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 5343,
+      "ms_per_instruction": 5613.011714071953
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5964.63
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 98,
+      "correct": 95,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 98,
+      "ms_per_instruction": 5783.9051020408115
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5960.459999999999
+    },
+    {
+      "set": "closed_loop",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5950.21
+    },
+    {
+      "set": "de",
+      "lang": "all",
+      "kind": "all",
+      "n": 653,
+      "correct": 648,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 653,
+      "ms_per_instruction": 5444.991424196019
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I1",
+      "n": 173,
+      "correct": 173,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 173,
+      "ms_per_instruction": 5396.781502890176
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I1+I2",
+      "n": 79,
+      "correct": 79,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 79,
+      "ms_per_instruction": 5404.122784810124
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I1+I3",
+      "n": 80,
+      "correct": 80,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5824.860000000002
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I1+I4",
+      "n": 277,
+      "correct": 277,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 277,
+      "ms_per_instruction": 5311.811191335725
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I2",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 4971.725
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I2+I3",
+      "n": 32,
+      "correct": 27,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 32,
+      "ms_per_instruction": 5937.5375
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I3",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5981.675
+    },
+    {
+      "set": "de",
+      "lang": "de",
+      "kind": "I4",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5958.8
+    },
+    {
+      "set": "de_ind",
+      "lang": "all",
+      "kind": "all",
+      "n": 703,
+      "correct": 679,
+      "flagged": 4,
+      "wrong": 20,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 699,
+      "ms_per_instruction": 5846.82190611669
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I1",
+      "n": 209,
+      "correct": 208,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 208,
+      "ms_per_instruction": 6051.516746411468
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I1+I2",
+      "n": 75,
+      "correct": 75,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 75,
+      "ms_per_instruction": 5113.262666666663
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I1+I3",
+      "n": 77,
+      "correct": 76,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 76,
+      "ms_per_instruction": 5980.701298701301
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I1+I4",
+      "n": 256,
+      "correct": 238,
+      "flagged": 2,
+      "wrong": 16,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 254,
+      "ms_per_instruction": 5918.005859375011
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I2",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 5354.766666666667
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I2+I3",
+      "n": 68,
+      "correct": 65,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 68,
+      "ms_per_instruction": 5672.683823529416
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I3",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 6004.733333333334
+    },
+    {
+      "set": "de_ind",
+      "lang": "de",
+      "kind": "I4",
+      "n": 6,
+      "correct": 5,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 5438.5166666666655
+    },
+    {
+      "set": "faulty",
+      "lang": "all",
+      "kind": "all",
+      "n": 654,
+      "correct": 0,
+      "flagged": 632,
+      "wrong": 0,
+      "applied": 22,
+      "malformed": 0,
+      "same_status": 554,
+      "ms_per_instruction": 5663.3513761467975
+    },
+    {
+      "set": "faulty",
+      "lang": "en",
+      "kind": "not_a_link",
+      "n": 324,
+      "correct": 0,
+      "flagged": 324,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 313,
+      "ms_per_instruction": 5678.753703703698
+    },
+    {
+      "set": "faulty",
+      "lang": "en",
+      "kind": "unknown_place",
+      "n": 330,
+      "correct": 0,
+      "flagged": 308,
+      "wrong": 0,
+      "applied": 22,
+      "malformed": 0,
+      "same_status": 241,
+      "ms_per_instruction": 5648.229090909083
+    },
+    {
+      "set": "fr",
+      "lang": "all",
+      "kind": "all",
+      "n": 656,
+      "correct": 656,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 656,
+      "ms_per_instruction": 5359.517073170699
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I1",
+      "n": 183,
+      "correct": 183,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 183,
+      "ms_per_instruction": 4880.156830601101
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I1+I2",
+      "n": 80,
+      "correct": 80,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5373.611249999997
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I1+I3",
+      "n": 80,
+      "correct": 80,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5528.4462500000045
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I1+I4",
+      "n": 269,
+      "correct": 269,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 269,
+      "ms_per_instruction": 5537.898141263919
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I2",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5921.650000000001
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I2+I3",
+      "n": 32,
+      "correct": 32,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 32,
+      "ms_per_instruction": 5920.412499999999
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I3",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5907.5
+    },
+    {
+      "set": "fr",
+      "lang": "fr",
+      "kind": "I4",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 6036.375
+    },
+    {
+      "set": "fr_ind",
+      "lang": "all",
+      "kind": "all",
+      "n": 709,
+      "correct": 670,
+      "flagged": 29,
+      "wrong": 10,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 680,
+      "ms_per_instruction": 5932.828913963312
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I1",
+      "n": 201,
+      "correct": 167,
+      "flagged": 28,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 173,
+      "ms_per_instruction": 6003.318905472634
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I1+I2",
+      "n": 80,
+      "correct": 79,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5965.728750000001
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I1+I3",
+      "n": 80,
+      "correct": 80,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5943.476250000007
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I1+I4",
+      "n": 263,
+      "correct": 262,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 262,
+      "ms_per_instruction": 5853.8098859315505
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I2",
+      "n": 6,
+      "correct": 5,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 5962.066666666667
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I2+I3",
+      "n": 67,
+      "correct": 65,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 67,
+      "ms_per_instruction": 5963.717910447765
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I3",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 5956.533333333334
+    },
+    {
+      "set": "fr_ind",
+      "lang": "fr",
+      "kind": "I4",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 6056.583333333333
+    },
+    {
+      "set": "gsw",
+      "lang": "all",
+      "kind": "all",
+      "n": 242,
+      "correct": 186,
+      "flagged": 10,
+      "wrong": 46,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 232,
+      "ms_per_instruction": 5623.062809917336
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I1",
+      "n": 72,
+      "correct": 53,
+      "flagged": 9,
+      "wrong": 10,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 63,
+      "ms_per_instruction": 5997.518055555551
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I1+I2",
+      "n": 28,
+      "correct": 19,
+      "flagged": 0,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 28,
+      "ms_per_instruction": 4238.035714285718
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I1+I3",
+      "n": 23,
+      "correct": 17,
+      "flagged": 1,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 22,
+      "ms_per_instruction": 5985.1478260869535
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I1+I4",
+      "n": 92,
+      "correct": 72,
+      "flagged": 0,
+      "wrong": 20,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 92,
+      "ms_per_instruction": 5769.755434782611
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I2",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 4664.4
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I2+I3",
+      "n": 18,
+      "correct": 16,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 18,
+      "ms_per_instruction": 5322.283333333332
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I3",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 5980.166666666667
+    },
+    {
+      "set": "gsw",
+      "lang": "gsw",
+      "kind": "I4",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 4694.733333333334
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "all",
+      "kind": "all",
+      "n": 309,
+      "correct": 309,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 309,
+      "ms_per_instruction": 5765.108090614887
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I1",
+      "n": 129,
+      "correct": 129,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 129,
+      "ms_per_instruction": 5699.041860465115
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 81,
+      "correct": 81,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 81,
+      "ms_per_instruction": 5748.254320987655
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 78,
+      "correct": 78,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 78,
+      "ms_per_instruction": 5841.002564102564
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I2",
+      "n": 7,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 5971.657142857143
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I3",
+      "n": 7,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 5955.271428571427
+    },
+    {
+      "set": "heldout_indist",
+      "lang": "en",
+      "kind": "I4",
+      "n": 7,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 7,
+      "ms_per_instruction": 5935.242857142856
+    },
+    {
+      "set": "heldout_pairs",
+      "lang": "all",
+      "kind": "all",
+      "n": 377,
+      "correct": 374,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 377,
+      "ms_per_instruction": 5797.009549071632
+    },
+    {
+      "set": "heldout_pairs",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 284,
+      "correct": 284,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 284,
+      "ms_per_instruction": 5801.316549295786
+    },
+    {
+      "set": "heldout_pairs",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 93,
+      "correct": 90,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 93,
+      "ms_per_instruction": 5783.85698924731
+    },
+    {
+      "set": "heldout_paraphrase",
+      "lang": "all",
+      "kind": "all",
+      "n": 133,
+      "correct": 133,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 133,
+      "ms_per_instruction": 5784.737593984966
+    },
+    {
+      "set": "heldout_paraphrase",
+      "lang": "en",
+      "kind": "I1",
+      "n": 124,
+      "correct": 124,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 124,
+      "ms_per_instruction": 5771.389516129035
+    },
+    {
+      "set": "heldout_paraphrase",
+      "lang": "en",
+      "kind": "I2",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 5948.233333333333
+    },
+    {
+      "set": "heldout_paraphrase",
+      "lang": "en",
+      "kind": "I3",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 5972.566666666666
+    },
+    {
+      "set": "heldout_paraphrase",
+      "lang": "en",
+      "kind": "I4",
+      "n": 3,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 3,
+      "ms_per_instruction": 5985.133333333334
+    },
+    {
+      "set": "independent",
+      "lang": "all",
+      "kind": "all",
+      "n": 827,
+      "correct": 786,
+      "flagged": 11,
+      "wrong": 30,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 816,
+      "ms_per_instruction": 5766.364812575573
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I1",
+      "n": 241,
+      "correct": 231,
+      "flagged": 10,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 231,
+      "ms_per_instruction": 5609.4896265560155
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 81,
+      "correct": 78,
+      "flagged": 1,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5915.179012345681
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 77,
+      "correct": 72,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 77,
+      "ms_per_instruction": 5644.667532467532
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 273,
+      "correct": 268,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 273,
+      "ms_per_instruction": 5884.6271062271035
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 9,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5957.85
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 125,
+      "correct": 108,
+      "flagged": 0,
+      "wrong": 17,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 125,
+      "ms_per_instruction": 5780.0104
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5528.58
+    },
+    {
+      "set": "independent",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5925.9
+    },
+    {
+      "set": "it",
+      "lang": "all",
+      "kind": "all",
+      "n": 656,
+      "correct": 601,
+      "flagged": 37,
+      "wrong": 18,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 619,
+      "ms_per_instruction": 5605.7594512195465
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I1",
+      "n": 185,
+      "correct": 148,
+      "flagged": 37,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 148,
+      "ms_per_instruction": 5714.281621621606
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I1+I2",
+      "n": 80,
+      "correct": 79,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5901.891250000002
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I1+I3",
+      "n": 80,
+      "correct": 65,
+      "flagged": 0,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 80,
+      "ms_per_instruction": 5484.405000000003
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I1+I4",
+      "n": 267,
+      "correct": 265,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 267,
+      "ms_per_instruction": 5490.931460674146
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I2",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5945.45
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I2+I3",
+      "n": 32,
+      "correct": 32,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 32,
+      "ms_per_instruction": 5490.159375000003
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I3",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5885.85
+    },
+    {
+      "set": "it",
+      "lang": "it",
+      "kind": "I4",
+      "n": 4,
+      "correct": 4,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5060.85
+    },
+    {
+      "set": "it_ind",
+      "lang": "all",
+      "kind": "all",
+      "n": 696,
+      "correct": 682,
+      "flagged": 2,
+      "wrong": 12,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 694,
+      "ms_per_instruction": 5850.587787356309
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I1",
+      "n": 201,
+      "correct": 199,
+      "flagged": 1,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 200,
+      "ms_per_instruction": 6043.188557213943
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I1+I2",
+      "n": 76,
+      "correct": 76,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 76,
+      "ms_per_instruction": 5412.501315789475
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I1+I3",
+      "n": 77,
+      "correct": 75,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 77,
+      "ms_per_instruction": 6032.302597402598
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I1+I4",
+      "n": 254,
+      "correct": 253,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 253,
+      "ms_per_instruction": 5709.592519685046
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I2",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 6021.833333333333
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I2+I3",
+      "n": 70,
+      "correct": 61,
+      "flagged": 0,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 70,
+      "ms_per_instruction": 6033.302857142859
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I3",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 6038.933333333334
+    },
+    {
+      "set": "it_ind",
+      "lang": "it",
+      "kind": "I4",
+      "n": 6,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 6,
+      "ms_per_instruction": 6093.083333333333
+    },
+    {
+      "set": "noisy",
+      "lang": "all",
+      "kind": "all",
+      "n": 320,
+      "correct": 278,
+      "flagged": 27,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 293,
+      "ms_per_instruction": 5630.038125000026
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I1",
+      "n": 88,
+      "correct": 72,
+      "flagged": 14,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 74,
+      "ms_per_instruction": 5333.542045454542
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 28,
+      "correct": 25,
+      "flagged": 1,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 27,
+      "ms_per_instruction": 5820.357142857143
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 24,
+      "correct": 21,
+      "flagged": 2,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 22,
+      "ms_per_instruction": 5925.629166666668
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 94,
+      "correct": 84,
+      "flagged": 8,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 86,
+      "ms_per_instruction": 5519.946808510629
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 9,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 5919.55
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 56,
+      "correct": 49,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 56,
+      "ms_per_instruction": 5909.962499999999
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 9,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 9,
+      "ms_per_instruction": 5932.29
+    },
+    {
+      "set": "noisy",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 9,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 9,
+      "ms_per_instruction": 5872.410000000001
+    },
+    {
+      "set": "not_instruction",
+      "lang": "all",
+      "kind": "all",
+      "n": 117,
+      "correct": 0,
+      "flagged": 117,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 112,
+      "ms_per_instruction": 5927.292307692306
+    },
+    {
+      "set": "not_instruction",
+      "lang": "en",
+      "kind": "not_instruction",
+      "n": 117,
+      "correct": 0,
+      "flagged": 117,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 112,
+      "ms_per_instruction": 5927.292307692306
+    },
+    {
+      "set": "out_of_scope",
+      "lang": "all",
+      "kind": "all",
+      "n": 114,
+      "correct": 0,
+      "flagged": 110,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 56,
+      "ms_per_instruction": 5826.347368421048
+    },
+    {
+      "set": "out_of_scope",
+      "lang": "en",
+      "kind": "out_of_scope",
+      "n": 114,
+      "correct": 0,
+      "flagged": 110,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 56,
+      "ms_per_instruction": 5826.347368421048
+    },
+    {
+      "set": "unseen",
+      "lang": "all",
+      "kind": "all",
+      "n": 480,
+      "correct": 0,
+      "flagged": 455,
+      "wrong": 0,
+      "applied": 25,
+      "malformed": 0,
+      "same_status": 344,
+      "ms_per_instruction": 5605.0008333333235
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "avoid_node",
+      "n": 120,
+      "correct": 0,
+      "flagged": 108,
+      "wrong": 0,
+      "applied": 12,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 5441.374999999999
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "max_hops",
+      "n": 47,
+      "correct": 0,
+      "flagged": 43,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 43,
+      "ms_per_instruction": 5478.129787234042
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "max_km",
+      "n": 154,
+      "correct": 0,
+      "flagged": 154,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 154,
+      "ms_per_instruction": 5799.521428571428
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "path_index",
+      "n": 40,
+      "correct": 0,
+      "flagged": 40,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 34,
+      "ms_per_instruction": 5557.4875
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "shortest_km",
+      "n": 8,
+      "correct": 0,
+      "flagged": 2,
+      "wrong": 0,
+      "applied": 6,
+      "malformed": 0,
+      "same_status": 2,
+      "ms_per_instruction": 5989.3
+    },
+    {
+      "set": "unseen",
+      "lang": "en",
+      "kind": "via_node",
+      "n": 111,
+      "correct": 0,
+      "flagged": 108,
+      "wrong": 0,
+      "applied": 3,
+      "malformed": 0,
+      "same_status": 107,
+      "ms_per_instruction": 5555.163063063067
+    },
+    {
+      "set": "unseen_impossible",
+      "lang": "all",
+      "kind": "all",
+      "n": 154,
+      "correct": 0,
+      "flagged": 144,
+      "wrong": 0,
+      "applied": 10,
+      "malformed": 0,
+      "same_status": 112,
+      "ms_per_instruction": 5500.592207792212
+    },
+    {
+      "set": "unseen_impossible",
+      "lang": "en",
+      "kind": "avoid_node",
+      "n": 36,
+      "correct": 0,
+      "flagged": 33,
+      "wrong": 0,
+      "applied": 3,
+      "malformed": 0,
+      "same_status": 1,
+      "ms_per_instruction": 5236.0888888888885
+    },
+    {
+      "set": "unseen_impossible",
+      "lang": "en",
+      "kind": "max_hops",
+      "n": 30,
+      "correct": 0,
+      "flagged": 27,
+      "wrong": 0,
+      "applied": 3,
+      "malformed": 0,
+      "same_status": 27,
+      "ms_per_instruction": 5429.2599999999975
+    },
+    {
+      "set": "unseen_impossible",
+      "lang": "en",
+      "kind": "max_km",
+      "n": 45,
+      "correct": 0,
+      "flagged": 45,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 45,
+      "ms_per_instruction": 5895.515555555556
+    },
+    {
+      "set": "unseen_impossible",
+      "lang": "en",
+      "kind": "via_node",
+      "n": 43,
+      "correct": 0,
+      "flagged": 39,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 39,
+      "ms_per_instruction": 5358.511627906976
+    }
+  ],
+  "examples": [
+    {
+      "set": "closed_loop",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Route around Warsaw-Stockholm.",
+          "expected": "avoid=Warsaw-Stockholm; prefer=none",
+          "answer": "avoid=Warsaw-Zagreb; prefer=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Route around Warsaw-Stockholm. Fewest slots needed wins.",
+          "expected": "avoid=Warsaw-Stockholm; prefer=slots",
+          "answer": "avoid=Warsaw-Zagreb; prefer=slots",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "closed_loop",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Pick the least congested candidate that fits. Low latency required: fewest hops among the paths that fit.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. This service is delay-critical; take the route with the fewest hops that can carry it.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. Use the feasible path with the fewest hops.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "de",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Stark belegte Routen schonen; den leersten möglichen Pfad verwenden. Die Zahl der Hops soll so klein wie möglich sein.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Stark belegte Routen schonen; den leersten möglichen Pfad verwenden. Latenzkritisch: nimm den Pfad mit den wenigsten Hops, der passt.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Stark belegte Routen schonen; den leersten möglichen Pfad verwenden. Möglichst wenige Teilstrecken für diesen Dienst.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Stark belegte Routen schonen; den leersten möglichen Pfad verwenden. Verwende den realisierbaren Pfad mit der geringsten Anzahl an Hops.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Wähle den Pfad mit den meisten freien Slots. Möglichst wenige Teilstrecken für diesen Dienst.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,slots",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "de_ind",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Am liebsten über den Pfad mit den größten Reserven im Spektrum, damit wir die vollen Links nicht noch weiter zustopfen. Link Zagreb <-> Wien ausschließen, alles andere ist egal.",
+          "expected": "avoid=Zagreb-Vienna; prefer=load",
+          "answer": "avoid=Zagreb-Warsaw; prefer=load",
+          "status": "unresolved"
+        },
+        {
+          "text": "Die Anfrage soll so wenige Frequenzslots wie möglich verbrauchen – nimm also den Pfad, auf dem das effizienteste Modulationsformat geht. Strecke Wien-Prag meiden (Faserarbeiten bis Freitag).",
+          "expected": "avoid=Vienna-Prague; prefer=slots",
+          "answer": "avoid=Warsaw-Prague; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "Spektral effizienteste Option für diese Verbindung, also die mit der geringsten Slot-Anzahl. Link Wien <-> München ausschließen, alles andere ist egal.",
+          "expected": "avoid=Vienna-Munich; prefer=slots",
+          "answer": "avoid=Warsaw-Munich; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "Wegen einer geplanten Wartung ist die Verbindung zwischen Berlin und Kopenhagen gesperrt, den Lightpath bitte anders führen.",
+          "expected": "avoid=Berlin-Copenhagen; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "de_ind",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Am wichtigsten ist mir, dass auf dem Pfad möglichst viel Spektrum frei ist; nehmen sich zwei Kandidaten da nichts, dann den mit der kleineren Hop-Anzahl.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=load,slots,hops",
+          "status": "ok"
+        },
+        {
+          "text": "Der Abschnitt zwischen Hamburg und Frankfurt darf für diese Verbindung nicht verwendet werden. Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt.",
+          "expected": "avoid=Hamburg-Frankfurt; prefer=slots",
+          "answer": "avoid=Hamburg-Frankfurt; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Kein Pfad über Dublin–Glasgow! Die Faser wird heute Nacht umgespleißt. Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt.",
+          "expected": "avoid=Dublin-Glasgow; prefer=slots",
+          "answer": "avoid=Dublin-Glasgow; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Könntest du darauf achten, dass der Lightpath nicht über die Kante von Frankfurt nach Brüssel läuft? Die Trasse ist derzeit unzuverlässig. Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt.",
+          "expected": "avoid=Frankfurt-Brussels; prefer=slots",
+          "answer": "avoid=Frankfurt-Brussels; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Leersten Pfad nehmen (meiste freie Slots). Unter den möglichen Pfaden soll derjenige gewählt werden, der die geringste Anzahl an Links durchläuft.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Leersten Pfad nehmen (meiste freie Slots). Zu bevorzugen ist der Kandidat mit der kleinsten Hop-Zahl.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt.",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Nimm den Kandidaten, bei dem der neue Lightpath am wenigsten Spektrum-Slots belegt. Bitte nicht über den Link Berlin–München routen, dort laufen gerade Wartungsarbeiten.",
+          "expected": "avoid=Berlin-Munich; prefer=slots",
+          "answer": "avoid=Berlin-Munich; prefer=load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "faulty",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Any candidate that uses the direct Bern-Prague link is not acceptable.",
+          "expected": "unresolved",
+          "answer": "avoid=Berlin-Prague; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Any candidate that uses the direct Lugano-Hamburg link is not acceptable.",
+          "expected": "unresolved",
+          "answer": "avoid=Lyon-Zurich; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Any candidate that uses the direct Strasbourg-Basel link is not acceptable.",
+          "expected": "unresolved",
+          "answer": "avoid=Strasbourg-Zurich; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Fibre cut reported between Turin and London - keep this lightpath off that span.",
+          "expected": "unresolved",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Planned works on the fibre section Lausanne / Warsaw, so route around it.",
+          "expected": "unresolved",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Planned works on the fibre section Seville / Zurich, so route around it.",
+          "expected": "unresolved",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Planned works on the fibre section Zurich / Lugano, so route around it.",
+          "expected": "unresolved",
+          "answer": "avoid=Zurich-Lyon; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Please make sure the path does not traverse the direct link connecting Barcelona and Lugano.",
+          "expected": "unresolved",
+          "answer": "avoid=Barcelona-Lyon; prefer=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "fr_ind",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Amsterdam et Bruxelles ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Amsterdam-Brussels; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Amsterdam et Glasgow ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Amsterdam-Glasgow; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Amsterdam et Londres ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Amsterdam-London; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Berlin et Hambourg ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Berlin-Hamburg; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Berlin et Munich ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Berlin-Munich; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Berlin et Prague ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Berlin-Prague; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Bruxelles et Amsterdam ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Brussels-Amsterdam; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Est-ce que tu peux contourner le lien entre Budapest et Belgrade ? On a une fenêtre de travaux dessus cette nuit.",
+          "expected": "avoid=Budapest-Belgrade; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "fr_ind",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Ce qui compte avant tout, c'est qu'il reste un maximum de spectre libre sur le chemin ; si deux candidats se valent sur ce point, retenir celui qui a le plus petit nombre de hops.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=load,slots,hops",
+          "status": "ok"
+        },
+        {
+          "text": "Je voudrais le chemin le plus court en nombre de liens traversés, pour limiter les points de panne.",
+          "expected": "avoid=none; prefer=hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Je voudrais le chemin le plus court en nombre de liens traversés, pour limiter les points de panne. Suite à un incident côté génie civil, le segment entre Hambourg et Berlin est condamné pour l'instant ; il faudra passer ailleurs.",
+          "expected": "avoid=Hamburg-Berlin; prefer=hops",
+          "answer": "avoid=Hamburg-Berlin; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Priorité au chemin le moins utilisé (max de spectre dispo). À retenir : le candidat avec le plus petit nombre de sauts.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Suite à un incident côté génie civil, le segment entre Amsterdam et Hambourg est condamné pour l'instant ; il faudra passer ailleurs.",
+          "expected": "avoid=Amsterdam-Hamburg; prefer=none",
+          "answer": "avoid=Amsterdam-Hamburg; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Suite à un incident côté génie civil, le segment entre Athènes et Belgrade est condamné pour l'instant ; il faudra passer ailleurs.",
+          "expected": "avoid=Athens-Belgrade; prefer=none",
+          "answer": "avoid=Athens-Belgrade; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Suite à un incident côté génie civil, le segment entre Bruxelles et Francfort est condamné pour l'instant ; il faudra passer ailleurs.",
+          "expected": "avoid=Brussels-Frankfurt; prefer=none",
+          "answer": "avoid=Brussels-Frankfurt; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Suite à un incident côté génie civil, le segment entre Francfort et Hambourg est condamné pour l'instant ; il faudra passer ailleurs.",
+          "expected": "avoid=Frankfurt-Hamburg; prefer=none",
+          "answer": "avoid=Frankfurt-Hamburg; prefer=load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "gsw",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Bitte um d Strecki Berlin-Hamburg ume leite.",
+          "expected": "avoid=Berlin-Hamburg; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Berlin-Prag ume leite.",
+          "expected": "avoid=Berlin-Prague; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Budapest-Prag ume leite.",
+          "expected": "avoid=Budapest-Prague; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Frankfurt-Hamburg ume leite.",
+          "expected": "avoid=Frankfurt-Hamburg; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Lyon-Paris ume leite.",
+          "expected": "avoid=Lyon-Paris; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Prag-Berlin ume leite.",
+          "expected": "avoid=Prague-Berlin; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Strassburg-Züri ume leite.",
+          "expected": "avoid=Strasbourg-Zurich; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Bitte um d Strecki Warschau-Budapest ume leite.",
+          "expected": "avoid=Warsaw-Budapest; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "gsw",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Bitte um d Strecki Barcelona-Lyon ume leite. Spektrum spare: nimm d Variante, wo am wenigschte Slots bruucht.",
+          "expected": "avoid=Barcelona-Lyon; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Berlin-Kopehage ume leite. De Dienscht söll so wenig Slots wie möglich belegge.",
+          "expected": "avoid=Berlin-Copenhagen; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Berlin-Münche ume leite.",
+          "expected": "avoid=Berlin-Munich; prefer=none",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Bordeaux-Paris ume leite.",
+          "expected": "avoid=Bordeaux-Paris; prefer=none",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Brüssel-Amsterdam ume leite.",
+          "expected": "avoid=Brussels-Amsterdam; prefer=none",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Brüssel-Amsterdam ume leite. D Aazahl Hops söll so chlii wie möglich sii.",
+          "expected": "avoid=Brussels-Amsterdam; prefer=hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Brüssel-Amsterdam ume leite. Nimm d Route mit em meischte freie Spektrum.",
+          "expected": "avoid=Brussels-Amsterdam; prefer=load",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte um d Strecki Brüssel-Frankfurt ume leite.",
+          "expected": "avoid=Brussels-Frankfurt; prefer=none",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "heldout_pairs",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Pick the least congested candidate that fits. Low latency required: fewest hops among the paths that fit.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. This service is delay-critical; take the route with the fewest hops that can carry it.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. Use the feasible path with the fewest hops.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "independent",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "No traffic on the Berlin<->Prague trunk until further notice. min hops",
+          "expected": "avoid=Berlin-Prague; prefer=hops",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Berlin<->Warsaw trunk until further notice.",
+          "expected": "avoid=Berlin-Warsaw; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Budapest<->Belgrade trunk until further notice.",
+          "expected": "avoid=Budapest-Belgrade; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Frankfurt<->Brussels trunk until further notice.",
+          "expected": "avoid=Frankfurt-Brussels; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Munich<->Berlin trunk until further notice.",
+          "expected": "avoid=Munich-Berlin; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Munich<->Frankfurt trunk until further notice.",
+          "expected": "avoid=Munich-Frankfurt; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Munich<->Vienna trunk until further notice.",
+          "expected": "avoid=Munich-Vienna; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "No traffic on the Paris<->Strasbourg trunk until further notice.",
+          "expected": "avoid=Paris-Strasbourg; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "independent",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Fewest hops wins for this request; least transit nodes.",
+          "expected": "avoid=none; prefer=hops",
+          "answer": "avoid=none; prefer=hops,slots",
+          "status": "ok"
+        },
+        {
+          "text": "Fewest hops wins for this request; least transit nodes. Do not route over the Prague-Berlin link, it is down for maintenance tonight.",
+          "expected": "avoid=Prague-Berlin; prefer=hops",
+          "answer": "avoid=Prague-Berlin; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Fewest hops wins for this request; least transit nodes. NB: Strasbourg-Zurich span out of service, don't use.",
+          "expected": "avoid=Strasbourg-Zurich; prefer=hops",
+          "answer": "avoid=Strasbourg-Zurich; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Go with the path giving this request the smallest spectral footprint (fewest slots). Whatever you pick, it can't go over the hop from Munich to Berlin.",
+          "expected": "avoid=Munich-Berlin; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Load-balance: put this on the emptiest candidate. I want as few intermediate nodes as possible on this lightpath.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Lowest spectrum occupancy preferred; link Berlin--Prague is forbidden.",
+          "expected": "avoid=Berlin-Prague; prefer=load",
+          "answer": "avoid=Berlin-Prague; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Lowest spectrum occupancy preferred; link Lyon--Barcelona is forbidden.",
+          "expected": "avoid=Lyon-Barcelona; prefer=load",
+          "answer": "avoid=Lyon-Barcelona; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Lowest spectrum occupancy preferred; link Warsaw--Berlin is forbidden.",
+          "expected": "avoid=Warsaw-Berlin; prefer=load",
+          "answer": "avoid=Warsaw-Berlin; prefer=slots",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "it",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Aggira il collegamento Amburgo-Amsterdam.",
+          "expected": "avoid=Hamburg-Amsterdam; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Amburgo-Berlino.",
+          "expected": "avoid=Hamburg-Berlin; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Amsterdam-Bruxelles.",
+          "expected": "avoid=Amsterdam-Brussels; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Barcellona-Madrid.",
+          "expected": "avoid=Barcelona-Madrid; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Berlino-Amburgo.",
+          "expected": "avoid=Berlin-Hamburg; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Berlino-Copenaghen.",
+          "expected": "avoid=Berlin-Copenhagen; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Berlino-Monaco di Baviera.",
+          "expected": "avoid=Berlin-Munich; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "Aggira il collegamento Berlino-Praga.",
+          "expected": "avoid=Berlin-Prague; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        }
+      ]
+    },
+    {
+      "set": "it",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Aggira il collegamento Milano-Monaco di Baviera. Scegli il percorso con più slot liberi.",
+          "expected": "avoid=Milan-Munich; prefer=load",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Aggira il collegamento Milano-Roma. Lo spettro è scarso; scegli l'allocazione più stretta possibile.",
+          "expected": "avoid=Milan-Rome; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Aggira il collegamento Milano-Roma. Sensibile alla latenza: usa il percorso fattibile con il minor numero di salti.",
+          "expected": "avoid=Milan-Rome; prefer=hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Aggira il collegamento Oslo-Stoccolma. Questo servizio deve occupare il minor numero possibile di slot.",
+          "expected": "avoid=Oslo-Stockholm; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Evita il link tra Barcellona e Madrid per questa richiesta. Scegli il percorso con più slot liberi.",
+          "expected": "avoid=Barcelona-Madrid; prefer=load",
+          "answer": "avoid=Barcelona-Madrid; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Evita il link tra Bruxelles e Amsterdam per questa richiesta. Scegli il percorso con più slot liberi.",
+          "expected": "avoid=Brussels-Amsterdam; prefer=load",
+          "answer": "avoid=Brussels-Amsterdam; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Evita il link tra Francoforte e Monaco di Baviera per questa richiesta. Scegli il percorso con più slot liberi.",
+          "expected": "avoid=Frankfurt-Munich; prefer=load",
+          "answer": "avoid=Frankfurt-Munich; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Finestra di manutenzione sul collegamento Bruxelles–Francoforte: questo lightpath non deve attraversarlo. Scegli il percorso con più slot liberi.",
+          "expected": "avoid=Brussels-Frankfurt; prefer=load",
+          "answer": "avoid=Brussels-Frankfurt; prefer=slots",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "it_ind",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Causa lavori stradali il segmento Budapest–Varsavia va considerato non disponibile: non usarlo.",
+          "expected": "avoid=Budapest-Warsaw; prefer=none",
+          "answer": "avoid=Budapest-Vienna,Budapest-Warsaw; prefer=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Minimizzare gli slot spettrali necessari a questa connessione. Niente instradamento via Amburgo–Amsterdam: stanotte ci lavora la squadra di giunzione.",
+          "expected": "avoid=Hamburg-Amsterdam; prefer=slots",
+          "answer": "avoid=Amsterdam-Berlin; prefer=slots",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "it_ind",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Causa lavori stradali il segmento Monaco di Baviera–Francoforte va considerato non disponibile: non usarlo. Per bilanciare il carico, si chiede di preferire il percorso con l'occupazione spettrale più bassa.",
+          "expected": "avoid=Munich-Frankfurt; prefer=load",
+          "answer": "avoid=Munich-Frankfurt; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Mettilo sul percorso più scarico, così non andiamo a saturare i link che sono già quasi pieni. Scegli la rotta più corta come numero di tratte, non mi interessa altro.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Niente instradamento via Dublino–Londra: stanotte ci lavora la squadra di giunzione. Per bilanciare il carico, si chiede di preferire il percorso con l'occupazione spettrale più bassa.",
+          "expected": "avoid=Dublin-London; prefer=load",
+          "answer": "avoid=Dublin-London; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "Per bilanciare il carico, si chiede di preferire il percorso con l'occupazione spettrale più bassa. Percorso con meno hop, grazie.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=load,slots",
+          "status": "ok"
+        },
+        {
+          "text": "Percorso meno carico. Tra i percorsi disponibili va preferito quello che attraversa il minor numero di link.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Segnalo che la tratta fra Milano e Roma ha attenuazione fuori soglia; finché non la sistemano il lightpath va fatto passare altrove.",
+          "expected": "avoid=Milan-Rome; prefer=none",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "Usare il cammino su cui c'è più spettro libero. Percorso con meno hop, grazie.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Usare il cammino su cui c'è più spettro libero. Scegli la rotta più corta come numero di tratte, non mi interessa altro.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "noisy",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "avoid the brelin-hamburg link and then choose the least loaded of the remaining paths",
+          "expected": "avoid=Berlin-Hamburg; prefer=load",
+          "answer": "avoid=Bordeaux-Hamburg; prefer=load",
+          "status": "unresolved"
+        },
+        {
+          "text": "choose the candidate on which this connection takes up the fewest spectrum slots, provided it does not traverse the zruich-lyon link",
+          "expected": "avoid=Zurich-Lyon; prefer=slots",
+          "answer": "avoid=Zagreb-Lyon; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "choose the route on which the channel for this connection is narrowest",
+          "expected": "avoid=none; prefer=slots",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "choose the route on which the channel for this connection is narrowest. could you keep this one away from the section between loyn and zurich? it is flagged for maintenance",
+          "expected": "avoid=Lyon-Zurich; prefer=slots",
+          "answer": "avoid=unknown-Lyon; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "could you keep this one away from the section between mialn and rome? it is flagged for maintenance",
+          "expected": "avoid=Milan-Rome; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "could you keep this one away from the section between mnuich and berlin? it is flagged for maintenance",
+          "expected": "avoid=Munich-Berlin; prefer=none",
+          "answer": "unsupported",
+          "status": "unsupported"
+        },
+        {
+          "text": "don't use the brussels-prais link; of the rest, take the path where this request needs the fewest slots",
+          "expected": "avoid=Brussels-Paris; prefer=slots",
+          "answer": "avoid=Brussels-Prague; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "link loyn--paris must not be used for this service. most spectrally efficient option for this demand, please",
+          "expected": "avoid=Lyon-Paris; prefer=slots",
+          "answer": "avoid=Amsterdam-Paris; prefer=slots",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "noisy",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "balance the load - use the path that is currently carrying the least traffic. planned works on the fibre section lyon / prais, so route around it",
+          "expected": "avoid=Lyon-Paris; prefer=load",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "fewest hops wins for this request; least transit nodes",
+          "expected": "avoid=none; prefer=hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "go with the path giving this request the smallest spectral footprint (fewest slots). whatever you pick, it can't go over the hop from amstredam to brussels",
+          "expected": "avoid=Amsterdam-Brussels; prefer=slots",
+          "answer": "avoid=none; prefer=slots",
+          "status": "ok"
+        },
+        {
+          "text": "load balancing is the main goal, so choose the route with the most free spectrum. should two be equally empty, the lower hop count decides",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "pick the path with the fewest intermediate nodes, and use spectral headroom only as a secondary criterion to separate equal ones",
+          "expected": "avoid=none; prefer=hops,load",
+          "answer": "avoid=none; prefer=hops,slots",
+          "status": "ok"
+        },
+        {
+          "text": "pick whichever candidate traverses the smallest number of links. lowest utilisation path pls",
+          "expected": "avoid=none; prefer=hops,load",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "planned works on the fibre section brussels / frnakfurt, so route around it",
+          "expected": "avoid=Brussels-Frankfurt; prefer=none",
+          "answer": "avoid=Brussels-Frankfurt; prefer=load",
+          "status": "ok"
+        },
+        {
+          "text": "planned works on the fibre section hamburg / brelin, so route around it",
+          "expected": "avoid=Hamburg-Berlin; prefer=none",
+          "answer": "avoid=Hamburg-Berlin; prefer=load",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "out_of_scope",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Do not route through Strasbourg at all, the whole site is on generator power.",
+          "expected": "unsupported",
+          "answer": "avoid=Strasbourg-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep it on our own fibre, no third-party leased capacity.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep the path out of Strasbourg; the node is being upgraded this week.",
+          "expected": "unsupported",
+          "answer": "avoid=Strasbourg-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "The route must be node-disjoint from the existing circuit that terminates in Brussels.",
+          "expected": "unsupported",
+          "answer": "avoid=Brussels-Paris; prefer=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "unseen",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Any route is fine as long as it does not transit Bordeaux.",
+          "expected": "unsupported",
+          "answer": "avoid=Bordeaux-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Any route is fine as long as it does not transit Strasbourg.",
+          "expected": "unsupported",
+          "answer": "avoid=Strasbourg-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Cap it at 2 hops, I don't want it bouncing through half the network.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Cap it at 4 hops, I don't want it bouncing through half the network.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Do not route through Bordeaux.",
+          "expected": "unsupported",
+          "answer": "avoid=Bordeaux-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Do not route through Lyon.",
+          "expected": "unsupported",
+          "answer": "avoid=Lyon-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Do not route through Strasbourg.",
+          "expected": "unsupported",
+          "answer": "avoid=Strasbourg-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Hop count must not exceed 2; too many ROADM pass-throughs hurt the OSNR.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "unseen_impossible",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Any route is fine as long as it does not transit Lyon.",
+          "expected": "unsupported",
+          "answer": "avoid=Lyon-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Do not route through Lyon.",
+          "expected": "unsupported",
+          "answer": "avoid=Lyon-Paris; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Hop count must not exceed 1; too many ROADM pass-throughs hurt the OSNR.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "Need Athens as a transit node on this circuit, we have spare ROADM ports there.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Paris is to be excluded from the route for this request.",
+          "expected": "unsupported",
+          "answer": "avoid=Paris-London; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "Please keep the route to 2 hops or fewer.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=hops",
+          "status": "ok"
+        },
+        {
+          "text": "The lightpath should be routed so that Belgrade is one of the intermediate nodes.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        },
+        {
+          "text": "The lightpath should be routed so that Bordeaux is one of the intermediate nodes.",
+          "expected": "unsupported",
+          "answer": "avoid=none; prefer=none",
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}

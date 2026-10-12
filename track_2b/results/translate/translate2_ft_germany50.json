@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate2_ft",
+      "topology": "germany50",
+      "few_shot": false,
+      "format_version": 2,
+      "llm": {
+        "name": "translate2_ft",
+        "backend": "transformers",
+        "model": "",
+        "adapter": null,
+        "structured": "regex",
+        "template_kwargs": {},
+        "shots": 0,
+        "cache": "translate2_ft.jsonl"
+      }
+    },
+    "command": "src/translate.py score --policy translate2_ft --topology germany50 --sets data/instructions/germany50.jsonl --out results/translate/translate2_ft_germany50.json",
+    "finished_utc": "2026-10-12T06:11:29.844667+00:00",
+    "sets": [
+      "germany50.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "germany50",
+      "lang": "all",
+      "kind": "all",
+      "n": 528,
+      "correct": 519,
+      "flagged": 7,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 521,
+      "ms_per_instruction": 6667.272727272723
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1",
+      "n": 144,
+      "correct": 142,
+      "flagged": 2,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 142,
+      "ms_per_instruction": 6988.627777777775
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I2",
+      "n": 38,
+      "correct": 37,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 37,
+      "ms_per_instruction": 6303.305263157894
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I3",
+      "n": 33,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 33,
+      "ms_per_instruction": 6695.054545454545
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I1+I4",
+      "n": 201,
+      "correct": 197,
+      "flagged": 4,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 197,
+      "ms_per_instruction": 6779.12736318411
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 6200.54
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I2+I3",
+      "n": 82,
+      "correct": 80,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 82,
+      "ms_per_instruction": 6062.418292682921
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I3",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 6538.280000000001
+    },
+    {
+      "set": "germany50",
+      "lang": "en",
+      "kind": "I4",
+      "n": 10,
+      "correct": 10,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 10,
+      "ms_per_instruction": 6638.410000000002
+    }
+  ],
+  "examples": [
+    {
+      "set": "germany50",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Be spectrum-efficient: use the option needing the fewest slots. Avoid the link between Frankfurt and Koblenz for this request.",
+          "expected": "avoid=Frankfurt-Koblenz; prefer=slots",
+          "answer": "avoid=Frankfurt-Koeln; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "Fewest slots needed wins. Route around the Augsburg-Wuerzburg link.",
+          "expected": "avoid=Augsburg-Wuerzburg; prefer=slots",
+          "answer": "avoid=Aachen-Augsburg,Wuerzburg-Augsburg; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "Field crews are working on Augsburg-Ulm, so pick a route that skips it.",
+          "expected": "avoid=Augsburg-Ulm; prefer=none",
+          "answer": "avoid=Aachen-Ulm; prefer=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Maintenance window on the link between Augsburg and Wuerzburg: keep this lightpath off it. Minimise the number of slots this service occupies.",
+          "expected": "avoid=Augsburg-Wuerzburg; prefer=slots",
+          "answer": "avoid=Aachen-Augsburg,Wuerzburg-Augsburg; prefer=slots",
+          "status": "unresolved"
+        },
+        {
+          "text": "The Augsburg-Wuerzburg link is under maintenance; do not route through it. Latency-sensitive: use the path with the fewest hops that fits.",
+          "expected": "avoid=Augsburg-Wuerzburg; prefer=hops",
+          "answer": "avoid=Aachen-Wuerzburg; prefer=hops",
+          "status": "unresolved"
+        },
+        {
+          "text": "The link between Augsburg and Wuerzburg must not carry this service.",
+          "expected": "avoid=Augsburg-Wuerzburg; prefer=none",
+          "answer": "avoid=Aachen-Augsburg,unknown-Wuerzburg; prefer=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Use the path whose modulation needs the fewest slots. Augsburg-Ulm is under maintenance; do not route through it.",
+          "expected": "avoid=Augsburg-Ulm; prefer=slots",
+          "answer": "avoid=Aachen-Ulm; prefer=slots",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "germany50",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Pick the least congested candidate that fits. Low latency required: fewest hops among the paths that fit.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        },
+        {
+          "text": "Pick the least congested candidate that fits. This service is delay-critical; take the route with the fewest hops that can carry it.",
+          "expected": "avoid=none; prefer=load,hops",
+          "answer": "avoid=none; prefer=hops,load",
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}
