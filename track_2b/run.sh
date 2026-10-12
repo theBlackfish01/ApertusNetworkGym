@@ -10,6 +10,7 @@ cd "$(dirname "$0")"
 
 python src/report_tables.py
 python src/report_phase1.py > /dev/null && echo && echo "Translator against decider (phase 1): results/tables/phase1.md"
+python src/report_phase2.py > /dev/null && echo "Stronger translator and hybrid (second round): results/tables/phase2.md"
 
 echo
 if [ -n "$LLM_BASE_URL" ]; then
