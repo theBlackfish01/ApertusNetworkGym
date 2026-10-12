@@ -70,9 +70,11 @@ INK, MUTED, GRID, AXIS, SURFACE = "#0b0b0b", "#52514e", "#e1e0d9", "#c3c2b7", "#
 
 def load(directory: Path) -> dict[str, dict]:
     # Runs of phase 1 that cover one condition under another reading are tabulated by report_phase1.py,
-    # runs of the mixed condition by report_phase2.py.
+    # runs of the mixed conditions by report_phase2.py and report_phase3.py.
     paths = [
-        path for path in sorted(directory.glob("*.json")) if not path.stem.endswith(("_ordered", "_mix"))
+        path
+        for path in sorted(directory.glob("*.json"))
+        if not path.stem.endswith(("_ordered", "_mix", "_mix3"))
     ]
     found = {path.stem: json.loads(path.read_text()) for path in paths}
     ordered = [name for name in POLICIES if name in found] + [name for name in found if name not in POLICIES]
