@@ -43,6 +43,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from grammar import gbnf
+from intents import Intent
 from policies import Decision, GrammarEndpoint, LocalLLMPolicy, Policy, Request
 from spec import (
     EMPTY,
@@ -336,18 +337,23 @@ class TranslatorPolicy(Policy):
 
     With a ``second`` reader every instruction is translated twice. Where the two readings differ
     the operator is asked, which in the simulation means the instruction's true meaning is used;
-    such decisions carry ``asked+`` in front of what they report.
+    such decisions carry ``asked+`` in front of what they report. With ``ask="if"`` the question
+    is put only when it matters: the first reading is applied for the time being, and the operator
+    is asked on the first request on which the two readings would decide differently (a reading
+    that does not apply, or one carried in part, is asked about at once, because what the decider
+    would do with it cannot be foreseen).
     """
 
     parallel_safe = True  # in worker processes the model answers must already be in the cache
 
     def __init__(
-        self, name: str, translator: Translator, rule: str, second: Translator | None = None
-    ) -> None:
-        self.name, self.translator, self.rule, self.second = name, translator, rule, second
+        self, name: str, translator: Translator, rule: str, second: Translator | None = None, ask: str = "always"
+    ) -> None:  # fmt: skip
+        self.name, self.translator, self.rule, self.second, self.ask = name, translator, rule, second, ask
         self.version = getattr(translator, "version", 1)
         self._specs: dict[str, Spec] = {"none": EMPTY}  # "none" is the prompt text of no instruction
         self._asked: set[str] = set()
+        self._pending: dict[str, tuple[Spec, Spec, Intent]] = {}  # text -> two readings not yet asked about
 
     def read(self, requests: list[Request]) -> None:
         """Translate the instructions not seen before; ask where two readers disagree."""
@@ -358,16 +364,37 @@ class TranslatorPolicy(Policy):
         specs = self.translator.translate(texts)
         if self.second is not None:
             for i, (text, other) in enumerate(zip(texts, self.second.translate(texts), strict=True)):
-                if specs[i].meaning() != other.meaning():
+                if specs[i].meaning() == other.meaning():
+                    continue
+                foreseeable = specs[i].applies and other.applies and not (specs[i].rest or other.rest)
+                if self.ask == "if" and foreseeable:
+                    self._pending[text] = (
+                        specs[i],
+                        other,
+                        new[text],
+                    )  # asked when a request tells them apart
+                else:
                     self._asked.add(text)
                     specs[i] = meant(new[text])
         self._specs.update(zip(texts, specs, strict=True))
+
+    def resolve(self, requests: list[Request]) -> None:
+        """Ask about a pending pair of readings on the first request they would decide differently."""
+        for request in requests:
+            text = request.intent.text
+            if text in self._pending:
+                first, other, intent = self._pending[text]
+                if choose(request.view, first, self.rule) != choose(request.view, other, self.rule):
+                    del self._pending[text]
+                    self._asked.add(text)
+                    self._specs[text] = meant(intent)
 
     def report(self, text: str, body: str) -> str:
         return ("asked+" if text in self._asked else "") + body
 
     def decide(self, requests: list[Request]) -> list[Decision]:
         self.read(requests)
+        self.resolve(requests)
         decisions = []
         for request in requests:
             started = time.perf_counter()
@@ -383,7 +410,14 @@ class TranslatorPolicy(Policy):
         return decisions
 
     def describe(self) -> dict:
-        second = {"second_reader": self.second.describe()} if self.second is not None else {}
+        second = (
+            {"second_reader": self.second.describe(), "ask": self.ask,
+             # after a run in one process: distinct instructions asked about, and pairs of readings
+             # that no request ever told apart (so the first reading stood unasked)
+             "questions": len(self._asked), "never_told_apart": len(self._pending)}
+            if self.second is not None
+            else {}
+        )  # fmt: skip
         return {"name": self.name, "rule": self.rule, "translator": self.translator.describe()} | second
 
 
@@ -403,9 +437,9 @@ class HybridPolicy(TranslatorPolicy):
 
     def __init__(
         self, name: str, translator: Translator, decider: Policy, rule: str, second: Translator | None = None,
-        guard: bool = True,
+        guard: bool = True, ask: str = "always",
     ) -> None:  # fmt: skip
-        super().__init__(name, translator, rule, second)
+        super().__init__(name, translator, rule, second, ask)
         self.decider, self.guard = decider, guard
 
     def decide(self, requests: list[Request]) -> list[Decision]:
@@ -433,15 +467,18 @@ class HybridPolicy(TranslatorPolicy):
         return super().describe() | {"decider": self.decider.describe(), "guard": self.guard}
 
 
-def _parts(name: str) -> tuple[str, str | None, bool, bool]:
-    """``(first reader, second reader or None, guard, ordered)`` from a policy name such as
-    ``hybrid3_ft_ask-ft2``, ``translate3_ft_ask-few`` or ``hybrid3_ft_noguard``."""
+def _parts(name: str) -> tuple[str, str | None, bool, bool, str]:
+    """``(first reader, second reader or None, guard, ordered, ask)`` from a policy name such as
+    ``hybrid3_ft_ask-ft2``, ``translate3_ft_askif-ft2`` (asked only when a request tells the
+    readings apart), ``translate3_ft_ask-few`` or ``hybrid3_ft_noguard``."""
     ordered = name.endswith("_ordered")
-    base, _, second = name.removesuffix("_ordered").partition("_ask-")
+    base = name.removesuffix("_ordered")
+    ask = "if" if "_askif-" in base else "always"
+    base, _, second = base.partition("_askif-" if ask == "if" else "_ask-")
     guard = "_noguard" not in base
     first = base.replace("_noguard", "").replace("hybrid", "translate", 1)
     version = format_version(first)
-    return first, (f"translate{version}_{second}" if second else None), guard, ordered or version == 3
+    return first, (f"translate{version}_{second}" if second else None), guard, ordered or version == 3, ask
 
 
 def make_hybrid_policy(
@@ -462,7 +499,7 @@ def make_hybrid_policy(
     """
     from policies import make_policy
 
-    first, second, guard, ordered = _parts(name)
+    first, second, guard, ordered, ask = _parts(name)
     options, backend = {}, "transformers"
     if decider_adapter:
         options = {
@@ -482,6 +519,7 @@ def make_hybrid_policy(
         "ordered" if ordered else "intersection",
         make_translator(second, topology, **llm) if second else None,
         guard,
+        ask,
     )
     policy.parallel_safe = not decider_adapter and backend != "endpoint"  # a live decider is one model
     policy.cache_path = getattr(
@@ -491,13 +529,14 @@ def make_hybrid_policy(
 
 
 def make_translator_policy(name: str, topology: str = "nobel-eu", **llm) -> TranslatorPolicy:
-    first, second, _, ordered = _parts(name)
+    first, second, _, ordered, ask = _parts(name)
     # The third format is defined with ordered preferences: constraints, then objectives in order.
     return TranslatorPolicy(
         name,
         make_translator(first, topology, **llm),
         "ordered" if ordered else "intersection",
         make_translator(second, topology, **llm) if second else None,
+        ask,
     )
 
 
@@ -530,7 +569,8 @@ def collect_texts(args: argparse.Namespace) -> None:
     warmup = WARMUP if args.warmup is None else args.warmup
     window = WINDOW if args.window is None else args.window
     jobs = [
-        {"policy": "oracle", "condition": c, "load": load, "seed": seed, "warmup": warmup, "window": window}
+        {"policy": "oracle", "condition": c, "load": load, "seed": seed, "warmup": warmup, "window": window,
+         "topology": args.topology}
         for c in conditions for load in (args.loads or EVAL_LOADS) for seed in (args.seeds or EVAL_SEEDS)
     ]  # fmt: skip
     rows: dict[str, dict] = {}

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "run_id": "20261012T104241Z",
-    "finished_utc": "2026-10-12T10:43:34.261269+00:00",
-    "command": "src/evaluate.py closed --policy translate3_ft_ask-ft2 --conditions operations_mix3 --workers 6 --out results/eval/translate3_ft_ask-ft2_mix3.json",
+    "run_id": "20261012T190913Z",
+    "finished_utc": "2026-10-12T19:12:10.150074+00:00",
+    "command": "src/evaluate.py closed --policy translate3_ft_ask-ft2 --conditions operations_mix3 --workers 1 --out results/eval/translate3_ft_ask-ft2_mix3.json",
     "policy": {
       "name": "translate3_ft_ask-ft2",
       "rule": "ordered",
@@ -37,7 +37,10 @@
           "shots": 0,
           "cache": "translate3_ft2.jsonl"
         }
-      }
+      },
+      "ask": "always",
+      "questions": 397,
+      "never_told_apart": 0
     },
     "protocol": {
       "warmup": 1000,
@@ -59,7 +62,7 @@
     ],
     "ong_version": "0.2.0",
     "ong_commit": "f7c4491caa9090577fe451a6f9f57a8f60edc81e",
-    "repo_commit": "a8d3326ef8539b9ac6150b7d4146642df3345722",
+    "repo_commit": "f49743388c7230b0a09e801f1bff96e2141ccc0f",
     "python": "3.12.3",
     "numpy": "2.5.3",
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
@@ -82,8 +85,8 @@
       "violation_rate_std": 0.008504900548115382,
       "invalid_rate_mean": 0.0,
       "invalid_rate_std": 0.0,
-      "decision_ms_mean": 0.029433302270869415,
-      "decision_ms_std": 0.0004899133381980262,
+      "decision_ms_mean": 0.02315197899940813,
+      "decision_ms_std": 0.005826481118419633,
       "ordered_violation_rate_mean": 0.10066666666666667,
       "ordered_violation_rate_std": 0.008504900548115382,
       "binding_violation_rate": 0.2968499733048585,
@@ -374,8 +377,8 @@
       "violation_rate_std": 0.0027537852736430456,
       "invalid_rate_mean": 0.0,
       "invalid_rate_std": 0.0,
-      "decision_ms_mean": 0.028722580307658063,
-      "decision_ms_std": 0.0002444035650328887,
+      "decision_ms_mean": 0.015221067000463032,
+      "decision_ms_std": 0.002581853406117281,
       "ordered_violation_rate_mean": 0.10283333333333333,
       "ordered_violation_rate_std": 0.0027537852736430456,
       "binding_violation_rate": 0.2979288369622942,
@@ -930,8 +933,8 @@
       },
       "oracle_exact_rate": 0.883,
       "oracle_path_rate": 0.883,
-      "decision_ms": 0.028906695511977887,
-      "group_decisions_per_s": 91.56
+      "decision_ms": 0.029720536998638636,
+      "group_decisions_per_s": 117.95
     },
     {
       "policy": "translate3_ft_ask-ft2",
@@ -1211,8 +1214,8 @@
       },
       "oracle_exact_rate": 0.883,
       "oracle_path_rate": 0.883,
-      "decision_ms": 0.029875572323362576,
-      "group_decisions_per_s": 74.73
+      "decision_ms": 0.021128023998358003,
+      "group_decisions_per_s": 117.95
     },
     {
       "policy": "translate3_ft_ask-ft2",
@@ -1492,8 +1495,8 @@
       },
       "oracle_exact_rate": 0.8955,
       "oracle_path_rate": 0.8955,
-      "decision_ms": 0.02951763897726778,
-      "group_decisions_per_s": 85.41
+      "decision_ms": 0.01860737600122775,
+      "group_decisions_per_s": 117.95
     },
     {
       "policy": "translate3_ft_ask-ft2",
@@ -1773,8 +1776,8 @@
       },
       "oracle_exact_rate": 0.89,
       "oracle_path_rate": 0.89,
-      "decision_ms": 0.028669164454186102,
-      "group_decisions_per_s": 115.88
+      "decision_ms": 0.01630716400018173,
+      "group_decisions_per_s": 117.95
     },
     {
       "policy": "translate3_ft_ask-ft2",
@@ -2054,8 +2057,8 @@
       },
       "oracle_exact_rate": 0.8855,
       "oracle_path_rate": 0.8855,
-      "decision_ms": 0.028509302479506005,
-      "group_decisions_per_s": 101.69
+      "decision_ms": 0.017082444001857766,
+      "group_decisions_per_s": 117.95
     },
     {
       "policy": "translate3_ft_ask-ft2",
@@ -2335,8 +2338,8 @@
       },
       "oracle_exact_rate": 0.892,
       "oracle_path_rate": 0.892,
-      "decision_ms": 0.028989273989282083,
-      "group_decisions_per_s": 111.93
+      "decision_ms": 0.012273592999349603,
+      "group_decisions_per_s": 117.95
     }
   ]
 }

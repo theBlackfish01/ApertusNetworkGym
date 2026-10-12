@@ -1,0 +1,29 @@
+{
+ "_about": "Names of the Swiss nodes in the four languages of the test sets and as an operator might type them. The node id (the first form) is the name on the map and in the policy language; a reader must write it exactly. Other forms are what an instruction may contain.",
+ "nodes": {
+  "Zürich": {"de": ["Zürich", "Zuerich"], "fr": ["Zurich"], "it": ["Zurigo"], "en": ["Zurich", "Zürich"]},
+  "Winterthur": {"de": ["Winterthur"], "fr": ["Winterthour"], "it": ["Winterthur"], "en": ["Winterthur"]},
+  "Schaffhausen": {"de": ["Schaffhausen"], "fr": ["Schaffhouse"], "it": ["Sciaffusa"], "en": ["Schaffhausen"]},
+  "St. Gallen": {"de": ["St. Gallen", "Sankt Gallen"], "fr": ["Saint-Gall"], "it": ["San Gallo"], "en": ["St Gallen", "St. Gallen"]},
+  "Chur": {"de": ["Chur"], "fr": ["Coire"], "it": ["Coira"], "en": ["Chur"]},
+  "Zug": {"de": ["Zug"], "fr": ["Zoug"], "it": ["Zugo"], "en": ["Zug"]},
+  "Luzern": {"de": ["Luzern"], "fr": ["Lucerne"], "it": ["Lucerna"], "en": ["Lucerne"]},
+  "Aarau": {"de": ["Aarau"], "fr": ["Aarau"], "it": ["Aarau"], "en": ["Aarau"]},
+  "Olten": {"de": ["Olten"], "fr": ["Olten"], "it": ["Olten"], "en": ["Olten"]},
+  "Basel": {"de": ["Basel"], "fr": ["Bâle"], "it": ["Basilea"], "en": ["Basel", "Basle"]},
+  "Delémont": {"de": ["Delsberg", "Delémont"], "fr": ["Delémont"], "it": ["Delémont"], "en": ["Delemont", "Delémont"]},
+  "Biel/Bienne": {"de": ["Biel"], "fr": ["Bienne"], "it": ["Bienna"], "en": ["Biel", "Bienne", "Biel/Bienne"]},
+  "Bern": {"de": ["Bern"], "fr": ["Berne"], "it": ["Berna"], "en": ["Bern", "Berne"]},
+  "Thun": {"de": ["Thun"], "fr": ["Thoune"], "it": ["Thun"], "en": ["Thun"]},
+  "Interlaken": {"de": ["Interlaken"], "fr": ["Interlaken"], "it": ["Interlaken"], "en": ["Interlaken"]},
+  "Brig": {"de": ["Brig"], "fr": ["Brigue"], "it": ["Briga"], "en": ["Brig"]},
+  "Sion": {"de": ["Sitten", "Sion"], "fr": ["Sion"], "it": ["Sion"], "en": ["Sion"]},
+  "Fribourg": {"de": ["Freiburg", "Fribourg"], "fr": ["Fribourg"], "it": ["Friburgo"], "en": ["Fribourg"]},
+  "Neuchâtel": {"de": ["Neuenburg"], "fr": ["Neuchâtel"], "it": ["Neuchâtel"], "en": ["Neuchatel", "Neuchâtel"]},
+  "Yverdon": {"de": ["Yverdon"], "fr": ["Yverdon-les-Bains", "Yverdon"], "it": ["Yverdon"], "en": ["Yverdon"]},
+  "Lausanne": {"de": ["Lausanne"], "fr": ["Lausanne"], "it": ["Losanna"], "en": ["Lausanne"]},
+  "Genève": {"de": ["Genf"], "fr": ["Genève"], "it": ["Ginevra"], "en": ["Geneva"]},
+  "Bellinzona": {"de": ["Bellinzona"], "fr": ["Bellinzone"], "it": ["Bellinzona"], "en": ["Bellinzona"]},
+  "Lugano": {"de": ["Lugano"], "fr": ["Lugano"], "it": ["Lugano"], "en": ["Lugano"]}
+ }
+}

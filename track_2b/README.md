@@ -99,6 +99,16 @@ instruction, the line, who decided and whether the decision respects the confirm
 Without a model server only instructions read before can be typed (the page lists them); with
 `LLM_BASE_URL` pointing at the llama.cpp server of the next section, anything can.
 
+## Asking only when it matters
+
+Two readers translate every instruction; where their readings differ the operator is asked.
+Policy names with `_ask-<reader>` ask at once (`hybrid3_ft_ask-ft2`). Names with `_askif-<reader>`
+apply the first reading for the time being and ask on the first request on which the two
+readings would decide differently; a reading outside the language or carried in part is asked
+about at once, because what the decider would do with it cannot be foreseen. The console shows
+the same thing to a person: the first requests on which the readings disagree, with both routes.
+Measured in `results/tables/phase3.md` (closed loop, `*_askif-*` rows).
+
 ## The policy language as a standard constraint
 
 One line of the policy language is also one TAPI constraint (ONF Transport API 2.1.3, the

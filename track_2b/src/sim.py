@@ -6,6 +6,8 @@ scenario and the memory fix below. Per SPEC section 2 only ``load`` and ``seed``
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 from optical_networking_gym import build_scenario
 from optical_networking_gym.defaults import resolve_topology, set_topology_dir
@@ -17,6 +19,7 @@ from optical_networking_gym.runtime.request_analysis import RequestAnalysis
 from view import Choice, PathView, RequestView
 
 SCENARIO = "jocn_benchmark"
+TOPOLOGIES = Path(__file__).resolve().parents[1] / "data" / "topologies"  # this project's own topology files
 TEACHER = "jocn_ls_bm_ksp"  # select_jocn_ls_bm_ksp_action, the paper's BM-LS-KSP
 BASELINE = "first_fit"  # masked first fit: path, then most efficient modulation, then first slot
 
@@ -50,10 +53,12 @@ def build_env(
 
     ``env_class`` lets the data generator pass its own subclass (which should derive from
     :class:`ProvisioningEnv` to keep the memory fix); ``env_kwargs`` go to its constructor.
-    ``topology`` replaces the preset's nobel-eu by another topology shipped with ONG; everything
-    else of the preset is kept (used only for the unseen-topology probe of ``transfer.py``).
+    ``topology`` replaces the preset's nobel-eu by another topology shipped with ONG, or by one
+    of this project's own (``data/topologies/<id>.xml``); everything else of the preset is kept.
     """
     other = {"topology_id": topology} if topology else {}
+    if topology and (TOPOLOGIES / f"{topology}.xml").exists():  # a topology of this project, not of ONG
+        other["topology_dir"] = TOPOLOGIES
     config = build_scenario(
         SCENARIO, load=float(load), seed=int(seed), episode_length=int(episode_length), **other
     )

@@ -41,9 +41,10 @@ def export_topology(topology: str) -> dict:
     from optical_networking_gym.defaults import resolve_topology, set_topology_dir
     from optical_networking_gym.network.topology import TopologyModel
 
-    from sim import SCENARIO, build_scenario
+    from sim import SCENARIO, TOPOLOGIES, build_scenario
 
-    config = build_scenario(SCENARIO, topology_id=topology)
+    own = {"topology_dir": TOPOLOGIES} if (TOPOLOGIES / f"{topology}.xml").exists() else {}
+    config = build_scenario(SCENARIO, topology_id=topology, **own)
     if config.topology_dir is not None:
         set_topology_dir(config.topology_dir)
     model = TopologyModel.from_file(

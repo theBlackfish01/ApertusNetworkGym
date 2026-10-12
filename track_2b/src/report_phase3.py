@@ -44,9 +44,13 @@ CLOSED = {
     "teacher_mix3": "No-intent teacher (ignores the instruction)",
     "apertus_ft_mix3": "Decider alone",
     "translate3_ft_mix3": "Translator alone (reader 1)",
+    "translate3_ft_ask-ft2_mix3": "Translator that asks when its two readers disagree",
+    "translate3_ft_askif-ft2_mix3": "Translator that asks only when a request tells the readings apart",
     "hybrid3_ft_mix3": "Hybrid",
     "hybrid3_ft_ask-ft2_mix3": "Hybrid that asks when its two readers disagree",
     "hybrid3_ft_ask-few70b_mix3": "Hybrid that asks, the untrained Apertus 70B as second reader",
+    "hybrid3_ft_laptop_ask-ft2_laptop_mix3": "Hybrid that asks, all three models on the laptop (4-bit)",
+    "hybrid3_ft_laptop_askif-ft2_laptop_mix3": "Hybrid that asks only when a request tells the readings apart, on the laptop",
 }
 KINDS = {
     "In the format": ("atom", "pair", "heldout_pair", "triple", "two_preferences"),

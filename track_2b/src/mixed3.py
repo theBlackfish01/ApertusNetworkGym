@@ -51,6 +51,32 @@ COMBINATIONS = (("atom", 40), ("pair", 20), ("heldout_pair", 20), ("triple", 12)
 LANGUAGE_MIX = (("en", 55), ("de", 15), ("fr", 15), ("it", 15))
 NEW_PREFERENCES = ("largest_block",)  # new types that never ask for a reject
 NAMED = ("avoid_link", "avoid_node", "via_node")  # clause kinds that name a place
+TOPOLOGY = "nobel-eu"
+# node id -> its name in the sentence's language (English sentences use the id on nobel-eu)
+NAMES: dict[str, dict[str, str]] = {lang: LANGUAGES[lang]["names"] for lang in ("de", "fr", "it")}
+OUTSIDE: tuple[str, ...] = TEST_OUTSIDE  # places that are not nodes, for the faulty kind
+EXTRA_OUTSIDE = ("Milan", "Munich", "Lyon", "Strasbourg", "Paris", "Vienna", "Innsbruck", "Stuttgart")
+
+
+def set_topology(name: str) -> None:
+    """Make the stream speak of the nodes of another topology.
+
+    ``data/topologies/<name>_names.json`` gives each node's name in German, French, Italian and
+    English (an operator writes "Genf", "Genève" or "Geneva" for the node ``Genève``); a sentence
+    then carries the first form of its language. Places outside the network are those of the
+    test list that are not nodes here, plus a few cities of the European topology.
+    """
+    global TOPOLOGY, NAMES, OUTSIDE
+    TOPOLOGY = name
+    path = ROOT / "data" / "topologies" / f"{name}_names.json"
+    if path.exists():
+        table = json.loads(path.read_text(encoding="utf-8"))["nodes"]
+        NAMES = {lang: {node: forms[lang][0] for node, forms in table.items() if forms.get(lang)}
+                 for lang in ("de", "fr", "it", "en")}  # fmt: skip
+        OUTSIDE = tuple(place for place in TEST_OUTSIDE + EXTRA_OUTSIDE if place not in table)
+    else:
+        NAMES = {lang: LANGUAGES[lang]["names"] for lang in ("de", "fr", "it")}
+        OUTSIDE = TEST_OUTSIDE
 
 
 @dataclass(frozen=True)
@@ -146,7 +172,7 @@ def draw(clauses: tuple[str, ...], view: RequestView, rng: random.Random) -> dic
 
 def render(text: str, fills: dict, lang: str) -> str:
     """The sentence with its placeholders filled; cities carry the name of the sentence's language."""
-    names = LANGUAGES[lang]["names"] if lang != "en" else {}
+    names = NAMES.get(lang, {})
     for key, value in fills.items():
         text = text.replace(
             "{" + key + "}", names.get(value, str(value)) if isinstance(value, str) else str(value)
@@ -281,7 +307,7 @@ def sample(view: RequestView, rng: random.Random) -> Instruction:
         return Instruction(text=rng.choice(english["not_instruction"]), kind=kind)
     elif kind == "faulty":  # a place that is not in the network, in a sentence that names one
         clauses, text = rng.choice([s for s in english["grouped"]["atom"] if s[0][0] in NAMED])
-        outside = rng.choice(TEST_OUTSIDE)
+        outside = rng.choice(OUTSIDE)
         if clauses[0] == "avoid_link":
             ends = [rng.choice(on_paths), outside]
             rng.shuffle(ends)

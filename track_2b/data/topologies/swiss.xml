@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A Swiss backbone built for this project from public geography: 24 cities that carry the
+     national research network's points of presence (Switch LAN backbone map, February 2026)
+     and the main transport corridors between them. The links are the author's construction
+     along those corridors, not Switch's or any operator's fibre routes. Coordinates are
+     longitude and latitude; SNDlib format as read by Optical Networking Gym. -->
+<network xmlns="http://sndlib.zib.de/network" version="1.0">
+ <networkStructure>
+  <nodes coordinatesType="geographical">
+   <node id="Zürich"><coordinates><x>8.54</x><y>47.38</y></coordinates></node>
+   <node id="Winterthur"><coordinates><x>8.72</x><y>47.50</y></coordinates></node>
+   <node id="Schaffhausen"><coordinates><x>8.63</x><y>47.70</y></coordinates></node>
+   <node id="St. Gallen"><coordinates><x>9.37</x><y>47.42</y></coordinates></node>
+   <node id="Chur"><coordinates><x>9.53</x><y>46.85</y></coordinates></node>
+   <node id="Zug"><coordinates><x>8.52</x><y>47.17</y></coordinates></node>
+   <node id="Luzern"><coordinates><x>8.31</x><y>47.05</y></coordinates></node>
+   <node id="Aarau"><coordinates><x>8.04</x><y>47.39</y></coordinates></node>
+   <node id="Olten"><coordinates><x>7.91</x><y>47.35</y></coordinates></node>
+   <node id="Basel"><coordinates><x>7.59</x><y>47.56</y></coordinates></node>
+   <node id="Delémont"><coordinates><x>7.35</x><y>47.37</y></coordinates></node>
+   <node id="Biel/Bienne"><coordinates><x>7.25</x><y>47.14</y></coordinates></node>
+   <node id="Bern"><coordinates><x>7.45</x><y>46.95</y></coordinates></node>
+   <node id="Thun"><coordinates><x>7.63</x><y>46.76</y></coordinates></node>
+   <node id="Interlaken"><coordinates><x>7.86</x><y>46.69</y></coordinates></node>
+   <node id="Brig"><coordinates><x>7.99</x><y>46.32</y></coordinates></node>
+   <node id="Sion"><coordinates><x>7.36</x><y>46.23</y></coordinates></node>
+   <node id="Fribourg"><coordinates><x>7.16</x><y>46.80</y></coordinates></node>
+   <node id="Neuchâtel"><coordinates><x>6.93</x><y>46.99</y></coordinates></node>
+   <node id="Yverdon"><coordinates><x>6.64</x><y>46.78</y></coordinates></node>
+   <node id="Lausanne"><coordinates><x>6.63</x><y>46.52</y></coordinates></node>
+   <node id="Genève"><coordinates><x>6.14</x><y>46.20</y></coordinates></node>
+   <node id="Bellinzona"><coordinates><x>9.02</x><y>46.19</y></coordinates></node>
+   <node id="Lugano"><coordinates><x>8.95</x><y>46.00</y></coordinates></node>
+  </nodes>
+  <links>
+   <link id="L01"><source>Genève</source><target>Lausanne</target></link>
+   <link id="L02"><source>Lausanne</source><target>Yverdon</target></link>
+   <link id="L03"><source>Lausanne</source><target>Fribourg</target></link>
+   <link id="L04"><source>Lausanne</source><target>Sion</target></link>
+   <link id="L05"><source>Yverdon</source><target>Neuchâtel</target></link>
+   <link id="L06"><source>Neuchâtel</source><target>Biel/Bienne</target></link>
+   <link id="L07"><source>Neuchâtel</source><target>Bern</target></link>
+   <link id="L08"><source>Biel/Bienne</source><target>Bern</target></link>
+   <link id="L09"><source>Biel/Bienne</source><target>Delémont</target></link>
+   <link id="L10"><source>Delémont</source><target>Basel</target></link>
+   <link id="L11"><source>Fribourg</source><target>Bern</target></link>
+   <link id="L12"><source>Bern</source><target>Thun</target></link>
+   <link id="L13"><source>Thun</source><target>Interlaken</target></link>
+   <link id="L14"><source>Interlaken</source><target>Brig</target></link>
+   <link id="L15"><source>Brig</source><target>Sion</target></link>
+   <link id="L16"><source>Bern</source><target>Olten</target></link>
+   <link id="L17"><source>Olten</source><target>Basel</target></link>
+   <link id="L18"><source>Olten</source><target>Aarau</target></link>
+   <link id="L19"><source>Olten</source><target>Luzern</target></link>
+   <link id="L20"><source>Aarau</source><target>Zürich</target></link>
+   <link id="L21"><source>Basel</source><target>Zürich</target></link>
+   <link id="L22"><source>Zürich</source><target>Zug</target></link>
+   <link id="L23"><source>Zug</source><target>Luzern</target></link>
+   <link id="L24"><source>Zürich</source><target>Winterthur</target></link>
+   <link id="L25"><source>Winterthur</source><target>Schaffhausen</target></link>
+   <link id="L26"><source>Winterthur</source><target>St. Gallen</target></link>
+   <link id="L27"><source>St. Gallen</source><target>Chur</target></link>
+   <link id="L28"><source>Zürich</source><target>Chur</target></link>
+   <link id="L29"><source>Luzern</source><target>Bellinzona</target></link>
+   <link id="L30"><source>Bellinzona</source><target>Lugano</target></link>
+   <link id="L31"><source>Bellinzona</source><target>Chur</target></link>
+   <link id="L32"><source>Schaffhausen</source><target>Basel</target></link>
+   <link id="L33"><source>Zug</source><target>Chur</target></link>
+  </links>
+ </networkStructure>
+</network>

@@ -43,6 +43,7 @@ from datetime import UTC, datetime
 from multiprocessing import Pool
 from pathlib import Path
 
+import mixed3
 from intents import (
     HELDOUT_PAIRS,
     NO_INTENT,
@@ -119,7 +120,10 @@ class Episode:
         from sim import TEACHER, build_env
 
         self.job = job
-        self.env = build_env(job["load"], job["seed"], episode_length=job["warmup"] + job["window"])
+        topology = job.get("topology", "nobel-eu")
+        mixed3.set_topology(topology)  # the stream names this topology's nodes (and in the worker processes)
+        self.env = build_env(job["load"], job["seed"], episode_length=job["warmup"] + job["window"],
+                             topology=None if topology == "nobel-eu" else topology)  # fmt: skip
         _, self.info = self.env.reset(seed=job["seed"])
         for _ in range(job["warmup"]):
             _, _, _, _, self.info = self.env.step(select_heuristic_action(TEACHER, self.env, self.info))
@@ -252,7 +256,8 @@ def run_group(policy: Policy, jobs: list[dict], on_done=None) -> list[dict]:
 
 
 def _run_single(job: dict) -> dict:
-    return run_group(make_policy(job["policy"]), [job])[0]
+    options = {"topology": job["topology"]} if job["policy"].startswith(("translate", "hybrid")) else {}
+    return run_group(make_policy(job["policy"], **options), [job])[0]
 
 
 def _pool_worker(conn, jobs: list[dict]) -> None:
@@ -377,7 +382,8 @@ def closed(args: argparse.Namespace) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     partial = out.with_suffix(".partial.jsonl")
     jobs = [
-        {"policy": args.policy, "condition": c, "load": load, "seed": s, "warmup": args.warmup, "window": args.window}
+        {"policy": args.policy, "condition": c, "load": load, "seed": s, "warmup": args.warmup, "window": args.window,
+         "topology": args.topology}
         for c in args.conditions for load in args.loads for s in args.seeds
     ]  # fmt: skip
     rows = []
@@ -552,7 +558,7 @@ def demo(args: argparse.Namespace) -> None:
     """A short live episode that shows requests flowing prompt -> answer -> simulator."""
     policy = make_policy(args.policy, **llm_options(args))
     job = {"policy": args.policy, "condition": args.conditions[0], "load": args.loads[0], "seed": args.seeds[0],
-           "warmup": args.warmup, "window": args.window}  # fmt: skip
+           "warmup": args.warmup, "window": args.window, "topology": args.topology}  # fmt: skip
     episode = Episode(job)
     while episode.remaining:
         (decision,) = policy.decide([episode.request()])
@@ -645,7 +651,7 @@ def main() -> None:
         "--shots", type=Path, help="transformers backend: solved records put before every prompt"
     )
     parser.add_argument(
-        "--topology", default="nobel-eu", help="translate_* policies: topology of the node list"
+        "--topology", default="nobel-eu", help="the network: an ONG topology or one of data/topologies/*.xml"
     )
     parser.add_argument(
         "--decider",

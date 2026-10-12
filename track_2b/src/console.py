@@ -48,9 +48,10 @@ def node_coordinates(topology_id: str) -> dict[str, tuple[float, float]]:
     """Longitude and latitude of every node, from the SNDlib file ONG loads."""
     from optical_networking_gym.defaults import resolve_topology, set_topology_dir
 
-    from sim import SCENARIO, build_scenario
+    from sim import SCENARIO, TOPOLOGIES, build_scenario
 
-    config = build_scenario(SCENARIO, topology_id=topology_id)
+    own = {"topology_dir": TOPOLOGIES} if (TOPOLOGIES / f"{topology_id}.xml").exists() else {}
+    config = build_scenario(SCENARIO, topology_id=topology_id, **own)
     if config.topology_dir is not None:
         set_topology_dir(config.topology_dir)
     document = xml.dom.minidom.parse(str(resolve_topology(config.topology_id))).documentElement
