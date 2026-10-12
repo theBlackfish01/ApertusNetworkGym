@@ -42,12 +42,14 @@ from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from policies import Decision, LocalLLMPolicy, Policy, Request
+from grammar import gbnf
+from policies import Decision, LLMPolicy, LocalLLMPolicy, Policy, Request
 from spec import (
     EMPTY,
     UNKNOWN,
     Spec,
     Topology,
+    answer_expression,
     answer_grammar,
     choose,
     format_spec,
@@ -266,13 +268,44 @@ class KeywordTranslator(Translator):
         return answers
 
 
+class GrammarEndpoint(LLMPolicy):
+    """An OpenAI-compatible server that takes a GBNF grammar with each request (llama.cpp's llama-server).
+
+    The grammar is the answer format of ``spec.py`` exported by ``grammar.gbnf``, so a quantised
+    model on a laptop is held to the same lines as the model in a job.
+    """
+
+    def __init__(self, name: str, *, grammar: str, max_tokens: int, **options) -> None:
+        super().__init__(name, structured="none", **options)
+        self.grammar, self.max_tokens = grammar, max_tokens
+
+    def _body(self, messages: list[dict]) -> dict:
+        return super()._body(messages) | {"max_tokens": self.max_tokens, "grammar": self.grammar}
+
+    def describe(self) -> dict:
+        return super().describe() | {"structured": "gbnf", "endpoint": self.base_url}
+
+
 class LLMTranslator(Translator):
-    """Apertus, in this process (next to a GPU) or replayed from its answer cache."""
+    """Apertus: in this process (next to a GPU), behind a server (``base_url``), or replayed from
+    its answer cache."""
 
     def __init__(self, name: str, topology: Topology, *, few: bool = False, version: int = 1, **llm) -> None:
         super().__init__(topology)
         self.name, self.few, self.version = name, few, version
         constrained = llm.get("structured") != "none"
+        limit = MAX_NEW_TOKENS3 if version == 3 else MAX_NEW_TOKENS
+        if llm.get("base_url"):
+            self.llm = GrammarEndpoint(
+                name,
+                grammar=gbnf(answer_expression(topology, version)),
+                max_tokens=limit,
+                base_url=llm["base_url"],
+                model=llm.get("model"),
+                extra_body=llm.get("extra_body"),
+                concurrency=llm.get("concurrency", 4),
+            )
+            return
         self.llm = LocalLLMPolicy(
             name,
             model=llm.get("model"),
@@ -281,7 +314,7 @@ class LLMTranslator(Translator):
             template_kwargs=llm.get("template_kwargs"),
             max_batch=llm.get("max_batch", 64),
             grammar=answer_grammar(topology, version) if constrained else None,
-            max_new_tokens=MAX_NEW_TOKENS3 if version == 3 else MAX_NEW_TOKENS,
+            max_new_tokens=limit,
         )
 
     def lines(self, texts: list[str]) -> list[tuple[str, float]]:
@@ -648,7 +681,9 @@ def batch(args: argparse.Namespace) -> None:
 
 def _llm(args: argparse.Namespace) -> dict:
     return {"model": args.model, "adapter": args.adapter, "structured": args.structured,
-            "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch}  # fmt: skip
+            "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch,
+            "base_url": args.base_url, "extra_body": json.loads(args.extra_body),
+            "concurrency": args.concurrency}  # fmt: skip
 
 
 def main() -> None:
@@ -684,6 +719,15 @@ def main() -> None:
     parser.add_argument("--structured", choices=["regex", "none"], default="regex")
     parser.add_argument("--template-kwargs", default="{}")
     parser.add_argument("--batch", type=int, default=64)
+    parser.add_argument(
+        "--base-url",
+        default=None,
+        help="a server that takes a GBNF grammar (llama-server), e.g. http://127.0.0.1:8080/v1",
+    )
+    parser.add_argument(
+        "--extra-body", default="{}", help="JSON merged into each request, e.g. the LoRA adapters to apply"
+    )
+    parser.add_argument("--concurrency", type=int, default=4, help="parallel requests to the server")
     parser.add_argument("--sync-repo", default=None, help="Hub dataset repo to copy cache and results to")
     args = parser.parse_args()
     if args.mode == "texts":

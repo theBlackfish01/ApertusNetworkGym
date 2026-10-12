@@ -27,6 +27,12 @@
 #           instructions; the decider on the probes of the new types; the mixed condition
 #           operations_mix3 in closed loop for the decider alone, the hybrid, and the hybrid that
 #           asks when its two readers disagree (three processes on one GPU)
+#   gguf    CPU only: both readers' adapters and the base model as GGUF files for llama.cpp
+#           (the adapters first; the base is converted from the published weights and quantised
+#           to 4 bits), uploaded to GGUF_REPO. This is what runs on a laptop
+#   big     a larger Apertus as a reader with examples and no training: BIG_MODEL is
+#           "<repo>:<file>" of a GGUF build, served by llama.cpp on the GPU under the same
+#           grammar; BIG_NAME names the reader (its answers go to results/cache/<name>.jsonl)
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
@@ -42,7 +48,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | gguf | big}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -309,6 +315,87 @@ train3)
     cp runs/translator3/training_log.json runs/translator3/heldout_predictions.jsonl results/train/translator3-s$READER/
     keep results/train/translator3-s$READER
     ;;
+big)
+    : "${BIG_MODEL:?set BIG_MODEL to <repo>:<file> of a GGUF build}"
+    TAG=${LLAMA_TAG:-b11558}
+    NAME=${BIG_NAME:-translate3_few70}
+    stamp "llama.cpp $TAG with CUDA, and ${BIG_MODEL}"
+    nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader
+    df -h /tmp | tail -1
+    mkdir -p /tmp/llama
+    for file in "llama-$TAG-bin-ubuntu-cuda-12.8-x64.tar.gz" "cudart-llama-$TAG-bin-ubuntu-cuda-12.8-x64.tar.gz"; do
+        curl -sSL "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/$file" | tar -xz -C /tmp/llama
+    done
+    SERVER=$(find /tmp/llama -name llama-server -type f | head -1)
+    export LD_LIBRARY_PATH="$(dirname "$SERVER"):$(find /tmp/llama -name 'libcublas.so*' -printf '%h
+' | head -1):${LD_LIBRARY_PATH:-}"
+    BIG_MODEL="$BIG_MODEL" $PY -c "
+import os
+from huggingface_hub import hf_hub_download
+repo, name = os.environ['BIG_MODEL'].split(':')
+path = hf_hub_download(repo, name, local_dir='/tmp/big')
+print(path, os.path.getsize(path) // 2**30, 'GiB')
+os.replace(path, '/tmp/big/model.gguf')"
+    stamp "start the server (8 requests at a time)"
+    "$SERVER" -m /tmp/big/model.gguf -ngl 999 -c 32768 -np 8 --port 8080 --jinja > /tmp/server.log 2>&1 &
+    SERVER_PID=$!
+    for _ in $(seq 1 120); do
+        curl -sf http://127.0.0.1:8080/health > /dev/null && break
+        kill -0 $SERVER_PID 2>/dev/null || { tail -30 /tmp/server.log; exit 1; }
+        sleep 5
+    done
+    curl -sf http://127.0.0.1:8080/health || { tail -30 /tmp/server.log; exit 1; }
+    grep -i -E "offloaded|model size|chat template|n_ctx_slot" /tmp/server.log | head -8 || true
+    stamp "$NAME: the test instructions of the third round, with examples in the prompt"
+    $PY src/translate.py batch --base-url http://127.0.0.1:8080/v1 --model "$BIG_MODEL" --concurrency 8         --sync-repo "$WORK_REPO" --jobs "$NAME:nobel-eu:regex:${BIG_SETS:-$V3}"
+    kill $SERVER_PID || true
+    ;;
+gguf)
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (reader 1)}" "${SECOND_REPO:?set SECOND_REPO (reader 2)}"
+    : "${GGUF_REPO:?set GGUF_REPO (model repo for the GGUF files)}"
+    TAG=${LLAMA_TAG:-b11558}
+    stamp "llama.cpp $TAG: conversion scripts and the quantiser"
+    df -h /tmp | tail -1
+    git clone --quiet --depth 1 --branch "$TAG" https://github.com/ggml-org/llama.cpp /tmp/llama.cpp
+    uv venv /tmp/convert --python 3.12 -q
+    uv pip install --python /tmp/convert/bin/python -q -r /tmp/llama.cpp/requirements/requirements-convert_lora_to_gguf.txt
+    mkdir -p /tmp/out /tmp/bin
+    curl -sSL "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/llama-$TAG-bin-ubuntu-x64.tar.gz" | tar -xz -C /tmp/bin
+    QUANTIZE=$(find /tmp/bin -name llama-quantize -type f | head -1)
+    export LD_LIBRARY_PATH="$(dirname "$QUANTIZE"):${LD_LIBRARY_PATH:-}"
+    MODEL="$MODEL" GGUF_REPO="$GGUF_REPO" $PY - <<'PYEOF'
+import os
+from huggingface_hub import HfApi, snapshot_download
+HfApi().create_repo(os.environ["GGUF_REPO"], private=True, exist_ok=True)
+print(snapshot_download(os.environ["MODEL"], local_dir="/tmp/base", allow_patterns=["*.json", "*.jinja", "tokenizer*"]))
+for repo, where in ((os.environ["TRANSLATOR_REPO"], "/tmp/reader1"), (os.environ["SECOND_REPO"], "/tmp/reader2")):
+    print(snapshot_download(repo, local_dir=where, allow_patterns=["adapter_*"]))
+PYEOF
+    upload() {
+        GGUF_REPO="$GGUF_REPO" $PY -c "
+import os, sys
+from huggingface_hub import HfApi
+for path in sys.argv[1:]:
+    HfApi().upload_file(repo_id=os.environ['GGUF_REPO'], path_or_fileobj=path, path_in_repo=os.path.basename(path))
+    print('uploaded', os.path.basename(path), os.path.getsize(path) // 2**20, 'MiB')" "$@"
+    }
+    for reader in 1 2; do
+        stamp "reader $reader: LoRA adapter to GGUF"
+        /tmp/convert/bin/python /tmp/llama.cpp/convert_lora_to_gguf.py /tmp/reader$reader --base /tmp/base             --outtype f16 --outfile /tmp/out/lightpath-translator-v3-reader$reader-lora-f16.gguf
+        upload /tmp/out/lightpath-translator-v3-reader$reader-lora-f16.gguf
+    done
+    stamp "base model: published weights to GGUF (16 bit), then 4 bit (Q4_K_M)"
+    MODEL="$MODEL" $PY -c "
+import os
+from huggingface_hub import snapshot_download
+print(snapshot_download(os.environ['MODEL'], local_dir='/tmp/base', allow_patterns=['*.safetensors']))"
+    df -h /tmp | tail -1
+    /tmp/convert/bin/python /tmp/llama.cpp/convert_hf_to_gguf.py /tmp/base --outtype f16 --outfile /tmp/base-f16.gguf
+    rm -f /tmp/base/*.safetensors
+    "$QUANTIZE" /tmp/base-f16.gguf /tmp/out/apertus-v1.5-8b-text-Q4_K_M.gguf Q4_K_M
+    rm -f /tmp/base-f16.gguf
+    upload /tmp/out/apertus-v1.5-8b-text-Q4_K_M.gguf
+    ;;
 check5)
     TINY=HuggingFaceTB/SmolLM2-135M-Instruct
     SHORT="--conditions operations_mix3 --loads 390 --seeds 1 2 --warmup 30 --window 8"
@@ -337,6 +424,22 @@ phase4)
 from huggingface_hub import snapshot_download
 for repo, where in (('$ADAPTER_REPO', 'runs/adapter'), ('$TRANSLATOR_REPO', 'runs/reader1'), ('$SECOND_REPO', 'runs/reader2')):
     print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))"
+    # The prompt exactly as the tokenizer's chat template renders it, to compare with what a
+    # llama.cpp server renders from the same messages on a laptop.
+    MODEL="$MODEL" $PY - <<'PYEOF'
+import os, sys
+from pathlib import Path
+sys.path.insert(0, "src")
+from transformers import AutoTokenizer
+from spec import load_topology
+from translate import messages
+chat = messages("Do not pass through Paris. Limit the route to at most 4 hops.", load_topology("nobel-eu"), version=3)
+text = AutoTokenizer.from_pretrained(os.environ["MODEL"]).apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+Path("results/train").mkdir(parents=True, exist_ok=True)
+Path("results/train/rendered_prompt3.txt").write_text(text, encoding="utf-8")
+print("rendered prompt:", len(text), "characters; ends with", repr(text[-60:]))
+PYEOF
+    keep results/train/rendered_prompt3.txt
     stamp "reader 1: test instructions of the third round, the earlier sets, the mixed condition, the other topology"
     $PY src/translate.py batch --model "$MODEL" --adapter runs/reader1 --batch 96 --sync-repo "$WORK_REPO" --jobs \
         "translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl" \
