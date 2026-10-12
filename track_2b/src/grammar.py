@@ -37,6 +37,45 @@ def opt(part: Expression) -> Expression:
     return ("alt", (part, ("lit", "")))
 
 
+def gbnf(expression: Expression) -> str:
+    """The expression as a GBNF grammar (llama.cpp), so the same language constrains a GGUF model.
+
+    An alternation that occurs more than once becomes a rule of its own; the rest is written inline.
+    """
+    counts: dict[Expression, int] = {}
+
+    def count(expr: Expression) -> None:
+        counts[expr] = counts.get(expr, 0) + 1
+        if expr[0] != "lit" and counts[expr] == 1:
+            for part in expr[1]:
+                count(part)
+
+    count(expression)
+    names: dict[Expression, str] = {}
+    rules: list[str] = []
+
+    def text(expr: Expression, top: bool = False) -> str:
+        kind, body = expr
+        if kind == "lit":
+            return '"' + body.replace("\\", "\\\\").replace('"', '\\"') + '"'
+        if kind == "seq":
+            return " ".join(text(part) for part in body)
+        if not top and counts[expr] > 1 and len(body) > 2:
+            if expr not in names:
+                names[expr] = f"r{len(names)}"
+                rules.append(f"{names[expr]} ::= {text(expr, top=True)}")
+            return names[expr]
+        if ("lit", "") in body:  # opt(...)
+            rest = [part for part in body if part != ("lit", "")]
+            inner = rest[0] if len(rest) == 1 else ("alt", tuple(rest))
+            return f"({text(inner, top=True)})?"
+        choice = " | ".join(text(part) for part in body)
+        return choice if top else f"({choice})"
+
+    root = f"root ::= {text(expression, top=True)}"
+    return "\n".join([root, *rules]) + "\n"
+
+
 class Dfa:
     """Deterministic automaton of an expression; ``moves[state][char]`` is the next state."""
 
