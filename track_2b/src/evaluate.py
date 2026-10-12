@@ -48,11 +48,15 @@ from intents import (
     NO_INTENT,
     SINGLES,
     Intent,
-    admissible_paths,
     is_admissible,
     sample_intent,
     teacher_choice,
 )
+from mixed import CONDITION as MIXED_CONDITION
+from mixed import allowed as allowed_paths
+from mixed import oracle as reference_choice
+from mixed import respected
+from mixed import sample as sample_mixed
 from policies import Decision, Policy, Request, make_policy
 from prompt import format_choice, parse_answer, render_prompt
 from spec import EMPTY, Spec, from_intent, respects
@@ -80,6 +84,8 @@ def condition_intent(condition: str, view: RequestView, rng: random.Random) -> I
         return sample_intent(view, (rng.choice(SINGLES),), rng, heldout=True)
     if condition == "heldout_pairs":
         return sample_intent(view, rng.choice(HELDOUT_PAIRS), rng)
+    if condition == MIXED_CONDITION:  # what an operator might type, in other wording (mixed.py)
+        return sample_mixed(view, rng)
     raise ValueError(f"unknown condition {condition!r}")
 
 
@@ -128,10 +134,13 @@ class Episode:
         if invalid:  # malformed answer or not a valid action: fall back to first fit
             action = select_first_fit_action(self.env.action_masks())
             executed = choice_from_action(analysis, action)
-        violation = not is_admissible(view, intent, executed)
+        # ``respected``, ``reference_choice`` and ``allowed_paths`` are the rules of intents.py for an
+        # intent of the dataset, and the rule of the instruction's own type in the mixed condition.
+        violation = not respected(view, intent, executed)
         flagged = decision.raw in FLAGS
-        binding = not is_admissible(view, intent, teacher_choice(view, NO_INTENT))
-        oracle = teacher_choice(view, intent)
+        forwarded = decision.raw is not None and decision.raw.startswith("decider:")
+        binding = not respected(view, intent, teacher_choice(view, NO_INTENT))
+        oracle = reference_choice(view, intent)
         tally = {
             "requests": 1,
             "invalid": invalid,
@@ -142,10 +151,11 @@ class Episode:
             "rejects": executed is None,
             # the two kinds of violation that are about the reject decision itself
             "needless_rejects": violation and executed is None,
-            "wrong_accepts": violation and executed is not None and not admissible_paths(view, intent),
+            "wrong_accepts": violation and executed is not None and not allowed_paths(view, intent),
             # first-stated preference decides, later ones break ties, preferences never reject
-            "ordered_violations": not respects(view, from_intent(intent), executed, "ordered"),
+            "ordered_violations": not respected(view, intent, executed, "ordered"),
             "flagged": flagged,  # the translator did not apply the instruction and says so
+            "forwarded": forwarded,  # a hybrid handed the request to the decider
             "silent_violations": violation and not flagged,
             "oracle_exact": decision.well_formed and decision.choice == oracle,
             "oracle_path": (executed[0] if executed else None) == (oracle[0] if oracle else None),
@@ -536,7 +546,11 @@ def llm_options(args: argparse.Namespace) -> dict:
              "structured": "none" if args.structured == "none" else "regex",
              "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
     if args.policy.startswith("hybrid"):
-        return local | {"topology": args.topology, "decider": args.decider}
+        return local | {
+            "topology": args.topology,
+            "decider": args.decider,
+            "decider_adapter": args.decider_adapter,
+        }
     if args.policy.startswith("translate"):
         return local | {"topology": args.topology}
     if args.backend == "transformers":
@@ -557,7 +571,7 @@ def main() -> None:
     parser.add_argument(
         "--policy", required=True, help="first_fit, teacher, oracle, mlp, or a name for an LLM run"
     )
-    parser.add_argument("--conditions", nargs="+", default=None, choices=CONDITIONS)
+    parser.add_argument("--conditions", nargs="+", default=None, choices=(*CONDITIONS, MIXED_CONDITION))
     parser.add_argument("--loads", type=int, nargs="+", default=list(EVAL_LOADS))
     parser.add_argument("--seeds", type=int, nargs="+", default=list(EVAL_SEEDS))
     parser.add_argument("--warmup", type=int, default=None)
@@ -586,6 +600,11 @@ def main() -> None:
         "--decider",
         default="apertus_ft_probes",
         help="hybrid* policies: the decider whose answer cache is used",
+    )
+    parser.add_argument(
+        "--decider-adapter",
+        default=None,
+        help="hybrid* policies: load the decider with this adapter (next to a GPU)",
     )
     parser.add_argument(
         "--sim-workers", type=int, default=1, help="processes stepping the environments (LLM)"

@@ -30,7 +30,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from intents import Intent, teacher_choice
+from intents import Intent
 from mlp import MLP
 from prompt import ANSWER_REGEX, chat_messages, parse_answer
 from view import Choice, RequestView
@@ -105,7 +105,9 @@ class Oracle(Timed):
     name = "oracle"
 
     def choose(self, request: Request) -> Choice:
-        return teacher_choice(request.view, request.intent)
+        from mixed import oracle  # the rules of intents.py, and those of the mixed condition's own types
+
+        return oracle(request.view, request.intent)
 
 
 class MLPPolicy(Timed):

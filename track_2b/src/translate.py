@@ -294,21 +294,44 @@ class HybridPolicy(TranslatorPolicy):
 
 
 def make_hybrid_policy(
-    name: str, topology: str = "nobel-eu", decider: str = "apertus_ft_probes", **llm
+    name: str,
+    topology: str = "nobel-eu",
+    decider: str = "apertus_ft_probes",
+    decider_adapter: str | None = None,
+    **llm,
 ) -> HybridPolicy:
-    """``hybrid2_<kind>``: ``translate2_<kind>`` in front of the decider (its answers come from its cache)."""
+    """``hybrid2_<kind>``: ``translate2_<kind>`` in front of the decider.
+
+    Without ``decider_adapter`` both answer from their caches (a replay). With it the decider is
+    loaded with that adapter and asked live, and the translator still answers from its cache only:
+    its instructions are translated beforehand, and a missing one must stop the run instead of
+    being answered by a model without the translator's adapter.
+    """
     from policies import make_policy
 
     ordered = name.endswith("_ordered")
-    translator = make_translator(
-        name.removesuffix("_ordered").replace("hybrid", "translate", 1), topology, **llm
-    )
-    return HybridPolicy(
+    base = name.removesuffix("_ordered").replace("hybrid", "translate", 1)
+    if decider_adapter:
+        options = {
+            "model": llm.get("model"),
+            "adapter": decider_adapter,
+            "max_batch": llm.get("max_batch", 64),
+        }
+        translator = make_translator(base, topology)
+    else:
+        options = {}
+        translator = make_translator(base, topology, **llm)
+    policy = HybridPolicy(
         name,
         translator,
-        make_policy(decider, backend="transformers"),
+        make_policy(decider, backend="transformers", **options),
         "ordered" if ordered else "intersection",
     )
+    policy.parallel_safe = not decider_adapter  # a live decider is one model in this process
+    policy.cache_path = getattr(
+        policy.decider, "cache_path", None
+    )  # what a closed-loop run copies to the Hub
+    return policy
 
 
 def make_translator_policy(name: str, topology: str = "nobel-eu", **llm) -> TranslatorPolicy:
@@ -342,9 +365,12 @@ def collect_texts(args: argparse.Namespace) -> None:
 
     from evaluate import CONDITIONS, EVAL_LOADS, EVAL_SEEDS, WARMUP, WINDOW
 
+    conditions = args.conditions or [c for c in CONDITIONS if c != "I0"]
+    warmup = WARMUP if args.warmup is None else args.warmup
+    window = WINDOW if args.window is None else args.window
     jobs = [
-        {"policy": "oracle", "condition": c, "load": load, "seed": seed, "warmup": WARMUP, "window": WINDOW}
-        for c in CONDITIONS if c != "I0" for load in EVAL_LOADS for seed in EVAL_SEEDS
+        {"policy": "oracle", "condition": c, "load": load, "seed": seed, "warmup": warmup, "window": window}
+        for c in conditions for load in (args.loads or EVAL_LOADS) for seed in (args.seeds or EVAL_SEEDS)
     ]  # fmt: skip
     rows: dict[str, dict] = {}
     with Pool(args.workers) as pool:
@@ -361,14 +387,17 @@ def collect_texts(args: argparse.Namespace) -> None:
 
 def _episode_texts(job: dict) -> list[dict]:
     from evaluate import Episode
+    from mixed import Instruction
+    from mixed import expected as mixed_expected
     from policies import Oracle
 
     episode, policy, rows = Episode(job), Oracle(), {}
     while episode.remaining:
         intent = episode.intent
-        if intent.text not in rows:
-            rows[intent.text] = {"text": intent.text, "expect": from_intent(intent).to_json(),
-                                 "set": "closed_loop", "lang": "en", "kind": intent.key}  # fmt: skip
+        if intent.text not in rows and intent.text != "none":
+            meant = mixed_expected(intent) if isinstance(intent, Instruction) else from_intent(intent)
+            rows[intent.text] = {"text": intent.text, "expect": meant.to_json(), "set": job["condition"],
+                                 "lang": "en", "kind": intent.key}  # fmt: skip
         (decision,) = policy.decide([episode.request()])
         episode.apply(decision)
     return list(rows.values())
@@ -496,6 +525,19 @@ def main() -> None:
     parser.add_argument("--topology", default="nobel-eu")
     parser.add_argument("--out", type=Path, default=None)
     parser.add_argument("--workers", type=int, default=2, help="texts: simulator processes")
+    parser.add_argument("--conditions", nargs="+", default=None, help="texts: closed-loop conditions to list")
+    parser.add_argument(
+        "--loads", type=int, nargs="+", default=None, help="texts: loads (default: the protocol's)"
+    )
+    parser.add_argument(
+        "--seeds", type=int, nargs="+", default=None, help="texts: seeds (default: the protocol's)"
+    )
+    parser.add_argument(
+        "--warmup", type=int, default=None, help="texts: warm-up requests (default: the protocol's)"
+    )
+    parser.add_argument(
+        "--window", type=int, default=None, help="texts: measured requests (default: the protocol's)"
+    )
     parser.add_argument("--examples", type=int, default=8, help="score: failures kept per set and kind")
     parser.add_argument("--chunk", type=int, default=512, help="parse: instructions between two syncs")
     parser.add_argument("--model", default=None)

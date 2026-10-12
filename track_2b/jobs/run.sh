@@ -15,6 +15,9 @@
 #           decider on the new probe sets (unseen instruction types, text that is no instruction,
 #           independently written German, French and Italian)
 #   phase2-ft  fine-tune the second translator and run it on all instruction sets
+#   check3  the mixed closed-loop condition with a live decider behind the translator, tiny model
+#   phase3  the mixed condition (mixed.py) in closed loop: the decider alone, and the hybrid of the
+#           second fine-tuned translator and the decider; the translator's answers are computed first
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
@@ -30,7 +33,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft}
+STAGE=${1:?stage: check | check2 | check3 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -276,6 +279,42 @@ check2)
         --data data/probes --splits $PROBES2 --limit 6
     $PY src/evaluate.py offline --policy hybrid2_check_few --decider check_probes2 --data data/probes \
         --splits not_instruction --limit 6
+    ;;
+check3)
+    TINY=HuggingFaceTB/SmolLM2-135M-Instruct
+    SHORT="--conditions operations_mix --loads 390 --seeds 1 2 --warmup 30 --window 8"
+    stamp "mixed condition on the tiny model: instructions, translation, decider alone, hybrid with a live decider"
+    # shellcheck disable=SC2086
+    $PY src/translate.py texts $SHORT --workers 2 --out /tmp/mix_check.jsonl
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs "translate2_check3:nobel-eu:regex:/tmp/mix_check.jsonl"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy check3_decider --backend transformers --model $TINY $SHORT --sim-workers 2
+    # any adapter of the tiny model serves as "the decider's" here: this stage only checks the plumbing
+    $PY src/train.py --model $TINY --data-dir data/translate2 --out runs/check3 --no-4bit --limit-train 8 \
+        --limit-heldout 2 --max-steps 1 --save-steps 0 --batch 4 --accumulation 1 --eval-records 2 \
+        --max-length 1536 --max-new-tokens 8
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy hybrid2_check3 --decider check3_hybrid --decider-adapter runs/check3/adapter \
+        --model $TINY $SHORT --sim-workers 2 --out results/eval/hybrid2_check3_mix.json
+    ;;
+phase3)
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}" "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$ADAPTER_REPO', local_dir='runs/adapter', allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator2/adapter', allow_patterns=['adapter_*', '*.jinja']))"
+    stamp "second translator, fine-tuned: the instructions of the mixed condition"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator2/adapter --batch 96 \
+        --sync-repo "$WORK_REPO" --jobs "translate2_ft:nobel-eu:regex:$I/mix.jsonl"
+    stamp "decider alone: mixed condition, closed loop"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy apertus_ft_mix --backend transformers --model "$MODEL" --adapter runs/adapter \
+        --conditions operations_mix --sim-workers "$WORKERS" $SYNC
+    stamp "hybrid (second translator, then decider): mixed condition, closed loop"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy hybrid2_ft --decider apertus_ft_hybridmix --decider-adapter runs/adapter \
+        --model "$MODEL" --conditions operations_mix --sim-workers "$WORKERS" \
+        --out results/eval/hybrid2_ft_mix.json $SYNC
     ;;
 phase2)
     : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}"
