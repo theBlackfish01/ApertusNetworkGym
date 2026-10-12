@@ -95,7 +95,7 @@ PROBES="independent de fr it gsw noisy faulty out_of_scope germany50"
 NEW="$I/unseen.jsonl,$I/unseen_impossible.jsonl,$I/not_instruction.jsonl,$I/de_ind.jsonl,$I/fr_ind.jsonl,$I/it_ind.jsonl"
 PROBES2="unseen unseen_impossible not_instruction de_ind fr_ind it_ind"
 # Third round (corpora3_tests.py, mixed3.py): the policy language in four languages, the new types.
-V3="$I/v3_en.jsonl,$I/v3_de.jsonl,$I/v3_fr.jsonl,$I/v3_it.jsonl,$I/v3_new.jsonl,$I/v3_new_impossible.jsonl,$I/v3_partial.jsonl,$I/v3_other.jsonl,$I/v3_not.jsonl,$I/v3_faulty.jsonl"
+V3="$I/v3_en.jsonl,$I/v3_de.jsonl,$I/v3_fr.jsonl,$I/v3_it.jsonl,$I/v3_new.jsonl,$I/v3_new_hard.jsonl,$I/v3_new_impossible.jsonl,$I/v3_partial.jsonl,$I/v3_other.jsonl,$I/v3_not.jsonl,$I/v3_faulty.jsonl"
 EARLIER="$I/independent.jsonl,$I/de_ind.jsonl,$I/fr_ind.jsonl,$I/it_ind.jsonl"
 together() {  # run the given commands at the same time on this machine and fail if one fails
     local pids=() pid
@@ -454,7 +454,7 @@ PYEOF
     stamp "decider: probes of the new types, of partial instructions, and of the policy language in English"
     # shellcheck disable=SC2086
     $PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model "$MODEL" \
-        --adapter runs/adapter --data data/probes --splits v3_new v3_new_impossible v3_partial v3_en \
+        --adapter runs/adapter --data data/probes --splits v3_new v3_new_hard v3_new_impossible v3_partial v3_en \
         --batch-envs 64 --out results/offline/apertus_ft_probes3.json $SYNC
     stamp "closed loop, mixed condition of the third round: decider alone, hybrid, hybrid that asks (one GPU)"
     CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"

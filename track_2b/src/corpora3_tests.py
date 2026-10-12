@@ -11,6 +11,12 @@ the selection; the tables report instruction-blind baselines on the same request
                               of the combination: atom, pair (seen in training), heldout_pair,
                               triple, two_preferences
     v3_new                    the four new types, PER_TYPE requests each
+    v3_new_hard               the new types on requests where, in addition, neither of two fixed
+                              choices that ignore the instruction complies: the first candidate
+                              that fits, and the decision without an instruction. Compliance
+                              there cannot come from a habit of either kind. (A modulation
+                              threshold can almost never be made hard in this sense: the shortest
+                              candidate has the most efficient format.)
     v3_new_impossible         the three new constraints on requests where no path complies
     v3_partial                one clause the slots carry with one they cannot
     v3_other v3_not v3_faulty instruction rows only (no decision is scored): routing instructions
@@ -37,7 +43,7 @@ from spec import Spec, Topology
 from view import RequestView
 
 ROOT = Path(__file__).resolve().parents[1]
-FILLS, PER_TYPE, PER_IMPOSSIBLE, PER_PARTIAL, FAULTY = 4, 200, 70, 25, 150
+FILLS, PER_TYPE, PER_HARD, PER_IMPOSSIBLE, PER_PARTIAL, FAULTY = 4, 200, 100, 70, 25, 150
 SCAN = 300  # requests tried for one instruction before a non-restrictive one is accepted
 GROUPS = ("atom", "pair", "heldout_pair", "triple", "two_preferences")
 
@@ -68,16 +74,25 @@ def probe3(item: dict, instruction: mixed3.Instruction, name: str) -> dict:
 
 
 def place(clauses: tuple, text: str, lang: str, kind: str, pool: list[dict], rng: random.Random, count: int,
-          *, impossible: bool = False) -> list[mixed3.Instruction | tuple]:  # fmt: skip
-    """``count`` requests on which the sentence is restrictive (or, with ``impossible``, cannot be met)."""
+          *, impossible: bool = False, hard: bool = False) -> list[mixed3.Instruction | tuple]:  # fmt: skip
+    """``count`` requests on which the sentence is restrictive (or, with ``impossible``, cannot be met).
+
+    With ``hard`` also neither the first candidate that fits nor the decision without an
+    instruction complies; requests where that cannot be arranged are left out.
+    """
     found, spare = [], []
-    for item in rng.sample(pool, len(pool))[:SCAN]:
+    for item in rng.sample(pool, len(pool))[: SCAN * (4 if hard else 1)]:
         view = RequestView.from_json(item["meta"]["view"])
         made = mixed3.instance(clauses, text, lang, view, rng, kind=kind, meetable=not impossible, tries=4)
         if made is None:
             continue
-        feasible = sum(p.feasible for p in view.paths)
-        if impossible or 0 < len(mixed3.allowed(view, made)) < feasible:
+        feasible = [p.index for p in view.paths if p.feasible]
+        allowed = mixed3.allowed(view, made)
+        if hard:
+            plain = item["meta"]["no_intent_choice"]
+            if allowed and feasible[0] not in allowed and plain and plain[0] not in allowed:
+                found.append((item, made))
+        elif impossible or 0 < len(allowed) < len(feasible):
             found.append((item, made))
         elif len(spare) < count:
             spare.append((item, made))
@@ -112,6 +127,11 @@ def build_tests(topology: Topology, data: Path = ROOT / "data") -> None:
         probe3(item, made, "v3_new")
         for kind in NEW_TYPES
         for item, made in _spread(english["new_types"][kind], (kind,), "new", pool, rng, PER_TYPE)
+    ]
+    probes["v3_new_hard"] = [
+        probe3(item, made, "v3_new_hard")
+        for kind in NEW_TYPES
+        for item, made in _spread(english["new_types"][kind], (kind,), "new", pool, rng, PER_HARD, hard=True)
     ]
     probes["v3_new_impossible"] = [
         probe3(item, made, "v3_new_impossible")
@@ -166,11 +186,11 @@ def build_tests(topology: Topology, data: Path = ROOT / "data") -> None:
 
 
 def _spread(sentences: list[str], clauses: tuple, kind: str, pool: list[dict], rng: random.Random, count: int,
-            impossible: bool = False) -> list:  # fmt: skip
+            impossible: bool = False, hard: bool = False) -> list:  # fmt: skip
     """``count`` requests for one clause kind, spread evenly over its sentences."""
     per = -(-count // len(sentences))
     out = [pair for text in sentences
-           for pair in place(clauses, text, "en", kind, pool, rng, per, impossible=impossible)]  # fmt: skip
+           for pair in place(clauses, text, "en", kind, pool, rng, per, impossible=impossible, hard=hard)]  # fmt: skip
     rng.shuffle(out)
     return out[:count]
 

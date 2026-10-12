@@ -1,0 +1,79 @@
+{"text": "Anything but option 0.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Candidate 0 is ruled out for this request, so choose among the remaining ones.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Do not put this service on a route showing less than 100 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 110 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 120 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 30 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 60 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 70 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not put this service on a route showing less than 90 free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Do not take the first candidate in the list; any of the others is fine.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Exclude the candidate at the head of the list and feel free to use whichever of the others.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Free spectrum on the path has to be 100 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Free spectrum on the path has to be 110 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Free spectrum on the path has to be 120 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Free spectrum on the path has to be 40 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Free spectrum on the path has to be 50 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Free spectrum on the path has to be 70 slots at the very least.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 30 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 40 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 50 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 60 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 70 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 80 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Headroom requirement: the 'free' figure of the candidate must be 90 or higher.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "I want the path that lists the biggest individual free block.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "Look at the free blocks listed and select the route that contains the widest one.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "Modulation must be at least 32QAM; anything less efficient is not acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_mod"}
+{"text": "Not the first choice this time: every other entry in the list is acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Only accept candidates running 32QAM or a higher-order modulation.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_mod"}
+{"text": "Only candidates with at least 100 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 110 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 120 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 30 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 40 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 50 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 70 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 80 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Only candidates with at least 90 free slots along the route are acceptable.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please choose the route whose biggest contiguous free block is the largest of all.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "Please pick any route other than the most direct one listed first.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Please reject any option whose free-slot count is below 100.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 110.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 120.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 30.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 50.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 60.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 70.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Please reject any option whose free-slot count is below 90.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "Prefer the candidate with the largest unbroken free block, a future wideband channel will need it.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "Take the candidate with the largest single free spectrum block.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "The path must have 100 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 120 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 30 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 40 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 50 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 60 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 70 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 80 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "The path must have 90 or more free slots.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "To limit fragmentation, go for the option that offers the single largest gap of free spectrum.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 100 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 110 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 120 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 30 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 40 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 60 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 70 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We expect upgrades on this corridor, so I need no fewer than 90 slots free on the chosen route.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "We keep overloading the first-listed path, so give me any candidate except that one.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}
+{"text": "Whichever candidate has the largest contiguous run of free slots should be selected.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "min 100 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 110 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 120 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 40 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 50 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 70 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "min 90 free slots on route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "min_free"}
+{"text": "pick the one w/ the widest free block", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "largest_block"}
+{"text": "skip the top entry, the rest are all ok", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_new_hard", "lang": "en", "kind": "not_first"}

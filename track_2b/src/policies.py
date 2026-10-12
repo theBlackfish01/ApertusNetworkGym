@@ -7,6 +7,7 @@ treats heuristics, the MLP and the language model identically:
     teacher          ONG BM-LS-KSP (no-intent teacher); ignores the intent
     first_candidate  the first candidate that fits; ignores the intent and needs only the request
                      view, so it is the instruction-blind baseline on stored requests
+    no_intent        the no-intent teacher's rule on the request view; the second such baseline
     oracle          the intent-aware teacher of ``intents.py`` (upper bound for each condition)
     mlp              the numeric control of ``mlp.py``
     llm              Apertus, zero-shot or fine-tuned: behind an OpenAI-compatible endpoint (vLLM)
@@ -115,6 +116,18 @@ class FirstCandidate(Timed):
     def choose(self, request: Request) -> Choice:
         path = next((p for p in request.view.paths if p.feasible), None)
         return None if path is None else (path.index, path.first_slot)
+
+
+class NoIntent(Timed):
+    """Ignores the instruction: the no-intent teacher's rule on the request view (the lowest start
+    slot among the listed blocks). The second instruction-blind baseline on stored requests."""
+
+    name = "no_intent"
+
+    def choose(self, request: Request) -> Choice:
+        from intents import NO_INTENT, teacher_choice
+
+        return teacher_choice(request.view, NO_INTENT)
 
 
 class Oracle(Timed):
@@ -443,6 +456,8 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         return Oracle()
     if name == "first_candidate":
         return FirstCandidate()
+    if name == "no_intent":
+        return NoIntent()
     if name == "mlp":
         return MLPPolicy()
     if name.startswith("translate"):
