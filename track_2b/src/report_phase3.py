@@ -15,7 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 READERS = {
     "translate3_few": "Apertus 8B, 15 examples, no training",
-    "translate3_few70": "Apertus 70B, 15 examples, no training",
+    "translate3_few70": "Apertus 70B (first generation), 15 examples, no training",
+    "translate3_few70b": "Apertus 70B (generation 1.5), 15 examples, no training",
     "translate3_ft": "Apertus 8B fine-tuned (reader 1)",
     "translate3_ft2": "Apertus 8B fine-tuned (reader 2)",
     "translate3_ft_laptop": "Reader 1 on the laptop (4-bit GGUF, llama.cpp)",
@@ -34,6 +35,7 @@ OFFLINE = {
     "translate3_ft_probes3": "Translator alone (reader 1)",
     "hybrid3_ft_noguard_probes3": "Hybrid without the guard",
     "hybrid3_ft_probes3": "Hybrid",
+    "hybrid3_ft_laptop_probes3": "Hybrid, all three models on the laptop",
 }
 CLOSED = {
     "oracle_mix3": "Rules for every kind (reference)",
@@ -171,7 +173,7 @@ def reader_tables(design: dict, results: Path) -> list:
               "Earlier sets (independent, native German, French, Italian)": ["independent", "de_ind", "fr_ind", "it_ind"],
               "Instructions of the closed loop": ["operations_mix3"]}  # fmt: skip
     for first, second in (("translate3_ft", "translate3_ft2"), ("translate3_ft", "translate3_few"),
-                          ("translate3_ft", "translate3_few70"), ("translate3_ft2", "translate3_ft")):  # fmt: skip
+                          ("translate3_ft", "translate3_few70"), ("translate3_ft", "translate3_few70b")):  # fmt: skip
         for label, sets in groups.items():
             c: dict = {}
             for row in design["pairs"]:
@@ -179,7 +181,8 @@ def reader_tables(design: dict, results: Path) -> list:
                     for key, value in row.items():
                         if isinstance(value, int):
                             c[key] = c.get(key, 0) + value
-            if c.get("n"):
+            # only where the second reader answered every instruction of the group
+            if c.get("n") and c["n"] == pooled(rows, first, sets).get("n"):
                 table.append([f"{READERS[first]} / {READERS[second]}", label, str(c["n"]),
                               pct(c["wrong_alone"], c["n"]), pct(c["wrong_left"], c["n"]),
                               pct(c["silent_alone"], c["n"]), pct(c["silent_left"], c["n"]),
@@ -188,6 +191,16 @@ def reader_tables(design: dict, results: Path) -> list:
                 ["First reader / second reader", "Instructions", "n", "Not right, first reader alone",
                  "Not right and not asked", "Applied wrongly, first reader alone", "Applied wrongly and not asked",
                  "Asked", "Asked although right"], table))  # fmt: skip
+    if design.get("latency"):
+        names = {
+            "translate3_ft_laptop": "Reader 1",
+            "translate3_ft2_laptop": "Reader 2",
+            "apertus_ft_laptop": "Decider",
+        }
+        out.append((("On the laptop (RTX 4060, 8 GB; llama.cpp, 4-bit base model, adapters switched per request): "
+                    "seconds per answer"), ["Model", "Answers", "Median", "Mean", "95th percentile"],
+                    [[names.get(r["policy"], r["policy"]), str(r["answers"]), f"{r['median_s']:.2f}",
+                      f"{r['mean_s']:.2f}", f"{r['p95_s']:.2f}"] for r in design["latency"]]))  # fmt: skip
     return out
 
 

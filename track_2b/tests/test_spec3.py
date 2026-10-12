@@ -41,6 +41,12 @@ def test_line_of_slots_round_trips():
     assert parse_spec(FULL.replace("prefer=km,load", "prefer=cost")).status == "malformed"
 
 
+def test_candidate_zero_survives_json():
+    spec = Spec(path=0)
+    assert spec.to_json()["path"] == 0 and Spec.from_json(spec.to_json()) == spec
+    assert "rest" not in spec.to_json() and "max_hops" not in spec.to_json()
+
+
 def test_first_format_is_unchanged():
     old = Spec((("Berlin", "Prague"),), ("hops",))
     assert format_spec(old) == "avoid=Berlin-Prague; prefer=hops"

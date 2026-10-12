@@ -6,7 +6,7 @@
 {"text": "A path of no more than 1400 km that includes Munich is what I am after.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Munich"], "max_km": 1400}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
 {"text": "A path of no more than 1950 km that includes Hamburg is what I am after.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Hamburg"], "max_km": 1950}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
 {"text": "A path of no more than 900 km that includes Zurich is what I am after.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Zurich"], "max_km": 900}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
-{"text": "After checking with the field team, number 0 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_en", "lang": "en", "kind": "atom"}
+{"text": "After checking with the field team, number 0 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "After checking with the field team, number 2 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "After checking with the field team, number 3 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Among routes of 2 hops or fewer, take the shortest one in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"], "max_hops": 2}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
@@ -140,7 +140,7 @@
 {"text": "I need the shortest path in km among those that have no more than 6 hops and do not pass through Strasbourg.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"], "nodes": ["Strasbourg"], "max_hops": 6}, "set": "v3_en", "lang": "en", "kind": "triple"}
 {"text": "I need the shortest path in km among those that have no more than 7 hops and do not pass through Belgrade.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"], "nodes": ["Belgrade"], "max_hops": 7}, "set": "v3_en", "lang": "en", "kind": "triple"}
 {"text": "I want the candidate with the minimum total length in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
-{"text": "I want the lightpath on the candidate numbered 0, no other.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_en", "lang": "en", "kind": "atom"}
+{"text": "I want the lightpath on the candidate numbered 0, no other.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "I want the lightpath on the candidate numbered 1, no other.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "I want the lightpath on the candidate numbered 3, no other.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "I want the lightpath on the candidate numbered 4, no other.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_en", "lang": "en", "kind": "atom"}
@@ -245,7 +245,7 @@
 {"text": "Pick the least loaded path, but it may not have more than 4 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 4}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
 {"text": "Pick the least loaded path, but it may not have more than 6 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 6}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
 {"text": "Pick the least loaded path, but it may not have more than 7 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 7}, "set": "v3_en", "lang": "en", "kind": "heldout_pair"}
-{"text": "Planning has already approved route 0 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_en", "lang": "en", "kind": "atom"}
+{"text": "Planning has already approved route 0 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Planning has already approved route 3 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Planning has already approved route 4 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Please choose the candidate with the lowest km figure.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
@@ -270,7 +270,7 @@
 {"text": "Please prefer the candidate with the most free slots along it.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Please prefer the most spectrum-efficient candidate.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Please prefer whichever candidate crosses the smallest number of links.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
-{"text": "Please take option number 0 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_en", "lang": "en", "kind": "atom"}
+{"text": "Please take option number 0 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Please take option number 1 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Please take option number 2 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Power works at the Frankfurt site this weekend: the route must not transit that node.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Frankfurt"]}, "set": "v3_en", "lang": "en", "kind": "atom"}
@@ -312,7 +312,7 @@
 {"text": "SLA for this customer: path length up to 1750 km, link count up to 6.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 6, "max_km": 1750}, "set": "v3_en", "lang": "en", "kind": "pair"}
 {"text": "SLA for this customer: path length up to 2150 km, link count up to 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 3, "max_km": 2150}, "set": "v3_en", "lang": "en", "kind": "pair"}
 {"text": "SLA for this customer: path length up to 2150 km, link count up to 7.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 7, "max_km": 2150}, "set": "v3_en", "lang": "en", "kind": "pair"}
-{"text": "Select entry 0 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_en", "lang": "en", "kind": "atom"}
+{"text": "Select entry 0 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Select entry 3 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_en", "lang": "en", "kind": "atom"}
 {"text": "Shortest candidate in km, please, as long as it does not touch the link between Berlin and Prague.", "expect": {"status": "ok", "avoid": [["Berlin", "Prague"]], "prefer": ["km"]}, "set": "v3_en", "lang": "en", "kind": "pair"}
 {"text": "Shortest candidate in km, please, as long as it does not touch the link between Brussels and Frankfurt.", "expect": {"status": "ok", "avoid": [["Brussels", "Frankfurt"]], "prefer": ["km"]}, "set": "v3_en", "lang": "en", "kind": "pair"}

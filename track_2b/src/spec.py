@@ -114,7 +114,8 @@ class Spec:
         }
         extra = {"nodes": list(self.nodes), "via": list(self.via), "max_hops": self.max_hops,
                  "max_km": self.max_km, "path": self.path, "rest": self.rest}  # fmt: skip
-        return data | {key: value for key, value in extra.items() if value not in ([], None, False)}
+        # by identity: candidate number 0 is a value, and 0 == False
+        return data | {k: v for k, v in extra.items() if v is not None and v is not False and v != []}
 
     @classmethod
     def from_json(cls, data: dict) -> Spec:

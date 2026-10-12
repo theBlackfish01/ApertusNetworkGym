@@ -74,7 +74,7 @@
 {"text": "Accetto solo percorsi lunghi al massimo 2050 km, che non passino sullo span Berlino–Monaco di Baviera e che abbiano al più 5 hop.", "expect": {"status": "ok", "avoid": [["Berlin", "Munich"]], "prefer": [], "max_hops": 5, "max_km": 2050}, "set": "operations_mix3", "lang": "it", "kind": "triple"}
 {"text": "Accetto solo percorsi lunghi al massimo 650 km, che non passino sullo span Strasburgo–Parigi e che abbiano al più 3 hop.", "expect": {"status": "ok", "avoid": [["Strasbourg", "Paris"]], "prefer": [], "max_hops": 3, "max_km": 650}, "set": "operations_mix3", "lang": "it", "kind": "triple"}
 {"text": "Add a note to the handover log that I am leaving at 18:00.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "not_instruction"}
-{"text": "After checking with the field team, number 0 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "After checking with the field team, number 0 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "After checking with the field team, number 1 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "After checking with the field team, number 2 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "After checking with the field team, number 3 is the one to set up.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -276,7 +276,7 @@
 {"text": "Aucun passage par Hambourg pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Hamburg"]}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Aucun passage par Varsovie pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Warsaw"]}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Aucun passage par Vienne pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Vienna"]}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
-{"text": "Auswahl: Eintrag 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
+{"text": "Auswahl: Eintrag 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Auswahl: Eintrag 1.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Auswahl: Eintrag 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Auswahl: Eintrag 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
@@ -371,7 +371,7 @@
 {"text": "Bitte Brüssel umgehen und nicht mehr als 5 Hops verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Brussels"], "max_hops": 5}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
 {"text": "Bitte Frankfurt umgehen und dann die am wenigsten ausgelastete Route wählen.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Frankfurt"]}, "set": "operations_mix3", "lang": "de", "kind": "pair"}
 {"text": "Bitte Glasgow komplett umgehen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Glasgow"]}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
-{"text": "Bitte Kandidat 0 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
+{"text": "Bitte Kandidat 0 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Bitte Kandidat 1 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Bitte Kandidat 4 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Bitte Mailand komplett umgehen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Milan"]}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
@@ -483,7 +483,7 @@
 {"text": "Bypass Zagreb and use no more than 5 hops.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Zagreb"], "max_hops": 5}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "Bypass Zurich and use no more than 4 hops.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Zurich"], "max_hops": 4}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "Bypass Zurich and use no more than 6 hops.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Zurich"], "max_hops": 6}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
-{"text": "C'est la 0 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "C'est la 0 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "C'est la 1 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "C'est la 3 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "C'est la 4 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
@@ -515,12 +515,12 @@
 {"text": "Cerco un instradamento che attraversi Bruxelles tenendosi fuori da Copenaghen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Copenhagen"], "via": ["Brussels"]}, "set": "operations_mix3", "lang": "it", "kind": "heldout_pair"}
 {"text": "Cerco un instradamento che attraversi Monaco di Baviera tenendosi fuori da Strasburgo.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Strasbourg"], "via": ["Munich"]}, "set": "operations_mix3", "lang": "it", "kind": "heldout_pair"}
 {"text": "Cerco un instradamento che attraversi Strasburgo tenendosi fuori da Berlino.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Berlin"], "via": ["Strasbourg"]}, "set": "operations_mix3", "lang": "it", "kind": "heldout_pair"}
-{"text": "Choice for this request: index 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "Choice for this request: index 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Choice for this request: index 1.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Choice for this request: index 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Choice for this request: index 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Choice for this request: index 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
-{"text": "Choix imposé : candidat 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "Choix imposé : candidat 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Choix imposé : candidat 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Choix imposé : candidat 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Choix imposé : candidat 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
@@ -537,7 +537,7 @@
 {"text": "Con il taglio sulla fibra fra Amsterdam e Bruxelles quel collegamento è inutilizzabile; ti chiedo comunque di restare entro 2 link attraversati e 600 km complessivi per non violare lo SLA.", "expect": {"status": "ok", "avoid": [["Amsterdam", "Brussels"]], "prefer": [], "max_hops": 2, "max_km": 600}, "set": "operations_mix3", "lang": "it", "kind": "triple"}
 {"text": "Con il taglio sulla fibra fra Milano e Monaco di Baviera quel collegamento è inutilizzabile; ti chiedo comunque di restare entro 7 link attraversati e 2550 km complessivi per non violare lo SLA.", "expect": {"status": "ok", "avoid": [["Milan", "Munich"]], "prefer": [], "max_hops": 7, "max_km": 2550}, "set": "operations_mix3", "lang": "it", "kind": "triple"}
 {"text": "Con il taglio sulla fibra fra Zurigo e Milano quel collegamento è inutilizzabile; ti chiedo comunque di restare entro 5 link attraversati e 1100 km complessivi per non violare lo SLA.", "expect": {"status": "ok", "avoid": [["Zurich", "Milan"]], "prefer": [], "max_hops": 5, "max_km": 1100}, "set": "operations_mix3", "lang": "it", "kind": "triple"}
-{"text": "Confermo l'alternativa n. 0: attivare su quella e nessun'altra.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
+{"text": "Confermo l'alternativa n. 0: attivare su quella e nessun'altra.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Confermo l'alternativa n. 1: attivare su quella e nessun'altra.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Confermo l'alternativa n. 3: attivare su quella e nessun'altra.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Confermo l'alternativa n. 4: attivare su quella e nessun'altra.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
@@ -1440,7 +1440,7 @@
 {"text": "Il sito di Parigi è in manutenzione: tieni il percorso fuori da lì.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Paris"]}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Il sito di Vienna è in manutenzione, quindi il circuito non deve toccarlo; deve invece transitare da Copenaghen come richiesto dal cliente.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Vienna"], "via": ["Copenhagen"]}, "set": "operations_mix3", "lang": "it", "kind": "heldout_pair"}
 {"text": "In erster Linie zählt die kürzeste Distanz in km, und falls zwei Kandidaten gleich lang sind, den mit mehr freien Slots nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": ["km", "load"]}, "set": "operations_mix3", "lang": "de", "kind": "two_preferences"}
-{"text": "Instrada sul candidato 0, già concordato con il cliente.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
+{"text": "Instrada sul candidato 0, già concordato con il cliente.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Instrada sul candidato 1, già concordato con il cliente.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Instrada sul candidato 2, già concordato con il cliente.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Instrada sul candidato 4, già concordato con il cliente.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
@@ -1994,7 +1994,7 @@
 {"text": "Merci de retenir de préférence l'itinéraire qui a le plus de slots libres, pourvu qu'il ne traverse pas le nœud Berlin, en maintenance.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Berlin"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
 {"text": "Merci de retenir de préférence l'itinéraire qui a le plus de slots libres, pourvu qu'il ne traverse pas le nœud Bruxelles, en maintenance.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Brussels"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
 {"text": "Merci de retenir de préférence l'itinéraire qui a le plus de slots libres, pourvu qu'il ne traverse pas le nœud Milan, en maintenance.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Milan"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
-{"text": "Merci de retenir l'option 0 de la liste, c'est celle qui a été validée avec le client.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "Merci de retenir l'option 0 de la liste, c'est celle qui a été validée avec le client.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Merci de retenir l'option 1 de la liste, c'est celle qui a été validée avec le client.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Merci de retenir l'option 4 de la liste, c'est celle qui a été validée avec le client.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Merci de retenir un chemin d'au plus 1400 km qui évite le segment entre Paris et Strasbourg.", "expect": {"status": "ok", "avoid": [["Paris", "Strasbourg"]], "prefer": [], "max_km": 1400}, "set": "operations_mix3", "lang": "fr", "kind": "heldout_pair"}
@@ -2496,7 +2496,7 @@
 {"text": "Per lo SLA il percorso deve stare entro 2150 km e attraversare al più 6 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 6, "max_km": 2150}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
 {"text": "Per lo SLA il percorso deve stare entro 800 km e attraversare al più 1 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 1, "max_km": 800}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
 {"text": "Per lo SLA il percorso deve stare entro 950 km e attraversare al più 2 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 2, "max_km": 950}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
-{"text": "Per questa richiesta va bene il percorso 0, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
+{"text": "Per questa richiesta va bene il percorso 0, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Per questa richiesta va bene il percorso 2, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Per questa richiesta va bene il percorso 3, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Per questa richiesta va bene il percorso 4, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
@@ -2512,7 +2512,7 @@
 {"text": "Per questo servizio accetto al massimo 8 hop, a patto che il percorso non passi sul collegamento tra Amburgo e Francoforte.", "expect": {"status": "ok", "avoid": [["Hamburg", "Frankfurt"]], "prefer": [], "max_hops": 8}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
 {"text": "Per questo servizio accetto al massimo 8 hop, a patto che il percorso non passi sul collegamento tra Strasburgo e Parigi.", "expect": {"status": "ok", "avoid": [["Strasbourg", "Paris"]], "prefer": [], "max_hops": 8}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
 {"text": "Per questo servizio conta la latenza: vai sull'instradamento con la lunghezza in km più bassa.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
-{"text": "Pfad Nr. 0 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
+{"text": "Pfad Nr. 0 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Pfad Nr. 1 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Pfad Nr. 2 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Pfad Nr. 3 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
@@ -2547,7 +2547,7 @@
 {"text": "Pick the least loaded path, but it may not have more than 6 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 6}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "Pick the least loaded path, but it may not have more than 7 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 7}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "Pick the least loaded path, but it may not have more than 9 hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 9}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
-{"text": "Planning has already approved route 0 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "Planning has already approved route 0 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Planning has already approved route 1 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Planning has already approved route 2 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Planning has already approved route 3 in your list, so provision exactly that one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -2657,7 +2657,7 @@
 {"text": "Please rule out every option that would use a format below 8QAM.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "min_mod"}
 {"text": "Please rule out every option that would use a format below QPSK.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "min_mod"}
 {"text": "Please schedule the activation for Saturday 02:00 instead of doing it now.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "not_instruction"}
-{"text": "Please take option number 0 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "Please take option number 0 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Please take option number 1 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Please take option number 2 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Please take option number 3 from the list.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -2974,7 +2974,7 @@
 {"text": "Scegli una rotta che includa Bruxelles tra i nodi attraversati.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Brussels"]}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Scegli una rotta che includa Copenaghen tra i nodi attraversati.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Copenhagen"]}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Scelta obbligata: la riga 4 dell'elenco.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
-{"text": "Select entry 0 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "Select entry 0 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Select entry 1 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Select entry 2 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Select entry 3 of the candidates shown.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -3150,7 +3150,7 @@
 {"text": "Suite à la coupure entre Hambourg et Francfort, on n'utilise plus ce lien ; en plus, Amsterdam est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Hamburg", "Frankfurt"]], "prefer": [], "nodes": ["Amsterdam"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
 {"text": "Suite à la coupure entre Paris et Bruxelles, on n'utilise plus ce lien ; en plus, Munich est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Paris", "Brussels"]], "prefer": [], "nodes": ["Munich"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
 {"text": "Suite à la coupure entre Zurich et Lyon, on n'utilise plus ce lien ; en plus, Bruxelles est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Zurich", "Lyon"]], "prefer": [], "nodes": ["Brussels"]}, "set": "operations_mix3", "lang": "fr", "kind": "pair"}
-{"text": "Sélectionner l'entrée 0 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "Sélectionner l'entrée 0 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Sélectionner l'entrée 2 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Take the candidate with the largest single free spectrum block.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "largest_block"}
 {"text": "Take the least loaded route.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -3571,13 +3571,13 @@
 {"text": "Usa il candidato numero 1.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Usa il candidato numero 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Usa il candidato numero 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
-{"text": "Use candidate 0, on condition that it shows 100 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0, on condition that it shows 120 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0, on condition that it shows 50 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0, on condition that it shows 70 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0, on condition that it shows 80 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0, on condition that it shows 90 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
-{"text": "Use candidate 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "Use candidate 0, on condition that it shows 100 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0, on condition that it shows 120 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0, on condition that it shows 50 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0, on condition that it shows 70 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0, on condition that it shows 80 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0, on condition that it shows 90 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
+{"text": "Use candidate 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "Use candidate 1, on condition that it shows 100 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
 {"text": "Use candidate 1, on condition that it shows 110 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
 {"text": "Use candidate 1, on condition that it shows 30 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
@@ -3609,7 +3609,7 @@
 {"text": "Use candidate 4, on condition that it shows 70 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
 {"text": "Use candidate 4, on condition that it shows 90 or more free slots along the route.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4, "rest": true}, "set": "operations_mix3", "lang": "en", "kind": "partial"}
 {"text": "Use candidate 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
-{"text": "Utilisez le chemin n° 0, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "Utilisez le chemin n° 0, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Utilisez le chemin n° 3, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "Vai sul percorso che consente la modulazione più efficiente, così impegniamo meno slot.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "Vai sulla rotta meno carica, quella con più spettro libero, ma che non attraversi il nodo di Amburgo.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Hamburg"]}, "set": "operations_mix3", "lang": "it", "kind": "pair"}
@@ -3719,7 +3719,7 @@
 {"text": "Wir brauchen einen Pfad ohne die Strecke Warschau–Berlin, der nicht mehr als 5 Links durchläuft.", "expect": {"status": "ok", "avoid": [["Warsaw", "Berlin"]], "prefer": [], "max_hops": 5}, "set": "operations_mix3", "lang": "de", "kind": "pair"}
 {"text": "Wir brauchen einen Pfad ohne die Strecke Zagreb–Belgrad, der nicht mehr als 1 Links durchläuft.", "expect": {"status": "ok", "avoid": [["Zagreb", "Belgrade"]], "prefer": [], "max_hops": 1}, "set": "operations_mix3", "lang": "de", "kind": "pair"}
 {"text": "Wir haben in Bordeaux ein Wartungsfenster, also bitte keinen Weg nehmen, der dort durchgeht.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Bordeaux"]}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
-{"text": "Wir haben uns intern auf Route 0 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
+{"text": "Wir haben uns intern auf Route 0 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 1 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 2 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 3 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "de", "kind": "atom"}
@@ -3872,7 +3872,7 @@
 {"text": "fewest links, but nothing over 2950 km", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 2950}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "fewest links, but nothing over 500 km", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 500}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
 {"text": "fewest links, but nothing over 750 km", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 750}, "set": "operations_mix3", "lang": "en", "kind": "heldout_pair"}
-{"text": "go with path 0", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
+{"text": "go with path 0", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "go with path 2", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "go with path 3", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
 {"text": "go with path 4", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "en", "kind": "atom"}
@@ -4330,7 +4330,7 @@
 {"text": "ohne Paris, max. 6 hops", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Paris"], "max_hops": 6}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
 {"text": "ohne Prag, max. 5 hops", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Prague"], "max_hops": 5}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
 {"text": "ohne Warschau, max. 7 hops", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Warsaw"], "max_hops": 7}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
-{"text": "on part sur la route 0", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
+{"text": "on part sur la route 0", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "on part sur la route 1", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "on part sur la route 4", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "fr", "kind": "atom"}
 {"text": "p.f. non più di 4 tratte attraversate", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
@@ -4488,7 +4488,7 @@
 {"text": "unter den wegen bis 1700 km den mit den wenigsten links nehmen", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 1700}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
 {"text": "unter den wegen bis 2300 km den mit den wenigsten links nehmen", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 2300}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
 {"text": "unter den wegen bis 2350 km den mit den wenigsten links nehmen", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "max_km": 2350}, "set": "operations_mix3", "lang": "de", "kind": "heldout_pair"}
-{"text": "vai con la 0", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
+{"text": "vai con la 0", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "vai con la 1", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "vai con la 3", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "operations_mix3", "lang": "it", "kind": "atom"}
 {"text": "vai con la 4", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "operations_mix3", "lang": "it", "kind": "atom"}

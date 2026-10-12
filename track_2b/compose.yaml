@@ -7,6 +7,7 @@ services:
       LLM_NAME: ${LLM_NAME:-}
       LLM_BASE_URL: ${LLM_BASE_URL:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_LORA_IDS: ${LLM_LORA_IDS:-}
     # Lets LLM_BASE_URL=http://host.docker.internal:8000/v1 reach a server on the host (Linux too).
     extra_hosts:
       - "host.docker.internal:host-gateway"

@@ -3,7 +3,9 @@
 **/__pycache__
 .pytest_cache
 .ruff_cache
-data
+data/**
+!data/topologies/**
+!data/instructions/v3_source_*.json
 runs
 tests
 results/**/*.partial.jsonl

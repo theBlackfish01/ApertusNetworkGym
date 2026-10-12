@@ -26,10 +26,10 @@
 {"text": "Aucun passage par Hambourg pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Hamburg"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Aucun passage par Munich pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Munich"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Aucun passage par Varsovie pour cette liaison, merci.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Warsaw"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
-{"text": "C'est la 0 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
+{"text": "C'est la 0 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "C'est la 1 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "C'est la 2 qu'il faut prendre parmi les routes proposées.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
-{"text": "Choix imposé : candidat 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
+{"text": "Choix imposé : candidat 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Choix imposé : candidat 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Choix imposé : candidat 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Compte tenu du SLA de latence, la liaison doit faire 1000 km au plus, et elle ne doit pas transiter par Francfort.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Frankfurt"], "max_km": 1000}, "set": "v3_fr", "lang": "fr", "kind": "pair"}
@@ -352,7 +352,7 @@
 {"text": "Pourriez-vous router la liaison de manière à ce qu'elle passe par Munich ? C'est nécessaire pour la régénération du signal.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Munich"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Pourriez-vous router la liaison de manière à ce qu'elle passe par Vienne ? C'est nécessaire pour la régénération du signal.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Vienna"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Prendre la route qui a le moins de sauts ; en cas d'égalité, la plus courte en km.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops", "km"]}, "set": "v3_fr", "lang": "fr", "kind": "two_preferences"}
-{"text": "Prendre le candidat numéro 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
+{"text": "Prendre le candidat numéro 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Prendre le candidat numéro 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Prendre le candidat numéro 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Prendre le candidat numéro 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
@@ -371,7 +371,7 @@
 {"text": "Suite à la coupure entre Bruxelles et Francfort, on n'utilise plus ce lien ; en plus, Milan est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Brussels", "Frankfurt"]], "prefer": [], "nodes": ["Milan"]}, "set": "v3_fr", "lang": "fr", "kind": "pair"}
 {"text": "Suite à la coupure entre Budapest et Varsovie, on n'utilise plus ce lien ; en plus, Vienne est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Budapest", "Warsaw"]], "prefer": [], "nodes": ["Vienna"]}, "set": "v3_fr", "lang": "fr", "kind": "pair"}
 {"text": "Suite à la coupure entre Madrid et Bordeaux, on n'utilise plus ce lien ; en plus, Glasgow est à contourner pendant l'audit.", "expect": {"status": "ok", "avoid": [["Madrid", "Bordeaux"]], "prefer": [], "nodes": ["Glasgow"]}, "set": "v3_fr", "lang": "fr", "kind": "pair"}
-{"text": "Sélectionner l'entrée 0 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
+{"text": "Sélectionner l'entrée 0 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Sélectionner l'entrée 3 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Sélectionner l'entrée 4 dans la liste des candidats, décision de l'ingénierie.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Transit imposé via Bruxelles pour cette demande.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Brussels"]}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
@@ -393,7 +393,7 @@
 {"text": "Transit par Vienne exigé par le client, longueur plafonnée à 1950 km ; ensuite, préférence au chemin où le service occupe le moins de créneaux.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"], "via": ["Vienna"], "max_km": 1950}, "set": "v3_fr", "lang": "fr", "kind": "triple"}
 {"text": "Transit par Vienne exigé par le client, longueur plafonnée à 2150 km ; ensuite, préférence au chemin où le service occupe le moins de créneaux.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"], "via": ["Vienna"], "max_km": 2150}, "set": "v3_fr", "lang": "fr", "kind": "triple"}
 {"text": "Transit par Zurich exigé, longueur totale de 1100 km au plus.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Zurich"], "max_km": 1100}, "set": "v3_fr", "lang": "fr", "kind": "heldout_pair"}
-{"text": "Utilisez le chemin n° 0, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
+{"text": "Utilisez le chemin n° 0, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Utilisez le chemin n° 1, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Utilisez le chemin n° 2, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_fr", "lang": "fr", "kind": "atom"}
 {"text": "Utilisez le chemin n° 3, et aucun autre.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_fr", "lang": "fr", "kind": "atom"}

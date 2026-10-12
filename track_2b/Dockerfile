@@ -20,6 +20,9 @@ COPY pyproject.toml uv.lock .python-version README.md ./
 RUN uv sync --frozen --no-dev
 
 COPY src ./src
+# The topology and the independently written sentences of the third round's instruction stream
+# (.dockerignore keeps the rest of data/ out).
+COPY data ./data
 COPY results ./results
 COPY run.sh ./
 RUN mkdir -p docs/figures

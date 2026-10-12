@@ -6,7 +6,7 @@
 {"text": "Am liebsten über die Trasse, auf der am wenigsten los ist, also die mit der grössten freien Kapazität im Spektrum.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Amsterdam bitte meiden (Wartungsfenster), zudem gilt für den Kunden eine Längenobergrenze von 550 km.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Amsterdam"], "max_km": 550}, "set": "v3_de", "lang": "de", "kind": "pair"}
 {"text": "Amsterdam ist wegen eines Stromausfalls zu meiden, der Dienst muss aber wie vertraglich vereinbart durch Straßburg laufen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Amsterdam"], "via": ["Strasbourg"]}, "set": "v3_de", "lang": "de", "kind": "heldout_pair"}
-{"text": "Auswahl: Eintrag 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Auswahl: Eintrag 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Auswahl: Eintrag 3.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Auswahl: Eintrag 4.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Bei diesem Dienst kommt es auf die Hop-Zahl an: bitte den Weg wählen, der am wenigsten Hops braucht.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
@@ -20,7 +20,7 @@
 {"text": "Bitte Frankfurt umgehen und nicht mehr als 8 Hops verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Frankfurt"], "max_hops": 8}, "set": "v3_de", "lang": "de", "kind": "heldout_pair"}
 {"text": "Bitte Hamburg komplett umgehen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Hamburg"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Bitte Hamburg umgehen und dann die am wenigsten ausgelastete Route wählen.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Hamburg"]}, "set": "v3_de", "lang": "de", "kind": "pair"}
-{"text": "Bitte Kandidat 0 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Bitte Kandidat 0 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Bitte Kandidat 1 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Bitte Kandidat 3 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Bitte Kandidat 4 nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_de", "lang": "de", "kind": "atom"}
@@ -259,7 +259,7 @@
 {"text": "Höchstens 4 Hops, und der Standort Warschau darf nicht auf dem Pfad liegen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Warsaw"], "max_hops": 4}, "set": "v3_de", "lang": "de", "kind": "heldout_pair"}
 {"text": "Höchstens 5 Hops und höchstens 1500 km.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 5, "max_km": 1500}, "set": "v3_de", "lang": "de", "kind": "pair"}
 {"text": "Höchstens 6 Hops und höchstens 2200 km.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 6, "max_km": 2200}, "set": "v3_de", "lang": "de", "kind": "pair"}
-{"text": "Ich möchte, dass der Dienst über den Vorschlag mit der Nummer 0 läuft.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Ich möchte, dass der Dienst über den Vorschlag mit der Nummer 0 läuft.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Ich möchte, dass der Dienst über den Vorschlag mit der Nummer 2 läuft.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Ich möchte, dass der Dienst über den Vorschlag mit der Nummer 3 läuft.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "In erster Linie zählt die kürzeste Distanz in km, und falls zwei Kandidaten gleich lang sind, den mit mehr freien Slots nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": ["km", "load"]}, "set": "v3_de", "lang": "de", "kind": "two_preferences"}
@@ -333,7 +333,7 @@
 {"text": "Nimm den Pfad mit den meisten freien Slots, aber nicht über den Link zwischen Zürich und Straßburg.", "expect": {"status": "ok", "avoid": [["Zurich", "Strasbourg"]], "prefer": ["load"]}, "set": "v3_de", "lang": "de", "kind": "pair"}
 {"text": "Nimm den Pfad mit den wenigsten Kilometern.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Nimm den kilometermäßig kürzesten Pfad und greif nur bei identischer Länge auf den zurück, der für den Dienst weniger Slots braucht.", "expect": {"status": "ok", "avoid": [], "prefer": ["km", "slots"]}, "set": "v3_de", "lang": "de", "kind": "two_preferences"}
-{"text": "Nimm die Option 0 aus der Liste.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Nimm die Option 0 aus der Liste.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Nimm die Option 1 aus der Liste.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Nimm die Option 2 aus der Liste.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Nimm die Option 3 aus der Liste.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}
@@ -356,7 +356,7 @@
 {"text": "Ohne den Abschnitt Straßburg–Frankfurt routen und dabei die Variante wählen, die für den Dienst am wenigsten Slots braucht.", "expect": {"status": "ok", "avoid": [["Strasbourg", "Frankfurt"]], "prefer": ["slots"]}, "set": "v3_de", "lang": "de", "kind": "pair"}
 {"text": "Oslo ist als Transitknoten gesperrt – bitte eine Route ohne diesen Standort wählen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Oslo"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Paris umgehen, höchstens 7 Hops, und dann die Route mit den meisten freien Slots.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Paris"], "max_hops": 7}, "set": "v3_de", "lang": "de", "kind": "triple"}
-{"text": "Pfad Nr. 0 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Pfad Nr. 0 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Pfad Nr. 2 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Pfad Nr. 3 schalten.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Pfad zwingend durch Brüssel.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Brussels"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
@@ -414,7 +414,7 @@
 {"text": "Wir haben in London ein Wartungsfenster, also bitte keinen Weg nehmen, der dort durchgeht.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["London"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Wir haben in München ein Wartungsfenster, also bitte keinen Weg nehmen, der dort durchgeht.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Munich"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Wir haben in Paris ein Wartungsfenster, also bitte keinen Weg nehmen, der dort durchgeht.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Paris"]}, "set": "v3_de", "lang": "de", "kind": "atom"}
-{"text": "Wir haben uns intern auf Route 0 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_de", "lang": "de", "kind": "atom"}
+{"text": "Wir haben uns intern auf Route 0 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 1 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 2 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_de", "lang": "de", "kind": "atom"}
 {"text": "Wir haben uns intern auf Route 3 geeinigt, bitte genau diese verwenden.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_de", "lang": "de", "kind": "atom"}

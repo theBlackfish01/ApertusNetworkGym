@@ -280,7 +280,7 @@
 {"text": "Per lo SLA il percorso deve stare entro 1100 km e attraversare al più 3 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 3, "max_km": 1100}, "set": "v3_it", "lang": "it", "kind": "pair"}
 {"text": "Per lo SLA il percorso deve stare entro 2750 km e attraversare al più 5 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 5, "max_km": 2750}, "set": "v3_it", "lang": "it", "kind": "pair"}
 {"text": "Per lo SLA il percorso deve stare entro 600 km e attraversare al più 2 link.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 2, "max_km": 600}, "set": "v3_it", "lang": "it", "kind": "pair"}
-{"text": "Per questa richiesta va bene il percorso 0, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
+{"text": "Per questa richiesta va bene il percorso 0, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Per questa richiesta va bene il percorso 1, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Per questa richiesta va bene il percorso 2, procedi con quello.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Per questo circuito il tetto è di 4 hop, scarta i candidati che ne hanno di più.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 4}, "set": "v3_it", "lang": "it", "kind": "atom"}
@@ -337,7 +337,7 @@
 {"text": "Scegli una rotta che includa Bruxelles tra i nodi attraversati.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Brussels"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Scegli una rotta che includa Glasgow tra i nodi attraversati.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Glasgow"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Scegli una rotta che includa Zagabria tra i nodi attraversati.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Zagreb"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
-{"text": "Scelta obbligata: la riga 0 dell'elenco.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
+{"text": "Scelta obbligata: la riga 0 dell'elenco.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Scelta obbligata: la riga 1 dell'elenco.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Scelta obbligata: la riga 2 dell'elenco.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Serve un transito obbligato a Bruxelles, il cliente ha lì il suo punto di presenza.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Brussels"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
@@ -366,7 +366,7 @@
 {"text": "Tra i candidati quello con la maggiore disponibilità di spettro, per favore.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Tra le alternative quella con l'occupazione di slot più bassa per questo servizio.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Tra le opzioni in lista quella che passa per meno link.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
-{"text": "Usa il candidato numero 0.", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
+{"text": "Usa il candidato numero 0.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Usa il candidato numero 2.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Vai sul percorso che consente la modulazione più efficiente, così impegniamo meno slot.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "Vai sulla rotta meno carica, quella con più spettro libero, ma che non attraversi il nodo di Belgrado.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Belgrade"]}, "set": "v3_it", "lang": "it", "kind": "pair"}
@@ -509,7 +509,7 @@
 {"text": "tratta Lione–Parigi off limits per questo circuito, prendi un candidato che non la contiene", "expect": {"status": "ok", "avoid": [["Lyon", "Paris"]], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "tratta Londra–Parigi off limits per questo circuito, prendi un candidato che non la contiene", "expect": {"status": "ok", "avoid": [["London", "Paris"]], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "tratta Strasburgo–Francoforte off limits per questo circuito, prendi un candidato che non la contiene", "expect": {"status": "ok", "avoid": [["Strasbourg", "Frankfurt"]], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
-{"text": "vai con la 0", "expect": {"status": "ok", "avoid": [], "prefer": []}, "set": "v3_it", "lang": "it", "kind": "atom"}
+{"text": "vai con la 0", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "vai con la 1", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 1}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "vai con la 3", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "v3_it", "lang": "it", "kind": "atom"}
 {"text": "vai con la 4", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "v3_it", "lang": "it", "kind": "atom"}

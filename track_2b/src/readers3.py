@@ -31,8 +31,14 @@ from spec import Spec, load_topology, parse_spec, validate
 from translate import format_version, messages, read_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-READERS = ("translate3_ft", "translate3_ft2", "translate3_few", "translate3_few70", "translate3_ft_laptop")
-SETS = ("v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_new_impossible", "v3_partial", "v3_other", "v3_not",
+READERS = ("translate3_ft", "translate3_ft2", "translate3_few", "translate3_few70", "translate3_few70b",
+           "translate3_ft_laptop")  # fmt: skip
+LAPTOP = (
+    "translate3_ft_laptop",
+    "translate3_ft2_laptop",
+    "apertus_ft_laptop",
+)  # one request at a time: real latencies
+SETS = ("v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_new_hard", "v3_new_impossible", "v3_partial", "v3_other", "v3_not",
         "v3_faulty", "independent", "de_ind", "fr_ind", "it_ind", "gsw", "noisy", "operations_mix3",
         "owner")  # fmt: skip
 
@@ -121,6 +127,17 @@ def main() -> None:
     rows = read_rows([path for path in paths if path.exists()])
     readers = {name: answers for name in args.readers if (answers := Answers(name)).cache}
     result = analyse(rows, readers)
+    result["latency"] = []
+    for name in LAPTOP:  # seconds per answer as the laptop's server took them
+        path = ROOT / "results" / "cache" / f"{name}.jsonl"
+        if path.exists():
+            seconds = sorted(
+                json.loads(line)["seconds"]
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            )
+            result["latency"].append({"policy": name, "answers": len(seconds), "median_s": seconds[len(seconds) // 2],
+                                      "mean_s": sum(seconds) / len(seconds), "p95_s": seconds[int(0.95 * len(seconds))]})  # fmt: skip
     result["metadata"] = {"command": "src/readers3.py", "readers": list(readers), "instructions": len(rows),
                           "finished_utc": datetime.now(UTC).isoformat()}  # fmt: skip
     args.out.parent.mkdir(parents=True, exist_ok=True)
