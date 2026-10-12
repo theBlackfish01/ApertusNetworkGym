@@ -54,3 +54,30 @@ def test_read_preview_apply_step(console):
     assert console.state()["stats"]["served"] == 3 and console.state()["instruction"]["line"] == lines[1]
     assert console.apply("none", "none", asked=False)["ok"] and console.step(1)[0]["respects"] is None
     assert "error" in console.apply("something", "not a line", asked=False)
+
+
+def test_standing_mode_reads_adds_and_reports():
+    args = argparse.Namespace(topology="nobel-eu", load=390, seed=11, warmup=0, horizon=4, base_url="",
+                              standing=True, reader="translate3_ft_laptop", policy=None, decider=None)  # fmt: skip
+    console = Console(args)
+    assert console.standing and console.state()["policies"] == []
+    first = console.read_policy("least busy route pls, if its a tie just take fewer hops")
+    assert (
+        "error" not in first
+        and first["applies"]
+        and first["conflicts"] == []
+        and first["preview"]["covers"] == 4
+    )
+    assert console.add_policy(first["text"], first["line"])["ok"]
+    second = console.read_policy("shortest in km pls, load doesnt matter for this one")
+    assert any(c["kind"] == "override" for c in second["conflicts"])
+    assert console.add_policy(second["text"], second["line"])["ok"]
+    rows = console.step(3)
+    assert all(r["who"].startswith("rule engine (policies") and r["respects"] is not None for r in rows)
+    report = console.state()["policies"]
+    assert [p["in_scope"] for p in report] == [3, 3] and all(p["active"] for p in report)
+    assert (
+        console.withdraw_policy(report[0]["id"])["ok"]
+        and len([p for p in console.state()["policies"] if p["active"]]) == 1
+    )
+    assert "error" in console.read_policy("an instruction nobody ever read")

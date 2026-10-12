@@ -185,7 +185,9 @@ The server constrains every answer with the grammar the client sends (GBNF, expo
 `src/spec.py` by `grammar.gbnf`), and `LLM_LORA_IDS` tells the client which adapter belongs to
 which policy name. The GGUF files were built by the `gguf` and `gguf-lora` job stages from the
 published base weights and our adapters. On Windows the simulator runs in WSL, so the server
-must run there too (the Linux build of llama.cpp); the readers alone also work from Windows.
+must run there too (the Linux build of llama.cpp), and the GGUF files should sit on the WSL file
+system (`~/models`), where llama.cpp can memory-map them; from the Windows drive it holds the
+whole model in RAM. The readers alone also work from Windows.
 
 ## Pipeline
 
