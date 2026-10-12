@@ -423,7 +423,9 @@ phase4)
     $PY -c "
 from huggingface_hub import snapshot_download
 for repo, where in (('$ADAPTER_REPO', 'runs/adapter'), ('$TRANSLATOR_REPO', 'runs/reader1'), ('$SECOND_REPO', 'runs/reader2')):
-    print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))"
+    print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))
+# the base model once, before several processes load it at the same time
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
     # The prompt exactly as the tokenizer's chat template renders it, to compare with what a
     # llama.cpp server renders from the same messages on a laptop.
     MODEL="$MODEL" $PY - <<'PYEOF'
@@ -440,22 +442,11 @@ Path("results/train/rendered_prompt3.txt").write_text(text, encoding="utf-8")
 print("rendered prompt:", len(text), "characters; ends with", repr(text[-60:]))
 PYEOF
     keep results/train/rendered_prompt3.txt
-    stamp "reader 1: test instructions of the third round, the earlier sets, the mixed condition, the other topology"
-    $PY src/translate.py batch --model "$MODEL" --adapter runs/reader1 --batch 96 --sync-repo "$WORK_REPO" --jobs \
-        "translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl" \
-        "translate3_ft:germany50:regex:$I/germany50.jsonl"
-    stamp "reader 2: the same instructions without the two stress sets"
-    $PY src/translate.py batch --model "$MODEL" --adapter runs/reader2 --batch 96 --sync-repo "$WORK_REPO" --jobs \
-        "translate3_ft2:nobel-eu:regex:$V3,$EARLIER,$I/mix3.jsonl"
-    stamp "reader with examples and no training: test instructions of the third round"
-    $PY src/translate.py batch --model "$MODEL" --batch 32 --sync-repo "$WORK_REPO" --jobs \
-        "translate3_few:nobel-eu:regex:$V3,$I/independent.jsonl"
-    keep results/translate results/cache
-    stamp "decider: probes of the new types, of partial instructions, and of the policy language in English"
-    # shellcheck disable=SC2086
-    $PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model "$MODEL" \
-        --adapter runs/adapter --data data/probes --splits v3_new v3_new_hard v3_new_impossible v3_partial v3_en \
-        --batch-envs 64 --out results/offline/apertus_ft_probes3.json $SYNC
+    stamp "four processes on one GPU: reader 1 (all sets), reader 2, the reader with examples, the decider on the probes"
+    # The answer caches are copied to the work repo when all four are done (one writer at a time).
+    BATCH="$PY src/translate.py batch --model $MODEL"
+    together         "$BATCH --adapter runs/reader1 --batch 128 --jobs translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl translate3_ft:germany50:regex:$I/germany50.jsonl"         "$BATCH --adapter runs/reader2 --batch 128 --jobs translate3_ft2:nobel-eu:regex:$V3,$EARLIER,$I/mix3.jsonl"         "$BATCH --batch 64 --jobs translate3_few:nobel-eu:regex:$V3"         "$PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model $MODEL --adapter runs/adapter --data data/probes --splits v3_new v3_new_hard v3_new_impossible v3_partial v3_en --batch-envs 64 --out results/offline/apertus_ft_probes3.json"
+    keep results/translate results/cache results/offline
     stamp "closed loop, mixed condition of the third round: decider alone, hybrid, hybrid that asks (one GPU)"
     CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"
     together \
