@@ -71,8 +71,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 | Model | Answers | Median | Mean | 95th percentile |
 |---|---|---|---|---|
-| Reader 1 | 2620 | 0.89 | 0.88 | 1.03 |
-| Reader 2 | 38 | 1.19 | 1.09 | 1.34 |
+| Reader 1 | 2642 | 0.89 | 0.88 | 1.03 |
+| Reader 2 | 60 | 1.11 | 0.99 | 1.34 |
 | Decider | 134 | 0.97 | 0.97 | 1.20 |
 
 ## New types, on requests where the instruction is restrictive: decisions that comply, %
@@ -190,3 +190,51 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Translator alone (reader 1) | 9.95 | 11.20 | 10.65 |
 | Hybrid | 8.50 | 10.25 | 9.85 |
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
+
+## The project owner's own instructions, on the laptop (4-bit base model, llama.cpp): number of instructions
+
+| Reader | Lines | n | Right | Applied with another meaning | Not applied |
+|---|---|---|---|---|---|
+| Reader 1 | All | 22 | 18 | 4 | 0 |
+| Reader 1 | English | 17 | 16 | 1 | 0 |
+| Reader 1 | Urdu in Latin script | 5 | 2 | 3 | 0 |
+| Reader 2 | All | 22 | 18 | 4 | 0 |
+| Reader 2 | English | 17 | 15 | 2 | 0 |
+| Reader 2 | Urdu in Latin script | 5 | 3 | 2 | 0 |
+| Apertus 8B, 15 examples, no training | All | 22 | 14 | 4 | 4 |
+| Apertus 8B, 15 examples, no training | English | 17 | 13 | 3 | 1 |
+| Apertus 8B, 15 examples, no training | Urdu in Latin script | 5 | 1 | 1 | 3 |
+
+## The owner's instructions, two readers: the operator is asked when their readings differ
+
+| First reader / second reader | n | Not right, first reader alone | Not right and not asked | Asked | Asked although right |
+|---|---|---|---|---|---|
+| Reader 1 / Reader 2 | 22 | 4 | 1 | 4 | 1 |
+| Reader 1 / Apertus 8B, 15 examples, no training | 22 | 4 | 1 | 7 | 4 |
+
+## The owner's instructions, line by line (= : reader 1 wrote what was meant)
+
+| Instruction | Meant | Reader 1 wrote | Outcome | Reader 2 differs: asked |
+|---|---|---|---|---|
+| go from London to Lyon via Oslo, at most 4 hops | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; rest=none | = | right |  |
+| to prague freom neighborsd but avoid berlin | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = | right |  |
+| prague se belin liken munich nahee | avoid=Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | avoid=Prague-Berlin,Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | silent | yes |
+| prefer fewer hops, rouite between central european cities to munich | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=Munich; hops=any; km=any; path=any; prefer=hops; rest=none | silent |  |
+| berlin prague link is out, dont send anything over that | avoid=Berlin-Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = | right |  |
+| least busy route pls, if its a tie just take fewer hops | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none | = | right |  |
+| needs to touch vienna, 5 hops max though | avoid=none; via=Vienna; hops=5; km=any; path=any; prefer=none; rest=none | = | right |  |
+| save spectrum on this one, as few slots as poss | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = | right | yes |
+| actually just pick the 2nd option in the list | avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none | = | right |  |
+| 1800km max, not bothered about the hop count | avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none | = | right |  |
+| can u set up protection for this too | no_instruction | = | right |  |
+| paris se mat guzarna, baqi jo kam busy hai woh le lo | avoid=Paris; via=none; hops=any; km=any; path=any; prefer=load; rest=none | avoid=none; via=Paris; hops=any; km=any; path=any; prefer=none; rest=none | silent | yes |
+| zurich-milan pe maintenance hai, us link ko skip kar do | avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = | right |  |
+| paris brussels span mat lena aur hops minimum rakho | avoid=Paris-Brussels; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | silent | yes |
+| shortest in km pls, load doesnt matter for this one | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = | right |  |
+| route it via frankfurt, avoid munich-vienna and keep it to 6 hops | avoid=Munich-Vienna; via=Frankfurt; hops=6; km=any; path=any; prefer=none; rest=none | = | right |  |
+| load first then spectrum use if both routes are equally busy | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none | = | right |  |
+| 4 hops se zyada nahi aur hamburg se nahi guzarna | avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = | right |  |
+| start at slot 12 if that whole block is free | unsupported | = | right |  |
+| keep modulation on qpsk for this req | unsupported | = | right |  |
+| candidate 3 looks fine, use that | avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none | = | right |  |
+| any update on that outage ticket | no_instruction | = | right |  |

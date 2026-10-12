@@ -36,3 +36,25 @@
 {"key": "fd0655e669eb8e0b62d237ed6a170edf9459928b32402ca760f2ffa22e4a2531", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none", "seconds": 1.1471}
 {"key": "048c98778ab2e53fce7cf6b7f8c982cc66f18c5ceb6fc007b0afeac643b6c1b2", "answer": "avoid=none; via=none; hops=any; km=1100; path=any; prefer=none; rest=none", "seconds": 1.1952}
 {"key": "633703cd51a1d2f6cae4891eabbbd2d02e2c2e51595c175c97de18fd9330f6b3", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 1.1149}
+{"key": "5d931dca99b8b78bbace2303e40addb203916cef067c5d9aafaf54e94d9ed438", "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none", "seconds": 1.8781}
+{"key": "74c2f0152454a3ac0fe910b3c27ac25a1a3243ae3bed7cf57383d04edf1d1ca6", "answer": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=none; rest=none", "seconds": 0.9257}
+{"key": "6f881b6d13232b961de9b80b060107bc6aa358812a787207a9202352fa0a17f0", "answer": "avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none", "seconds": 0.9217}
+{"key": "393a9dd7c4d8da655ce9db12ceebcc5f75f6f58f6fe2b0b20cd39ecce93a2f04", "answer": "no_instruction", "seconds": 0.1549}
+{"key": "0051d9100ef42d9709bd27e246df5aa9caf558f323fb901cad94e390b016c54a", "answer": "avoid=Berlin-Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 0.9515}
+{"key": "7ffb689f00379b5646dd45da55ae2207998dfc93f8c2fe84f9128c4ae0b8bc98", "answer": "no_instruction", "seconds": 0.1624}
+{"key": "15b9ba5bb91733f7145473b6db81c7eabac7b3b311f1858dc11cf7fad2f1d110", "answer": "avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none", "seconds": 0.9022}
+{"key": "d59eee139b6e94342e803c00e3886e4d048ff504f696e15760674ff6d9e69548", "answer": "avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; rest=none", "seconds": 0.9177}
+{"key": "e48c20c65300b186125cc23e99b573a7a56b7815064d08f05b5666a149add2a6", "answer": "unsupported", "seconds": 0.121}
+{"key": "5a3e57af059403fb9343bfb0847c518015021da4bca155c325ce2ca6d61fc97c", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none", "seconds": 0.9445}
+{"key": "23b5b6894d3b0c27fda0d502000b56e9cf748268a258e38a2f132463b52d8613", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none", "seconds": 0.9728}
+{"key": "b0a07e39ed9bc6e0190e65590d193b71a68fd3b5cb8ef4e20ba6cf4bb7cf298e", "answer": "avoid=none; via=Vienna; hops=5; km=any; path=any; prefer=none; rest=none", "seconds": 0.8647}
+{"key": "650e971f4e38b8e9683e91970cb6d47a4ef886791b1c024eaf0be2c842f48d5f", "answer": "avoid=Paris-Brussels; via=none; hops=any; km=any; path=any; prefer=hops; rest=none", "seconds": 0.9298}
+{"key": "98b0b899d081c6e60b410be3df3ab280544cd552661dada4c3d61d9de9a6d051", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none", "seconds": 0.871}
+{"key": "56cd95d78796627ba47b6e70061cc464fca077173620f8991d107e0d4b129801", "answer": "avoid=Prague,Berlin,Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 1.0538}
+{"key": "92445ebf82c3b9be97fe2ecfa8a8853adcbc62c235919cf01be67a0ae2d5aa62", "answer": "avoid=none; via=Munich; hops=any; km=any; path=any; prefer=hops; rest=none", "seconds": 0.9989}
+{"key": "650b78b45fc5475fa86bbac6905d7c57175a141e2207c42c6061819a8205b15c", "answer": "avoid=Munich-Vienna; via=Frankfurt; hops=6; km=any; path=any; prefer=none; rest=none", "seconds": 1.0057}
+{"key": "f60b9bced79c49ea9637c5b9ab25707677f14b790e34787cd1808f61a14f9d9e", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none", "seconds": 0.9547}
+{"key": "f7f2caffcb209f119a854f0b9930703e09d5db90a7082887f5f78888118bd8d0", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none", "seconds": 0.8667}
+{"key": "d8d5b7c14abc0b34926cf49ae71fc52719792d373543ecd595bf3df371d194d2", "answer": "unsupported", "seconds": 0.1212}
+{"key": "077741756d5fb9dfd50ee07e567bd5c6a6b6918f83b683bbbecd953894c9b32e", "answer": "avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 0.8732}
+{"key": "7b8fa6b3a28abeed6358d906029f47a42d4fb53360283b53a38c19e63ac04665", "answer": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 0.9634}

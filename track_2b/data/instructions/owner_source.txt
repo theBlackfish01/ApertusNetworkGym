@@ -37,3 +37,25 @@
 #
 # Your lines below:
 
+go from London to Lyon via Oslo, at most 4 hops | via Oslo, max 4 hops
+to prague freom neighborsd but avoid berlin | avoid Berlin
+prague se belin liken munich nahee | avoid Munich
+prefer fewer hops, rouite between central european cities to munich | prefer hops
+berlin prague link is out, dont send anything over that | avoid Berlin-Prague
+least busy route pls, if its a tie just take fewer hops | prefer load, then hops
+needs to touch vienna, 5 hops max though | via Vienna, max 5 hops
+save spectrum on this one, as few slots as poss | prefer slots
+actually just pick the 2nd option in the list | candidate 2
+1800km max, not bothered about the hop count | max 1800 km
+can u set up protection for this too | none
+paris se mat guzarna, baqi jo kam busy hai woh le lo | avoid Paris, prefer load
+zurich-milan pe maintenance hai, us link ko skip kar do | avoid Zurich-Milan
+paris brussels span mat lena aur hops minimum rakho | avoid Paris-Brussels, prefer hops
+shortest in km pls, load doesnt matter for this one | prefer km
+route it via frankfurt, avoid munich-vienna and keep it to 6 hops | via Frankfurt, avoid Munich-Vienna, max 6 hops
+load first then spectrum use if both routes are equally busy | prefer load, then slots
+4 hops se zyada nahi aur hamburg se nahi guzarna | max 4 hops, avoid Hamburg
+start at slot 12 if that whole block is free | other: use a block beginning at slot 12 if the whole block is free
+keep modulation on qpsk for this req | other: use QPSK modulation
+candidate 3 looks fine, use that | candidate 3
+any update on that outage ticket | none

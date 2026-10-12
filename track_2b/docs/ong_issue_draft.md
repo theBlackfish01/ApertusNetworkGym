@@ -1,14 +1,19 @@
 # Draft issue for Optical Networking Gym
 
-Ready to post at <https://github.com/carlosnatalino/optical-networking-gym/issues>. Not sent yet.
-The numbers below were measured on 2026-10-09 at commit `f7c4491` (WSL2 Ubuntu 24.04,
-Python 3.12, compiled kernels).
+To post at <https://github.com/carlosnatalino/optical-networking-gym/issues/new>: the title is
+the line marked **Title**, the description is everything below it. Not sent yet.
+The numbers were measured on 2026-10-09 at commit `f7c4491` (WSL2 Ubuntu 24.04, Python 3.12,
+compiled kernels). Checked again on 2026-10-12: `f7c4491` is still the head of the repository,
+no existing issue covers this, and the script below gives 58 MB at the start and 615 MB after
+2,000 requests.
 
 ---
 
 **Title:** Request-analysis cache grows without bound during an episode (about 0.28 MB per request)
 
 **Summary**
+
+Found at commit `f7c4491` (the current `main`), Python 3.12 on Ubuntu 24.04 (WSL2), compiled kernels.
 
 `RequestAnalysisEngine` keeps every `RequestAnalysis` it builds in `_analysis_cache` and only
 clears it on a full reset. The cache key includes `state.allocation_state_version`, which changes

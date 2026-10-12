@@ -1,0 +1,22 @@
+{"text": "go from London to Lyon via Oslo, at most 4 hops", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Oslo"], "max_hops": 4}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "to prague freom neighborsd but avoid berlin", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Berlin"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "prague se belin liken munich nahee", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Munich"]}, "set": "owner", "lang": "ur", "kind": "atom"}
+{"text": "prefer fewer hops, rouite between central european cities to munich", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "berlin prague link is out, dont send anything over that", "expect": {"status": "ok", "avoid": [["Berlin", "Prague"]], "prefer": []}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "least busy route pls, if its a tie just take fewer hops", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "hops"]}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "needs to touch vienna, 5 hops max though", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Vienna"], "max_hops": 5}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "save spectrum on this one, as few slots as poss", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "actually just pick the 2nd option in the list", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "1800km max, not bothered about the hop count", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_km": 1800}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "can u set up protection for this too", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}
+{"text": "paris se mat guzarna, baqi jo kam busy hai woh le lo", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Paris"]}, "set": "owner", "lang": "ur", "kind": "trained"}
+{"text": "zurich-milan pe maintenance hai, us link ko skip kar do", "expect": {"status": "ok", "avoid": [["Zurich", "Milan"]], "prefer": []}, "set": "owner", "lang": "ur", "kind": "atom"}
+{"text": "paris brussels span mat lena aur hops minimum rakho", "expect": {"status": "ok", "avoid": [["Paris", "Brussels"]], "prefer": ["hops"]}, "set": "owner", "lang": "ur", "kind": "trained"}
+{"text": "shortest in km pls, load doesnt matter for this one", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "route it via frankfurt, avoid munich-vienna and keep it to 6 hops", "expect": {"status": "ok", "avoid": [["Munich", "Vienna"]], "prefer": [], "via": ["Frankfurt"], "max_hops": 6}, "set": "owner", "lang": "en", "kind": "new"}
+{"text": "load first then spectrum use if both routes are equally busy", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "slots"]}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "4 hops se zyada nahi aur hamburg se nahi guzarna", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Hamburg"], "max_hops": 4}, "set": "owner", "lang": "ur", "kind": "heldout"}
+{"text": "start at slot 12 if that whole block is free", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "keep modulation on qpsk for this req", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "candidate 3 looks fine, use that", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "any update on that outage ticket", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}

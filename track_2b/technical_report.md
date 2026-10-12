@@ -207,8 +207,10 @@ wording the decider broke 23.7 % of the instructions that mattered, a translator
 - One topology in closed loop (a second one offline: 97.3 % right), one traffic model, one
   simulator. The model chooses among candidates the simulator has already checked for spectrum
   and quality of transmission; it ranks, it does not compute physics.
-- Every test sentence was written by an AI model, not by an operator or a native speaker. TODO:
-  the owner's own instructions.
+- Every test sentence but 22 was written by an AI model, not by an operator or a native speaker.
+  Of 22 instructions typed by the author (`results/design/owner.json`, on the laptop) reader 1
+  is right on 16 of 17 in English and on 2 of 5 in Urdu in Latin script, a language no reader
+  was trained on; reader 2 disagrees with it on three of its four errors.
 - Unknown types remain the weak point: the hybrid that asks still breaks 28.9 % of those requests
   in closed loop, and 65 % where the instruction changes the right answer.
 - The share of each kind in the mixed stream is our choice. Limits are drawn at random, so part

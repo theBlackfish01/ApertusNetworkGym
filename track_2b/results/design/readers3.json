@@ -4691,6 +4691,81 @@
   },
   {
    "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "all",
+   "kind": "all",
+   "n": 22,
+   "right": 18,
+   "silent": 4
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "en",
+   "kind": "atom",
+   "n": 8,
+   "right": 7,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "en",
+   "kind": "new",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "en",
+   "kind": "not_instruction",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "en",
+   "kind": "other_routing",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "en",
+   "kind": "trained",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "ur",
+   "kind": "atom",
+   "n": 2,
+   "silent": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "ur",
+   "kind": "heldout",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "set": "owner",
+   "lang": "ur",
+   "kind": "trained",
+   "n": 2,
+   "silent": 2
+  },
+  {
+   "reader": "translate3_ft_laptop",
    "set": "v3_de",
    "lang": "all",
    "kind": "all",
@@ -9611,6 +9686,11 @@
    "instructions": 3758
   },
   {
+   "reader": "translate3_few",
+   "set": "owner",
+   "instructions": 22
+  },
+  {
    "reader": "translate3_few70",
    "set": "de_ind",
    "instructions": 703
@@ -9646,6 +9726,11 @@
    "instructions": 3758
   },
   {
+   "reader": "translate3_few70",
+   "set": "owner",
+   "instructions": 22
+  },
+  {
    "reader": "translate3_few70b",
    "set": "de_ind",
    "instructions": 703
@@ -9679,6 +9764,16 @@
    "reader": "translate3_few70b",
    "set": "operations_mix3",
    "instructions": 3758
+  },
+  {
+   "reader": "translate3_few70b",
+   "set": "owner",
+   "instructions": 22
+  },
+  {
+   "reader": "translate3_ft",
+   "set": "owner",
+   "instructions": 22
   },
   {
    "reader": "translate3_ft2",
@@ -9689,6 +9784,11 @@
    "reader": "translate3_ft2",
    "set": "noisy",
    "instructions": 314
+  },
+  {
+   "reader": "translate3_ft2",
+   "set": "owner",
+   "instructions": 22
   },
   {
    "reader": "translate3_ft_laptop",
@@ -9729,16 +9829,16 @@
  "latency": [
   {
    "policy": "translate3_ft_laptop",
-   "answers": 2620,
-   "median_s": 0.8861,
-   "mean_s": 0.8797104961832061,
-   "p95_s": 1.033
+   "answers": 2642,
+   "median_s": 0.8864,
+   "mean_s": 0.8796959121877365,
+   "p95_s": 1.0337
   },
   {
    "policy": "translate3_ft2_laptop",
-   "answers": 38,
-   "median_s": 1.1884,
-   "mean_s": 1.0863736842105265,
+   "answers": 60,
+   "median_s": 1.11,
+   "mean_s": 0.9939633333333333,
    "p95_s": 1.3438
   },
   {
@@ -9759,7 +9859,7 @@
    "translate3_few70b",
    "translate3_ft_laptop"
   ],
-  "instructions": 10835,
-  "finished_utc": "2026-10-12T11:35:24.666817+00:00"
+  "instructions": 10857,
+  "finished_utc": "2026-10-12T14:54:56.311671+00:00"
  }
 }

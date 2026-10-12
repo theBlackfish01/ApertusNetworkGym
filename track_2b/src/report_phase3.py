@@ -2,8 +2,9 @@
 
 Reads only files under ``results/``: ``design/readers3.json`` (what each reader does with every
 test instruction, written by ``readers3.py``), ``translate/`` (the first two translators on the
-earlier sets), ``offline/*_probes3.json`` (decisions on stored requests) and ``eval/*_mix3.json``
-(closed loop). Cells without data are shown as a dash.
+earlier sets), ``offline/*_probes3.json`` (decisions on stored requests), ``eval/*_mix3.json``
+(closed loop) and ``design/owner.json`` (the owner's own instructions). Cells without data are
+shown as a dash.
 """
 
 from __future__ import annotations
@@ -289,6 +290,36 @@ NOTES = (
 )
 
 
+def owner_tables(results: Path) -> list:
+    """The project owner's own instructions (``design/owner.json``, written by ``corpora3_owner.py``)."""
+    owner = read(results / "design" / "owner.json")
+    if not owner:
+        return []
+    names = {"translate3_ft_laptop": "Reader 1", "translate3_ft2_laptop": "Reader 2",
+             "translate3_few_laptop": "Apertus 8B, 15 examples, no training"}  # fmt: skip
+    groups = {"all": "All", "en": "English", "ur": "Urdu in Latin script"}
+    summary = [[names[r["reader"]], groups[r["group"]], str(r["n"]), str(r.get("right", 0)),
+                str(r.get("silent", 0) + r.get("part_only", 0)),
+                str(r["n"] - r.get("right", 0) - r.get("silent", 0) - r.get("part_only", 0))]
+               for r in owner["readers"] if r["group"] in groups]  # fmt: skip
+    summary.sort(key=lambda row: (list(names.values()).index(row[0]), list(groups.values()).index(row[1])))
+    asking = [[f"Reader 1 / {names[p['second']]}", str(p["n"]), str(p["wrong_alone"]), str(p["wrong_left"]),
+               str(p["asked"]), str(p["right_but_asked"])] for p in owner["pairs"]]  # fmt: skip
+    first, second = list(names)[:2]
+    lines = [[e["text"].replace("|", "/"), e["expect"], e[first]["answer"] if e[first]["outcome"] != "right" else "=",
+              e[first]["outcome"], "yes" if e[second]["asked"] else ""] for e in owner["lines"]]  # fmt: skip
+    where = "on the laptop (4-bit base model, llama.cpp)"
+    return [
+        (f"The project owner's own instructions, {where}: number of instructions",
+         ["Reader", "Lines", "n", "Right", "Applied with another meaning", "Not applied"], summary),
+        ("The owner's instructions, two readers: the operator is asked when their readings differ",
+         ["First reader / second reader", "n", "Not right, first reader alone", "Not right and not asked", "Asked",
+          "Asked although right"], asking),
+        ("The owner's instructions, line by line (= : reader 1 wrote what was meant)",
+         ["Instruction", "Meant", "Reader 1 wrote", "Outcome", "Reader 2 differs: asked"], lines),
+    ]  # fmt: skip
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--results", type=Path, default=ROOT / "results")
@@ -296,7 +327,7 @@ def main() -> None:
     args = parser.parse_args()
     design = read(args.results / "design" / "readers3.json")
     tables = (reader_tables(design, args.results) if design else []) + offline_tables(args.results)
-    tables += closed_tables(args.results)
+    tables += closed_tables(args.results) + owner_tables(args.results)
     lines = ["# Third round: a policy language, two readers, and a guarded fallback", "", NOTES, ""]
     for title, header, rows in tables:
         lines += [f"## {title}", "", "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
