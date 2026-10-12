@@ -30,6 +30,8 @@
 #   gguf    CPU only: both readers' adapters and the base model as GGUF files for llama.cpp
 #           (the adapters first; the base is converted from the published weights and quantised
 #           to 4 bits), uploaded to GGUF_REPO. This is what runs on a laptop
+#   gguf-lora  CPU only: the decider's adapter (ADAPTER_REPO) as a GGUF file in GGUF_REPO, so the
+#           whole hybrid can run behind one llama.cpp server
 #   big     a larger Apertus as a reader with examples and no training: BIG_MODEL is
 #           "<repo>:<file>" of a GGUF build, served by llama.cpp on the GPU under the same
 #           grammar; BIG_NAME names the reader (its answers go to results/cache/<name>.jsonl)
@@ -48,7 +50,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | gguf | big}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4 | gguf | gguf-lora | big}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -327,8 +329,9 @@ big)
         curl -sSL "https://github.com/ggml-org/llama.cpp/releases/download/$TAG/$file" | tar -xz -C /tmp/llama
     done
     SERVER=$(find /tmp/llama -name llama-server -type f | head -1)
-    export LD_LIBRARY_PATH="$(dirname "$SERVER"):$(find /tmp/llama -name 'libcublas.so*' -printf '%h
-' | head -1):${LD_LIBRARY_PATH:-}"
+    CUDA_LIBS=$(dirname "$(find /tmp/llama -name 'libcublas.so*' | head -1)")
+    export LD_LIBRARY_PATH="$(dirname "$SERVER"):$CUDA_LIBS:${LD_LIBRARY_PATH:-}"
+    ls "$(dirname "$SERVER")" | head -30
     BIG_MODEL="$BIG_MODEL" $PY -c "
 import os
 from huggingface_hub import hf_hub_download
@@ -347,8 +350,29 @@ os.replace(path, '/tmp/big/model.gguf')"
     curl -sf http://127.0.0.1:8080/health || { tail -30 /tmp/server.log; exit 1; }
     grep -i -E "offloaded|model size|chat template|n_ctx_slot" /tmp/server.log | head -8 || true
     stamp "$NAME: the test instructions of the third round, with examples in the prompt"
-    $PY src/translate.py batch --base-url http://127.0.0.1:8080/v1 --model "$BIG_MODEL" --concurrency 8         --sync-repo "$WORK_REPO" --jobs "$NAME:nobel-eu:regex:${BIG_SETS:-$V3}"
+    $PY src/translate.py batch --base-url http://127.0.0.1:8080/v1 --model "$BIG_MODEL" --concurrency 8 \
+        --sync-repo "$WORK_REPO" --jobs "$NAME:nobel-eu:regex:${BIG_SETS:-$V3}"
+    grep -E "prompt eval time|eval time" /tmp/server.log | tail -4 || true
     kill $SERVER_PID || true
+    ;;
+gguf-lora)
+    : "${ADAPTER_REPO:?set ADAPTER_REPO}" "${GGUF_REPO:?set GGUF_REPO}"
+    TAG=${LLAMA_TAG:-b11558}
+    git clone --quiet --depth 1 --branch "$TAG" https://github.com/ggml-org/llama.cpp /tmp/llama.cpp
+    uv venv /tmp/convert --python 3.12 -q
+    uv pip install --python /tmp/convert/bin/python -q -r /tmp/llama.cpp/requirements/requirements-convert_lora_to_gguf.txt
+    MODEL="$MODEL" $PY -c "
+import os
+from huggingface_hub import snapshot_download
+print(snapshot_download(os.environ['MODEL'], local_dir='/tmp/base', allow_patterns=['*.json', '*.jinja', 'tokenizer*']))
+print(snapshot_download(os.environ['ADAPTER_REPO'], local_dir='/tmp/decider', allow_patterns=['adapter_*']))"
+    /tmp/convert/bin/python /tmp/llama.cpp/convert_lora_to_gguf.py /tmp/decider --base /tmp/base \
+        --outtype f16 --outfile /tmp/lightpath-decider-v2-lora-f16.gguf
+    $PY -c "
+import os
+from huggingface_hub import HfApi
+HfApi().upload_file(repo_id=os.environ['GGUF_REPO'], path_or_fileobj='/tmp/lightpath-decider-v2-lora-f16.gguf', path_in_repo='lightpath-decider-v2-lora-f16.gguf')
+print('uploaded')"
     ;;
 gguf)
     : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (reader 1)}" "${SECOND_REPO:?set SECOND_REPO (reader 2)}"
@@ -442,10 +466,20 @@ Path("results/train/rendered_prompt3.txt").write_text(text, encoding="utf-8")
 print("rendered prompt:", len(text), "characters; ends with", repr(text[-60:]))
 PYEOF
     keep results/train/rendered_prompt3.txt
-    stamp "four processes on one GPU: reader 1 (all sets), reader 2, the reader with examples, the decider on the probes"
-    # The answer caches are copied to the work repo when all four are done (one writer at a time).
+    # Two model processes at a time: one translator process with 128 prompts of 620 tokens peaked at
+    # 32 GB, and four of them did not fit the 80 GB card. The answer caches are copied to the work
+    # repo after each pair (one writer at a time).
+    export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
     BATCH="$PY src/translate.py batch --model $MODEL"
-    together         "$BATCH --adapter runs/reader1 --batch 128 --jobs translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl translate3_ft:germany50:regex:$I/germany50.jsonl"         "$BATCH --adapter runs/reader2 --batch 128 --jobs translate3_ft2:nobel-eu:regex:$V3,$EARLIER,$I/mix3.jsonl"         "$BATCH --batch 64 --jobs translate3_few:nobel-eu:regex:$V3"         "$PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model $MODEL --adapter runs/adapter --data data/probes --splits v3_new v3_new_hard v3_new_impossible v3_partial v3_en --batch-envs 64 --out results/offline/apertus_ft_probes3.json"
+    stamp "two processes: reader 1 (all sets) and reader 2"
+    together \
+        "$BATCH --adapter runs/reader1 --batch 96 --jobs translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl translate3_ft:germany50:regex:$I/germany50.jsonl" \
+        "$BATCH --adapter runs/reader2 --batch 96 --jobs translate3_ft2:nobel-eu:regex:$V3,$EARLIER,$I/mix3.jsonl"
+    keep results/translate results/cache
+    stamp "two processes: the reader with examples, and the decider on the probes"
+    together \
+        "$BATCH --batch 48 --jobs translate3_few:nobel-eu:regex:$V3" \
+        "$PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model $MODEL --adapter runs/adapter --data data/probes --splits v3_new v3_new_hard v3_new_impossible v3_partial v3_en --batch-envs 48 --out results/offline/apertus_ft_probes3.json"
     keep results/translate results/cache results/offline
     stamp "closed loop, mixed condition of the third round: decider alone, hybrid, hybrid that asks (one GPU)"
     CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"

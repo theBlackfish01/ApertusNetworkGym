@@ -557,7 +557,24 @@ def demo(args: argparse.Namespace) -> None:
     while episode.remaining:
         (decision,) = policy.decide([episode.request()])
         episode.apply(decision, keep_trace=True)
+    reads = args.policy.startswith(("hybrid", "translate"))  # a translator in front: show what it understood
     for step in episode.trace[: args.show]:
+        if reads:
+            request, instruction = (step["prompt"].split("\n") + ["Intent: none"])[:2]
+            tags, body = answer_tags(step["answer"]), (step["answer"] or "").removeprefix("asked+")
+            how = ("the decider decided, the rule engine replaced its choice (guard)" if tags["guarded"]
+                   else "handed to the decider" if tags["forwarded"]
+                   else "not applied, operator told" if body in FLAGS
+                   else "rule engine" + (", operator told that a part was not carried" if tags["flagged"] else ""))  # fmt: skip
+            understood = body.split(":", 1)[0] if tags["forwarded"] else body
+            print(f"{request}\n  instruction: {instruction.removeprefix('Intent: ')}")
+            print(
+                f"  understood:  {'outside the format' if tags['forwarded'] else understood}"
+                + ("   [two readers disagreed: the operator was asked]" if tags["asked"] else "")
+            )
+            print(f"  decision:    {step['decision']}  ({how}; reference {step['oracle']}; "
+                  f"{'VIOLATES the instruction' if step['violation'] else 'instruction respected'})\n")  # fmt: skip
+            continue
         print(step["prompt"])
         print(f"--> {args.policy}: {step['answer'] or step['decision']}   (teacher: {step['oracle']}; "
               f"{'valid' if step['valid'] else 'INVALID'}; {'VIOLATES intent' if step['violation'] else 'intent respected'})\n")  # fmt: skip
@@ -573,6 +590,9 @@ def llm_options(args: argparse.Namespace) -> dict:
     local = {"model": args.model, "adapter": args.adapter,
              "structured": "none" if args.structured == "none" else "regex",
              "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
+    if args.base_url and args.policy.startswith(("hybrid", "translate")):
+        # a server that takes a grammar (llama.cpp): the readers and, in a hybrid, the decider
+        local |= {"base_url": args.base_url, "concurrency": args.concurrency}
     if args.policy.startswith("hybrid"):
         return local | {
             "topology": args.topology,

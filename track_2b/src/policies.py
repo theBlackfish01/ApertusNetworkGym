@@ -274,6 +274,39 @@ class LLMPolicy(CachedLLM):
             return list(pool.map(self._ask, prompts))
 
 
+# The decision line as a GBNF grammar (llama.cpp); the same language as ``decoding.py``.
+DECISION_GBNF = 'root ::= "reject" | "path=" [0-4] " slot=" [0-9] [0-9]? [0-9]?\n'
+
+
+class GrammarEndpoint(LLMPolicy):
+    """An OpenAI-compatible server that takes a GBNF grammar with each request (llama.cpp's llama-server).
+
+    The grammar is the decision line, or the translator's answer format exported by
+    ``grammar.gbnf``, so a quantised model on a laptop is held to the same lines as the model in
+    a job. One server can hold several LoRA adapters of one base model: ``LLM_LORA_IDS`` maps a
+    policy name to the number of its adapter, e.g. ``{"translate3_ft_laptop": 0,
+    "translate3_ft2_laptop": 1, "apertus_ft_laptop": 2}``, and each request then switches that
+    adapter on and the others off.
+    """
+
+    def __init__(self, name: str, *, grammar: str = DECISION_GBNF, max_tokens: int = 18, **options) -> None:
+        options.pop("structured", None)
+        super().__init__(name, structured="none", **options)
+        self.grammar, self.max_tokens = grammar, max_tokens
+        adapters = json.loads(os.environ.get("LLM_LORA_IDS", "{}"))
+        if name in adapters:
+            scales = [
+                {"id": i, "scale": float(i == adapters[name])} for i in range(max(adapters.values()) + 1)
+            ]
+            self.extra_body = self.extra_body | {"lora": scales}
+
+    def _body(self, messages: list[dict]) -> dict:
+        return super()._body(messages) | {"max_tokens": self.max_tokens, "grammar": self.grammar}
+
+    def describe(self) -> dict:
+        return super().describe() | {"structured": "gbnf", "endpoint": self.base_url}
+
+
 class LocalLLMPolicy(CachedLLM):
     """The model loaded in this process with ``transformers`` (used next to the GPU in a job).
 
@@ -470,4 +503,6 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         return make_hybrid_policy(name, **llm_options)
     if backend == "transformers":
         return LocalLLMPolicy(name, **llm_options)
+    if llm_options.get("structured") == "gbnf":
+        return GrammarEndpoint(name, **llm_options)
     return LLMPolicy(name, **llm_options)

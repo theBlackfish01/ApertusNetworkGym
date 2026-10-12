@@ -43,7 +43,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from grammar import gbnf
-from policies import Decision, LLMPolicy, LocalLLMPolicy, Policy, Request
+from policies import Decision, GrammarEndpoint, LocalLLMPolicy, Policy, Request
 from spec import (
     EMPTY,
     UNKNOWN,
@@ -268,24 +268,6 @@ class KeywordTranslator(Translator):
         return answers
 
 
-class GrammarEndpoint(LLMPolicy):
-    """An OpenAI-compatible server that takes a GBNF grammar with each request (llama.cpp's llama-server).
-
-    The grammar is the answer format of ``spec.py`` exported by ``grammar.gbnf``, so a quantised
-    model on a laptop is held to the same lines as the model in a job.
-    """
-
-    def __init__(self, name: str, *, grammar: str, max_tokens: int, **options) -> None:
-        super().__init__(name, structured="none", **options)
-        self.grammar, self.max_tokens = grammar, max_tokens
-
-    def _body(self, messages: list[dict]) -> dict:
-        return super()._body(messages) | {"max_tokens": self.max_tokens, "grammar": self.grammar}
-
-    def describe(self) -> dict:
-        return super().describe() | {"structured": "gbnf", "endpoint": self.base_url}
-
-
 class LLMTranslator(Translator):
     """Apertus: in this process (next to a GPU), behind a server (``base_url``), or replayed from
     its answer cache."""
@@ -479,7 +461,7 @@ def make_hybrid_policy(
     from policies import make_policy
 
     first, second, guard, ordered = _parts(name)
-    options = {}
+    options, backend = {}, "transformers"
     if decider_adapter:
         options = {
             "model": llm.get("model"),
@@ -487,15 +469,19 @@ def make_hybrid_policy(
             "max_batch": llm.get("max_batch", 64),
         }
         llm = {}
+    elif llm.get("base_url"):  # everything behind one server that takes a grammar (a laptop)
+        backend = "endpoint"
+        options = {"structured": "gbnf", "base_url": llm["base_url"], "model": llm.get("model"),
+                   "concurrency": llm.get("concurrency", 1)}  # fmt: skip
     policy = HybridPolicy(
         name,
         make_translator(first, topology, **llm),
-        make_policy(decider, backend="transformers", **options),
+        make_policy(decider, backend=backend, **options),
         "ordered" if ordered else "intersection",
         make_translator(second, topology, **llm) if second else None,
         guard,
     )
-    policy.parallel_safe = not decider_adapter  # a live decider is one model in this process
+    policy.parallel_safe = not decider_adapter and backend != "endpoint"  # a live decider is one model
     policy.cache_path = getattr(
         policy.decider, "cache_path", None
     )  # what a closed-loop run copies to the Hub
