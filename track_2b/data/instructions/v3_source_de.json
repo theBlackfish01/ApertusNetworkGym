@@ -1,0 +1,216 @@
+{
+  "atoms": {
+    "avoid_link": [
+      "Bitte nicht über die Strecke {a}–{b} routen, dort laufen heute Nacht Wartungsarbeiten.",
+      "Link {a}-{b} ist gesperrt, bitte auslassen.",
+      "Faserbruch zwischen {a} und {b} – dieser Abschnitt darf im Pfad nicht vorkommen.",
+      "kein routing über den link {a}-{b}",
+      "Der neue Dienst soll die direkte Faserstrecke zwischen {a} und {b} meiden.",
+      "Trasse {a}–{b} wegen Spleissarbeiten bis auf Weiteres nicht verwenden.",
+      "Das Segment von {a} nach {b} hat seit gestern erhöhte Dämpfung, darüber bitte nichts Neues schalten.",
+      "Für diese Anfrage ist der Span {a}–{b} tabu, alle anderen Links sind in Ordnung."
+    ],
+    "avoid_node": [
+      "Bitte {c} komplett umgehen.",
+      "Der Pfad darf nicht durch {c} laufen, am Standort wird an der Stromversorgung gearbeitet.",
+      "{c} ist als Transitknoten gesperrt – bitte eine Route ohne diesen Standort wählen.",
+      "nicht über {c}!",
+      "Der Kunde verlangt aus Audit-Gründen, dass sein Dienst {c} nicht berührt.",
+      "Knoten {c} auslassen, dort läuft gerade ein ROADM-Upgrade.",
+      "Wir haben in {c} ein Wartungsfenster, also bitte keinen Weg nehmen, der dort durchgeht.",
+      "Route ohne {c} wählen."
+    ],
+    "via_node": [
+      "Die Verbindung muss über {v} geführt werden.",
+      "Bitte via {v} routen, der Kunde hat dort einen zweiten Übergabepunkt geplant.",
+      "Pfad zwingend durch {v}.",
+      "Nur Kandidaten berücksichtigen, die {v} passieren.",
+      "Der Lichtpfad soll über {v} verlaufen, weil wir dort später einen Add/Drop einrichten wollen.",
+      "route muss über {v} gehen, bitte beachten",
+      "Laut Kundenvertrag ist {v} als Zwischenstation vorgeschrieben.",
+      "Bitte darauf achten, dass {v} auf dem Weg liegt."
+    ],
+    "max_hops": [
+      "Maximal {n} Hops.",
+      "Die Route darf höchstens {n} Links durchlaufen.",
+      "Bitte nicht mehr als {n} Hops, sonst wird das OSNR-Budget zu knapp.",
+      "hop-limit für diesen dienst: {n}",
+      "Der Pfad soll mit {n} Hops oder weniger auskommen.",
+      "Mehr als {n} Hops sind laut SLA nicht zulässig.",
+      "Obergrenze {n} Hops, alles darüber fällt raus.",
+      "Bitte nur Wege in Betracht ziehen, die über maximal {n} Abschnitte (Hops) gehen."
+    ],
+    "max_km": [
+      "Die Route darf höchstens {km} km lang sein.",
+      "Max. {km} km Pfadlänge.",
+      "Bitte keine Route, die länger als {km} km ist, sonst reißen wir das Latenz-SLA.",
+      "Längenlimit von {km} km einhalten.",
+      "Der Lichtpfad darf {km} km nicht überschreiten.",
+      "routenlänge auf {km} km begrenzen",
+      "Alles, was über {km} km hinausgeht, kommt für diesen Dienst nicht in Frage.",
+      "Der Kunde hat eine Latenzgarantie, daher gilt für die Gesamtstrecke eine Obergrenze von {km} km."
+    ],
+    "path_index": [
+      "Bitte Kandidat {k} nehmen.",
+      "Nimm die Option {k} aus der Liste.",
+      "Pfad Nr. {k} schalten.",
+      "Wir haben uns intern auf Route {k} geeinigt, bitte genau diese verwenden.",
+      "kandidat {k}, danke",
+      "Für diese Anfrage ist die Nummer {k} der Kandidatenliste zu wählen.",
+      "Ich möchte, dass der Dienst über den Vorschlag mit der Nummer {k} läuft.",
+      "Auswahl: Eintrag {k}."
+    ],
+    "fewest_hops": [
+      "Bitte die Route mit den wenigsten Hops nehmen.",
+      "Möglichst wenige Links durchlaufen.",
+      "Bevorzugt den Pfad mit der kleinsten Hop-Anzahl.",
+      "hops minimieren",
+      "Nimm den Kandidaten, der die wenigsten Links überquert – jeder zusätzliche Hop kostet uns OSNR.",
+      "Bei diesem Dienst kommt es auf die Hop-Zahl an: bitte den Weg wählen, der am wenigsten Hops braucht.",
+      "Am liebsten die Variante mit den wenigsten Abschnitten, sprich minimale Anzahl Hops.",
+      "Kriterium: geringste Anzahl durchlaufener Links."
+    ],
+    "shortest_km": [
+      "Bitte die kürzeste Route nach Kilometern wählen.",
+      "Geringste Streckenlänge in km bevorzugen.",
+      "Nimm den Pfad mit den wenigsten Kilometern.",
+      "km minimieren, latenz ist dem kunden wichtig",
+      "Der Kunde ist latenzempfindlich, deshalb bitte den Kandidaten mit der kürzesten Distanz in km nehmen.",
+      "Entscheidend ist die Faserlänge: den Weg mit der geringsten Kilometerzahl schalten.",
+      "Bevorzugt die Trasse mit der kleinsten Gesamtlänge in km.",
+      "kürzeste Strecke (Distanz, nicht Hops) nehmen"
+    ],
+    "least_loaded": [
+      "Bitte die am wenigsten ausgelastete Route nehmen.",
+      "Den Pfad mit den meisten freien Slots wählen.",
+      "Bevorzugt dort entlang, wo noch am meisten Spektrum frei ist.",
+      "Nimm den Kandidaten mit der geringsten Auslastung, wir wollen die vollen Strecken schonen.",
+      "route mit dem meisten freien spektrum bitte",
+      "Lastverteilung beachten: die Variante mit der höchsten Zahl freier Slots entlang des Weges schalten.",
+      "Am liebsten über die Trasse, auf der am wenigsten los ist, also die mit der grössten freien Kapazität im Spektrum.",
+      "Kriterium ist die Auslastung der Fasern: den Pfad wählen, der aktuell am schwächsten belegt ist, sprich am meisten freie Slots hat."
+    ],
+    "fewest_slots": [
+      "Bitte die Option wählen, bei der die Anfrage am wenigsten Slots belegt.",
+      "Spektrumeffizienteste Variante nehmen.",
+      "Nimm den Kandidaten mit dem geringsten Slot-Bedarf für diesen Dienst.",
+      "möglichst wenig spektrum verbrauchen, also die route mit der effizientesten modulation",
+      "Wir müssen Spektrum sparen: bitte den Pfad, auf dem der Dienst die wenigsten Slots benötigt.",
+      "Bevorzugt die Route, die das effizienteste Modulationsformat erlaubt und die Verbindung damit am wenigsten Slots kostet.",
+      "Kriterium: minimale Anzahl von Slots, die diese Verbindung belegt.",
+      "Der Dienst soll im Spektrum so schmal wie möglich ausfallen – also den Kandidaten nehmen, bei dem die Anfrage die kleinste Slot-Zahl braucht."
+    ]
+  },
+  "pairs": [
+    {"clauses": ["avoid_link", "avoid_node"], "text": "Bitte weder den Link {a}–{b} benutzen noch durch {c} routen."},
+    {"clauses": ["avoid_link", "avoid_node"], "text": "Wartung heute Nacht: Die Strecke zwischen {a} und {b} fällt aus, und {c} ist ebenfalls zu umgehen."},
+    {"clauses": ["avoid_node", "avoid_link"], "text": "{c} auslassen und auch nicht über den link {a}-{b} gehen"},
+    {"clauses": ["avoid_link", "avoid_node"], "text": "Der Kunde will aus Redundanzgründen einen Pfad, der sowohl den Abschnitt {a}–{b} als auch den Standort {c} meidet."},
+
+    {"clauses": ["via_node", "avoid_link"], "text": "Die Verbindung soll über {v} laufen, aber nicht über die Strecke {a}–{b}."},
+    {"clauses": ["avoid_link", "via_node"], "text": "Unterbruch auf {a}–{b}, diesen Link bitte meiden; ausserdem muss der Dienst durch {v} gehen."},
+    {"clauses": ["via_node", "avoid_link"], "text": "Bitte via {v} routen und dabei den Abschnitt zwischen {a} und {b} auslassen."},
+    {"clauses": ["avoid_link", "via_node"], "text": "link {a}-{b} nicht nutzen, {v} muss auf dem weg liegen"},
+
+    {"clauses": ["avoid_link", "max_hops"], "text": "Den Link {a}–{b} bitte nicht verwenden und mit höchstens {n} Hops auskommen."},
+    {"clauses": ["max_hops", "avoid_link"], "text": "Maximal {n} Hops, und die Trasse zwischen {a} und {b} ist wegen Bauarbeiten gesperrt."},
+    {"clauses": ["avoid_link", "max_hops"], "text": "Wir brauchen einen Pfad ohne die Strecke {a}–{b}, der nicht mehr als {n} Links durchläuft."},
+    {"clauses": ["avoid_link", "max_hops"], "text": "nicht über {a}-{b} (link down), hop-limit {n}"},
+
+    {"clauses": ["avoid_link", "max_km"], "text": "Bitte den Abschnitt {a}–{b} umgehen, die Route darf trotzdem nicht länger als {km} km werden."},
+    {"clauses": ["max_km", "avoid_link"], "text": "Längenlimit {km} km, außerdem keine Führung über den Link zwischen {a} und {b}."},
+    {"clauses": ["avoid_link", "max_km"], "text": "Wegen der Tiefbauarbeiten zwischen {a} und {b} darf dieser Link nicht im Pfad sein; Gesamtlänge höchstens {km} km."},
+    {"clauses": ["max_km", "avoid_link"], "text": "max {km} km und ohne den link {a}-{b}"},
+
+    {"clauses": ["avoid_link", "fewest_hops"], "text": "Die Strecke {a}–{b} bitte auslassen und von den übrigen Kandidaten den mit den wenigsten Hops nehmen."},
+    {"clauses": ["least_loaded", "avoid_link"], "text": "Nimm den Pfad mit den meisten freien Slots, aber nicht über den Link zwischen {a} und {b}."},
+    {"clauses": ["avoid_link", "shortest_km"], "text": "Link {a}-{b} hat einen Alarm, also nicht darüber; ansonsten die nach km kürzeste Route."},
+    {"clauses": ["avoid_link", "fewest_slots"], "text": "Ohne den Abschnitt {a}–{b} routen und dabei die Variante wählen, die für den Dienst am wenigsten Slots braucht."},
+
+    {"clauses": ["via_node", "avoid_node"], "text": "Bitte über {v} führen und {c} komplett auslassen."},
+    {"clauses": ["avoid_node", "via_node"], "text": "{c} ist wegen eines Stromausfalls zu meiden, der Dienst muss aber wie vertraglich vereinbart durch {v} laufen."},
+    {"clauses": ["avoid_node", "via_node"], "text": "nicht via {c}, sondern via {v}"},
+    {"clauses": ["via_node", "avoid_node"], "text": "Gesucht ist eine Route, die {v} passiert, ohne den Knoten {c} zu berühren."},
+
+    {"clauses": ["avoid_node", "max_hops"], "text": "Bitte {c} umgehen und nicht mehr als {n} Hops verwenden."},
+    {"clauses": ["max_hops", "avoid_node"], "text": "Höchstens {n} Hops, und der Standort {c} darf nicht auf dem Pfad liegen."},
+    {"clauses": ["avoid_node", "max_hops"], "text": "Der Knoten {c} wird gerade umgebaut, daher ohne ihn planen; die Hop-Zahl darf {n} nicht überschreiten."},
+    {"clauses": ["avoid_node", "max_hops"], "text": "ohne {c}, max. {n} hops"},
+
+    {"clauses": ["avoid_node", "max_km"], "text": "Nicht über {c} routen und bei der Länge höchstens {km} km."},
+    {"clauses": ["max_km", "avoid_node"], "text": "Die Route darf maximal {km} km lang sein und muss den Standort {c} aussparen."},
+    {"clauses": ["avoid_node", "max_km"], "text": "{c} bitte meiden (Wartungsfenster), zudem gilt für den Kunden eine Längenobergrenze von {km} km."},
+    {"clauses": ["avoid_node", "max_km"], "text": "pfad ohne {c} und nicht länger als {km} km"},
+
+    {"clauses": ["avoid_node", "least_loaded"], "text": "Bitte {c} umgehen und dann die am wenigsten ausgelastete Route wählen."},
+    {"clauses": ["fewest_hops", "avoid_node"], "text": "Den Pfad mit den wenigsten Hops nehmen, solange er nicht durch {c} führt."},
+    {"clauses": ["avoid_node", "shortest_km"], "text": "{c} ist tabu; unter den verbleibenden Wegen bitte den mit der geringsten Kilometerzahl."},
+    {"clauses": ["avoid_node", "fewest_slots"], "text": "um {c} herum routen und möglichst wenig slots für den dienst belegen"},
+
+    {"clauses": ["via_node", "max_hops"], "text": "Die Verbindung muss durch {v} gehen und darf höchstens {n} Hops haben."},
+    {"clauses": ["max_hops", "via_node"], "text": "Maximal {n} Hops, wobei {v} als Zwischenknoten Pflicht ist."},
+    {"clauses": ["via_node", "max_hops"], "text": "Bitte über {v} führen, aber mit nicht mehr als {n} Links insgesamt."},
+    {"clauses": ["via_node", "max_hops"], "text": "via {v}, hop-limit {n}"},
+
+    {"clauses": ["via_node", "max_km"], "text": "Bitte via {v} routen, die Gesamtlänge darf {km} km nicht überschreiten."},
+    {"clauses": ["max_km", "via_node"], "text": "Wir brauchen eine Route von höchstens {km} km, die über {v} verläuft."},
+    {"clauses": ["via_node", "max_km"], "text": "Der Kunde besteht auf einer Führung über {v}; wegen der Latenz sind aber maximal {km} km erlaubt."},
+    {"clauses": ["max_km", "via_node"], "text": "nicht länger als {km} km und zwingend über {v}"},
+
+    {"clauses": ["via_node", "least_loaded"], "text": "Über {v} führen und dabei die Route mit den meisten freien Slots nehmen."},
+    {"clauses": ["via_node", "shortest_km"], "text": "Von den Kandidaten, die durch {v} laufen, bitte den nach Kilometern kürzesten."},
+    {"clauses": ["fewest_slots", "via_node"], "text": "Nimm die spektrumeffizienteste Option, also die mit den wenigsten belegten Slots für diese Anfrage, sofern sie {v} passiert."},
+    {"clauses": ["via_node", "fewest_hops"], "text": "{v} muss drin sein, ansonsten so wenige hops wie möglich"},
+
+    {"clauses": ["max_hops", "max_km"], "text": "Höchstens {n} Hops und höchstens {km} km."},
+    {"clauses": ["max_km", "max_hops"], "text": "Die Route darf nicht länger als {km} km sein und nicht mehr als {n} Links durchlaufen."},
+    {"clauses": ["max_hops", "max_km"], "text": "Für das SLA gelten zwei Grenzen: maximal {n} Hops sowie eine Pfadlänge von maximal {km} km."},
+    {"clauses": ["max_hops", "max_km"], "text": "limits: {n} hops, {km} km"},
+
+    {"clauses": ["max_hops", "shortest_km"], "text": "Nicht mehr als {n} Hops, und innerhalb dieser Grenze bitte die kürzeste Strecke in km."},
+    {"clauses": ["least_loaded", "max_hops"], "text": "Bitte den am wenigsten belasteten Pfad wählen, der mit höchstens {n} Hops auskommt."},
+    {"clauses": ["max_hops", "fewest_slots"], "text": "Hop-Limit {n}; ansonsten die Variante nehmen, bei der die Anfrage die wenigsten Slots beansprucht."},
+    {"clauses": ["max_hops", "least_loaded"], "text": "max {n} hops, davon die route mit dem meisten freien spektrum"},
+
+    {"clauses": ["max_km", "fewest_hops"], "text": "Die Route darf höchstens {km} km lang sein; unter den zulässigen bitte die mit den wenigsten Hops."},
+    {"clauses": ["fewest_slots", "max_km"], "text": "Bitte die Option mit dem geringsten Slot-Bedarf für den Dienst, aber nichts, was länger als {km} km ist."},
+    {"clauses": ["max_km", "least_loaded"], "text": "Längenlimit {km} km, und innerhalb davon den Pfad mit der geringsten Auslastung nehmen."},
+    {"clauses": ["max_km", "fewest_hops"], "text": "unter den wegen bis {km} km den mit den wenigsten links nehmen"}
+  ],
+  "two_preferences": [
+    {"clauses": ["fewest_hops", "shortest_km"], "text": "Bitte die Route mit den wenigsten Hops; bei Gleichstand entscheidet die kürzere Strecke in km."},
+    {"clauses": ["shortest_km", "least_loaded"], "text": "In erster Linie zählt die kürzeste Distanz in km, und falls zwei Kandidaten gleich lang sind, den mit mehr freien Slots nehmen."},
+    {"clauses": ["least_loaded", "fewest_hops"], "text": "Hauptkriterium ist die geringste Auslastung; nur wenn da mehrere gleichauf liegen, den Pfad mit weniger Hops nehmen."},
+    {"clauses": ["fewest_slots", "shortest_km"], "text": "zuerst nach slot-bedarf der anfrage (so wenig wie möglich), bei gleichem bedarf die kürzere route in km"},
+    {"clauses": ["fewest_hops", "least_loaded"], "text": "Wichtig ist uns vor allem eine minimale Hop-Zahl. Sollten mehrere Wege gleich wenige Hops haben, dann bitte den am wenigsten ausgelasteten."},
+    {"clauses": ["shortest_km", "fewest_slots"], "text": "Nimm den kilometermäßig kürzesten Pfad und greif nur bei identischer Länge auf den zurück, der für den Dienst weniger Slots braucht."},
+    {"clauses": ["least_loaded", "fewest_slots"], "text": "Vorrangig das meiste freie Spektrum entlang der Route, nachrangig – nur als Tie-Breaker – der geringste Slot-Verbrauch der Anfrage."},
+    {"clauses": ["fewest_slots", "fewest_hops"], "text": "Der Dienst soll möglichst wenig Spektrum belegen; ergibt sich dabei ein Patt, gewinnt die Variante mit den wenigsten Hops."}
+  ],
+  "triples": [
+    {"clauses": ["via_node", "avoid_link", "fewest_hops"], "text": "Bitte über {v} routen, den Link {a}–{b} dabei auslassen und von den passenden Wegen den mit den wenigsten Hops nehmen."},
+    {"clauses": ["avoid_link", "via_node", "least_loaded"], "text": "Faserbruch zwischen {a} und {b}, also diesen Abschnitt meiden; der Dienst muss weiterhin durch {v} gehen, bevorzugt auf der am wenigsten ausgelasteten Route."},
+    {"clauses": ["shortest_km", "via_node", "avoid_link"], "text": "kürzeste distanz in km, aber nur via {v} und ohne den link {a}-{b}"},
+    {"clauses": ["avoid_link", "via_node", "fewest_slots"], "text": "Die Strecke {a}–{b} ist gesperrt und {v} ist als Zwischenstation vorgeschrieben; unter diesen Bedingungen die Variante wählen, bei der die Verbindung am wenigsten Slots belegt."},
+
+    {"clauses": ["avoid_node", "max_hops", "least_loaded"], "text": "{c} umgehen, höchstens {n} Hops, und dann die Route mit den meisten freien Slots."},
+    {"clauses": ["max_hops", "avoid_node", "shortest_km"], "text": "Bitte einen Pfad mit maximal {n} Hops wählen, der nicht durch {c} führt; unter den zulässigen den mit der geringsten Länge in km."},
+    {"clauses": ["avoid_node", "max_hops", "fewest_slots"], "text": "Wegen des Umbaus in {c} darf der Knoten nicht benutzt werden. Zusätzlich gilt ein Hop-Limit von {n}, und bevorzugt wird die Option, die für diese Anfrage die wenigsten Slots beansprucht."},
+    {"clauses": ["least_loaded", "avoid_node", "max_hops"], "text": "am wenigsten belegte route nehmen, aber ohne {c} und mit max. {n} hops"},
+
+    {"clauses": ["avoid_link", "max_hops", "max_km"], "text": "Den Link {a}–{b} nicht verwenden, maximal {n} Hops und maximal {km} km."},
+    {"clauses": ["max_km", "max_hops", "avoid_link"], "text": "Für diesen Kunden gilt: höchstens {km} km Länge und nicht mehr als {n} Links; außerdem ist der Abschnitt zwischen {a} und {b} wegen Wartung ausgeschlossen."},
+    {"clauses": ["avoid_link", "max_hops", "max_km"], "text": "Bitte einen Pfad wählen, der die Trasse {a}–{b} umgeht, mit bis zu {n} Hops auskommt und {km} km nicht überschreitet."},
+    {"clauses": ["avoid_link", "max_hops", "max_km"], "text": "ohne {a}-{b} (link gestört), hop-limit {n}, längenlimit {km} km"},
+
+    {"clauses": ["via_node", "max_km", "fewest_hops"], "text": "Via {v}, nicht länger als {km} km, und von den verbleibenden Kandidaten den mit den wenigsten Hops."},
+    {"clauses": ["via_node", "max_km", "least_loaded"], "text": "Der Dienst muss durch {v} laufen und darf höchstens {km} km lang sein; bitte dabei die am schwächsten ausgelastete Route nehmen."},
+    {"clauses": ["fewest_slots", "via_node", "max_km"], "text": "Bitte die spektrumsparendste Option nehmen, also die mit den wenigsten Slots für die Anfrage, solange sie über {v} geht und die {km} km nicht überschreitet."},
+    {"clauses": ["max_km", "via_node", "shortest_km"], "text": "Obergrenze {km} km, {v} muss auf dem Pfad liegen, und am liebsten natürlich die kürzeste Strecke in km."},
+
+    {"clauses": ["via_node", "avoid_node", "max_hops"], "text": "Bitte über {v} führen, {c} auslassen und höchstens {n} Hops verwenden."},
+    {"clauses": ["avoid_node", "via_node", "max_hops"], "text": "Der Standort {c} ist wegen Wartung zu umgehen; gleichzeitig muss die Route {v} passieren und darf nicht mehr als {n} Links haben."},
+    {"clauses": ["max_hops", "via_node", "avoid_node"], "text": "max. {n} hops, via {v}, nicht über {c}"},
+    {"clauses": ["max_hops", "via_node", "avoid_node"], "text": "Gesucht wird ein Weg mit maximal {n} Hops, der durch {v} verläuft und den Knoten {c} nicht enthält."}
+  ]
+}

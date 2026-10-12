@@ -53,6 +53,7 @@ from spec import (
     format_spec,
     from_intent,
     load_topology,
+    meets,
     parse_spec,
     validate,
 )
@@ -280,7 +281,7 @@ class LLMTranslator(Translator):
             template_kwargs=llm.get("template_kwargs"),
             max_batch=llm.get("max_batch", 64),
             grammar=answer_grammar(topology, version) if constrained else None,
-            max_new_tokens=MAX_NEW_TOKENS,
+            max_new_tokens=MAX_NEW_TOKENS3 if version == 3 else MAX_NEW_TOKENS,
         )
 
     def lines(self, texts: list[str]) -> list[tuple[str, float]]:
@@ -292,64 +293,138 @@ class LLMTranslator(Translator):
         return super().describe() | described
 
 
+def format_version(name: str) -> int:
+    """The answer format of a translator or hybrid, from its name (``translate3_ft``, ``hybrid2_few``)."""
+    return next((v for v in (3, 2) if name.startswith((f"translate{v}_", f"hybrid{v}_"))), 1)
+
+
 def make_translator(name: str, topology: str = "nobel-eu", **llm) -> Translator:
     """``translate_keyword``, or a model translator; a name containing ``_few`` gets the examples."""
     net = load_topology(topology)
     if name == "translate_keyword":
         return KeywordTranslator(net)
-    return LLMTranslator(
-        name, net, few="_few" in name, version=2 if name.startswith("translate2_") else 1, **llm
-    )
+    return LLMTranslator(name, net, few="_few" in name, version=format_version(name), **llm)
+
+
+def meant(intent) -> Spec:
+    """What the author of an instruction means by it: the answer of an operator who is asked."""
+    import mixed
+    import mixed3
+
+    if isinstance(intent, mixed3.Instruction):
+        return mixed3.expected(intent)
+    return mixed.expected(intent) if isinstance(intent, mixed.Instruction) else from_intent(intent)
 
 
 class TranslatorPolicy(Policy):
-    """A translator and the rule engine as a policy, so the evaluator treats it like any other."""
+    """A translator and the rule engine as a policy, so the evaluator treats it like any other.
+
+    With a ``second`` reader every instruction is translated twice. Where the two readings differ
+    the operator is asked, which in the simulation means the instruction's true meaning is used;
+    such decisions carry ``asked+`` in front of what they report.
+    """
 
     parallel_safe = True  # in worker processes the model answers must already be in the cache
 
-    def __init__(self, name: str, translator: Translator, rule: str) -> None:
-        self.name, self.translator, self.rule = name, translator, rule
+    def __init__(
+        self, name: str, translator: Translator, rule: str, second: Translator | None = None
+    ) -> None:
+        self.name, self.translator, self.rule, self.second = name, translator, rule, second
+        self.version = getattr(translator, "version", 1)
         self._specs: dict[str, Spec] = {"none": EMPTY}  # "none" is the prompt text of no instruction
+        self._asked: set[str] = set()
+
+    def read(self, requests: list[Request]) -> None:
+        """Translate the instructions not seen before; ask where two readers disagree."""
+        new = {r.intent.text: r.intent for r in requests if r.intent.text not in self._specs}
+        if not new:
+            return
+        texts = sorted(new)
+        specs = self.translator.translate(texts)
+        if self.second is not None:
+            for i, (text, other) in enumerate(zip(texts, self.second.translate(texts), strict=True)):
+                if specs[i].meaning() != other.meaning():
+                    self._asked.add(text)
+                    specs[i] = meant(new[text])
+        self._specs.update(zip(texts, specs, strict=True))
+
+    def report(self, text: str, body: str) -> str:
+        return ("asked+" if text in self._asked else "") + body
 
     def decide(self, requests: list[Request]) -> list[Decision]:
-        new = sorted({r.intent.text for r in requests} - self._specs.keys())
-        if new:
-            self._specs.update(zip(new, self.translator.translate(new), strict=True))
+        self.read(requests)
         decisions = []
         for request in requests:
             started = time.perf_counter()
             spec = self._specs[request.intent.text]
             choice = choose(request.view, spec if spec.applies else EMPTY, self.rule)
-            raw = format_spec(spec) if spec.applies or spec.status == "unsupported" else spec.status
+            body = (
+                format_spec(spec, self.version)
+                if spec.applies or spec.status == "unsupported"
+                else spec.status
+            )
+            raw = self.report(request.intent.text, body)
             decisions.append(Decision(choice, raw=raw, seconds=time.perf_counter() - started))
         return decisions
 
     def describe(self) -> dict:
-        return {"name": self.name, "rule": self.rule, "translator": self.translator.describe()}
+        second = {"second_reader": self.second.describe()} if self.second is not None else {}
+        return {"name": self.name, "rule": self.rule, "translator": self.translator.describe()} | second
 
 
 class HybridPolicy(TranslatorPolicy):
     """The translator in front of the decider.
 
-    An instruction the translator can write as constraints and preferences is executed by the
-    rule engine. One it calls ``unsupported`` (about the choice of route, but outside the format)
-    is handed to the decider together with the request. Everything else is not applied.
+    An instruction the translator can write in its format is executed by the rule engine. One it
+    calls ``unsupported`` (about the choice of route, but outside the format) is handed to the
+    decider together with the request. Everything else is not applied.
+
+    In the third format an instruction can be carried in part (``rest=more``). It goes to the
+    decider too, and with ``guard`` the decider's choice is checked against the constraints the
+    slots do carry: a path that breaks them is replaced by the rule engine's choice under those
+    constraints (``guard:`` in the report). A reject by the decider is kept, because the part the
+    slots cannot carry may be impossible to meet.
     """
 
-    def __init__(self, name: str, translator: Translator, decider: Policy, rule: str) -> None:
-        super().__init__(name, translator, rule)
-        self.decider = decider
+    def __init__(
+        self, name: str, translator: Translator, decider: Policy, rule: str, second: Translator | None = None,
+        guard: bool = True,
+    ) -> None:  # fmt: skip
+        super().__init__(name, translator, rule, second)
+        self.decider, self.guard = decider, guard
 
     def decide(self, requests: list[Request]) -> list[Decision]:
         decisions = super().decide(requests)
-        forward = [i for i, r in enumerate(requests) if self._specs[r.intent.text].status == "unsupported"]
+        specs = [self._specs[r.intent.text] for r in requests]
+        forward = [
+            i for i, spec in enumerate(specs) if spec.status == "unsupported" or (spec.applies and spec.rest)
+        ]
         if forward:
             for i, d in zip(forward, self.decider.decide([requests[i] for i in forward]), strict=True):
-                decisions[i] = Decision(d.choice, d.well_formed, "decider:" + (d.raw or ""), d.seconds)
+                spec, paths, tag = specs[i], requests[i].view.paths, "decider:"
+                choice, well_formed = d.choice, d.well_formed
+                checkable = (
+                    self.guard and spec.applies and spec.constrains and well_formed and choice is not None
+                )
+                if checkable and (choice[0] >= len(paths) or not meets(paths[choice[0]], spec)):
+                    choice, tag = decisions[i].choice, "guard:"  # the engine's choice under the carried part
+                raw = self.report(requests[i].intent.text, tag + (d.raw or ""))
+                decisions[i] = Decision(choice, well_formed, raw, d.seconds)
         return decisions
 
     def describe(self) -> dict:
-        return super().describe() | {"decider": self.decider.describe()}
+        return super().describe() | {"decider": self.decider.describe(), "guard": self.guard}
+
+
+def _parts(name: str) -> tuple[str, str | None, bool, bool]:
+    """``(first reader, second reader or None, guard, ordered)`` from a policy name such as
+    ``hybrid3_ft_ask-ft2``, ``translate3_ft_ask-few`` or ``hybrid3_ft_noguard``."""
+    ordered = name.endswith("_ordered")
+    base, _, second = name.removesuffix("_ordered").partition("_ask-")
+    guard = "_noguard" not in base
+    first = base.replace("_noguard", "").replace("hybrid", "translate", 1)
+    version = format_version(first)
+    return first, (f"translate{version}_{second}" if second else None), guard, ordered or version == 3
 
 
 def make_hybrid_policy(
@@ -359,32 +434,33 @@ def make_hybrid_policy(
     decider_adapter: str | None = None,
     **llm,
 ) -> HybridPolicy:
-    """``hybrid2_<kind>``: ``translate2_<kind>`` in front of the decider.
+    """``hybrid<v>_<kind>``: ``translate<v>_<kind>`` in front of the decider.
 
-    Without ``decider_adapter`` both answer from their caches (a replay). With it the decider is
-    loaded with that adapter and asked live, and the translator still answers from its cache only:
-    its instructions are translated beforehand, and a missing one must stop the run instead of
-    being answered by a model without the translator's adapter.
+    ``_ask-<kind>`` adds ``translate<v>_<kind>`` as a second reader; ``_noguard`` switches the
+    guard of the third format off. Without ``decider_adapter`` all answer from their caches (a
+    replay). With it the decider is loaded with that adapter and asked live, and the translators
+    still answer from their caches only: their instructions are translated beforehand, and a
+    missing one must stop the run instead of being answered by a model without the translator's
+    adapter. The third format is defined with ordered preferences.
     """
     from policies import make_policy
 
-    ordered = name.endswith("_ordered")
-    base = name.removesuffix("_ordered").replace("hybrid", "translate", 1)
+    first, second, guard, ordered = _parts(name)
+    options = {}
     if decider_adapter:
         options = {
             "model": llm.get("model"),
             "adapter": decider_adapter,
             "max_batch": llm.get("max_batch", 64),
         }
-        translator = make_translator(base, topology)
-    else:
-        options = {}
-        translator = make_translator(base, topology, **llm)
+        llm = {}
     policy = HybridPolicy(
         name,
-        translator,
+        make_translator(first, topology, **llm),
         make_policy(decider, backend="transformers", **options),
         "ordered" if ordered else "intersection",
+        make_translator(second, topology, **llm) if second else None,
+        guard,
     )
     policy.parallel_safe = not decider_adapter  # a live decider is one model in this process
     policy.cache_path = getattr(
@@ -394,9 +470,14 @@ def make_hybrid_policy(
 
 
 def make_translator_policy(name: str, topology: str = "nobel-eu", **llm) -> TranslatorPolicy:
-    ordered = name.endswith("_ordered")
-    translator = make_translator(name.removesuffix("_ordered"), topology, **llm)
-    return TranslatorPolicy(name, translator, "ordered" if ordered else "intersection")
+    first, second, _, ordered = _parts(name)
+    # The third format is defined with ordered preferences: constraints, then objectives in order.
+    return TranslatorPolicy(
+        name,
+        make_translator(first, topology, **llm),
+        "ordered" if ordered else "intersection",
+        make_translator(second, topology, **llm) if second else None,
+    )
 
 
 def read_rows(paths: list[Path]) -> list[dict]:
@@ -446,17 +527,14 @@ def collect_texts(args: argparse.Namespace) -> None:
 
 def _episode_texts(job: dict) -> list[dict]:
     from evaluate import Episode
-    from mixed import Instruction
-    from mixed import expected as mixed_expected
     from policies import Oracle
 
     episode, policy, rows = Episode(job), Oracle(), {}
     while episode.remaining:
         intent = episode.intent
         if intent.text not in rows and intent.text != "none":
-            meant = mixed_expected(intent) if isinstance(intent, Instruction) else from_intent(intent)
-            rows[intent.text] = {"text": intent.text, "expect": meant.to_json(), "set": job["condition"],
-                                 "lang": "en", "kind": intent.key}  # fmt: skip
+            rows[intent.text] = {"text": intent.text, "expect": meant(intent).to_json(), "set": job["condition"],
+                                 "lang": getattr(intent, "lang", "en"), "kind": intent.key}  # fmt: skip
         (decision,) = policy.decide([episode.request()])
         episode.apply(decision)
     return list(rows.values())
@@ -517,7 +595,9 @@ def score(args: argparse.Namespace) -> None:
             examples[(row["set"], outcome)].append(
                 {
                     "text": row["text"],
-                    "expected": format_spec(expect) if expect.applies else expect.status,
+                    "expected": format_spec(expect, getattr(translator, "version", 1))
+                    if expect.applies
+                    else expect.status,
                     "answer": line,
                     "status": got.status,
                 }

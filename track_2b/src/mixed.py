@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from functools import cache
 from pathlib import Path
 
+import mixed3
 from corpora import TEST_OUTSIDE, fill, load_independent, reword
 from intents import (
     HELDOUT_PAIRS,
@@ -141,6 +142,8 @@ def _complies(path: PathView, rule: tuple, shortest: int) -> bool:
 
 def allowed(view: RequestView, instruction: Intent) -> tuple[int, ...]:
     """Indices of the paths that respect the instruction; empty means the request must be rejected."""
+    if isinstance(instruction, mixed3.Instruction):  # the third round has its own rules
+        return mixed3.allowed(view, instruction)
     if getattr(instruction, "kind", "") != "unseen":
         return admissible_paths(view, instruction)
     feasible = [p for p in view.paths if p.feasible]
@@ -150,6 +153,8 @@ def allowed(view: RequestView, instruction: Intent) -> tuple[int, ...]:
 
 def respected(view: RequestView, instruction: Intent, choice: Choice, rule: str = "intersection") -> bool:
     """Whether a valid decision respects the instruction (``intents.is_admissible`` for every kind)."""
+    if isinstance(instruction, mixed3.Instruction):
+        return mixed3.respected(view, instruction, choice)
     kind = getattr(instruction, "kind", "")
     if kind == "unseen":
         ok = allowed(view, instruction)
@@ -166,6 +171,8 @@ def respected(view: RequestView, instruction: Intent, choice: Choice, rule: str 
 
 def oracle(view: RequestView, instruction: Intent) -> Choice:
     """The reference decision: the teacher inside the paths that respect the instruction."""
+    if isinstance(instruction, mixed3.Instruction):
+        return mixed3.oracle(view, instruction)
     if getattr(instruction, "kind", "") != "unseen":
         return intent_teacher(view, instruction)
     paths = [view.paths[i] for i in allowed(view, instruction)]

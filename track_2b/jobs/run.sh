@@ -18,6 +18,15 @@
 #   check3  the mixed closed-loop condition with a live decider behind the translator, tiny model
 #   phase3  the mixed condition (mixed.py) in closed loop: the decider alone, and the hybrid of the
 #           second fine-tuned translator and the decider; the translator's answers are computed first
+#   check4  the third translator format on a tiny model, CPU only: examples, training, adapter
+#   train3  fine-tune one reader of the third translator (READER = 1 or 2: its training data and
+#           seed); two readers are trained so that their disagreement can be used
+#   check5  the third round's evaluation on a tiny model, CPU only: two readers, the guarded
+#           fallback, closed loops that share one machine
+#   phase4  the third round: both fine-tuned readers and the reader with examples on the test
+#           instructions; the decider on the probes of the new types; the mixed condition
+#           operations_mix3 in closed loop for the decider alone, the hybrid, and the hybrid that
+#           asks when its two readers disagree (three processes on one GPU)
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
 #
@@ -33,7 +42,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | check5 | phase4}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -79,6 +88,17 @@ PROBES="independent de fr it gsw noisy faulty out_of_scope germany50"
 # supported instructions written natively in German, French and Italian.
 NEW="$I/unseen.jsonl,$I/unseen_impossible.jsonl,$I/not_instruction.jsonl,$I/de_ind.jsonl,$I/fr_ind.jsonl,$I/it_ind.jsonl"
 PROBES2="unseen unseen_impossible not_instruction de_ind fr_ind it_ind"
+# Third round (corpora3_tests.py, mixed3.py): the policy language in four languages, the new types.
+V3="$I/v3_en.jsonl,$I/v3_de.jsonl,$I/v3_fr.jsonl,$I/v3_it.jsonl,$I/v3_new.jsonl,$I/v3_new_impossible.jsonl,$I/v3_partial.jsonl,$I/v3_other.jsonl,$I/v3_not.jsonl,$I/v3_faulty.jsonl"
+EARLIER="$I/independent.jsonl,$I/de_ind.jsonl,$I/fr_ind.jsonl,$I/it_ind.jsonl"
+together() {  # run the given commands at the same time on this machine and fail if one fails
+    local pids=() pid
+    for command in "$@"; do
+        bash -c "$command" &
+        pids+=($!)
+    done
+    for pid in "${pids[@]}"; do wait "$pid"; done
+}
 
 # Copy files or folders (paths relative to the repo root) back to the work repo.
 keep() {
@@ -263,6 +283,82 @@ phase1-ft)
         --sync-repo "$WORK_REPO" --jobs "translate_ft:nobel-eu:regex:$TESTS" \
         "translate_ft:germany50:regex:$I/germany50.jsonl" "translate_ft_free:nobel-eu:none:$TESTS" \
         "translate_ft:nobel-eu:regex:$I/closed_loop.jsonl"
+    ;;
+check4)
+    TINY=HuggingFaceTB/SmolLM2-135M-Instruct
+    stamp "third translator format on the tiny model: examples, training of both readers' data, adapter"
+    printf '%s\n' '{"text": "Do not pass through Paris. Limit the route to at most 4 hops.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Paris"], "max_hops": 4}, "set": "check", "lang": "en", "kind": "avoid_node+max_hops"}' \
+        '{"text": "Good morning, how are you?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "check", "lang": "en", "kind": "not_instruction"}' > /tmp/check4.jsonl
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs "translate3_check_few:nobel-eu:regex:/tmp/check4.jsonl"
+    for reader in 1 2; do
+        $PY src/train.py --model $TINY --data-dir data/translate3/s$reader --out runs/check-translator3 --no-4bit \
+            --limit-train 16 --limit-heldout 4 --max-steps 2 --save-steps 0 --batch 4 --accumulation 1 \
+            --eval-records 4 --max-length 2048 --max-new-tokens 96 --seed $reader --skip-merge
+    done
+    $PY src/translate.py batch --model $TINY --adapter runs/check-translator3/adapter --batch 8 --jobs \
+        "translate3_check_ft:nobel-eu:regex:/tmp/check4.jsonl"
+    ;;
+train3)
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO}" "${READER:?set READER (1 or 2)}"
+    stamp "fine-tune reader $READER of the third translator (resumes from $TRANSLATOR_REPO if a checkpoint is there)"
+    # shellcheck disable=SC2086
+    $PY src/train.py --model "$MODEL" --data-dir data/translate3/s$READER --out runs/translator3 \
+        --hub-adapter "$TRANSLATOR_REPO" --resume --save-steps 50 --max-length 1024 --max-new-tokens 96 \
+        --eval-records 100 --seed "$READER" --skip-merge --epochs 1.15 ${TRAIN_ARGS:-}
+    mkdir -p results/train/translator3-s$READER
+    cp runs/translator3/training_log.json runs/translator3/heldout_predictions.jsonl results/train/translator3-s$READER/
+    keep results/train/translator3-s$READER
+    ;;
+check5)
+    TINY=HuggingFaceTB/SmolLM2-135M-Instruct
+    SHORT="--conditions operations_mix3 --loads 390 --seeds 1 2 --warmup 30 --window 8"
+    stamp "third round on the tiny model: instructions, two readers, decider alone, guarded hybrid that asks"
+    # shellcheck disable=SC2086
+    $PY src/translate.py texts $SHORT --workers 2 --out /tmp/mix3_check.jsonl
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs "translate3_check5:nobel-eu:regex:/tmp/mix3_check.jsonl"
+    $PY src/translate.py batch --model $TINY --batch 4 --jobs "translate3_check5_few:nobel-eu:regex:/tmp/mix3_check.jsonl"
+    # any adapter of the tiny model serves as "the decider's" here: this stage only checks the plumbing
+    $PY src/train.py --model $TINY --data-dir data/translate3/s1 --out runs/check5 --no-4bit --limit-train 8 \
+        --limit-heldout 2 --max-steps 1 --save-steps 0 --batch 4 --accumulation 1 --eval-records 2 \
+        --max-length 2048 --max-new-tokens 8 --skip-merge
+    together \
+        "$PY src/evaluate.py closed --policy check5_alone_mix3 --backend transformers --model $TINY $SHORT --sim-workers 1" \
+        "$PY src/evaluate.py closed --policy hybrid3_check5_ask-check5_few --decider check5_hybrid --decider-adapter runs/check5/adapter --model $TINY $SHORT --sim-workers 1 --out results/eval/hybrid3_check5_mix3.json"
+    $PY src/evaluate.py offline --policy check_probes3 --backend transformers --model $TINY \
+        --data data/probes --splits v3_new v3_partial --limit 6
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs "translate3_check5:nobel-eu:regex:$I/v3_partial.jsonl"
+    $PY src/evaluate.py offline --policy hybrid3_check5 --decider check_probes3 --data data/probes \
+        --splits v3_partial --limit 6
+    ;;
+phase4)
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the decider)}" "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (reader 1)}"
+    : "${SECOND_REPO:?set SECOND_REPO (reader 2)}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+for repo, where in (('$ADAPTER_REPO', 'runs/adapter'), ('$TRANSLATOR_REPO', 'runs/reader1'), ('$SECOND_REPO', 'runs/reader2')):
+    print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))"
+    stamp "reader 1: test instructions of the third round, the earlier sets, the mixed condition, the other topology"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/reader1 --batch 96 --sync-repo "$WORK_REPO" --jobs \
+        "translate3_ft:nobel-eu:regex:$V3,$EARLIER,$I/gsw.jsonl,$I/noisy.jsonl,$I/mix3.jsonl" \
+        "translate3_ft:germany50:regex:$I/germany50.jsonl"
+    stamp "reader 2: the same instructions without the two stress sets"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/reader2 --batch 96 --sync-repo "$WORK_REPO" --jobs \
+        "translate3_ft2:nobel-eu:regex:$V3,$EARLIER,$I/mix3.jsonl"
+    stamp "reader with examples and no training: test instructions of the third round"
+    $PY src/translate.py batch --model "$MODEL" --batch 32 --sync-repo "$WORK_REPO" --jobs \
+        "translate3_few:nobel-eu:regex:$V3,$I/independent.jsonl"
+    keep results/translate results/cache
+    stamp "decider: probes of the new types, of partial instructions, and of the policy language in English"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model "$MODEL" \
+        --adapter runs/adapter --data data/probes --splits v3_new v3_new_impossible v3_partial v3_en \
+        --batch-envs 64 --out results/offline/apertus_ft_probes3.json $SYNC
+    stamp "closed loop, mixed condition of the third round: decider alone, hybrid, hybrid that asks (one GPU)"
+    CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"
+    together \
+        "$PY src/evaluate.py closed --policy apertus_ft_mix3 --backend transformers --adapter runs/adapter $CLOSED $SYNC" \
+        "$PY src/evaluate.py closed --policy hybrid3_ft --decider apertus_ft_hybrid3 --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid3_ft_mix3.json" \
+        "$PY src/evaluate.py closed --policy hybrid3_ft_ask-ft2 --decider apertus_ft_hybrid3ask --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid3_ft_ask-ft2_mix3.json"
     ;;
 check2)
     TINY=HuggingFaceTB/SmolLM2-135M-Instruct

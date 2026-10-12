@@ -15,6 +15,10 @@ cp data/full/*.jsonl "$stage/data/full/"
 for dir in instructions probes translate translate2 fewshot topologies; do
     cp data/$dir/*.json* "$stage/data/$dir/" 2>/dev/null || true
 done
+# Third round: one training set per reader (corpora3.py).
+for reader in data/translate3/s*; do
+    [ -d "$reader" ] && mkdir -p "$stage/$reader" && cp "$reader"/*.jsonl "$stage/$reader/"
+done
 cp results/mlp/* "$stage/results/mlp/"
 uvx --from "huggingface_hub[cli]" hf upload "$WORK_REPO" "$stage" . --repo-type dataset --private \
     --commit-message "${1:-bundle}"

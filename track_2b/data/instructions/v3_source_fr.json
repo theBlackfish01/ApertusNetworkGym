@@ -1,0 +1,216 @@
+{
+  "atoms": {
+    "avoid_link": [
+      "Ne pas emprunter le tronçon {a}–{b}, il est en maintenance cette nuit.",
+      "Merci d'éviter le lien {a}-{b} pour ce service.",
+      "coupure fibre entre {a} et {b}, ne rien faire passer dessus",
+      "Le chemin retenu ne doit en aucun cas utiliser la liaison directe {a}–{b}.",
+      "Exclure toute route qui passe par le lien {a}-{b} (travaux de génie civil en cours).",
+      "Interdiction de router sur la fibre {a}/{b} jusqu'à nouvel ordre.",
+      "Pas de passage sur le segment reliant {a} à {b}, svp.",
+      "On contourne le tronçon {a}-{b} : intervention planifiée par le fournisseur de fibre."
+    ],
+    "avoid_node": [
+      "Éviter complètement le site de {c}, le nœud est en cours de mise à jour logicielle.",
+      "Aucun passage par {c} pour cette liaison, merci.",
+      "pas de transit par {c} svp, panne de clim sur le site",
+      "Le circuit ne doit pas traverser {c}.",
+      "Merci de choisir une route qui contourne entièrement le nœud {c}.",
+      "{c} est à exclure du chemin : audit de sécurité sur place cette semaine.",
+      "Hors de question de passer par {c} tant que l'alimentation du site n'est pas rétablie.",
+      "Écarter tous les candidats qui transitent par {c}."
+    ],
+    "via_node": [
+      "Le chemin doit obligatoirement passer par {v}.",
+      "Merci de faire transiter ce service par {v}, le client y a un point de présence.",
+      "passage par {v} impératif",
+      "Il faut que la route traverse le nœud {v}.",
+      "Ne retenir qu'une route qui transite par le site de {v} (exigence contractuelle).",
+      "On veut {v} sur le parcours, sans exception.",
+      "Transit imposé via {v} pour cette demande.",
+      "Pourriez-vous router la liaison de manière à ce qu'elle passe par {v} ? C'est nécessaire pour la régénération du signal."
+    ],
+    "max_hops": [
+      "Pas plus de {n} sauts pour ce chemin optique.",
+      "Le nombre de liens traversés ne doit pas dépasser {n}.",
+      "max {n} sauts svp",
+      "Merci de vous limiter à {n} sauts au maximum sur cette route.",
+      "On reste à {n} tronçons ou moins, sinon on multiplie les points de panne.",
+      "Refuser toute route de plus de {n} sauts.",
+      "Limite stricte : {n} liens au plus de bout en bout.",
+      "Je veux une route qui compte au maximum {n} sauts, c'est une contrainte de disponibilité du SLA."
+    ],
+    "max_km": [
+      "La route ne doit pas dépasser {km} km.",
+      "Longueur max du chemin : {km} km.",
+      "pas au-delà de {km} km de fibre svp, budget latence serré",
+      "Merci de ne retenir qu'un chemin de {km} km au plus.",
+      "Distance totale plafonnée à {km} km pour respecter l'engagement de latence du client.",
+      "Écarter les candidats qui font plus de {km} km.",
+      "On ne veut pas d'un parcours supérieur à {km} km de bout en bout.",
+      "Le trajet optique doit tenir en {km} km maximum."
+    ],
+    "path_index": [
+      "Prendre le candidat numéro {k}.",
+      "Merci de retenir l'option {k} de la liste, c'est celle qui a été validée avec le client.",
+      "on part sur la route {k}",
+      "Utilisez le chemin n° {k}, et aucun autre.",
+      "Choix imposé : candidat {k}.",
+      "Je vous demande de provisionner le service sur la proposition {k} de la liste.",
+      "C'est la {k} qu'il faut prendre parmi les routes proposées.",
+      "Sélectionner l'entrée {k} dans la liste des candidats, décision de l'ingénierie."
+    ],
+    "fewest_hops": [
+      "Privilégier la route qui a le moins de sauts.",
+      "De préférence, prenez le chemin qui traverse le moins de liens.",
+      "le moins de sauts possible svp",
+      "À choisir, on prend le candidat avec le nombre de sauts le plus faible.",
+      "Merci de favoriser le chemin comptant le moins de tronçons, pour limiter les points de défaillance.",
+      "Minimiser le nombre de sauts.",
+      "Je préfère l'option avec le plus petit nombre de liens traversés.",
+      "Idéalement, la route la plus directe en nombre de sauts."
+    ],
+    "shortest_km": [
+      "Privilégier la route la plus courte en kilomètres.",
+      "Prenez de préférence le chemin dont la distance en km est la plus faible.",
+      "le moins de km possible svp, service sensible à la latence",
+      "À choisir, on retient le candidat qui fait le moins de kilomètres de fibre.",
+      "Merci de favoriser la plus petite longueur de route (en km).",
+      "Minimiser la distance parcourue en km.",
+      "Je préfère l'option au kilométrage le plus bas.",
+      "Idéalement le trajet le plus court, au sens de la distance en km."
+    ],
+    "least_loaded": [
+      "Privilégier la route la moins chargée.",
+      "Prenez de préférence le chemin qui a le plus de slots libres.",
+      "la route avec le plus de spectre dispo svp",
+      "À choisir, on retient le candidat dont le taux d'occupation spectrale est le plus bas.",
+      "Merci de favoriser le chemin où il reste le plus de créneaux libres, pour ne pas saturer les liens déjà pleins.",
+      "Passer par l'itinéraire le moins occupé en spectre.",
+      "Je préfère l'option qui dispose du plus grand nombre de slots libres sur son parcours.",
+      "Idéalement, on va là où le spectre est le plus dégagé."
+    ],
+    "fewest_slots": [
+      "Privilégier l'option qui consomme le moins de slots pour cette demande.",
+      "Prenez de préférence le chemin sur lequel la demande occupe le moins de spectre.",
+      "le moins de slots occupés par la demande svp",
+      "À choisir, on retient le candidat à la modulation la plus efficace spectralement.",
+      "Merci de favoriser la route où ce service prend le moins de créneaux, on économise le spectre.",
+      "Minimiser le nombre de slots alloués à ce circuit.",
+      "Je préfère l'option la plus sobre en spectre pour ce service.",
+      "Idéalement, la route qui autorise la modulation d'ordre le plus élevé, donc le moins de slots pour la demande."
+    ]
+  },
+  "pairs": [
+    {"clauses": ["avoid_link", "avoid_node"], "text": "Éviter le tronçon {a}–{b} ainsi que le site de {c}, tous deux concernés par la fenêtre de maintenance."},
+    {"clauses": ["avoid_link", "avoid_node"], "text": "ni le lien {a}-{b} ni le nœud {c} pour ce circuit svp"},
+    {"clauses": ["avoid_node", "avoid_link"], "text": "Merci de trouver une route qui ne passe pas par {c} et qui n'emprunte pas non plus la liaison {a}–{b}."},
+    {"clauses": ["avoid_link", "avoid_node"], "text": "Suite à la coupure entre {a} et {b}, on n'utilise plus ce lien ; en plus, {c} est à contourner pendant l'audit."},
+
+    {"clauses": ["via_node", "avoid_link"], "text": "Faire passer le service par {v}, mais sans utiliser le lien {a}-{b}."},
+    {"clauses": ["avoid_link", "via_node"], "text": "Le tronçon {a}–{b} est indisponible : contournez-le, tout en gardant un transit par {v}."},
+    {"clauses": ["via_node", "avoid_link"], "text": "transit par {v} obligatoire, et pas de fibre {a}/{b} (travaux)"},
+    {"clauses": ["avoid_link", "via_node"], "text": "Merci d'exclure la liaison entre {a} et {b} et de veiller à ce que la route traverse bien {v}, où le client a son équipement."},
+
+    {"clauses": ["avoid_link", "max_hops"], "text": "Pas de passage sur le lien {a}–{b}, et {n} sauts au maximum."},
+    {"clauses": ["avoid_link", "max_hops"], "text": "On évite le tronçon {a}-{b} en maintenance, sans pour autant dépasser {n} liens traversés."},
+    {"clauses": ["max_hops", "avoid_link"], "text": "max {n} sauts, et surtout pas la liaison {a}-{b}"},
+    {"clauses": ["max_hops", "avoid_link"], "text": "Je souhaite une route de {n} sauts au plus qui n'emprunte pas la fibre entre {a} et {b}."},
+
+    {"clauses": ["avoid_link", "max_km"], "text": "Ne pas utiliser le lien {a}-{b} et ne pas dépasser {km} km."},
+    {"clauses": ["avoid_link", "max_km"], "text": "Coupure de fibre sur {a}–{b} : contourner ce tronçon, mais la route ne doit pas excéder {km} km."},
+    {"clauses": ["max_km", "avoid_link"], "text": "{km} km max pour tenir la latence, et on n'emprunte pas la liaison {a}-{b}"},
+    {"clauses": ["max_km", "avoid_link"], "text": "Merci de retenir un chemin d'au plus {km} km qui évite le segment entre {a} et {b}."},
+
+    {"clauses": ["avoid_link", "fewest_hops"], "text": "Éviter le lien {a}-{b} et, parmi les routes restantes, prendre celle qui a le moins de sauts."},
+    {"clauses": ["avoid_link", "least_loaded"], "text": "Le tronçon {a}–{b} est en travaux, on ne passe pas dessus ; pour le reste, préférence à la route la moins chargée."},
+    {"clauses": ["shortest_km", "avoid_link"], "text": "au plus court en km, mais sans la liaison {a}-{b}"},
+    {"clauses": ["fewest_slots", "avoid_link"], "text": "Merci de privilégier l'option où la demande occupe le moins de slots, à condition qu'elle n'utilise pas la fibre entre {a} et {b}."},
+
+    {"clauses": ["via_node", "avoid_node"], "text": "Passer par {v} mais pas par {c}."},
+    {"clauses": ["avoid_node", "via_node"], "text": "Le site de {c} est à éviter pendant la maintenance ; en revanche le transit par {v} est obligatoire."},
+    {"clauses": ["via_node", "avoid_node"], "text": "route via {v} exigée, contourner {c} (panne d'alimentation)"},
+    {"clauses": ["avoid_node", "via_node"], "text": "Merci de choisir un chemin qui ne traverse pas {c} et qui transite par {v}, conformément à la demande du client."},
+
+    {"clauses": ["avoid_node", "max_hops"], "text": "Pas de transit par {c}, et {n} sauts au maximum."},
+    {"clauses": ["avoid_node", "max_hops"], "text": "On contourne le nœud {c} sans dépasser {n} liens traversés."},
+    {"clauses": ["max_hops", "avoid_node"], "text": "{n} sauts max, éviter {c}"},
+    {"clauses": ["max_hops", "avoid_node"], "text": "Je voudrais une route limitée à {n} sauts qui ne passe à aucun moment par le site de {c}, en cours d'audit."},
+
+    {"clauses": ["avoid_node", "max_km"], "text": "Éviter {c} et ne pas dépasser {km} km."},
+    {"clauses": ["avoid_node", "max_km"], "text": "Le site {c} est hors service pour la nuit : trouvez une route qui s'en passe, d'une longueur maximale de {km} km."},
+    {"clauses": ["max_km", "avoid_node"], "text": "pas plus de {km} km et aucun passage par {c} svp"},
+    {"clauses": ["max_km", "avoid_node"], "text": "Compte tenu du SLA de latence, la liaison doit faire {km} km au plus, et elle ne doit pas transiter par {c}."},
+
+    {"clauses": ["avoid_node", "shortest_km"], "text": "Contourner {c} et, pour le reste, privilégier la route la plus courte en km."},
+    {"clauses": ["avoid_node", "fewest_slots"], "text": "En évitant {c}, prendre le chemin où la demande consomme le moins de slots."},
+    {"clauses": ["fewest_hops", "avoid_node"], "text": "le moins de sauts possible, mais jamais par {c}"},
+    {"clauses": ["least_loaded", "avoid_node"], "text": "Merci de retenir de préférence l'itinéraire qui a le plus de slots libres, pourvu qu'il ne traverse pas le nœud {c}, en maintenance."},
+
+    {"clauses": ["via_node", "max_hops"], "text": "Passer par {v} en {n} sauts maximum."},
+    {"clauses": ["via_node", "max_hops"], "text": "La route doit transiter par {v} et ne pas compter plus de {n} liens."},
+    {"clauses": ["max_hops", "via_node"], "text": "max {n} sauts, via {v} obligatoirement"},
+    {"clauses": ["max_hops", "via_node"], "text": "Merci de ne pas dépasser {n} sauts tout en faisant passer le circuit par le site de {v}, où se trouve le régénérateur."},
+
+    {"clauses": ["via_node", "max_km"], "text": "Transit par {v} exigé, longueur totale de {km} km au plus."},
+    {"clauses": ["via_node", "max_km"], "text": "Il faut que le chemin traverse {v} sans excéder {km} km."},
+    {"clauses": ["max_km", "via_node"], "text": "{km} km max et passage par {v}"},
+    {"clauses": ["max_km", "via_node"], "text": "Pour ce client, merci de limiter la route à {km} km et de la faire passer par le nœud {v}."},
+
+    {"clauses": ["via_node", "least_loaded"], "text": "Passer par {v} et, entre les routes possibles, choisir la moins chargée."},
+    {"clauses": ["via_node", "fewest_hops"], "text": "Transit obligatoire par {v} ; ensuite, préférence au plus petit nombre de sauts."},
+    {"clauses": ["fewest_slots", "via_node"], "text": "le moins de slots occupés par la demande, parmi les routes qui passent par {v}"},
+    {"clauses": ["shortest_km", "via_node"], "text": "Merci de prendre la route la plus courte en kilomètres qui traverse le site de {v}."},
+
+    {"clauses": ["max_hops", "max_km"], "text": "Au plus {n} sauts et {km} km."},
+    {"clauses": ["max_hops", "max_km"], "text": "La route ne doit dépasser ni {n} liens traversés ni {km} km de longueur."},
+    {"clauses": ["max_km", "max_hops"], "text": "{km} km max, {n} sauts max"},
+    {"clauses": ["max_km", "max_hops"], "text": "Pour respecter le SLA, merci de rester dans la limite de {km} km de fibre et de {n} sauts de bout en bout."},
+
+    {"clauses": ["max_hops", "shortest_km"], "text": "Pas plus de {n} sauts ; parmi ces routes, la plus courte en km."},
+    {"clauses": ["max_hops", "least_loaded"], "text": "On se limite à {n} liens traversés et on prend de préférence le chemin le moins chargé."},
+    {"clauses": ["fewest_slots", "max_hops"], "text": "privilégier le moins de slots pour la demande, dans la limite de {n} sauts"},
+    {"clauses": ["fewest_hops", "max_hops"], "text": "Idéalement le moins de sauts possible, et en tout état de cause pas plus de {n}."},
+
+    {"clauses": ["max_km", "fewest_hops"], "text": "Maximum {km} km ; dans cette limite, prendre la route qui a le moins de sauts."},
+    {"clauses": ["max_km", "fewest_slots"], "text": "La longueur ne doit pas dépasser {km} km, et on préfère le chemin où ce service occupe le moins de créneaux."},
+    {"clauses": ["least_loaded", "max_km"], "text": "route la moins chargée svp, sans aller au-delà de {km} km"},
+    {"clauses": ["shortest_km", "max_km"], "text": "Merci de viser la plus petite distance en km, sachant que le plafond absolu est de {km} km pour la latence."}
+  ],
+  "two_preferences": [
+    {"clauses": ["fewest_hops", "shortest_km"], "text": "Prendre la route qui a le moins de sauts ; en cas d'égalité, la plus courte en km."},
+    {"clauses": ["shortest_km", "least_loaded"], "text": "Priorité à la distance en km la plus faible, et si deux routes se valent, celle qui a le plus de slots libres."},
+    {"clauses": ["least_loaded", "fewest_hops"], "text": "d'abord la route la moins chargée ; à charge égale, celle qui a le moins de sauts"},
+    {"clauses": ["fewest_slots", "shortest_km"], "text": "Merci de choisir avant tout l'option où la demande occupe le moins de slots ; à égalité, départagez par la distance la plus courte en kilomètres."},
+    {"clauses": ["shortest_km", "fewest_hops"], "text": "Critère principal : le moins de km possible. Critère secondaire, uniquement pour départager : le moins de sauts."},
+    {"clauses": ["fewest_hops", "least_loaded"], "text": "Le moins de liens traversés en priorité, puis, entre ex æquo, le chemin au spectre le plus libre."},
+    {"clauses": ["least_loaded", "fewest_slots"], "text": "Je privilégie le chemin avec le plus de créneaux libres ; s'il y en a plusieurs équivalents, prenez celui où ce service consomme le moins de spectre."},
+    {"clauses": ["fewest_slots", "fewest_hops"], "text": "modulation la plus efficace d'abord (moins de slots pour la demande), et à égalité le moins de sauts"}
+  ],
+  "triples": [
+    {"clauses": ["avoid_link", "via_node", "least_loaded"], "text": "Éviter le lien {a}-{b}, passer par {v} et, parmi ce qui reste, prendre la route la moins chargée."},
+    {"clauses": ["via_node", "avoid_link", "fewest_hops"], "text": "Transit par {v} obligatoire et tronçon {a}–{b} interdit (coupure) ; ensuite on prend le moins de sauts possible."},
+    {"clauses": ["shortest_km", "via_node", "avoid_link"], "text": "au plus court en km, via {v}, sans la fibre {a}/{b}"},
+    {"clauses": ["via_node", "avoid_link", "fewest_slots"], "text": "Merci de retenir, parmi les chemins qui traversent {v} et n'empruntent pas la liaison entre {a} et {b}, celui où la demande occupe le moins de slots."},
+
+    {"clauses": ["avoid_node", "max_hops", "shortest_km"], "text": "Pas de passage par {c}, {n} sauts au maximum, et de préférence la route la plus courte en km."},
+    {"clauses": ["avoid_node", "max_hops", "least_loaded"], "text": "On contourne {c} pendant la maintenance, on ne dépasse pas {n} liens traversés et on favorise le chemin avec le plus de slots libres."},
+    {"clauses": ["max_hops", "avoid_node", "fewest_slots"], "text": "max {n} sauts, éviter {c}, moins de slots possible pour la demande"},
+    {"clauses": ["fewest_hops", "max_hops", "avoid_node"], "text": "Merci de viser le moins de sauts possible, sans jamais dépasser {n}, et de laisser le site de {c} en dehors de la route."},
+
+    {"clauses": ["avoid_link", "max_hops", "max_km"], "text": "Éviter le lien {a}-{b}, {n} sauts maximum et pas plus de {km} km."},
+    {"clauses": ["avoid_link", "max_hops", "max_km"], "text": "Le tronçon {a}–{b} est coupé : trouvez une route qui s'en passe, limitée à {n} liens traversés et à {km} km de longueur."},
+    {"clauses": ["max_km", "max_hops", "avoid_link"], "text": "{km} km max, {n} sauts max, pas de fibre {a}/{b}"},
+    {"clauses": ["max_km", "max_hops", "avoid_link"], "text": "Pour tenir le SLA, la route doit faire au plus {km} km et {n} sauts ; par ailleurs, merci de ne pas emprunter la liaison entre {a} et {b}, en maintenance."},
+
+    {"clauses": ["via_node", "max_km", "fewest_hops"], "text": "Passer par {v}, ne pas dépasser {km} km et, si plusieurs routes conviennent, prendre celle qui a le moins de sauts."},
+    {"clauses": ["via_node", "max_km", "fewest_slots"], "text": "Transit par {v} exigé par le client, longueur plafonnée à {km} km ; ensuite, préférence au chemin où le service occupe le moins de créneaux."},
+    {"clauses": ["least_loaded", "via_node", "max_km"], "text": "route la moins chargée svp, via {v}, {km} km max"},
+    {"clauses": ["shortest_km", "via_node", "max_km"], "text": "Merci de choisir la route la plus courte en distance qui traverse le nœud {v}, sachant qu'on ne peut de toute façon pas aller au-delà de {km} km."},
+
+    {"clauses": ["avoid_node", "via_node", "max_hops"], "text": "Éviter {c}, passer par {v}, {n} sauts au plus."},
+    {"clauses": ["via_node", "avoid_node", "max_hops"], "text": "La route doit transiter par {v} sans toucher au site de {c}, et rester à {n} liens traversés maximum."},
+    {"clauses": ["max_hops", "via_node", "avoid_node"], "text": "max {n} sauts ; via {v} ; pas par {c} (maintenance)"},
+    {"clauses": ["max_hops", "avoid_node", "via_node"], "text": "Merci de limiter le chemin à {n} sauts, de contourner le nœud {c} en cours d'audit et de bien inclure {v} sur le parcours."}
+  ]
+}

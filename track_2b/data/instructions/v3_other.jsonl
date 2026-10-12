@@ -1,0 +1,16 @@
+{"text": "Place the channel so that it begins at slot 120.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "The route must not cross a national border; keep the whole path domestic.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "End-to-end propagation delay has to stay below 9 ms for this customer.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Go with the second-shortest candidate by km, not the shortest.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "No subsea or festoon cable sections anywhere on the path, please.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Put it on the same route as the existing circuit this customer already has between these two cities.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "This is the backup leg, so it must be fully link-disjoint from the working path provisioned yesterday.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Force QPSK on this lightpath whatever route you take; we need the extra margin.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Choose the candidate with the best OSNR margin.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Allocate the spectrum in the upper half of the C-band only.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "first-fit please: lowest free slot index on the chosen route", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Whatever you choose, it must not be the last entry in the candidate list.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Use best-fit: the smallest free block that still accommodates the request.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Leave two empty guard slots on each side of the new channel when you assign spectrum.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "Prefer the lowest-order modulation on offer; robustness matters more than spectrum for this one.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}
+{"text": "The route should be at least 800 km long, since we are validating the long-haul cards.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "v3_other", "lang": "en", "kind": "other_routing"}

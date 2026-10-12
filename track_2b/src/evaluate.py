@@ -57,6 +57,8 @@ from mixed import allowed as allowed_paths
 from mixed import oracle as reference_choice
 from mixed import respected
 from mixed import sample as sample_mixed
+from mixed3 import CONDITION as MIXED3_CONDITION
+from mixed3 import sample as sample_mixed3
 from policies import Decision, Policy, Request, make_policy
 from prompt import format_choice, parse_answer, render_prompt
 from spec import EMPTY, Spec, from_intent, respects
@@ -74,6 +76,23 @@ METRICS = ("service_blocking_rate", "bit_rate_blocking_rate", "violation_rate", 
 FLAGS = ("unsupported", "no_instruction", "unresolved", "malformed")
 
 
+def answer_tags(raw: str | None) -> dict[str, bool]:
+    """What a translator or hybrid did with the instruction, read from the answer it reports.
+
+    ``asked+`` in front: two readers disagreed and the operator was asked. Then either a refusal
+    (the instruction was not applied), a line that ends in ``rest=more`` (applied in part, and the
+    operator is told), ``decider:`` (handed to the decider) or ``guard:`` (handed to the decider,
+    whose choice broke the part the slots carry and was replaced by the rule engine's).
+    """
+    body = (raw or "").removeprefix("asked+")
+    return {
+        "asked": (raw or "").startswith("asked+"),
+        "flagged": body in FLAGS or body.endswith("rest=more"),
+        "forwarded": body.startswith(("decider:", "guard:")),
+        "guarded": body.startswith("guard:"),
+    }
+
+
 def condition_intent(condition: str, view: RequestView, rng: random.Random) -> Intent:
     """The intent carried by one request under a condition."""
     if condition == "I0":
@@ -86,6 +105,8 @@ def condition_intent(condition: str, view: RequestView, rng: random.Random) -> I
         return sample_intent(view, rng.choice(HELDOUT_PAIRS), rng)
     if condition == MIXED_CONDITION:  # what an operator might type, in other wording (mixed.py)
         return sample_mixed(view, rng)
+    if condition == MIXED3_CONDITION:  # the policy language of the third round and what lies outside it
+        return sample_mixed3(view, rng)
     raise ValueError(f"unknown condition {condition!r}")
 
 
@@ -137,8 +158,8 @@ class Episode:
         # ``respected``, ``reference_choice`` and ``allowed_paths`` are the rules of intents.py for an
         # intent of the dataset, and the rule of the instruction's own type in the mixed condition.
         violation = not respected(view, intent, executed)
-        flagged = decision.raw in FLAGS
-        forwarded = decision.raw is not None and decision.raw.startswith("decider:")
+        tags = answer_tags(decision.raw)
+        flagged, forwarded = tags["flagged"], tags["forwarded"]
         binding = not respected(view, intent, teacher_choice(view, NO_INTENT))
         oracle = reference_choice(view, intent)
         tally = {
@@ -156,6 +177,8 @@ class Episode:
             "ordered_violations": not respected(view, intent, executed, "ordered"),
             "flagged": flagged,  # the translator did not apply the instruction and says so
             "forwarded": forwarded,  # a hybrid handed the request to the decider
+            "asked": tags["asked"],  # two readers disagreed: the operator was asked
+            "guarded": tags["guarded"],  # the decider's choice was replaced by the rule engine's
             "silent_violations": violation and not flagged,
             "oracle_exact": decision.well_formed and decision.choice == oracle,
             "oracle_path": (executed[0] if executed else None) == (oracle[0] if oracle else None),
@@ -485,7 +508,10 @@ def offline(args: argparse.Namespace) -> None:
                 else:
                     respected = (choice[0] in allowed) if choice else not allowed
                 counter["admissible"] += valid and respected
-                counter["forwarded"] += decision.raw is not None and decision.raw.startswith("decider:")
+                tags = answer_tags(decision.raw)
+                counter["forwarded"] += tags["forwarded"]
+                counter["asked"] += tags["asked"]
+                counter["guarded"] += tags["guarded"]
                 meant = (
                     Spec.from_json(record["meta"]["spec"])
                     if "spec" in record["meta"]
@@ -494,7 +520,7 @@ def offline(args: argparse.Namespace) -> None:
                 counter["ordered"] += valid and respects(
                     request.view, meant if meant.applies else EMPTY, choice, "ordered"
                 )
-                counter["flagged"] += decision.raw in FLAGS
+                counter["flagged"] += tags["flagged"]
                 if record["id"] in plain:
                     counter["inapplicable"] += 1
                     counter["unchanged"] += decision.well_formed and choice == plain[record["id"]].choice
@@ -571,7 +597,9 @@ def main() -> None:
     parser.add_argument(
         "--policy", required=True, help="first_fit, teacher, oracle, mlp, or a name for an LLM run"
     )
-    parser.add_argument("--conditions", nargs="+", default=None, choices=(*CONDITIONS, MIXED_CONDITION))
+    parser.add_argument(
+        "--conditions", nargs="+", default=None, choices=(*CONDITIONS, MIXED_CONDITION, MIXED3_CONDITION)
+    )
     parser.add_argument("--loads", type=int, nargs="+", default=list(EVAL_LOADS))
     parser.add_argument("--seeds", type=int, nargs="+", default=list(EVAL_SEEDS))
     parser.add_argument("--warmup", type=int, default=None)
