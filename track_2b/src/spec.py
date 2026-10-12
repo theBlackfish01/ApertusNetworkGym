@@ -169,6 +169,49 @@ def format_spec(spec: Spec, version: int = 1) -> str:
     )
 
 
+PREFERENCE_WORDS = {
+    "hops": "the fewest hops",
+    "km": "the shortest route in km",
+    "load": "the least loaded path",
+    "slots": "the fewest slots",
+}
+
+
+def describe(spec: Spec) -> str:
+    """What a spec means, read back to the operator in one English sentence."""
+    if spec.status == "unsupported":
+        return "About the route, slot or modulation, but outside the policy language: handed to the decider."
+    if spec.status == "no_instruction":
+        return "Not a routing instruction: nothing is applied."
+    if spec.status == "unresolved":
+        return "Names a place that is not in the network: not applied."
+    if spec.status == "malformed":
+        return "The reader produced no valid line."
+    parts = []
+    if spec.avoid:
+        parts.append(
+            "avoid the link"
+            + ("s " if len(spec.avoid) > 1 else " ")
+            + ", ".join(f"{a}-{b}" for a, b in spec.avoid)
+        )
+    if spec.nodes:
+        parts.append("do not pass through " + ", ".join(spec.nodes))
+    if spec.via:
+        parts.append("pass through " + ", ".join(spec.via))
+    if spec.max_hops is not None:
+        parts.append(f"at most {spec.max_hops} hops")
+    if spec.max_km is not None:
+        parts.append(f"at most {spec.max_km} km")
+    if spec.path is not None:
+        parts.append(f"use candidate {spec.path}")
+    if spec.prefer:
+        parts.append("prefer " + ", then ".join(PREFERENCE_WORDS[p] for p in spec.prefer))
+    text = "; ".join(parts) if parts else "no constraint and no preference"
+    if spec.rest:
+        text += "; a part of the instruction is not carried by the language and goes to the decider"
+    return text[0].upper() + text[1:] + "."
+
+
 def _parse3(match: re.Match) -> Spec:
     items, via, hops, km, path, preferences, rest = match.groups()
     parts = [] if items == "none" else [tuple(item.split("-")) for item in items.split(",")]

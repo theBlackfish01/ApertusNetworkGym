@@ -80,6 +80,25 @@ respects the instruction. No GPU is needed: the episode is replayed from the ans
 a laptop (`results/cache/*_laptop.jsonl`). With `LLM_BASE_URL` pointing at a llama.cpp server
 (next section) the same episode runs live. A few decisions of the decider alone follow.
 
+## The operator console
+
+```bash
+make console                      # http://localhost:8090, from recorded answers (no GPU, no server)
+uv run python src/console.py --base-url http://127.0.0.1:8089/v1    # live, in the uv environment
+```
+
+The hybrid on a map of the network. Type an instruction in any language: both readers translate
+it, and the page shows each reading as a line of the policy language, as a sentence read back,
+and as a TAPI constraint. A preview runs the next 100 requests on a copy of the simulator under
+each reading and without any, and reports blocking and how many decisions change; when the two
+readers disagree, it lists the first requests on which the readings would decide differently,
+and you choose. Once applied, every request flows through the hybrid (the rule engine for what
+the language carries, the decider for the rest), the map shows link occupation, the avoided links
+and nodes and the route of the last decision, and the audit trail lists per lightpath the
+instruction, the line, who decided and whether the decision respects the confirmed line.
+Without a model server only instructions read before can be typed (the page lists them); with
+`LLM_BASE_URL` pointing at the llama.cpp server of the next section, anything can.
+
 ## The policy language as a standard constraint
 
 One line of the policy language is also one TAPI constraint (ONF Transport API 2.1.3, the
@@ -214,6 +233,7 @@ track_2b/
     corpora3_owner.py  third round: the owner's own instructions as a test set, and what the readers made of them
     readers3.py        third round: what each reader does with every test instruction; two readers
     tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
+    console.py         the operator console (http server); console.html is its page
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
   jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
                        phase1_local.sh (translators on the laptop, from the answer caches)

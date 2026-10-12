@@ -11,3 +11,6 @@ services:
     # Lets LLM_BASE_URL=http://host.docker.internal:8000/v1 reach a server on the host (Linux too).
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    # `make console`: the operator console on http://localhost:8090 (only with --service-ports).
+    ports:
+      - "8090:8090"

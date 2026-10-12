@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightpath console</title>
+<style>
+  :root { --bg:#f6f4ef; --ink:#1d1d1b; --muted:#6b6962; --line:#d9d5cc; --card:#ffffff; --accent:#1f5fbf; --warn:#b4432c; --ok:#2e7d4f; --soft:#eef0f5; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); }
+  header { display:flex; align-items:baseline; gap:16px; padding:12px 20px; border-bottom:1px solid var(--line); background:var(--card); flex-wrap:wrap; }
+  header h1 { font-size:17px; margin:0; font-weight:600; }
+  header .mode { color:var(--muted); font-size:13px; }
+  main { display:grid; grid-template-columns: minmax(420px, 1fr) minmax(380px, 520px); gap:16px; padding:16px 20px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; padding:12px 16px; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; min-width:0; }
+  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; font-weight:600; }
+  svg { width:100%; height:auto; display:block; }
+  .link { stroke:#9a9890; stroke-width:2; }
+  .link.avoid { stroke:var(--warn); stroke-dasharray:6 4; stroke-width:3; }
+  .link.route { stroke:var(--accent); stroke-width:5; opacity:.9; }
+  .node { fill:#fff; stroke:#444; stroke-width:1.5; }
+  .node.via { stroke:var(--ok); stroke-width:4; }
+  .node.avoid { stroke:var(--warn); stroke-width:4; }
+  .node.end { fill:var(--accent); stroke:var(--accent); }
+  .label { font-size:10px; fill:#333; pointer-events:none; }
+  textarea, input[type=text], select { width:100%; font:inherit; padding:8px; border:1px solid var(--line); border-radius:6px; background:#fff; }
+  button { font:inherit; padding:7px 12px; border:1px solid var(--line); border-radius:6px; background:#fff; cursor:pointer; }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button:disabled { opacity:.5; cursor:default; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px; }
+  .reading { border:1px solid var(--line); border-radius:6px; padding:10px; margin-top:10px; background:var(--soft); }
+  .reading.same { background:#eef7f0; }
+  .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size:12.5px; word-break:break-all; }
+  .readback { margin:6px 0; }
+  details summary { cursor:pointer; color:var(--muted); font-size:12.5px; }
+  pre { font-size:11.5px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; overflow:auto; max-height:220px; margin:6px 0 0; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td { text-align:left; padding:4px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  .num { text-align:right; font-variant-numeric: tabular-nums; }
+  .warn { color:var(--warn); } .ok { color:var(--ok); } .muted { color:var(--muted); }
+  .badge { display:inline-block; padding:1px 6px; border-radius:10px; font-size:11.5px; background:var(--soft); }
+  .audit { grid-column: 1 / -1; overflow-x:auto; }
+  .audit tbody tr { cursor:pointer; } .audit tbody tr:hover { background:var(--soft); }
+  .legend { display:flex; gap:14px; font-size:12px; color:var(--muted); margin-top:6px; flex-wrap:wrap; }
+  .legend span::before { content:""; display:inline-block; width:18px; height:4px; margin-right:5px; vertical-align:middle; border-radius:2px; }
+  .legend .l1::before { background:#9a9890; } .legend .l2::before { background:var(--warn); } .legend .l3::before { background:var(--accent); }
+  .stats { display:flex; gap:18px; font-size:12.5px; color:var(--muted); margin-top:8px; flex-wrap:wrap; }
+  .stats b { color:var(--ink); }
+  #error { color:var(--warn); margin-top:8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Lightpath console</h1>
+  <span class="mode" id="mode">connecting…</span>
+</header>
+<main>
+  <section class="card">
+    <h2>Network</h2>
+    <svg id="map" viewBox="0 0 640 480" aria-label="network map"></svg>
+    <div class="legend"><span class="l1">link, darker = more occupied</span><span class="l2">avoided</span><span class="l3">last route</span></div>
+    <div class="stats" id="stats"></div>
+    <div class="row">
+      <button onclick="step(1)">Next request</button>
+      <button onclick="step(10)">Next 10</button>
+      <button onclick="step(50)">Next 50</button>
+      <span class="muted" id="pending"></span>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Instruction</h2>
+    <textarea id="text" rows="2" placeholder="e.g. the Zurich–Milan span is under maintenance; keep it short in hops"></textarea>
+    <div class="row">
+      <button class="primary" id="readBtn" onclick="read()">Read</button>
+      <button onclick="clearInstruction()">Clear instruction</button>
+    </div>
+    <div class="row"><select id="recordedSel" onchange="pick(this)"><option value="">recorded instructions (no model server needed)…</option></select></div>
+    <div id="error"></div>
+    <div id="readings"></div>
+    <div id="preview"></div>
+    <div id="current" class="muted" style="margin-top:10px"></div>
+  </section>
+  <section class="card audit">
+    <h2>Audit trail <span class="muted" id="auditCount"></span></h2>
+    <table><thead><tr><th>#</th><th>Request</th><th>Instruction</th><th>Understood (line)</th><th>Decided by</th><th>Decision</th><th>Respects</th></tr></thead><tbody id="auditBody"></tbody></table>
+  </section>
+</main>
+<script>
+let STATE = null, READ = null, HIGHLIGHT = null;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)} : {});
+  return r.json();
+}
+
+function project(nodes) {
+  const lons = nodes.map(n => n.lon), lats = nodes.map(n => n.lat);
+  const minLon = Math.min(...lons), maxLon = Math.max(...lons), minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  const k = Math.cos((minLat + maxLat) / 2 * Math.PI / 180);
+  const w = (maxLon - minLon) * k || 1, h = (maxLat - minLat) || 1;
+  const s = Math.min(600 / w, 440 / h);
+  const ox = (640 - w * s) / 2, oy = (480 - h * s) / 2;
+  const out = {};
+  for (const n of nodes) out[n.name] = { x: ox + (n.lon - minLon) * k * s, y: oy + (maxLat - n.lat) * s };
+  return out;
+}
+
+function drawMap() {
+  if (!STATE) return;
+  const P = project(STATE.nodes);
+  const spec = STATE.instruction.spec || {};
+  const avoidLinks = new Set((spec.avoid || []).map(l => [...l].sort().join("|")));
+  const avoidNodes = new Set(spec.nodes || []), via = new Set(spec.via || []);
+  const route = HIGHLIGHT || STATE.last_route || [];
+  const routeLinks = new Set(); for (let i = 1; i < route.length; i++) routeLinks.add([route[i-1], route[i]].sort().join("|"));
+  let svg = "";
+  for (const l of STATE.links) {
+    const key = [l.a, l.b].sort().join("|"), a = P[l.a], b = P[l.b];
+    const cls = routeLinks.has(key) ? "link route" : avoidLinks.has(key) ? "link avoid" : "link";
+    const shade = Math.round(200 - 150 * l.used);
+    const style = cls === "link" ? `stroke: rgb(${shade},${shade - 10},${shade - 20}); stroke-width:${1.5 + 3 * l.used}` : "";
+    svg += `<line class="${cls}" style="${style}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"><title>${esc(l.a)} – ${esc(l.b)}: ${l.km} km, ${Math.round(100*l.used)} % of slots in use</title></line>`;
+  }
+  const ends = new Set(route.length ? [route[0], route[route.length-1]] : []);
+  for (const n of STATE.nodes) {
+    const p = P[n.name];
+    const cls = ends.has(n.name) ? "node end" : via.has(n.name) ? "node via" : avoidNodes.has(n.name) ? "node avoid" : "node";
+    svg += `<circle class="${cls}" cx="${p.x}" cy="${p.y}" r="5"><title>${esc(n.name)}</title></circle><text class="label" x="${p.x + 7}" y="${p.y - 5}">${esc(n.name)}</text>`;
+  }
+  $("map").innerHTML = svg;
+}
+
+function render() {
+  if (!STATE) return;
+  const m = STATE.mode, s = STATE.stats;
+  $("mode").textContent = (m.live ? `live, models at ${m.base_url}` : "recorded answers, no model server") + ` · ${STATE.topology}, load ${s.load} E, seed ${s.seed} · ${m.policy}`;
+  $("stats").innerHTML = `<span>served <b>${s.served}</b></span><span>blocking so far <b>${(100*s.blocking).toFixed(1)} %</b></span>`;
+  $("pending").textContent = `pending: ${STATE.pending.source} → ${STATE.pending.destination}, ${STATE.pending.bit_rate} Gb/s`;
+  const ins = STATE.instruction;
+  $("current").innerHTML = ins.text === "none" ? "No instruction is in force." : `In force: <b>${esc(ins.text)}</b><br><span class="mono">${esc(ins.line)}</span><br>${esc(ins.readback)}`;
+  const rows = STATE.audit.slice().reverse();
+  $("auditCount").textContent = STATE.audit.length ? `(last ${rows.length} of ${s.served})` : "";
+  $("auditBody").innerHTML = rows.map(r => `<tr data-route='${esc(JSON.stringify(r.route))}'>
+    <td class="num">${r.n}</td><td>${esc(r.source)} → ${esc(r.destination)}, ${r.bit_rate} G</td>
+    <td>${esc(r.instruction === "none" ? "—" : r.instruction)}</td><td class="mono" style="font-size:11.5px">${esc(r.line)}</td>
+    <td>${esc(r.who)}${r.asked ? ' <span class="badge">operator asked</span>' : ""}</td>
+    <td>${r.blocked ? '<span class="warn">rejected</span>' : `path ${r.path} (${r.route.join("–")}), slot ${r.slot}`}${r.invalid ? ' <span class="warn">invalid answer, first fit used</span>' : ""}</td>
+    <td>${r.respects === null ? '<span class="muted">—</span>' : r.respects ? '<span class="ok">yes</span>' : '<span class="warn">no</span>'}</td></tr>`).join("");
+  for (const tr of $("auditBody").querySelectorAll("tr")) tr.onclick = () => { HIGHLIGHT = JSON.parse(tr.dataset.route); drawMap(); };
+  drawMap();
+}
+
+async function refresh() { STATE = await api("/api/state"); HIGHLIGHT = null; render(); }
+
+async function step(n) {
+  const r = await api("/api/step", {count: n});
+  if (r.error) { $("error").textContent = r.error; return; }
+  STATE = r.state; HIGHLIGHT = null; render();
+}
+
+function pick(sel) { if (sel.value) { $("text").value = sel.value; read(); } }
+
+async function read() {
+  const text = $("text").value.trim();
+  $("error").textContent = ""; $("readings").innerHTML = ""; $("preview").innerHTML = "";
+  $("readBtn").disabled = true; $("readBtn").textContent = "Reading…";
+  const r = await api("/api/read", {text});
+  $("readBtn").disabled = false; $("readBtn").textContent = "Read";
+  if (r.error) { $("error").textContent = r.error; return; }
+  READ = r;
+  const same = !r.differ;
+  let html = same ? `<div class="reading same"><b>Both readers agree.</b></div>` : `<div class="reading"><b class="warn">The two readers disagree: you are asked.</b> Choose the reading you meant, or edit the line.</div>`;
+  r.readings.forEach((rd, i) => {
+    if (same && i === 1) return;
+    html += `<div class="reading"><b>${same ? "Reading" : rd.reader}</b> <span class="badge">${esc(rd.status)}</span>
+      <div class="readback">${esc(rd.readback)}</div>
+      <div class="mono">${esc(rd.line)}</div>
+      <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(rd.tapi, null, 1))}</pre></details>
+      <div class="row"><button class="primary" onclick="apply(${i})">Apply this reading</button></div></div>`;
+  });
+  html += `<div class="reading"><b>Or your own line</b><input type="text" id="ownLine" value="${esc(r.readings[0].line)}"><div class="row"><button onclick="applyOwn()">Apply my line</button></div></div>`;
+  $("readings").innerHTML = html;
+  const p = r.preview, w = p.without;
+  let pv = `<h2 style="margin-top:14px">Preview: the next ${p.horizon} requests, rule engine on a copy of the network</h2><table><thead><tr><th>Under</th><th class="num">rejected</th><th class="num">blocking</th><th class="num">decisions changed</th></tr></thead><tbody>`;
+  pv += `<tr><td>no instruction</td><td class="num">${w.blocked}</td><td class="num">${(100*w.blocking).toFixed(1)} %</td><td class="num">—</td></tr>`;
+  p.readings.forEach((x, i) => { pv += `<tr><td>reading ${p.readings.length > 1 ? i + 1 : ""}: <span class="mono" style="font-size:11.5px">${esc(x.line)}</span></td><td class="num">${x.blocked}</td><td class="num">${(100*x.blocking).toFixed(1)} %</td><td class="num">${x.changed}</td></tr>`; });
+  pv += "</tbody></table>";
+  if (p.differences) {
+    pv += `<p style="margin:8px 0 4px">The two readings decide differently on <b>${p.decide_differently}</b> of the next ${p.horizon} requests` + (p.differences.length ? ", the first ones:" : ".") + "</p>";
+    if (p.differences.length) pv += "<table><thead><tr><th>#</th><th>Request</th><th>Reading 1</th><th>Reading 2</th></tr></thead><tbody>" + p.differences.map(d => `<tr><td class="num">${d.at}</td><td>${esc(d.source)} → ${esc(d.destination)}, ${d.bit_rate} G</td><td>${d.route1 ? d.route1.join("–") : '<span class="warn">reject</span>'}</td><td>${d.route2 ? d.route2.join("–") : '<span class="warn">reject</span>'}</td></tr>`).join("") + "</tbody></table>";
+  }
+  $("preview").innerHTML = pv;
+}
+
+async function apply(i) {
+  const rd = READ.readings[i];
+  const r = await api("/api/apply", {text: READ.text, line: rd.line, asked: READ.differ});
+  if (r.error) { $("error").textContent = r.error; return; }
+  await refresh();
+}
+async function applyOwn() {
+  const r = await api("/api/apply", {text: READ.text, line: $("ownLine").value, asked: true});
+  if (r.error) { $("error").textContent = r.error; return; }
+  await refresh();
+}
+async function clearInstruction() {
+  $("text").value = ""; $("readings").innerHTML = ""; $("preview").innerHTML = "";
+  await api("/api/apply", {text: "none", line: "none", asked: false});
+  await refresh();
+}
+
+(async () => {
+  await refresh();
+  const rec = await api("/api/recorded");
+  if (rec.length) {
+    const sel = $("recordedSel");
+    const byLang = {};
+    for (const r of rec) (byLang[r.lang] ||= []).push(r);
+    for (const lang of Object.keys(byLang).sort()) {
+      const g = document.createElement("optgroup"); g.label = `${lang} (${byLang[lang].length})`;
+      for (const r of byLang[lang].slice(0, 400)) { const o = document.createElement("option"); o.value = r.text; o.textContent = r.text.slice(0, 90); g.appendChild(o); }
+      sel.appendChild(g);
+    }
+  } else { $("recordedSel").parentElement.style.display = "none"; }
+})();
+</script>
+</body>
+</html>

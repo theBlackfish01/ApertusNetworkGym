@@ -6,6 +6,11 @@
 run:
 	docker compose run --rm --build lightpath
 
+# The operator console in the browser (http://localhost:8090): the hybrid on a map, with recorded
+# answers, or live with LLM_BASE_URL set to a llama.cpp server (README, "On a laptop").
+console:
+	docker compose run --rm --build --service-ports lightpath python src/console.py --host 0.0.0.0
+
 # Development: unit tests in the local uv environment (WSL2/Linux).
 test:
 	uv run pytest -q

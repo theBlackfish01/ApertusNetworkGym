@@ -6,6 +6,9 @@
 data/**
 !data/topologies/**
 !data/instructions/v3_source_*.json
+# the console lists the instructions both readers answered before (answers are in results/cache)
+!data/instructions/owner.jsonl
+!data/instructions/mix3_390.jsonl
 runs
 tests
 results/**/*.partial.jsonl
