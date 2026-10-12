@@ -66,11 +66,8 @@ CONDITIONS = ("I0", "I1", "I2", "I3", "I4", "mixed_heldout_paraphrases", "heldou
 HELDOUT_SPLITS = ("heldout_indist", "heldout_paraphrase", "heldout_pairs")
 METRICS = ("service_blocking_rate", "bit_rate_blocking_rate", "violation_rate", "invalid_rate", "decision_ms",
            "ordered_violation_rate")  # fmt: skip
-FLAGS = (
-    "unsupported",
-    "unresolved",
-    "malformed",
-)  # a translator's answer when it does not apply an instruction
+# a translator's answer when it does not apply an instruction
+FLAGS = ("unsupported", "no_instruction", "unresolved", "malformed")
 
 
 def condition_intent(condition: str, view: RequestView, rng: random.Random) -> Intent:
@@ -470,7 +467,15 @@ def offline(args: argparse.Namespace) -> None:
                 counter["malformed"] += not decision.well_formed
                 counter["invalid"] += not valid
                 counter["exact"] += decision.well_formed and choice == teacher
-                counter["admissible"] += valid and is_admissible(request.view, request.intent, choice)
+                # A probe of an instruction type outside intents.py lists the paths that comply itself
+                # (an empty list: the request must be rejected).
+                allowed = record["meta"].get("probe", {}).get("allowed")
+                if allowed is None:
+                    respected = is_admissible(request.view, request.intent, choice)
+                else:
+                    respected = (choice[0] in allowed) if choice else not allowed
+                counter["admissible"] += valid and respected
+                counter["forwarded"] += decision.raw is not None and decision.raw.startswith("decider:")
                 meant = (
                     Spec.from_json(record["meta"]["spec"])
                     if "spec" in record["meta"]
@@ -487,6 +492,7 @@ def offline(args: argparse.Namespace) -> None:
         result["splits"][split] = {
             key: {"n": c["n"], "exact_match": c["exact"] / c["n"], "admissible": c["admissible"] / c["n"],
                   "admissible_ordered": c["ordered"] / c["n"], "flagged": c["flagged"] / c["n"],
+                  "forwarded_to_decider": c["forwarded"] / c["n"],
                   "invalid": c["invalid"] / c["n"], "malformed": c["malformed"] / c["n"]}
             | ({"unchanged_without_instruction": c["unchanged"] / c["inapplicable"],
                 "rejects": c["rejects"] / c["inapplicable"]} if c["inapplicable"] else {})
@@ -529,7 +535,7 @@ def llm_options(args: argparse.Namespace) -> dict:
     local = {"model": args.model, "adapter": args.adapter,
              "structured": "none" if args.structured == "none" else "regex",
              "template_kwargs": json.loads(args.template_kwargs), "max_batch": args.batch_envs}  # fmt: skip
-    if args.policy.startswith("translate_"):
+    if args.policy.startswith(("translate", "hybrid")):
         return local | {"topology": args.topology}
     if args.backend == "transformers":
         shots = []

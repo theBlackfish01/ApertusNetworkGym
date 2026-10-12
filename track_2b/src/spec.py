@@ -6,6 +6,7 @@ module is the form a *translator* writes an instruction in, and the engine that 
     avoid=Hamburg-Berlin; prefer=hops,load      constraints, then preferences in order of mention
     avoid=none; prefer=none                     nothing to apply
     unsupported                                 the instruction asks for something else
+    no_instruction                              (second version of the format only, see below)
 
 ``avoid`` lists links the route must not use; it can make a request impossible (reject).
 ``prefer`` lists what to optimise among the remaining paths: ``hops`` (fewest hops, I2),
@@ -13,6 +14,13 @@ module is the form a *translator* writes an instruction in, and the engine that 
 names that is not a node is written ``unknown``; :func:`validate` then marks the instruction
 ``unresolved``, as it does for two nodes that are not joined by a link. An instruction that is
 unsupported, unresolved or malformed is not applied, and the operator can be told why.
+
+The second version of the format (``answer_grammar(topology, 2)``, translators named
+``translate2_*``) splits the refusal in two, because a hybrid hands some instructions on to the
+decider: ``unsupported`` is an instruction about which candidate route, slot or modulation to use
+that the format cannot express (a node to avoid, a hop limit); ``no_instruction`` is everything
+else (other operations, questions, remarks, attempts to change how the system works). Only the
+first may go to the decider.
 
 Two readings of several preferences (``rule``):
 
@@ -50,7 +58,7 @@ _LINE = re.compile(r"avoid=(none|[^;,=]+(?:,[^;,=]+)*); prefer=(none|[a-z]+(?:,[
 class Spec:
     avoid: tuple[tuple[str, str], ...] = ()  # links, endpoints in the order they were written
     prefer: tuple[str, ...] = ()  # in order of mention
-    status: str = "ok"  # ok | unsupported | unresolved | malformed
+    status: str = "ok"  # ok | unsupported | no_instruction | unresolved | malformed
 
     @property
     def applies(self) -> bool:
@@ -96,8 +104,8 @@ def load_topology(name: str = "nobel-eu") -> Topology:
 
 def format_spec(spec: Spec) -> str:
     """The answer line of a spec."""
-    if spec.status == "unsupported":
-        return "unsupported"
+    if spec.status in ("unsupported", "no_instruction"):
+        return spec.status
     avoid = ",".join(f"{a}-{b}" for a, b in spec.avoid) or "none"
     return f"avoid={avoid}; prefer={','.join(spec.prefer) or 'none'}"
 
@@ -105,8 +113,8 @@ def format_spec(spec: Spec) -> str:
 def parse_spec(text: str) -> Spec:
     """The spec of an answer line; ``status`` is ``malformed`` when it is not in the format."""
     text = text.strip()
-    if text == "unsupported":
-        return Spec(status="unsupported")
+    if text in ("unsupported", "no_instruction"):
+        return Spec(status=text)
     match = _LINE.fullmatch(text)
     if match is None:
         return Spec(status="malformed")
@@ -137,8 +145,11 @@ def validate(spec: Spec, topology: Topology) -> Spec:
 
 
 @cache
-def answer_grammar(topology: Topology) -> Dfa:
-    """The automaton of the answer lines for this topology (for constrained decoding)."""
+def answer_grammar(topology: Topology, version: int = 1) -> Dfa:
+    """The automaton of the answer lines for this topology (for constrained decoding).
+
+    Version 2 adds the answer ``no_instruction``.
+    """
     clash = {"none", UNKNOWN} & set(topology.nodes)
     if clash or any("-" in node or "," in node or ";" in node for node in topology.nodes):
         raise ValueError(f"node names the answer format cannot carry: {sorted(clash) or topology.nodes}")
@@ -150,7 +161,8 @@ def answer_grammar(topology: Topology) -> Dfa:
     preference = alt(*(lit(p) for p in PREFERENCES))
     preferences = seq(preference, opt(seq(lit(","), preference, opt(seq(lit(","), preference)))))
     line = seq(lit("avoid="), alt(lit("none"), links), lit("; prefer="), alt(lit("none"), preferences))
-    return Dfa(alt(lit("unsupported"), line))
+    refusals = [lit("unsupported")] + ([lit("no_instruction")] if version == 2 else [])
+    return Dfa(alt(*refusals, line))
 
 
 def mention_order(intent: Intent) -> tuple[str, ...]:

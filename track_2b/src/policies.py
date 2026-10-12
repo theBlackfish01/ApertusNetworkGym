@@ -425,10 +425,14 @@ def make_policy(name: str, *, backend: str = "endpoint", **llm_options) -> Polic
         return Oracle()
     if name == "mlp":
         return MLPPolicy()
-    if name.startswith("translate_"):
+    if name.startswith("translate"):
         from translate import make_translator_policy
 
         return make_translator_policy(name, **llm_options)
+    if name.startswith("hybrid"):
+        from translate import make_hybrid_policy
+
+        return make_hybrid_policy(name, **llm_options)
     if backend == "transformers":
         return LocalLLMPolicy(name, **llm_options)
     return LLMPolicy(name, **llm_options)
