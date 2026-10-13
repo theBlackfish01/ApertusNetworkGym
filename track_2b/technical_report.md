@@ -304,7 +304,7 @@ The submission is the commit tagged `submission` in the repository.
 LLMs now operate optical networks in testbeds and field trials: a locally fine-tuned 7B that
 calls management APIs with a digital twin to pre-verify changes (Sun et al., JOCN 2025), an
 agent with LLM-native, LLM-centric and rule-centric modes on a 440 km field link (Liu et al.,
-JOCN 2026), and agents that drive controllers through their standard interfaces (TAPI, OpenROADM). We add a compliance metric in closed loop on a
+JOCN 2026), and cross-vendor configuration by an RL-fine-tuned LLM (Wang et al., JOCN 2026). We add a compliance metric in closed loop on a
 stream that includes what the model was never shown, a compositional held-out protocol with
 instruction-blind baselines, and the cost of asking. Intent lifecycle, conflicts and reports are
 what the standards ask for (ETSI ZSM 011; TM Forum IG1253, TMF921) and what surveys of
@@ -329,6 +329,7 @@ Creative Commons Attribution 4.0 (CC-BY-4.0). All HackApertus projects are open-
 - C. Natalino et al., "Optical Networking Gym: an open-source toolkit for resource assignment problems in optical networks", JOCN 16(12), G40 (2024).
 - C. Sun et al., "Experimental demonstration of local AI-Agents for lifecycle management and control automation of optical networks", JOCN 17(8), C82 (2025).
 - X. Liu et al., "Field trial of an LLM-powered AI agent for autonomous optical networks: a full-lifecycle demonstration", JOCN 18, A179 (2026), doi:10.1364/JOCN.575402.
+- C. Wang et al., "Cross-vendor telecom optical network configuration automation from intentions: reasoning-enhanced and equipment-verified paradigm through an LLM", JOCN 18(10), 1042 (2026).
 - M. Gharbaoui et al., "Assurance and conflict detection in intent-based networking: a comprehensive survey and insights on standards and open-source tools", arXiv:2603.23772 (2026).
 - A. S. Jacobs et al., "Establishing trust for using natural language for intent-based networking", IEEE TNSM 22(5), 4775 (2025).
 - R. Mondal, N. Bjørner, T. Millstein, A. Tang, G. Varghese, "Tackling ambiguity in user intent for LLM-based network configuration synthesis" (Clarify), HotNets (2025).
