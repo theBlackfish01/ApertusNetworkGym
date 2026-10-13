@@ -1,0 +1,2 @@
+{"key": "45a747ae1bd54fd8b7741a9df7d8c2199b8bf3eb916b329b29e38f79a62e50e2", "answer": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=6h; rest=none", "seconds": 4.8666}
+{"key": "4858439b0c90a5b9e57a5d23d680e00cb42ad4eec964fe2b49c4d9afae55c25d", "answer": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=none; scope=from:Zurich; until=open; rest=none", "seconds": 2.5832}

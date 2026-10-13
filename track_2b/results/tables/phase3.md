@@ -12,6 +12,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Apertus 8B fine-tuned (reader 1) | 94.6 | 95.6 | 96.5 | 91.2 | 96.9 | 94.8 | 4.6 | 2078 |
 | Apertus 8B fine-tuned (reader 2) | 93.4 | 93.6 | 94.9 | 90.9 | 87.5 | 93.3 | 5.9 | 2078 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 96.6 | 96.4 | 90.2 | 83.8 | 84.4 | 93.1 | 6.5 | 2078 |
+| Apertus 8B fine-tuned, fourth format (scope and lifetime) | 97.1 | 95.6 | 93.7 | 91.2 | 96.9 | 95.1 | 4.4 | 2078 |
 
 ## The same by language: all instructions, and the combinations never seen together
 
@@ -23,6 +24,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Apertus 8B fine-tuned (reader 1) | 96.7 | 97.3 | 91.4 | 88.7 | 96.0 | 97.3 | 94.8 | 93.6 |
 | Apertus 8B fine-tuned (reader 2) | 96.2 | 96.3 | 89.5 | 88.2 | 94.5 | 95.2 | 92.9 | 93.1 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 93.7 | 88.2 | 90.5 | 82.3 | 96.2 | 92.5 | 91.9 | 86.7 |
+| Apertus 8B fine-tuned, fourth format (scope and lifetime) | 96.7 | 93.6 | 93.2 | 91.4 | 96.0 | 95.7 | 94.6 | 89.9 |
 
 ## The test sets of the earlier rounds (not trained on by any translator): right meaning, %
 
@@ -36,6 +38,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Apertus 8B fine-tuned (reader 1) | 96.0 | 93.3 | 98.9 | 94.5 | 72.7 | 85.9 | 97.3 |
 | Apertus 8B fine-tuned (reader 2) | 94.3 | 92.5 | 96.9 | 90.7 | – | 83.3 | – |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | – | – | – | – | – | – | – |
+| Apertus 8B fine-tuned, fourth format (scope and lifetime) | – | – | – | – | – | – | – |
 
 ## The gate: what a reader does with instructions that are not, or not wholly, in the format, % of distinct instructions
 
@@ -47,6 +50,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Apertus 8B fine-tuned (reader 1) | 51.0 | 2.4 | 46.6 | 27.4 | 0.0 | 31.1 | 41.5 | 18.8 | 96.7 | 3.3 | 77.3 | 20.0 |
 | Apertus 8B fine-tuned (reader 2) | 54.9 | 1.2 | 43.9 | 24.1 | 0.0 | 13.7 | 62.3 | 50.0 | 96.7 | 3.3 | 78.0 | 19.3 |
 | Reader 1 on the laptop (4-bit GGUF, llama.cpp) | 54.9 | 0.0 | 45.1 | 29.7 | 0.0 | 54.2 | 16.0 | 50.0 | 96.7 | 3.3 | 88.0 | 10.0 |
+| Apertus 8B fine-tuned, fourth format (scope and lifetime) | 81.8 | 1.2 | 17.0 | 47.6 | 0.0 | 24.1 | 28.3 | 50.0 | 96.7 | 3.3 | 79.3 | 19.3 |
 
 ## Two readers: the operator is asked when their readings differ. % of distinct instructions
 
@@ -71,9 +75,10 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 | Model | Answers | Median | Mean | 95th percentile |
 |---|---|---|---|---|
-| Reader 1 | 2642 | 0.89 | 0.88 | 1.03 |
-| Reader 2 | 60 | 1.11 | 0.99 | 1.34 |
+| Reader 1 | 8598 | 0.89 | 0.98 | 1.71 |
+| Reader 2 | 8098 | 0.82 | 0.87 | 1.19 |
 | Decider | 134 | 0.97 | 0.97 | 1.20 |
+| Reader of the fourth format | 2 | 4.87 | 3.72 | 4.87 |
 
 ## New types, on requests where the instruction is restrictive: decisions that comply, %
 

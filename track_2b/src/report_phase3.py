@@ -21,6 +21,7 @@ READERS = {
     "translate3_ft": "Apertus 8B fine-tuned (reader 1)",
     "translate3_ft2": "Apertus 8B fine-tuned (reader 2)",
     "translate3_ft_laptop": "Reader 1 on the laptop (4-bit GGUF, llama.cpp)",
+    "translate4_ft": "Apertus 8B fine-tuned, fourth format (scope and lifetime)",
 }
 LANGUAGES = {"v3_en": "English", "v3_de": "German", "v3_fr": "French", "v3_it": "Italian"}
 GROUPS = {"atom": "One clause", "pair": "Pair seen in training", "heldout_pair": "Pair never seen together",
@@ -210,6 +211,7 @@ def reader_tables(design: dict, results: Path) -> list:
             "translate3_ft_laptop": "Reader 1",
             "translate3_ft2_laptop": "Reader 2",
             "apertus_ft_laptop": "Decider",
+            "translate4_ft_laptop": "Reader of the fourth format",
         }
         out.append((("On the laptop (RTX 4060, 8 GB; llama.cpp, 4-bit base model, adapters switched per request): "
                     "seconds per answer"), ["Model", "Answers", "Median", "Mean", "95th percentile"],

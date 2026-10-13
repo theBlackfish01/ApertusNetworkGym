@@ -162,7 +162,11 @@ although two readers were compared; in brackets the share asked).
 
 A learned gate does not recognise what it was never shown. Two readers of one recipe share
 most misreadings; a reader that differs catches more, which is what Hamidieh et al. (2026) report
-for cross-model disagreement. PENDING (laptop): five samples of reader 1 at temperature 0.8 as a
+for cross-model disagreement. The fourth-format reader (section on standing policies), trained
+on the same recipe with 1,600 more sentences that carry an extra clause, silently applies only
+16.7 % of the never-shown types (reader 1: 46.3 %) and, as the check behind reader 1, leaves
+10.2 % of them at 38.0 % asked and 1.5 % inside the language at 3.3 % asked, better than reader 2
+on both counts; one training run, so a lead, not a result. PENDING (laptop): five samples of reader 1 at temperature 0.8 as a
 third signal (`results/design/consistency3.json`).
 
 **Closed loop, mixed stream** (45 % in the language, 15 % unknown types, 10 % in part, 10 %

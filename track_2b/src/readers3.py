@@ -32,15 +32,16 @@ from translate import format_version, messages, read_rows
 
 ROOT = Path(__file__).resolve().parents[1]
 READERS = ("translate3_ft", "translate3_ft2", "translate3_few", "translate3_few70", "translate3_few70b",
-           "translate3_ft_laptop")  # fmt: skip
+           "translate3_ft_laptop", "translate3_ft2_laptop", "translate4_ft", "translate4_ft_laptop")  # fmt: skip
 LAPTOP = (
     "translate3_ft_laptop",
     "translate3_ft2_laptop",
     "apertus_ft_laptop",
+    "translate4_ft_laptop",
 )  # one request at a time: real latencies
 SETS = ("v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_new_hard", "v3_new_impossible", "v3_partial", "v3_other", "v3_not",
         "v3_faulty", "independent", "de_ind", "fr_ind", "it_ind", "gsw", "noisy", "operations_mix3",
-        "owner")  # fmt: skip
+        "owner", "v4_en", "v4_de", "v4_fr", "v4_it")  # fmt: skip
 
 
 class Answers:
