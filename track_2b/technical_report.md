@@ -211,7 +211,13 @@ models and the decider live, the hybrid that asks breaks 9.18 % (job: 8.47 %) wi
 questions; asking by consequence breaks 9.53 % with 152 questions (73 pairs never told apart),
 asking on 7.4 % of requests instead of 9.6 %. The small cost has a cause: when both readers are
 wrong in different ways, asking at once fixes the reading, asking by consequence only once the
-two wrong readings diverge.
+two wrong readings diverge. The simulated operator answers with the truth, which an operator
+shown two wrong readings cannot; with a **fair operator** who picks the right reading only when
+one of the two is right and otherwise leaves the first (`translate3_ft_askfair-ft2`), the translator
+breaks 10.3 / 10.7 % at 240 / 390 Erlang against 10.1 / 10.3 % with the truth and 10.5 / 10.6 %
+without questions: inside the language the fair operator matches the truth (0.8 %), the rest of
+the gain is the oracle's; of the 397 questions, 167 showed two wrong readings. The hybrid's gain from asking (9.5 to 8.5 %) was measured with the
+truth only and is an upper bound.
 
 **Standing policies** (`results/eval/*_standing4.json`). The fourth-format reader on the 800
 blind policy sentences: right meaning, scope and lifetime included, 95.0 (en), 92.0 (de), 95.0
@@ -235,9 +241,11 @@ judged against the true table.
 The stream's policies are restrictive by construction (a third of requests are rejected under
 the true table); what the ablations show is the cost of ignoring scope or lifetime, and the
 reader's table stays within 1.5 points of the truth (per seed 0.9 / 0.0 / 2.4 and 0.0 / 4.4 /
-0.1). The ablations swing with the seed (scope ignored at 390 Erlang: 54.4 / 0.0 / 35.5), the
-reader's table does not; the true table itself produced two needless rejects (0.03 %), the cost
-of its own bookkeeping. A reader of the old format, which cannot read either slot, applies every policy to every
+0.1). The ablations swing with the seed, the reader's table does not: over ten seeds
+(`results/eval/*_standing4_seeds10.json`) first fit breaks 41.9 ± 6.3 / 35.7 ± 4.6 %, scope ignored
+23.2 ± 13.2 / 23.9 ± 18.0 %, lifetime ignored 19.5 ± 9.1 / 9.2 ± 5.2 %, the reader's table 1.0 ± 1.1 /
+2.0 ± 2.1 % (worst seed 5.7 %), the true table 0.0 / 0.01 % (two needless rejects, the cost of its
+own bookkeeping). A reader of the old format, which cannot read either slot, applies every policy to every
 request for ever and rejects half to two thirds of them. In 4 bits on the laptop the
 fourth-format reader is right on 90.6 % of the policy sentences (93.5 % in the job) and its table
 stays within 2.4 points of the truth.
@@ -249,9 +257,10 @@ network it was trained on; one clause 92–97 %, three clauses 70–85 %
 (`results/translate/translate3_ft_laptop_swiss.json`). In closed loop on that network at 600
 Erlang (three seeds, `results/eval/*_mix3_swiss.json`; the laptop readers throughout) the
 translator alone breaks 9.8 % of requests (2.2 % inside the language), the translator that asks
-9.0 % (1.2 % inside the language, the same as the laptop hybrid that asks on the European
-network; asked on 12.6 % of requests), asking by consequence 9.3 % (asked on 8.0 %), first fit
-24.7 %. Of the author's 22 lines, reader 1 is right on 18
+9.0 % (1.2 % inside the language; asked on 12.6 % of requests), asking by consequence 9.3 %
+(asked on 8.0 %), first fit 24.7 %. The same laptop readers on the European network at 390 Erlang
+(`results/eval/translate3_ft_laptop*_mix3.json`) break 1.9 % inside the language alone and 1.2 %
+asking: the unseen city names cost 0.3 points alone and nothing once a second reader is asked. Of the author's 22 lines, reader 1 is right on 18
 (16 of 17 in English, 2 of 5 in Urdu), the fourth-format reader on 17: its two new errors read
 "go from London to Lyon via Oslo" and "to Prague, avoid Berlin" as scopes (`to:Lyon`, `to:Prague`),
 where the author meant the current request's end points. The language has no word for a

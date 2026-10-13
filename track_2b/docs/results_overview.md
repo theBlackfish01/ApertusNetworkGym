@@ -185,7 +185,12 @@ readings would decide differently:
 | Asks whenever the readings differ | 397 | 8.9 | 10.28 |
 | Asks on the first request that tells them apart | 332 | 7.8 | 10.25 |
 
-65 pairs of differing readings were never told apart by any request. On the laptop (4-bit, decider
+65 pairs of differing readings were never told apart by any request. With a fair simulated operator
+who picks the right reading only when one of the two is right and otherwise leaves the first
+(`results/eval/translate3_ft_askfair-ft2_mix3.json`), the translator breaks 10.3 / 10.7 % at 240 / 390 E
+against 10.1 / 10.3 % with the truth and 10.5 / 10.6 % without questions; inside the language the fair
+operator matches the truth (0.8 %); of the 397 questions put, 167 (42 %) showed two wrong readings
+(`translate3_ft_askfair-ft2_mix3_1p.json`, one process, so the counts are kept). On the laptop (4-bit, decider
 live): the hybrid that asks 9.18 % with 225 questions; by consequence 9.53 % with 152 questions
 (73 pairs never told apart), asking on 7.4 % of requests instead of 9.6 %. What it shows: 16 %
 fewer questions at the same error in the job; a small cost on the laptop, with a known cause: when
@@ -220,7 +225,11 @@ table stays within 1.5 points of the truth (per seed 0.9 / 0.0 / 2.4 and 0.0 / 4
 scope costs 13–30 points, ignoring lifetime 6–12; the old reader, with no slot for either, applies
 every policy to every request for ever and rejects half to two thirds of them. Caveat: the stream's
 policies are restrictive by construction (a third of requests rejected under the truth), so the
-absolute numbers describe this stream, the differences describe the slots.
+absolute numbers describe this stream, the differences describe the slots. Over ten seeds
+(`results/eval/*_standing4_seeds10.json`, mean ± standard deviation across seeds): first fit 41.9 ± 6.3 /
+35.7 ± 4.6 %, scope ignored 23.2 ± 13.2 / 23.9 ± 18.0 %, lifetime ignored 19.5 ± 9.1 / 9.2 ± 5.2 %, the
+reader's table 1.0 ± 1.1 / 2.0 ± 2.1 % (worst seed 5.7 %), the true table 0.0 / 0.01 %. The ordering
+holds on every seed; the ablations vary by a factor of ten between seeds, the reader's table does not.
 
 **The fourth-format reader as gate and check** (`results/design/readers3.json`): on the types
 never shown (108 sentences) it silently applies 16.7 % (reader 1 46.3 %); as the check behind
@@ -256,7 +265,10 @@ the network it was trained on; one clause 92–97 %, three clauses 70–85 %; re
 24.7 %, translator alone 9.8 (2.2 inside the language, against 0.9 on the European network), the
 translator that asks 9.0 (asked on 12.6 %), by consequence 9.3 (asked on 8.0 %). What it shows:
 city names the reader never saw cost two to four points, mostly on three-clause sentences;
-*Genf*, *Ginevra*, *Saint-Gall* land on their nodes.
+*Genf*, *Ginevra*, *Saint-Gall* land on their nodes. Like with like, the same laptop readers on the
+European network at 390 E (`results/eval/translate3_ft_laptop*_mix3.json`) break 11.2 % alone (1.9 %
+inside the language), 10.9 % asking (1.2 %), 10.6 % asking by consequence (1.2 %): the Swiss names
+cost 0.3 points inside the language alone and nothing with a second reader.
 
 **The owner's 22 lines** (`results/design/owner.json`; 17 English, 5 Urdu in Latin script):
 reader 1 on the laptop right on 18 (16 of 17 English, 2 of 5 Urdu); the fourth-format reader on 17.

@@ -168,7 +168,10 @@ readings would decide differently; a reading outside the language or carried in 
 about at once, because what the decider would do with it cannot be foreseen. The console does
 the same for a person: the stream pauses on the first request that tells the readings apart and
 shows both routes.
-Measured in `results/tables/phase3.md` (closed loop, `*_askif-*` rows).
+Measured in `results/tables/phase3.md` (closed loop, `*_askif-*` rows). The simulated operator of
+those runs answers with the true meaning, an upper bound; names with `_askfair-<reader>` use a fair
+operator who picks the right reading only when one of the two is right and otherwise leaves the
+first, which for the translator alone gives back most of the gain (`results/eval/translate3_ft_askfair-ft2_mix3.json`).
 
 ## Standing policies
 
