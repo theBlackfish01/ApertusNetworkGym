@@ -368,7 +368,7 @@ track_2b/
     cards/             model cards of the four adapters and the GGUF bundle
     status_history.md  the round-by-round status table in full
     figures/           the report's figures (violations.png, console.png)
-  technical_report.md  report (exported to TeamName_Report.pdf, at most 6 pages)
+  technical_report.md  the report; ApertusNetworkGym_Report.pdf is its rendering (src/report_pdf.py, five pages)
 ```
 
 ## Development setup

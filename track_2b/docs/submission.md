@@ -13,7 +13,7 @@ this page maps them to the material in the repository and lists the steps only t
 | The standards link | The policy line maps onto TAPI 2.1.3 constraints. | `src/tapi.py`, the console |
 | The console | A dark operations view: the map as the stage, a feed of what the model does, policies as chips with remaining hours, questions that pause the stream, play at a chosen pace. From recorded answers in Docker, or live on the laptop. | `src/console.py`, `src/console.html`, `make console` |
 | The benchmark | 4,712 test instructions, every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
-| The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `docs/technical_report.pdf` |
+| The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
 Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
@@ -24,7 +24,7 @@ Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
 | --- | --- | --- |
 | Public Git repo from the template, `track_2b/` kept, other tracks deleted | Repository ready; `make run` works from the root and from `track_2b/`; `data/` as committed is 40 MB (limit 100) | **You:** create the public repo, push, keep `track_2b/` as is |
 | `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct; one more fresh-clone run is planned after the final commit | Me, then you on your machine once |
-| Technical report, PDF, max. 6 pages, `TeamName_Report.pdf` in `track_2b/` | `docs/technical_report.pdf` renders at five pages; three placeholders remain (team and members, video link, public links, the final commit) | **You:** team name and members; then I fill, re-render and copy to `track_2b/<TeamName>_Report.pdf` |
+| Technical report, PDF, max. 6 pages, `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf` renders at five pages; two placeholders remain (the video link, the public links); the commit is named by the tag `submission` | **You:** team name and members; then I fill, re-render and copy to `track_2b/<TeamName>_Report.pdf` |
 | Demo video, max. 2 min | Script and shot list in `docs/video_script.md` | **You:** record; give me the link |
 | Dataset (optional): evaluation, responses, metadata, card | Uploaded as a private dataset with the card | **You:** make it public; the link goes into the report and the README |
 | Apertus weights published | Four adapters and the GGUF bundle with cards, private | **You:** make them public (the organisers accepted the text-only base on condition that the fine-tuned weights are published) |
@@ -34,8 +34,7 @@ Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
 
 ## 3. Your steps, in order
 
-1. **Tell me the team name and members.** I fill the report header, render the PDF, name it
-   `<TeamName>_Report.pdf`, and put the exact commit in §7.
+1. ~~Team name and members~~: done, ApertusNetworkGym (Wadood Ranjha); the PDF is `track_2b/ApertusNetworkGym_Report.pdf`.
 2. **Create the public repository** from the Hack Apertus template on GitHub (Use this template),
    then tell me its URL. I push, set the links in the report, README and cards, and run `make run`
    from a fresh clone of it.
