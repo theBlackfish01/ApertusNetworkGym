@@ -18,40 +18,63 @@ operator instruction ──> reader 1 ─┐                        ┌─ in th
 ```
 
 What the numbers say, in short (`technical_report.md`, `results/tables/phase3.md`): the reader
-gets 94.8 % of 2,078 independently written instructions right, and combinations of clauses it
-never saw together as well as trained ones; its decisions comply in 99.6 %, those of the model
+gets 94.8 % of 2,078 independently written instructions right, and pairs of clauses it never saw
+together as well as trained pairs (triples three points lower); its decisions comply in 99.6 %, those of the model
 that decides alone in 91.1 %. On a mixed stream in closed loop the hybrid that asks breaks 8.5 %
 of requests, the translator alone 10.6 %, the decider alone 16.8 %, first fit 28.6 %. Instruction
-types that no component was ever shown remain the weak point.
+types that no component was ever shown remain the weak point. In 4 bits on a laptop GPU, the build a
+judge can run, the reader reads 93.1 % of the same sentences and the hybrid breaks 9.2 %; the reader of
+standing policies reads 90.6 % of its blind sentences against 93.5 % in the job. Both builds are
+reported wherever both were measured.
 
-The project was built in three rounds, and the first two are kept: a model that decides every
+The project was built in four rounds, and the earlier ones are kept: a model that decides every
 request (`results/tables/results.md`), the same model as a translator (`phase1.md`, `phase2.md`),
-and the policy language with two readers and a guarded fallback (`phase3.md`). The original plan
-is in [`../SPEC.md`](../SPEC.md); every deviation from it, every mistake and its cost is in
-[`docs/decisions.md`](docs/decisions.md). The challenge text from the template is in
-[`docs/challenge.md`](docs/challenge.md).
+the policy language with two readers and a guarded fallback (`phase3.md`), and standing policies
+with scope and lifetime, the console, the Swiss network and the benchmark (sections below). Every
+result with its source file, what it shows and what it does not, is in
+[`docs/results_overview.md`](docs/results_overview.md); the original plan is in
+[`../SPEC.md`](../SPEC.md); every deviation from it, every mistake and its cost is in
+[`docs/decisions.md`](docs/decisions.md); the challenge text from the template is in
+[`docs/challenge.md`](docs/challenge.md); the submission checklist is
+[`docs/submission.md`](docs/submission.md).
+
+## Terms used below
+
+- **Lightpath request:** a connection to set up between two nodes at a bit rate; the controller
+  picks one of five candidate paths and a block of spectrum slots on it, or rejects it.
+- **Erlang (E):** the offered load; 240 E is a quiet network, 390 E a busy one. **Blocking:** the
+  share of requests rejected for lack of spectrum.
+- **Instruction / policy:** what the operator says about routing; an instruction comes with one
+  request, a standing policy covers the requests its scope names for as long as it holds.
+- **Reader:** Apertus 8B fine-tuned to translate the instruction into one line of the policy
+  language. **Decider:** Apertus 8B fine-tuned to pick the route itself. **Rule engine:** applies
+  a line exactly. **Hybrid:** reader first, decider for what the language cannot carry, with a
+  **guard** that replaces the decider's route if it breaks the part the line does carry.
+- **Gate:** whatever makes the system not apply a reading silently: the reader's own refusals, a
+  second reader that disagrees, or a question to the operator. **Carried in part:** an instruction
+  the language can express only partly (`rest=more`).
+- **Asking by consequence:** when two readers differ, apply the first reading and ask the operator
+  on the first request that the two readings would route differently.
+- **Formats:** the answer line changed four times; the third format is the slots above, the fourth
+  adds `scope` and `until` for standing policies. Policy names in results files carry the format
+  (`translate3_ft`, `hybrid3_ft_askif-ft2`: reader 1 of format 3, asking by consequence with reader 2).
+- **Violation:** a decision that breaks what was meant; **complies:** the chosen path is one the
+  instruction allows, or a reject when none is. **Oracle / true table:** the decision with the
+  meaning known exactly. **First fit:** the instruction-blind baseline. **I1–I4:** the first round's
+  four intents (avoid a link, fewest hops, least loaded, fewest slots). **nobel-eu:** the 28-node
+  European network of the simulator's benchmark preset.
 
 ## Status
 
-| Workstream | State |
-| --- | --- |
-| Simulator: ONG from source, compiled kernels, memory fix | done |
-| Load calibration; evaluation loads 240 and 390 E | done, loads fixed |
-| Intents, prompt format, intent-aware teacher | done |
-| Dataset: 12,000 train + 2,200 held-out records, sanity checks | done |
-| MLP control: training, offline agreement | done |
-| Closed-loop evaluator; runs for first fit, teacher, oracle, MLP | done (4 policies × 7 conditions × 2 loads × 3 seeds) |
-| Tables and figure from results files | done |
-| `make run` (Docker) | done: the image builds, prints the tables and replays a 50-request episode of the hybrid as recorded on a laptop, then a few decisions of the decider alone (checked from a fresh clone on 2026-10-12 with `docker compose run --rm --build lightpath`; `make` itself is not installed on the dev machine) |
-| Fine-tuning script, in-process and endpoint backends, job pipeline | done: training, constrained decoding and the job stages tested on a tiny open model (CPU `check` job, including a kill-and-resume) and smoke-tested on Apertus; endpoint client tested against a mock only |
-| Fine-tuning of Apertus | done in two passes. First pass: 1 epoch, every intent pair an intersection (held-out admissible agreement 95.9 / 95.7 / 77.5 %). Second pass: avoid-link pairs are filter-then-rank, 2 epochs: **99.0 % new traffic, 98.5 % unseen wording, 85.7 % unseen pairs**, no invalid answers. Adapters in private Hub repos |
-| Apertus closed-loop results, fine-tuned and zero-shot | done for both passes: fine-tuned model on the full grid (42 episodes); zero-shot model at 390 E on seed 1 (its answers are invalid 88–98 % of the time, so the first-fit fallback decides). USD 18.61 of GPU time |
-| Phase 1: translate versus decide | done. The same model as a *translator* (instruction -> one line of constraints and preferences, executed by a rule engine) against the fine-tuned *decider*, on harder test sets: independent wording, German, French, Italian, Swiss German, misspelt cities, instructions that must not be applied, and a topology no model saw. Closed loop at 390 E: fine-tuned translator 0 % violations on single intents and unseen wording, 2.8 % on unseen pairs (decider 0.1–3.3 %, 1.0 %, 12.9 %); with 7 examples and no training the translator misreads one wording family (10.6 % on least loaded). Tables in [`results/tables/phase1.md`](results/tables/phase1.md); USD 4.88 of GPU time |
-| Second round: stronger translator and hybrid | done. A second translator (taught two preferences, German, French, Italian, and to tell an unsupported routing instruction from text that is no instruction) translates 95 % of independently worded and 94–98 % of natively written German, French and Italian instructions; closed loop 0.0–0.2 % violations. The fine-tuned decider follows three instruction types it never saw (pass through a node, avoid a node, a given candidate) on 87 % of 600 requests, where a choice that ignores the instruction complies on 20 %; on three further types it is no better than the shortest candidate. A hybrid (translator first, decider for what the translator calls unsupported) has 4.0 % violations on a mixed stream at 390 E, the decider alone 6.3 %, the translator alone 9.3 %, first fit 19.4 %. Tables in [`results/tables/phase2.md`](results/tables/phase2.md); analysis behind the plan in [`docs/analysis/next_steps.html`](docs/analysis/next_steps.html); USD 4.85 of GPU time |
-| Third round: policy language, two readers, guarded fallback, laptop | done. A third answer format in slots (links and nodes to avoid, a node to pass through, limits on hops and length, a candidate by number, ordered preferences, a marker for a part that does not fit). Two readers fine-tuned in 34 min each: 94.8 % of 2,078 independently written instructions in four languages right; pairs of clauses never seen together 96.5 %, triples 91.2 %; decisions comply in 99.6 % (decider alone 91.1 %). Of four instruction types shown to no component the reader silently applies 46.6 % as something else; asking the operator when two readers differ leaves 16.2 %. Mixed stream at 390 E: hybrid that asks 8.5 % violations, hybrid 9.5 %, translator alone 10.6 %, decider alone 16.8 %, first fit 28.6 %. With the untrained Apertus 70B as the second reader the hybrid asks for 24.1 % of requests instead of 8.9 % and breaks 8.3 %: 0.3 % inside the language, still 28 % of the unknown types, which then go to the decider. On an RTX 4060 laptop under llama.cpp: 0.89 s per instruction, 93.1 % right. Of 22 instructions typed by the owner (17 English, 5 Urdu in Latin script, a language in no training data) reader 1 on the laptop is right on 18: 16 of 17 and 2 of 5. Apertus 70B with examples and no training: 71.9 % (first generation). Tables in [`results/tables/phase3.md`](results/tables/phase3.md); USD 11.70 of GPU time |
-| Fourth round: console, TAPI, asking by consequence, Swiss network, standing policies, benchmark | done. An operator console (`make console`; rebuilt on 13 October as one stream with a feed of what the model does, standing policies and per-request instructions together, questions by consequence, play); the policy line as a TAPI 2.1.3 constraint; the operator asked only on a request that tells two readings apart (16 % fewer questions at the same error); a Swiss 24-city network with the cities named in four languages; a fourth format with scope and lifetime, its reader (93.5 % right on 800 blind policy sentences) and a policy table with conflicts and a report, measured in closed loop against the true table (1.1 / 1.5 % violations at 240 / 390 E, where ignoring scope gives 12.7 / 30.0 and first fit 42.0 / 38.1); the test sets and every reader's answers as a dataset (`data/benchmark/`). On the Swiss network reader 1 is right on 89 to 92 % and the translator that asks breaks 9.0 % of requests in closed loop; the third-format reader on the policy stream breaks 21 / 37 % (no scope, no lifetime), the fourth-format reader in 4 bits on the laptop 2.4 / 1.6 %. Five readings of reader 1 at temperature 0.8 as a third check (`results/design/consistency3.json`): any differing sample catches 3.4 of its 6.9 points of error in the language at 8.0 % asked (reader 2: 2.7 points at 5.4 %) and nearly all of it on the never-shown types at 88 % asked; disagreement marks unfamiliar input more than error. USD 3.14 of GPU time |
-| Report | draft in `technical_report.md` (six-page target, PDF not yet rendered); awaits the owner's review (team, video and public links are marked TODO). The long account of the first two rounds is `docs/report_rounds_1_2.md` |
-| Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
+| Round | What it built | Where measured |
+| --- | --- | --- |
+| 1 (9–11 Oct) | Simulator, load calibration, dataset, an MLP control, the closed-loop evaluator; Apertus 8B fine-tuned as a decider, two passes; `make run` | `results/tables/results.md`, `docs/report_rounds_1_2.md` |
+| 2 (11–12 Oct) | The same model as a translator into a line of constraints and preferences, measured against the decider; a stronger translator; the first hybrid | `results/tables/phase1.md`, `phase2.md` |
+| 3 (12 Oct) | The policy language in slots, two readers, the guarded fallback, blind test sets in four languages, the mixed closed-loop stream, the 4-bit laptop build, Apertus 70B as a reference | `results/tables/phase3.md`, `docs/decisions.md` |
+| 4 (13 Oct) | The console, the line as a TAPI constraint, asking by consequence, the Swiss network, standing policies with scope and lifetime, self-consistency, the benchmark dataset | `results/tables/phase3.md`, `results/design/`, `data/benchmark/` |
+| Deliverables | Report rendered to PDF by `src/report_pdf.py` (five pages); model cards (`docs/cards/`) and the benchmark on the Hub, private until submission; video script (`docs/video_script.md`); checklist (`docs/submission.md`) | |
+
+The full table, one row per piece of work, is in [`docs/status_history.md`](docs/status_history.md).
 
 The decider of the first round is in [`results/tables/results.md`](results/tables/results.md) and
 [`docs/figures/blocking.png`](docs/figures/blocking.png). In short, at 390 Erlang: with no intent
@@ -79,7 +102,11 @@ files in `results/`, then shows 50 requests flowing through the hybrid: the inst
 each reader understood, whether the operator was asked, who decided, and whether the decision
 respects the instruction. No GPU is needed: the episode is replayed from the answers recorded on
 a laptop (`results/cache/*_laptop.jsonl`). With `LLM_BASE_URL` pointing at a llama.cpp server
-(next section) the same episode runs live. A few decisions of the decider alone follow.
+(next section) the same episode runs live. A few decisions of the decider alone follow. Needs
+Docker with Compose v2 (`docker compose`) and GNU make; the first build fetches the base image, uv
+and the simulator's source from the internet and compiles the simulator, three to five minutes;
+later runs take seconds. The root `Makefile` forwards to this one, so `make run` works from either
+directory.
 
 ## The operator console
 
@@ -190,7 +217,7 @@ uv run python src/tapi.py "avoid=Zurich-Milan; via=none; hops=any; km=any; path=
 
 ## On a laptop
 
-One base model and three adapters behind one [llama.cpp](https://github.com/ggml-org/llama.cpp)
+One base model and four adapters behind one [llama.cpp](https://github.com/ggml-org/llama.cpp)
 server (build 11558 or later; Apertus needs b6686 or later). Measured on an RTX 4060 with 8 GB:
 0.89 s per instruction, 0.97 s per decision.
 
@@ -261,19 +288,12 @@ request is identical for every policy.
 
 ### What the model sees
 
-```
-Request: Bordeaux -> Munich, 10 Gb/s.
-Intent: The Brussels-Paris link is out of bounds for now; stay clear of it.
-Network: 320 slots per link, free ratio 0.76.
-Candidates (path: hops, km, best modulation, slots needed, free slots on path, free blocks [start-length]):
-0: 4 hops, 1359 km, 64QAM, 1 slot, 150 free, blocks [63-1] [94-1] [122-4]
-1: 4 hops, 1386 km, 64QAM, 1 slot, 147 free, blocks [122-4] [133-1] [158-13]
-...
-Route per path: 0: Bordeaux-Paris-Brussels-Frankfurt-Munich ; 1: Bordeaux-Paris-Strasbourg-Frankfurt-Munich ; ...
-Answer format: path=<0-4> slot=<n>  or  reject
-```
-
-and answers `path=1 slot=122`. Intent definitions and wording are in `src/intents.py`.
+The reader's prompt is short: a system text that names the slots of the policy language, the
+list of the network's nodes, and the instruction; the answer is one line, decoded under a grammar
+built from that node list, so it always parses (`src/translate.py`, `src/grammar.py`). The
+decider's prompt, the first round's design, lists the request, the candidate paths with their
+hops, length, modulation and free blocks, and answers `path=1 slot=122`; it is shown in
+`docs/report_rounds_1_2.md`. Intent definitions and wording are in `src/intents.py`.
 
 ## Layout
 
@@ -319,10 +339,14 @@ track_2b/
     consistency3.py    self-consistency of reader 1 as a third check
     benchmark_export.py the test instructions and every reader's answers as a dataset
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
+    report_pdf.py      the report as HTML and, through a headless browser, as PDF
+    report_figure.py   the report's figure: violations on the two closed-loop streams
   jobs/                run.sh (stages run inside a Hugging Face Job), push_bundle.sh, launch.sh,
                        phase1_local.sh (translators on the laptop, from the answer caches)
   tests/               pytest (`make test`)
-  data/                sample/ and stats.json are committed; full/ is git-ignored (goes to the Hub)
+  data/                sample/ and stats.json are committed; full/ is git-ignored (rebuilt by generate.py)
+                       benchmark/: the test sets and every reader's answers as a dataset, with its card
+                       translate4/: the fourth format's training data (committed)
                        instructions/ fewshot/ topologies/: phase 1 test instructions (committed);
                        probes/ translate/: rebuilt by corpora.py and transfer.py (git-ignored)
   results/
@@ -335,6 +359,12 @@ track_2b/
     decisions.md       deviations from SPEC.md, their evidence, open questions
     gpu_runbook.md     fine-tuning and evaluation as Hugging Face Jobs, step by step
     challenge.md       Track 2B challenge text and submission requirements
+    results_overview.md every result with its source file, what it shows and what it does not
+    submission.md      the submission checklist and the material prepared for it
+    video_script.md    the two-minute demo, shot by shot
+    cards/             model cards of the four adapters and the GGUF bundle
+    status_history.md  the round-by-round status table in full
+    figures/           the report's figures (violations.png, console.png)
   technical_report.md  report (exported to TeamName_Report.pdf, at most 6 pages)
 ```
 
@@ -352,7 +382,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # from track_2b/ (e.g. /mnt/c/Users/<you>/PycharmProjects/ApertusNetworkGym/track_2b)
 UV_LINK_MODE=copy uv sync      # creates .venv, builds ONG and its Cython kernels from source
-uv run pytest -q               # 28 tests, about 15 s
+uv run pytest -q               # 79 tests, about a minute
 ```
 
 `UV_LINK_MODE=copy` only silences uv's hardlink warning when the cache (WSL disk) and the project
@@ -382,7 +412,7 @@ Copy `.env.example` to `.env`.
 | Variable | Meaning |
 | --- | --- |
 | `LLM_NAME` | Model name the endpoint serves (`andreasmartin/apertus-v1.5-8b-text` is the text-only Apertus v1.5 8B) |
-| `LLM_BASE_URL` | A llama.cpp server with the base model and the three adapters (section "On a laptop"), e.g. `http://host.docker.internal:8089/v1` from inside the container. Empty: `make run` uses only files in the image |
+| `LLM_BASE_URL` | A llama.cpp server with the base model and the four adapters (section "On a laptop"), e.g. `http://host.docker.internal:8089/v1` from inside the container. Empty: `make run` uses only files in the image |
 | `LLM_LORA_IDS` | JSON that maps a policy name to the number of its adapter on that server; `run.sh` sets a default |
 | `LLM_API_KEY` | Key for that endpoint |
 | `HF_TOKEN` | Hugging Face token: gated model download, HF Jobs, dataset and adapter uploads |
@@ -393,7 +423,7 @@ Copy `.env.example` to `.env`.
 | --- | --- |
 | Simulation, data generation, MLP, CPU evaluation | Windows 11 laptop, WSL2 Ubuntu 24.04, 16 logical CPUs, 7.6 GB RAM visible to WSL |
 | Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 17.3 GPU-hours and about USD 43.18 over all four rounds (peak memory 18.8 GB training a reader, 23.6 GB answering) |
-| The hybrid on a laptop (llama.cpp, 4-bit GGUF, three adapters) | RTX 4060 laptop GPU, 8 GB: 0.89 s per instruction, 0.97 s per decision |
+| The hybrid on a laptop (llama.cpp, 4-bit GGUF, four adapters) | RTX 4060 laptop GPU, 8 GB: 0.89 s per instruction, 0.97 s per decision |
 
 ## AI assistance
 

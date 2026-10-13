@@ -7,7 +7,7 @@ language:
   - it
   - ur
 task_categories:
-  - text2text-generation
+  - text-generation
 pretty_name: Operator instructions for lightpath provisioning
 ---
 

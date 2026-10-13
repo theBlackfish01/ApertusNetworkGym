@@ -28,6 +28,7 @@ def view(*paths: PathView) -> RequestView:
 def test_parts_reads_the_ask_mode():
     assert _parts("translate3_ft_ask-ft2") == ("translate3_ft", "translate3_ft2", True, True, "always")
     assert _parts("hybrid3_ft_askif-few70b") == ("translate3_ft", "translate3_few70b", True, True, "if")
+    assert _parts("translate3_ft_askfair-ft2") == ("translate3_ft", "translate3_ft2", True, True, "fair")
     assert _parts("hybrid3_ft_noguard")[2] is False
 
 

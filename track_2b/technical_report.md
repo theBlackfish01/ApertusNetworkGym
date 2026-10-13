@@ -1,10 +1,10 @@
 # Technical report — Operator instructions for lightpath provisioning with Apertus 8B
 
-> DRAFT for the owner's review. Every number is copied from the file named next to it. Open
-> items are marked TODO: team, video, public links, the final commit. The long account of the first
-> two rounds is in `docs/report_rounds_1_2.md`.
+*Every number is copied from the results file named next to it. The long account of the first two
+rounds is in `docs/report_rounds_1_2.md`; every result with its source file is in
+`docs/results_overview.md`.*
 
-- **Track:** Track 2B — Intent-conditioned lightpath provisioning
+- **Track:** Track 2B, own project: operator instructions for lightpath provisioning
 - **Event:** Online
 - **Team:** `team name` — Wadood Ranjha, `member`, `member`
 - **Demo:** `link to video`
@@ -27,16 +27,19 @@ two readings would decide a request differently, and keeps an audit trail per li
 Everything runs on a laptop GPU.
 
 Measured in the Optical Networking Gym simulator on sentences written by separate AI instances
-in four languages: the reader is right on 94.8 % of 2,078 instructions, and on clauses it never
-saw together as on trained ones (96.5 against 95.6 %); its decisions comply in 99.6 %, those of
-the model that decides alone in 91.1 %. With scope and lifetime added, a reader trained on the
+in four languages: the reader is right on 94.8 % of 2,078 instructions, on clause pairs it never
+saw together as on trained pairs (96.5 against 95.6 %; triples three points lower); its decisions
+comply in 99.6 %, those of the model that decides alone in 91.1 % (English probes). With scope and lifetime added, a reader trained on the
 same recipe is right on 93.5 % of 800 blind policy sentences, and in closed loop the policy table
 built from its readings breaks 1.1–1.5 % of requests against the true table, where ignoring
 scope breaks 13–30 %, ignoring lifetime 6–12 %, first fit 38–42 %. On a mixed stream the hybrid
 that asks breaks 8.5 % of requests (decider alone 16.8 %, first fit 28.6 %); asking only when a
-request tells the readings apart puts 16 % fewer questions at the same error. The weak points are
+request tells the readings apart puts 16 % fewer questions at the same error for the job
+translator, and a third fewer for 0.35 points on the laptop hybrid. The weak points are
 measured too: the reader silently applies 47 % of instruction types no component was ever shown,
-and the phrase "to Prague" is a scope to the new reader and a destination to the operator.
+and the phrase "to Prague" is a scope to the new reader and a destination to the operator. The
+4-bit laptop build, the one a judge can run, is one to four points weaker on every measure and is
+reported beside the job figures throughout.
 
 ## 2. Architecture
 
@@ -106,9 +109,16 @@ GPU.
   identical apart from the start token (`results/train/rendered_prompt3.txt`).
 - **Apertus 70B** (both generations, 4-bit GGUF, 15 examples, no training) translated the same
   test instructions under the same grammar, and generation 1.5 served as the second reader.
-- **Other models:** none is part of the system or produced a result. Claude (Anthropic) wrote
-  code and documentation under the author's direction, the sentence templates of the readers'
-  training data, and, as separate instances that never saw the repository, the test sentences.
+- **Other models:** none is part of the system, and none produced a result. The brief allows
+  other open-weights models to support development; we also used a closed one, Claude (Anthropic),
+  and state its role exactly. It wrote code and documentation under the author's direction, the
+  sentence templates of the readers' training data, and, as separate instances that never saw the
+  repository or each other's output, the blind test sentences. It is not used at runtime, it never
+  labelled a training example (every training line comes from the project's generators, which
+  fill templates from the topology and know the line by construction), and it never judged an
+  answer (scoring is exact comparison of lines; the simulator judges decisions). What rests on it
+  is the wording of the sentences, and that is checked by the author's own 22 lines and by the
+  sentences from other people we invite before the demo.
 
 ## 4. Data
 
@@ -149,7 +159,9 @@ without an instruction. Tables: `results/tables/phase3.md`.
 | Comply: decider alone, % | 96.2 | 90.6 | 85.7 | 76.2 | 91.1 |
 | Comply: reader 1 and rule engine, % | 99.4 | 100.0 | 99.1 | 100.0 | 99.6 |
 
-The slots carry the composition; the decider loses ground with every clause. By language the
+The slots carry the composition; the decider loses ground with every clause, part of which is
+training rather than architecture: it was taught the first round's four intents, not the third
+round's clause kinds (its violations split by kind are in `docs/results_overview.md`). By language the
 reader is right on 96.7 (en), 91.4 (de), 96.0 (fr), 94.8 (it) %. Apertus 70B with examples and
 no training reaches 89.2 % (generation 1.5; the first 71.9 %): the fine-tuned 8B reads better
 than a model nine times its size, as Qiu et al. (2022) found for compositional parsing.
@@ -160,19 +172,21 @@ although two readers were compared; in brackets the share asked).
 | | Reader 1 alone | Left with reader 2 | Left with the untrained 8B | Left with the untrained 70B |
 | --- | --- | --- | --- | --- |
 | Policy language, applied wrongly % | 4.6 | 3.7 (2.8) | 1.5 (12.7) | 0.2 (13.4) |
-| Types never shown to any component | 46.6 | 16.2 (31.6) | 19.4 (44.7) | 0.0 (69.2) |
+| Types never shown to any component (253 sentences, hard and impossible variants included) | 46.6 | 16.2 (31.6) | 19.4 (44.7) | 0.0 (69.2) |
 | Carried in part | 72.2 | 36.3 (50.9) | 33.0 (54.2) | 33.0 (53.3) |
 
 A learned gate does not recognise what it was never shown. Two readers of one recipe share
 most misreadings; a reader that differs catches more, which is what Hamidieh et al. (2026) report
 for cross-model disagreement. The fourth-format reader (section on standing policies), trained
 on the same recipe with 1,600 more sentences that carry an extra clause, silently applies only
-16.7 % of the never-shown types (reader 1: 46.3 %) and, as the check behind reader 1, leaves
-10.2 % of them at 38.0 % asked and 1.5 % inside the language at 3.3 % asked, better than reader 2
-on both counts; one training run, so a lead, not a result. A third signal, five readings of reader 1
-at temperature 0.8 (`results/design/consistency3.json`): asking when any sample differs from the
-greedy reading leaves 3.5 % of the policy-language sentences wrong and unasked at 8.0 % asked
-(reader 2: 4.2 % at 5.4 %; the 70B: 0.6 % at 15.1 %), and 2.8 % of the never-shown types at 88.0 %
+16.7 % of the 108 never-shown sentences (reader 1: 46.3 %) and, as the check behind reader 1,
+leaves 10.2 % of them at 38.0 % asked; inside the language, on the four-language pool, it leaves
+2.0 % at 4.9 % asked where reader 2 leaves 3.7 % at 2.8 %: fewer silent errors for more questions;
+one training run, so a lead, not a result. A third signal, five readings of reader 1
+at temperature 0.8 (`results/design/consistency3.json`; all three signals measured on the laptop's
+4-bit readers, the 70B from its job cache): asking when any sample differs from the greedy
+reading leaves 3.5 % of the policy-language sentences wrong and unasked at 8.0 % asked
+(reader 2 in 4 bits: 4.2 % at 5.4 %; the 70B: 0.6 % at 15.1 %), and 2.8 % of the never-shown types at 88.0 %
 asked (reader 2: 8.3 % at 37.0 %). Disagreement among samples marks unfamiliar input more than it
 marks error, as Cole et al. (2023) and Hamidieh et al. (2026) report, and costs five more readings,
 each about one point worse than greedy (92.1 % against 93.1 % in the language); reader 2 or any
@@ -184,7 +198,12 @@ requests at 390 Erlang, three seeds: first fit 28.6, decider alone 16.8, transla
 hybrid with guard 9.5, hybrid that asks 8.5 (asks for 8.9 % of requests), with the untrained 70B
 as the check 8.3 (asks 24.1 %). Inside the language the hybrid breaks 0.8 %, on unknown types
 28.9 %, and a better gate does not move the latter (28.3 %): the limit is what the decider can
-follow. **Asking by consequence** (`translate3_ft_askif-ft2`, both loads, one process): the
+follow. Figure 1 puts the two closed loops side by side.
+
+![Violations in closed loop](docs/figures/violations.png)
+
+*Figure 1. Violations in closed loop, three seeds: the mixed stream of instructions at 390 Erlang
+(left) and the standing-policy stream judged against the true table (right); `results/eval/`.* **Asking by consequence** (`translate3_ft_askif-ft2`, both loads, one process): the
 translator that always asks puts 397 questions and asks on 8.9 % of requests at 390 Erlang for
 10.28 % violations; asking on the first request that tells the readings apart puts 332 (65 pairs
 of readings were never told apart) and asks on 7.8 % for 10.25 %. On the laptop, with the 4-bit
@@ -216,7 +235,9 @@ judged against the true table.
 The stream's policies are restrictive by construction (a third of requests are rejected under
 the true table); what the ablations show is the cost of ignoring scope or lifetime, and the
 reader's table stays within 1.5 points of the truth (per seed 0.9 / 0.0 / 2.4 and 0.0 / 4.4 /
-0.1). A reader of the old format, which cannot read either slot, applies every policy to every
+0.1). The ablations swing with the seed (scope ignored at 390 Erlang: 54.4 / 0.0 / 35.5), the
+reader's table does not; the true table itself produced two needless rejects (0.03 %), the cost
+of its own bookkeeping. A reader of the old format, which cannot read either slot, applies every policy to every
 request for ever and rejects half to two thirds of them. In 4 bits on the laptop the
 fourth-format reader is right on 90.6 % of the policy sentences (93.5 % in the job) and its table
 stays within 2.4 points of the truth.
@@ -226,10 +247,11 @@ language's own name (*Genf*, *Genève*, *Ginevra*, *Sankt Gallen*; no reader eve
 on the laptop is right on 90.6 (en), 92.0 (de), 90.8 (fr) and 89.0 (it) %, against 93.1 % on the
 network it was trained on; one clause 92–97 %, three clauses 70–85 %
 (`results/translate/translate3_ft_laptop_swiss.json`). In closed loop on that network at 600
-Erlang (three seeds, `results/eval/*_mix3_swiss.json`) the translator alone breaks 9.8 % of
-requests (2.2 % inside the language, against 0.9 % on the European network), the translator that
-asks 9.0 % (1.2 % inside the language, asked on 12.6 % of requests), asking by consequence 9.3 %
-(asked on 8.0 %), first fit 24.7 %. Of the author's 22 lines, reader 1 is right on 18
+Erlang (three seeds, `results/eval/*_mix3_swiss.json`; the laptop readers throughout) the
+translator alone breaks 9.8 % of requests (2.2 % inside the language), the translator that asks
+9.0 % (1.2 % inside the language, the same as the laptop hybrid that asks on the European
+network; asked on 12.6 % of requests), asking by consequence 9.3 % (asked on 8.0 %), first fit
+24.7 %. Of the author's 22 lines, reader 1 is right on 18
 (16 of 17 in English, 2 of 5 in Urdu), the fourth-format reader on 17: its two new errors read
 "go from London to Lyon via Oslo" and "to Prague, avoid Berlin" as scopes (`to:Lyon`, `to:Prague`),
 where the author meant the current request's end points. The language has no word for a
@@ -243,11 +265,21 @@ request's own end points; that is the next slot to add.
   the demo (72.7 % on a stress set).
 - Unknown types remain the weak point (28–37 % violations for every policy in the mixed stream).
 - The fourth-format reader has no second reader yet, so scope and lifetime are read once; the
-  stream's policies are our construction; weekday and date phrases are not in the language.
-- One training run per adapter; the simulated operator answers a question with the true
-  meaning; combination and conflict rules of the table are our choices.
-- The 4-bit laptop build loses 1.7 points on the third-format sets; the 70B ran from community
-  GGUF builds; the TAPI object was not sent to a controller.
+  stream's policies are our construction and reuse the 800 sentences the reader is scored on;
+  the scope and lifetime phrases were committed with the training templates, not before them;
+  weekday and date phrases are not in the language.
+- One training run per adapter (readers 1 and 2, same recipe, differ by 1.5 points, so smaller
+  differences between readers sit inside seed noise); the simulated operator answers a question
+  with the true meaning, so every gain from asking is an upper bound; the decider was trained on
+  the first round's intents, so "decider alone" measures a training mismatch as well as the
+  architecture; combination and conflict rules of the table are our choices.
+- The 4-bit laptop build loses 1.7 points on the third-format sets, most of it on composition
+  (clause pairs never seen together 96.5 to 90.2 %, triples 91.2 to 83.8 %); the 70B ran from
+  community GGUF builds; the TAPI object was not sent to a controller.
+- The mixed stream's proportions are ours. From its per-kind rates the hybrid stays the best of the
+  three policies for a share of unknown types between about 1 % and 42 % of requests
+  (`docs/decisions.md`, 12 Oct), extrapolated, not measured; the simulated operator answers every
+  question with the truth, so the gain from asking is an upper bound.
 
 ## 7. Reproducibility and cost
 
@@ -263,12 +295,11 @@ TODO: exact commit of the submission.
 LLMs now operate optical networks in testbeds and field trials: a locally fine-tuned 7B that
 calls management APIs with a digital twin to pre-verify changes (Sun et al., JOCN 2025), an
 agent with LLM-native, LLM-centric and rule-centric modes on a 440 km field link (Liu et al.,
-JOCN 2026), cross-vendor configuration by an RL-fine-tuned LLM (Wang et al., JOCN 2026), and a
-YANG-grounded agent on OpenROADM gear (OFC 2026). We add a compliance metric in closed loop on a
+JOCN 2026), and agents that drive controllers through their standard interfaces (TAPI, OpenROADM). We add a compliance metric in closed loop on a
 stream that includes what the model was never shown, a compositional held-out protocol with
 instruction-blind baselines, and the cost of asking. Intent lifecycle, conflicts and reports are
 what the standards ask for (ETSI ZSM 011; TM Forum IG1253, TMF921) and what surveys of
-intent-based networking find missing (Gharbaoui et al., TNSM 2026); trust needs read-back and
+intent-based networking find missing (Gharbaoui et al., 2026); trust needs read-back and
 verification (Jacobs et al., TNSM 2025). Asking by showing the difference follows Clarify
 (HotNets 2025), which resolves ambiguity in configuration synthesis by differential
 verification. Our compositional result matches Nandy (2026) and Qiu et al. (2022); the
@@ -286,14 +317,13 @@ Creative Commons Attribution 4.0 (CC-BY-4.0). All HackApertus projects are open-
 
 ## References
 
-- C. Natalino et al., "Optical Networking Gym", JOCN 16(12), G40 (2024).
+- C. Natalino et al., "Optical Networking Gym: an open-source toolkit for resource assignment problems in optical networks", JOCN 16(12), G40 (2024).
 - C. Sun et al., "Experimental demonstration of local AI-Agents for lifecycle management and control automation of optical networks", JOCN 17(8), C82 (2025).
-- X. Liu et al., "Field trial of an LLM-powered AI agent for autonomous optical networks", JOCN 18(5), A179 (2026).
-- C. Wang et al., "Cross-vendor telecom optical network configuration automation from intentions", JOCN 18(10), 1042 (2026).
-- M. Gharbaoui et al., "Assurance and conflict detection in intent-based networking: a survey", IEEE TNSM (2026).
-- A. Jacobs et al., "Establishing trust for using natural language for intent-based networking", IEEE TNSM (2025).
-- "Tackling ambiguity in user intent for LLM-based network configuration synthesis" (Clarify), HotNets (2025).
-- L. Qiu et al., "Evaluating the impact of model scale for compositional generalization in semantic parsing" (2022).
-- A. Nandy, "Known intents, new combinations: clause-factorized decoding for compositional multi-intent detection" (2026).
-- K. Hamidieh et al., "Complementing self-consistency with cross-model disagreement for uncertainty quantification" (2026).
+- X. Liu et al., "Field trial of an LLM-powered AI agent for autonomous optical networks: a full-lifecycle demonstration", JOCN 18, A179 (2026), doi:10.1364/JOCN.575402.
+- M. Gharbaoui et al., "Assurance and conflict detection in intent-based networking: a comprehensive survey and insights on standards and open-source tools", arXiv:2603.23772 (2026).
+- A. S. Jacobs et al., "Establishing trust for using natural language for intent-based networking", IEEE TNSM 22(5), 4775 (2025).
+- R. Mondal, N. Bjørner, T. Millstein, A. Tang, G. Varghese, "Tackling ambiguity in user intent for LLM-based network configuration synthesis" (Clarify), HotNets (2025).
+- L. Qiu et al., "Evaluating the impact of model scale for compositional generalization in semantic parsing", EMNLP (2022).
+- A. Nandy, "Known intents, new combinations: clause-factorized decoding for compositional multi-intent detection", arXiv:2603.28929 (2026).
+- K. Hamidieh et al., "Complementing self-consistency with cross-model disagreement for uncertainty quantification", ICLR (2026).
 - ETSI GR ZSM 011; TM Forum IG1253 and TMF921; ONF TAPI 2.1.3 (TR-547).

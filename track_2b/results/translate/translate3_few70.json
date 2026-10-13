@@ -29,7 +29,8 @@
       "v3_other.jsonl",
       "v3_not.jsonl",
       "v3_faulty.jsonl"
-    ]
+    ],
+    "rescored": "2026-10-13: scored again from the same recorded answers with the current parser (spec.py); the earlier counts are in git history"
   },
   "groups": [
     {
@@ -37,9 +38,9 @@
       "lang": "all",
       "kind": "all",
       "n": 514,
-      "correct": 371,
+      "correct": 375,
       "flagged": 111,
-      "wrong": 32,
+      "wrong": 28,
       "applied": 0,
       "malformed": 0,
       "same_status": 403,
@@ -50,9 +51,9 @@
       "lang": "de",
       "kind": "atom",
       "n": 196,
-      "correct": 150,
+      "correct": 154,
       "flagged": 33,
-      "wrong": 13,
+      "wrong": 9,
       "applied": 0,
       "malformed": 0,
       "same_status": 163,
@@ -115,9 +116,9 @@
       "lang": "all",
       "kind": "all",
       "n": 521,
-      "correct": 403,
+      "correct": 405,
       "flagged": 91,
-      "wrong": 27,
+      "wrong": 25,
       "applied": 0,
       "malformed": 0,
       "same_status": 430,
@@ -128,9 +129,9 @@
       "lang": "en",
       "kind": "atom",
       "n": 199,
-      "correct": 156,
+      "correct": 158,
       "flagged": 37,
-      "wrong": 6,
+      "wrong": 4,
       "applied": 0,
       "malformed": 0,
       "same_status": 162,
@@ -245,9 +246,9 @@
       "lang": "all",
       "kind": "all",
       "n": 523,
-      "correct": 376,
+      "correct": 379,
       "flagged": 115,
-      "wrong": 32,
+      "wrong": 29,
       "applied": 0,
       "malformed": 0,
       "same_status": 408,
@@ -258,9 +259,9 @@
       "lang": "fr",
       "kind": "atom",
       "n": 202,
-      "correct": 159,
+      "correct": 162,
       "flagged": 39,
-      "wrong": 4,
+      "wrong": 1,
       "applied": 0,
       "malformed": 0,
       "same_status": 163,
@@ -323,9 +324,9 @@
       "lang": "all",
       "kind": "all",
       "n": 520,
-      "correct": 333,
+      "correct": 335,
       "flagged": 137,
-      "wrong": 50,
+      "wrong": 48,
       "applied": 0,
       "malformed": 0,
       "same_status": 383,
@@ -336,9 +337,9 @@
       "lang": "it",
       "kind": "atom",
       "n": 200,
-      "correct": 140,
+      "correct": 142,
       "flagged": 52,
-      "wrong": 8,
+      "wrong": 6,
       "applied": 0,
       "malformed": 0,
       "same_status": 148,
@@ -676,7 +677,7 @@
         },
         {
           "text": "Bitte Kandidat 0 nehmen.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "unsupported",
           "status": "unsupported"
         },
@@ -716,12 +717,6 @@
       "set": "v3_de",
       "outcome": "wrong",
       "cases": [
-        {
-          "text": "Auswahl: Eintrag 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
         {
           "text": "Bevorzugt die Route, die das effizienteste Modulationsformat erlaubt und die Verbindung damit am wenigsten Slots kostet.",
           "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
@@ -763,6 +758,12 @@
           "expected": "avoid=Hamburg-Frankfurt,Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=Hamburg-Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
           "status": "ok"
+        },
+        {
+          "text": "Bitte über Brüssel führen, aber mit nicht mehr als 5 Links insgesamt.",
+          "expected": "avoid=none; via=Brussels; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Brussels; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
         }
       ]
     },
@@ -796,7 +797,7 @@
         },
         {
           "text": "After checking with the field team, number 0 is the one to set up.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "no_instruction",
           "status": "no_instruction"
         },
@@ -849,12 +850,6 @@
           "status": "ok"
         },
         {
-          "text": "I want the lightpath on the candidate numbered 0, no other.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "I'd like this service on the route with the most spare capacity, i.e. the largest number of free slots.",
           "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
           "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
@@ -870,6 +865,12 @@
           "text": "Keep off the Berlin-Prague span and do not transit Prague either.",
           "expected": "avoid=Berlin-Prague,Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=Berlin-Prague; via=Prague; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Latency-sensitive customer, so prefer the path with the least fibre length in km.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=km; rest=none",
           "status": "ok"
         }
       ]
@@ -987,12 +988,6 @@
       "outcome": "wrong",
       "cases": [
         {
-          "text": "C'est la 0 qu'il faut prendre parmi les routes proposées.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "La longueur ne doit pas dépasser 1200 km, et on préfère le chemin où ce service occupe le moins de créneaux.",
           "expected": "avoid=none; via=none; hops=any; km=1200; path=any; prefer=slots; rest=none",
           "answer": "avoid=none; via=none; hops=any; km=1200; path=any; prefer=load,slots; rest=none",
@@ -1032,6 +1027,12 @@
           "text": "Maximum 2700 km ; dans cette limite, prendre la route qui a le moins de sauts.",
           "expected": "avoid=none; via=none; hops=any; km=2700; path=any; prefer=hops; rest=none",
           "answer": "avoid=none; via=none; hops=2; km=2700; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Merci de limiter le chemin à 3 sauts, de contourner le nœud Strasbourg en cours d'audit et de bien inclure Francfort sur le parcours.",
+          "expected": "avoid=Strasbourg; via=Frankfurt; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Strasbourg; via=none; hops=3; km=any; path=any; prefer=none; rest=more",
           "status": "ok"
         }
       ]

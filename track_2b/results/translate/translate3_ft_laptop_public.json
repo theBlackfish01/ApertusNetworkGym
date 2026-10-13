@@ -40,7 +40,8 @@
       "v3_other.jsonl",
       "v3_not.jsonl",
       "v3_faulty.jsonl"
-    ]
+    ],
+    "rescored": "2026-10-13: scored again from the same recorded answers with the current parser (spec.py); the earlier counts are in git history"
   },
   "groups": [
     {
@@ -48,26 +49,26 @@
       "lang": "all",
       "kind": "all",
       "n": 514,
-      "correct": 459,
+      "correct": 465,
       "flagged": 6,
-      "wrong": 49,
+      "wrong": 43,
       "applied": 0,
       "malformed": 0,
       "same_status": 508,
-      "ms_per_instruction": 918.2531128404679
+      "ms_per_instruction": 899.3408560311283
     },
     {
       "set": "v3_de",
       "lang": "de",
       "kind": "atom",
       "n": 196,
-      "correct": 186,
+      "correct": 192,
       "flagged": 1,
-      "wrong": 9,
+      "wrong": 3,
       "applied": 0,
       "malformed": 0,
       "same_status": 195,
-      "ms_per_instruction": 878.5964285714285
+      "ms_per_instruction": 858.5790816326534
     },
     {
       "set": "v3_de",
@@ -80,7 +81,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 103,
-      "ms_per_instruction": 942.6632075471695
+      "ms_per_instruction": 940.9735849056601
     },
     {
       "set": "v3_de",
@@ -93,7 +94,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 123,
-      "ms_per_instruction": 931.3685483870969
+      "ms_per_instruction": 902.0217741935485
     },
     {
       "set": "v3_de",
@@ -106,7 +107,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 79,
-      "ms_per_instruction": 962.7587499999997
+      "ms_per_instruction": 936.1112499999999
     },
     {
       "set": "v3_de",
@@ -119,33 +120,33 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 918.0625
+      "ms_per_instruction": 937.1125
     },
     {
       "set": "v3_en",
       "lang": "all",
       "kind": "all",
       "n": 521,
-      "correct": 484,
+      "correct": 488,
       "flagged": 0,
-      "wrong": 37,
+      "wrong": 33,
       "applied": 0,
       "malformed": 0,
       "same_status": 521,
-      "ms_per_instruction": 917.8226487523991
+      "ms_per_instruction": 915.909213051823
     },
     {
       "set": "v3_en",
       "lang": "en",
       "kind": "atom",
       "n": 199,
-      "correct": 188,
+      "correct": 193,
       "flagged": 0,
-      "wrong": 11,
+      "wrong": 6,
       "applied": 0,
       "malformed": 0,
       "same_status": 199,
-      "ms_per_instruction": 882.0944723618093
+      "ms_per_instruction": 879.9175879396983
     },
     {
       "set": "v3_en",
@@ -158,7 +159,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 107,
-      "ms_per_instruction": 934.5859813084113
+      "ms_per_instruction": 931.7084112149535
     },
     {
       "set": "v3_en",
@@ -171,20 +172,20 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 127,
-      "ms_per_instruction": 931.0582677165355
+      "ms_per_instruction": 933.0023622047245
     },
     {
       "set": "v3_en",
       "lang": "en",
       "kind": "triple",
       "n": 80,
-      "correct": 71,
+      "correct": 70,
       "flagged": 0,
-      "wrong": 9,
+      "wrong": 10,
       "applied": 0,
       "malformed": 0,
       "same_status": 80,
-      "ms_per_instruction": 963.0450000000001
+      "ms_per_instruction": 957.5400000000002
     },
     {
       "set": "v3_en",
@@ -197,7 +198,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 920.0124999999999
+      "ms_per_instruction": 912.2249999999999
     },
     {
       "set": "v3_faulty",
@@ -210,7 +211,7 @@
       "applied": 15,
       "malformed": 0,
       "same_status": 132,
-      "ms_per_instruction": 894.237333333333
+      "ms_per_instruction": 867.3733333333337
     },
     {
       "set": "v3_faulty",
@@ -223,7 +224,7 @@
       "applied": 3,
       "malformed": 0,
       "same_status": 52,
-      "ms_per_instruction": 958.3109090909091
+      "ms_per_instruction": 941.6181818181818
     },
     {
       "set": "v3_faulty",
@@ -236,7 +237,7 @@
       "applied": 5,
       "malformed": 0,
       "same_status": 39,
-      "ms_per_instruction": 866.0954545454547
+      "ms_per_instruction": 840.2181818181821
     },
     {
       "set": "v3_faulty",
@@ -249,33 +250,33 @@
       "applied": 7,
       "malformed": 0,
       "same_status": 41,
-      "ms_per_instruction": 849.4176470588235
+      "ms_per_instruction": 810.7333333333335
     },
     {
       "set": "v3_fr",
       "lang": "all",
       "kind": "all",
       "n": 523,
-      "correct": 498,
+      "correct": 503,
       "flagged": 0,
-      "wrong": 25,
+      "wrong": 20,
       "applied": 0,
       "malformed": 0,
       "same_status": 523,
-      "ms_per_instruction": 920.5678776290637
+      "ms_per_instruction": 903.7223709369026
     },
     {
       "set": "v3_fr",
       "lang": "fr",
       "kind": "atom",
       "n": 202,
-      "correct": 191,
+      "correct": 196,
       "flagged": 0,
-      "wrong": 11,
+      "wrong": 6,
       "applied": 0,
       "malformed": 0,
       "same_status": 202,
-      "ms_per_instruction": 883.8831683168315
+      "ms_per_instruction": 875.5331683168318
     },
     {
       "set": "v3_fr",
@@ -288,7 +289,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 107,
-      "ms_per_instruction": 940.5691588785044
+      "ms_per_instruction": 917.6831775700933
     },
     {
       "set": "v3_fr",
@@ -301,7 +302,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 126,
-      "ms_per_instruction": 932.4492063492064
+      "ms_per_instruction": 909.6730158730155
     },
     {
       "set": "v3_fr",
@@ -314,7 +315,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 80,
-      "ms_per_instruction": 967.2362499999997
+      "ms_per_instruction": 949.08125
     },
     {
       "set": "v3_fr",
@@ -327,33 +328,33 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 925.5250000000001
+      "ms_per_instruction": 881.4625
     },
     {
       "set": "v3_it",
       "lang": "all",
       "kind": "all",
       "n": 520,
-      "correct": 474,
+      "correct": 478,
       "flagged": 3,
-      "wrong": 43,
+      "wrong": 39,
       "applied": 0,
       "malformed": 0,
       "same_status": 517,
-      "ms_per_instruction": 918.5719230769229
+      "ms_per_instruction": 900.5032692307697
     },
     {
       "set": "v3_it",
       "lang": "it",
       "kind": "atom",
       "n": 200,
-      "correct": 185,
+      "correct": 189,
       "flagged": 0,
-      "wrong": 15,
+      "wrong": 11,
       "applied": 0,
       "malformed": 0,
       "same_status": 200,
-      "ms_per_instruction": 882.5455000000001
+      "ms_per_instruction": 860.8370000000001
     },
     {
       "set": "v3_it",
@@ -366,7 +367,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 107,
-      "ms_per_instruction": 938.2537037037036
+      "ms_per_instruction": 926.0259259259258
     },
     {
       "set": "v3_it",
@@ -379,7 +380,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 123,
-      "ms_per_instruction": 932.5483870967739
+      "ms_per_instruction": 900.1572580645159
     },
     {
       "set": "v3_it",
@@ -392,7 +393,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 79,
-      "ms_per_instruction": 959.3437499999998
+      "ms_per_instruction": 933.1699999999997
     },
     {
       "set": "v3_it",
@@ -405,7 +406,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 929.1750000000001
+      "ms_per_instruction": 1226.3
     },
     {
       "set": "v3_new",
@@ -413,12 +414,12 @@
       "kind": "all",
       "n": 108,
       "correct": 0,
-      "flagged": 63,
+      "flagged": 61,
       "wrong": 0,
-      "applied": 45,
+      "applied": 47,
       "malformed": 0,
-      "same_status": 63,
-      "ms_per_instruction": 598.7990740740739
+      "same_status": 61,
+      "ms_per_instruction": 588.7888888888888
     },
     {
       "set": "v3_new",
@@ -431,7 +432,7 @@
       "applied": 6,
       "malformed": 0,
       "same_status": 2,
-      "ms_per_instruction": 678.6999999999999
+      "ms_per_instruction": 738.4000000000001
     },
     {
       "set": "v3_new",
@@ -439,12 +440,12 @@
       "kind": "min_free",
       "n": 68,
       "correct": 0,
-      "flagged": 40,
+      "flagged": 38,
       "wrong": 0,
-      "applied": 28,
+      "applied": 30,
       "malformed": 0,
-      "same_status": 40,
-      "ms_per_instruction": 662.5264705882353
+      "same_status": 38,
+      "ms_per_instruction": 637.020588235294
     },
     {
       "set": "v3_new",
@@ -457,7 +458,7 @@
       "applied": 6,
       "malformed": 0,
       "same_status": 18,
-      "ms_per_instruction": 303.61250000000007
+      "ms_per_instruction": 302.9166666666667
     },
     {
       "set": "v3_new",
@@ -470,7 +471,7 @@
       "applied": 5,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 862.7750000000001
+      "ms_per_instruction": 886.8250000000002
     },
     {
       "set": "v3_new_hard",
@@ -478,12 +479,12 @@
       "kind": "all",
       "n": 79,
       "correct": 0,
-      "flagged": 39,
+      "flagged": 38,
       "wrong": 0,
-      "applied": 40,
+      "applied": 41,
       "malformed": 0,
-      "same_status": 39,
-      "ms_per_instruction": 691.659493670886
+      "same_status": 38,
+      "ms_per_instruction": 679.6518987341772
     },
     {
       "set": "v3_new_hard",
@@ -496,7 +497,7 @@
       "applied": 6,
       "malformed": 0,
       "same_status": 2,
-      "ms_per_instruction": 678.6999999999999
+      "ms_per_instruction": 738.4000000000001
     },
     {
       "set": "v3_new_hard",
@@ -504,12 +505,12 @@
       "kind": "min_free",
       "n": 61,
       "correct": 0,
-      "flagged": 32,
+      "flagged": 31,
       "wrong": 0,
-      "applied": 29,
+      "applied": 30,
       "malformed": 0,
-      "same_status": 32,
-      "ms_per_instruction": 689.3655737704919
+      "same_status": 31,
+      "ms_per_instruction": 663.2819672131147
     },
     {
       "set": "v3_new_hard",
@@ -522,7 +523,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 2,
-      "ms_per_instruction": 129.0
+      "ms_per_instruction": 115.25
     },
     {
       "set": "v3_new_hard",
@@ -535,7 +536,7 @@
       "applied": 5,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 862.7750000000001
+      "ms_per_instruction": 886.8250000000002
     },
     {
       "set": "v3_new_impossible",
@@ -543,12 +544,12 @@
       "kind": "all",
       "n": 66,
       "correct": 0,
-      "flagged": 42,
+      "flagged": 40,
       "wrong": 0,
-      "applied": 24,
+      "applied": 26,
       "malformed": 0,
-      "same_status": 42,
-      "ms_per_instruction": 568.6939393939396
+      "same_status": 40,
+      "ms_per_instruction": 557.5621212121214
     },
     {
       "set": "v3_new_impossible",
@@ -556,12 +557,12 @@
       "kind": "min_free",
       "n": 38,
       "correct": 0,
-      "flagged": 23,
+      "flagged": 21,
       "wrong": 0,
-      "applied": 15,
+      "applied": 17,
       "malformed": 0,
-      "same_status": 23,
-      "ms_per_instruction": 665.384210526316
+      "same_status": 21,
+      "ms_per_instruction": 642.2236842105264
     },
     {
       "set": "v3_new_impossible",
@@ -574,7 +575,7 @@
       "applied": 4,
       "malformed": 0,
       "same_status": 16,
-      "ms_per_instruction": 267.35
+      "ms_per_instruction": 265.0
     },
     {
       "set": "v3_new_impossible",
@@ -587,7 +588,7 @@
       "applied": 5,
       "malformed": 0,
       "same_status": 3,
-      "ms_per_instruction": 862.7750000000001
+      "ms_per_instruction": 886.8250000000002
     },
     {
       "set": "v3_not",
@@ -600,7 +601,7 @@
       "applied": 1,
       "malformed": 0,
       "same_status": 29,
-      "ms_per_instruction": 178.29666666666668
+      "ms_per_instruction": 213.73666666666668
     },
     {
       "set": "v3_not",
@@ -613,7 +614,7 @@
       "applied": 1,
       "malformed": 0,
       "same_status": 29,
-      "ms_per_instruction": 178.29666666666668
+      "ms_per_instruction": 213.73666666666668
     },
     {
       "set": "v3_other",
@@ -626,7 +627,7 @@
       "applied": 8,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 544.2000000000002
+      "ms_per_instruction": 533.94375
     },
     {
       "set": "v3_other",
@@ -639,7 +640,7 @@
       "applied": 8,
       "malformed": 0,
       "same_status": 8,
-      "ms_per_instruction": 544.2000000000002
+      "ms_per_instruction": 533.94375
     },
     {
       "set": "v3_partial",
@@ -652,7 +653,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 212,
-      "ms_per_instruction": 896.4250000000002
+      "ms_per_instruction": 886.4047169811319
     },
     {
       "set": "v3_partial",
@@ -665,7 +666,7 @@
       "applied": 0,
       "malformed": 0,
       "same_status": 212,
-      "ms_per_instruction": 896.4250000000002
+      "ms_per_instruction": 886.4047169811319
     }
   ],
   "examples": [
@@ -716,21 +717,9 @@
       "outcome": "wrong",
       "cases": [
         {
-          "text": "Auswahl: Eintrag 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Bevorzugt die Route, die das effizienteste Modulationsformat erlaubt und die Verbindung damit am wenigsten Slots kostet.",
           "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
           "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots,hops; rest=none",
-          "status": "ok"
-        },
-        {
-          "text": "Bitte Kandidat 0 nehmen.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "status": "ok"
         },
         {
@@ -762,6 +751,18 @@
           "expected": "avoid=London; via=Amsterdam; hops=6; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=Amsterdam,London; via=none; hops=6; km=any; path=any; prefer=none; rest=none",
           "status": "ok"
+        },
+        {
+          "text": "Bitte über Berlin routen, den Link Warschau–Budapest dabei auslassen und von den passenden Wegen den mit den wenigsten Hops nehmen.",
+          "expected": "avoid=Warsaw-Budapest; via=Berlin; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=Warsaw-Budapest; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte über Frankfurt routen, den Link Bordeaux–Paris dabei auslassen und von den passenden Wegen den mit den wenigsten Hops nehmen.",
+          "expected": "avoid=Bordeaux-Paris; via=Frankfurt; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=Bordeaux-Paris; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
         }
       ]
     },
@@ -769,12 +770,6 @@
       "set": "v3_en",
       "outcome": "wrong",
       "cases": [
-        {
-          "text": "After checking with the field team, number 0 is the one to set up.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
         {
           "text": "Exclude any candidate that traverses the Zagreb/Vienna segment.",
           "expected": "avoid=Zagreb-Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
@@ -794,15 +789,9 @@
           "status": "ok"
         },
         {
-          "text": "I want the lightpath on the candidate numbered 0, no other.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Keep it to 1 links or less, every extra ROADM pass costs us OSNR margin.",
           "expected": "avoid=none; via=none; hops=1; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=none; via=none; hops=1; km=any; path=any; prefer=hops; rest=none",
           "status": "ok"
         },
         {
@@ -815,6 +804,18 @@
           "text": "Keep it to 4 links or less, every extra ROADM pass costs us OSNR margin.",
           "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep it to 5 links or less, every extra ROADM pass costs us OSNR margin.",
+          "expected": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Length is capped at 1800 km by the latency SLA; subject to that, choose the option that uses the least spectrum for this service.",
+          "expected": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=slots; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=load; rest=none",
           "status": "ok"
         }
       ]
@@ -878,18 +879,6 @@
       "outcome": "wrong",
       "cases": [
         {
-          "text": "C'est la 0 qu'il faut prendre parmi les routes proposées.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
-          "text": "Choix imposé : candidat 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Le nombre de liens traversés ne doit pas dépasser 2.",
           "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
@@ -923,6 +912,18 @@
           "text": "Merci d'exclure la liaison entre Lyon et Paris et de veiller à ce que la route traverse bien Dublin, où le client a son équipement.",
           "expected": "avoid=Lyon-Paris; via=Dublin; hops=any; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=Lyon-Paris,Dublin; via=Dublin; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Merci de limiter le chemin à 8 sauts, de contourner le nœud Strasbourg en cours d'audit et de bien inclure Munich sur le parcours.",
+          "expected": "avoid=Strasbourg; via=Munich; hops=8; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Strasbourg,Munich; via=none; hops=8; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "On reste à 3 tronçons ou moins, sinon on multiplie les points de panne.",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; rest=none",
           "status": "ok"
         }
       ]

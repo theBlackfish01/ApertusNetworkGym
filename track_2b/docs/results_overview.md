@@ -122,8 +122,17 @@ the sentences were opened (`7ab1e66`).
 | Comply: decider alone, % | 96.2 | 90.6 | 85.7 | 76.2 | 91.1 |
 | Comply: reader 1 and rule engine, % | 99.4 | 100.0 | 99.1 | 100.0 | 99.6 |
 
+**The decider alone, by kind of instruction** (`results/eval/apertus_ft_mix3.json`, 390 E, three seeds,
+violations % of requests): one clause 7.4, two clauses seen in training 23.3, two never seen together
+28.9, three 44.1, two preferences 6.1, carried in part 36.3; the never-shown types from 4.7 (a
+modulation limit) to 57.3 (the largest free block); no instruction 0.1, not an instruction 3.1, a
+place outside the network 0.4. The decider was trained on the first round's four intents, so even
+the one-clause sentences hold kinds it never saw; the rise with every clause is partly that
+mismatch and partly composition.
+
 By language reader 1 is right on 96.7 (en), 91.4 (de), 96.0 (fr), 94.8 (it) %
-(`results/translate/translate3_ft.json`). Apertus 70B with 15 examples and no training: 89.2 %
+(`results/design/readers3.json`; `results/translate/translate3_ft.json` agrees since its re-scoring
+on 13 October). Apertus 70B with 15 examples and no training: 89.2 %
 (generation 1.5), 71.9 % (generation 1). What it shows: the slots carry composition (pairs never
 seen read as well as trained ones), the decider loses ground with every clause, and the
 fine-tuned 8B reads better than an untrained model nine times its size.
@@ -214,9 +223,11 @@ policies are restrictive by construction (a third of requests rejected under the
 absolute numbers describe this stream, the differences describe the slots.
 
 **The fourth-format reader as gate and check** (`results/design/readers3.json`): on the types
-never shown it silently applies 16.7 % (reader 1 46.3 %); as the check behind reader 1 it leaves
-10.2 % of them at 38.0 % asked and 1.5 % inside the language at 3.3 % asked, better than reader 2
-on both counts. One training run with 1,600 more sentences, so a lead, not a result.
+never shown (108 sentences) it silently applies 16.7 % (reader 1 46.3 %); as the check behind
+reader 1 it leaves 10.2 % of them at 38.0 % asked; inside the language, on the four-language
+pool, it leaves 2.0 % at 4.9 % asked where reader 2 leaves 3.7 % at 2.8 % (`results/design/readers3.json`,
+pairs): fewer silent errors for more questions. One training run with 1,600 more sentences, so a
+lead, not a result.
 
 **Self-consistency as a third check** (`results/design/consistency3.json`; five readings of
 reader 1 at temperature 0.8 on the laptop). On 2,078 policy-language sentences, where the greedy

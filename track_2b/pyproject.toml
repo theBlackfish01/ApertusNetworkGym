@@ -1,7 +1,7 @@
 [project]
 name = "apertus-lightpath"
 version = "0.1.0"
-description = "Intent-conditioned lightpath provisioning with Apertus 8B on Optical Networking Gym (Hack Apertus Track 2B)"
+description = "Operator instructions for lightpath provisioning with Apertus 8B on Optical Networking Gym (Hack Apertus Track 2B)"
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.12,<3.13"
@@ -15,7 +15,12 @@ dependencies = [
 # and runs with `uv run src/train.py`.
 
 [dependency-groups]
-dev = ["pytest", "ruff"]
+dev = [
+    "markdown>=3.11",
+    "pypdf>=6.20.1",
+    "pytest",
+    "ruff",
+]
 
 [tool.uv]
 # src/ holds flat modules run as scripts (spec section 8 layout), not an installable package.

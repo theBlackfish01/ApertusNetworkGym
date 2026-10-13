@@ -398,6 +398,7 @@ class TranslatorPolicy(Policy):
         self._specs: dict[str, Spec] = {"none": EMPTY}  # "none" is the prompt text of no instruction
         self._asked: set[str] = set()
         self._pending: dict[str, tuple[Spec, Spec, Intent]] = {}  # text -> two readings not yet asked about
+        self._both_wrong = 0  # fair operator: questions where neither reading was right
 
     def read(self, requests: list[Request]) -> None:
         """Translate the instructions not seen before; ask where two readers disagree."""
@@ -419,8 +420,21 @@ class TranslatorPolicy(Policy):
                     )  # asked when a request tells them apart
                 else:
                     self._asked.add(text)
-                    specs[i] = meant(new[text])
+                    specs[i] = self._answer(new[text], specs[i], other)
         self._specs.update(zip(texts, specs, strict=True))
+
+    def _answer(self, intent: Intent, first: Spec, other: Spec) -> Spec:
+        """What the simulated operator answers. ``always`` and ``if``: the true meaning (an upper
+        bound: an operator who is shown two wrong readings cannot pick a third). ``fair``: the
+        reading that is right if one of the two is, else the first, which stands unchanged."""
+        truth = meant(intent)
+        if self.ask != "fair":
+            return truth
+        for reading in (first, other):
+            if reading.meaning() == truth.meaning():
+                return reading
+        self._both_wrong += 1
+        return first
 
     def resolve(self, requests: list[Request]) -> None:
         """Ask about a pending pair of readings on the first request they would decide differently."""
@@ -431,7 +445,7 @@ class TranslatorPolicy(Policy):
                 if choose(request.view, first, self.rule) != choose(request.view, other, self.rule):
                     del self._pending[text]
                     self._asked.add(text)
-                    self._specs[text] = meant(intent)
+                    self._specs[text] = self._answer(intent, first, other)
 
     def report(self, text: str, body: str) -> str:
         return ("asked+" if text in self._asked else "") + body
@@ -458,7 +472,9 @@ class TranslatorPolicy(Policy):
             {"second_reader": self.second.describe(), "ask": self.ask,
              # after a run in one process: distinct instructions asked about, and pairs of readings
              # that no request ever told apart (so the first reading stood unasked)
-             "questions": len(self._asked), "never_told_apart": len(self._pending)}
+             "questions": len(self._asked), "never_told_apart": len(self._pending),
+             # fair operator: questions where neither reading was right (the first stood)
+             "both_wrong": self._both_wrong}
             if self.second is not None
             else {}
         )  # fmt: skip
@@ -517,8 +533,8 @@ def _parts(name: str) -> tuple[str, str | None, bool, bool, str]:
     readings apart), ``translate3_ft_ask-few`` or ``hybrid3_ft_noguard``."""
     ordered = name.endswith("_ordered")
     base = name.removesuffix("_ordered")
-    ask = "if" if "_askif-" in base else "always"
-    base, _, second = base.partition("_askif-" if ask == "if" else "_ask-")
+    ask = "if" if "_askif-" in base else "fair" if "_askfair-" in base else "always"
+    base, _, second = base.partition({"if": "_askif-", "fair": "_askfair-"}.get(ask, "_ask-"))
     guard = "_noguard" not in base
     first = base.replace("_noguard", "").replace("hybrid", "translate", 1)
     version = format_version(first)

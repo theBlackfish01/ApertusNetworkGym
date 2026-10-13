@@ -30,7 +30,8 @@
       "v3_other.jsonl",
       "v3_not.jsonl",
       "v3_faulty.jsonl"
-    ]
+    ],
+    "rescored": "2026-10-13: scored again from the same recorded answers with the current parser (spec.py); the earlier counts are in git history"
   },
   "groups": [
     {
@@ -38,9 +39,9 @@
       "lang": "all",
       "kind": "all",
       "n": 514,
-      "correct": 422,
+      "correct": 425,
       "flagged": 30,
-      "wrong": 62,
+      "wrong": 59,
       "applied": 0,
       "malformed": 0,
       "same_status": 484,
@@ -51,9 +52,9 @@
       "lang": "de",
       "kind": "atom",
       "n": 196,
-      "correct": 166,
+      "correct": 169,
       "flagged": 19,
-      "wrong": 11,
+      "wrong": 8,
       "applied": 0,
       "malformed": 0,
       "same_status": 177,
@@ -116,9 +117,9 @@
       "lang": "all",
       "kind": "all",
       "n": 521,
-      "correct": 488,
+      "correct": 493,
       "flagged": 1,
-      "wrong": 32,
+      "wrong": 27,
       "applied": 0,
       "malformed": 0,
       "same_status": 520,
@@ -129,9 +130,9 @@
       "lang": "en",
       "kind": "atom",
       "n": 199,
-      "correct": 185,
+      "correct": 190,
       "flagged": 1,
-      "wrong": 13,
+      "wrong": 8,
       "applied": 0,
       "malformed": 0,
       "same_status": 198,
@@ -246,9 +247,9 @@
       "lang": "all",
       "kind": "all",
       "n": 523,
-      "correct": 461,
+      "correct": 463,
       "flagged": 15,
-      "wrong": 47,
+      "wrong": 45,
       "applied": 0,
       "malformed": 0,
       "same_status": 508,
@@ -259,9 +260,9 @@
       "lang": "fr",
       "kind": "atom",
       "n": 202,
-      "correct": 178,
+      "correct": 180,
       "flagged": 12,
-      "wrong": 12,
+      "wrong": 10,
       "applied": 0,
       "malformed": 0,
       "same_status": 190,
@@ -324,9 +325,9 @@
       "lang": "all",
       "kind": "all",
       "n": 520,
-      "correct": 429,
+      "correct": 431,
       "flagged": 20,
-      "wrong": 71,
+      "wrong": 69,
       "applied": 0,
       "malformed": 0,
       "same_status": 500,
@@ -337,9 +338,9 @@
       "lang": "it",
       "kind": "atom",
       "n": 200,
-      "correct": 172,
+      "correct": 174,
       "flagged": 15,
-      "wrong": 13,
+      "wrong": 11,
       "applied": 0,
       "malformed": 0,
       "same_status": 185,
@@ -665,7 +666,7 @@
       "cases": [
         {
           "text": "Auswahl: Eintrag 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "no_instruction",
           "status": "no_instruction"
         },
@@ -718,12 +719,6 @@
       "outcome": "wrong",
       "cases": [
         {
-          "text": "Bitte Kandidat 0 nehmen.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Bitte darauf achten, dass Wien auf dem Weg liegt.",
           "expected": "avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=none; via=Warsaw; hops=any; km=any; path=any; prefer=none; rest=none",
@@ -764,6 +759,12 @@
           "expected": "avoid=Zurich-Milan; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none",
           "answer": "avoid=Zurich-Milan; via=Warsaw; hops=any; km=any; path=any; prefer=none; rest=none",
           "status": "ok"
+        },
+        {
+          "text": "Bitte via Wien routen, der Kunde hat dort einen zweiten Übergabepunkt geplant.",
+          "expected": "avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=Warsaw; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
         }
       ]
     },
@@ -796,12 +797,6 @@
           "status": "ok"
         },
         {
-          "text": "After checking with the field team, number 0 is the one to set up.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Go for the option needing the fewest spectrum slots, but nothing that crosses Athens/Belgrade.",
           "expected": "avoid=Athens-Belgrade; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
           "answer": "avoid=Athens,Belgrade; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
@@ -829,6 +824,12 @@
           "text": "I need a path of 1300 km at most that does not ride the fibre from Hamburg to Berlin.",
           "expected": "avoid=Hamburg-Berlin; via=none; hops=any; km=1300; path=any; prefer=none; rest=none",
           "answer": "avoid=Hamburg-Berlin; via=none; hops=any; km=1300; path=any; prefer=km; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "I need a path of 1700 km at most that does not ride the fibre from Munich to Berlin.",
+          "expected": "avoid=Munich-Berlin; via=none; hops=any; km=1700; path=any; prefer=none; rest=none",
+          "answer": "avoid=Munich-Berlin; via=none; hops=any; km=1700; path=any; prefer=km; rest=none",
           "status": "ok"
         }
       ]
@@ -893,7 +894,7 @@
       "cases": [
         {
           "text": "C'est la 0 qu'il faut prendre parmi les routes proposées.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "unsupported",
           "status": "unsupported"
         },
@@ -917,7 +918,7 @@
         },
         {
           "text": "Prendre le candidat numéro 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "no_instruction",
           "status": "no_instruction"
         },
@@ -929,7 +930,7 @@
         },
         {
           "text": "Sélectionner l'entrée 0 dans la liste des candidats, décision de l'ingénierie.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "no_instruction",
           "status": "no_instruction"
         },
@@ -970,12 +971,6 @@
           "status": "ok"
         },
         {
-          "text": "Choix imposé : candidat 0.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
-          "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
-          "status": "ok"
-        },
-        {
           "text": "Compte tenu du SLA de latence, la liaison doit faire 1250 km au plus, et elle ne doit pas transiter par Varsovie.",
           "expected": "avoid=Warsaw; via=none; hops=any; km=1250; path=any; prefer=none; rest=none",
           "answer": "avoid=none; via=none; hops=any; km=1250; path=any; prefer=none; rest=none",
@@ -991,6 +986,12 @@
           "text": "Idéalement, la route qui autorise la modulation d'ordre le plus élevé, donc le moins de slots pour la demande.",
           "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
           "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "Merci de favoriser la route où ce service prend le moins de créneaux, on économise le spectre.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
           "status": "ok"
         }
       ]
@@ -1025,7 +1026,7 @@
         },
         {
           "text": "Scelta obbligata: la riga 0 dell'elenco.",
-          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none",
           "answer": "no_instruction",
           "status": "no_instruction"
         },
