@@ -1,7 +1,7 @@
 # Technical report — Operator instructions for lightpath provisioning with Apertus 8B
 
 > DRAFT for the owner's review. Every number is copied from the file named next to it. Open
-> items are marked TODO: team, video, public links, the final commit, and two laptop runs still
+> items are marked TODO: team, video, public links, the final commit, and one laptop run still
 > queued (marked PENDING). The long account of the first two rounds is in
 > `docs/report_rounds_1_2.md`.
 
@@ -201,12 +201,16 @@ judged against the true table.
 | True policies, scope ignored | 12.7 | 30.0 | 43.5 / 61.4 |
 | True policies, lifetime ignored | 11.9 | 6.4 | 42.7 / 39.8 |
 | Policies read by the fourth-format reader | 1.1 | 1.5 | 30.7 / 34.2 |
-| Policies read by the third-format reader (no scope, no lifetime) | PENDING | PENDING | |
+| The same reader in 4 bits on the laptop | 2.4 | 1.6 | 31.8 / 34.2 |
+| Policies read by the third-format reader (no scope, no lifetime) | 21.4 | 36.9 | 52.0 / 68.1 |
 
 The stream's policies are restrictive by construction (a third of requests are rejected under
 the true table); what the ablations show is the cost of ignoring scope or lifetime, and the
 reader's table stays within 1.5 points of the truth (per seed 0.9 / 0.0 / 2.4 and 0.0 / 4.4 /
-0.1).
+0.1). A reader of the old format, which cannot read either slot, applies every policy to every
+request for ever and rejects half to two thirds of them. In 4 bits on the laptop the
+fourth-format reader is right on 90.6 % of the policy sentences (93.5 % in the job) and its table
+stays within 2.4 points of the truth.
 
 **A Swiss network and the author's lines.** On 1,151 sentences with Swiss cities in each
 language's own name (*Genf*, *Genève*, *Ginevra*, *Sankt Gallen*; no reader ever saw them), reader 1

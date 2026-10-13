@@ -1,0 +1,762 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate4_ft_laptop",
+      "topology": "nobel-eu",
+      "few_shot": false,
+      "format_version": 4,
+      "llm": {
+        "name": "translate4_ft_laptop",
+        "backend": "endpoint",
+        "model": "",
+        "structured": "gbnf",
+        "extra_body": {
+          "lora": [
+            {
+              "id": 0,
+              "scale": 0.0
+            },
+            {
+              "id": 1,
+              "scale": 0.0
+            },
+            {
+              "id": 2,
+              "scale": 0.0
+            },
+            {
+              "id": 3,
+              "scale": 1.0
+            }
+          ]
+        },
+        "cache": "translate4_ft_laptop.jsonl",
+        "endpoint": "http://127.0.0.1:8089/v1"
+      }
+    },
+    "command": "src/translate.py batch --base-url http://127.0.0.1:8089/v1 --concurrency 1 --chunk 100 --jobs translate3_ft_laptop:nobel-eu:regex:data/instructions/v4_en.jsonl,data/instructions/v4_de.jsonl,data/instructions/v4_fr.jsonl,data/instructions/v4_it.jsonl translate4_ft_laptop:nobel-eu:regex:data/instructions/v4_en.jsonl,data/instructions/v4_de.jsonl,data/instructions/v4_fr.jsonl,data/instructions/v4_it.jsonl,data/instructions/owner.jsonl",
+    "finished_utc": "2026-10-13T04:50:06.486085+00:00",
+    "sets": [
+      "v4_en.jsonl",
+      "v4_de.jsonl",
+      "v4_fr.jsonl",
+      "v4_it.jsonl",
+      "owner.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "owner",
+      "lang": "all",
+      "kind": "all",
+      "n": 22,
+      "correct": 12,
+      "flagged": 4,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 21,
+      "ms_per_instruction": 1288.7454545454543
+    },
+    {
+      "set": "owner",
+      "lang": "en",
+      "kind": "atom",
+      "n": 8,
+      "correct": 6,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 1501.6750000000002
+    },
+    {
+      "set": "owner",
+      "lang": "en",
+      "kind": "new",
+      "n": 1,
+      "correct": 1,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 1,
+      "ms_per_instruction": 1515.2
+    },
+    {
+      "set": "owner",
+      "lang": "en",
+      "kind": "not_instruction",
+      "n": 2,
+      "correct": 0,
+      "flagged": 2,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 2,
+      "ms_per_instruction": 209.85000000000002
+    },
+    {
+      "set": "owner",
+      "lang": "en",
+      "kind": "other_routing",
+      "n": 2,
+      "correct": 0,
+      "flagged": 2,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 1,
+      "ms_per_instruction": 201.45
+    },
+    {
+      "set": "owner",
+      "lang": "en",
+      "kind": "trained",
+      "n": 4,
+      "correct": 3,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 1643.775
+    },
+    {
+      "set": "owner",
+      "lang": "ur",
+      "kind": "atom",
+      "n": 2,
+      "correct": 1,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 2,
+      "ms_per_instruction": 1412.35
+    },
+    {
+      "set": "owner",
+      "lang": "ur",
+      "kind": "heldout",
+      "n": 1,
+      "correct": 1,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 1,
+      "ms_per_instruction": 1439.2
+    },
+    {
+      "set": "owner",
+      "lang": "ur",
+      "kind": "trained",
+      "n": 2,
+      "correct": 0,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 2,
+      "ms_per_instruction": 1581.1
+    },
+    {
+      "set": "v4_de",
+      "lang": "all",
+      "kind": "all",
+      "n": 200,
+      "correct": 180,
+      "flagged": 1,
+      "wrong": 19,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 199,
+      "ms_per_instruction": 1282.3125000000002
+    },
+    {
+      "set": "v4_de",
+      "lang": "de",
+      "kind": "from",
+      "n": 40,
+      "correct": 36,
+      "flagged": 1,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 39,
+      "ms_per_instruction": 1329.7
+    },
+    {
+      "set": "v4_de",
+      "lang": "de",
+      "kind": "hours",
+      "n": 40,
+      "correct": 37,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1229.4550000000002
+    },
+    {
+      "set": "v4_de",
+      "lang": "de",
+      "kind": "open",
+      "n": 40,
+      "correct": 37,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1163.5775
+    },
+    {
+      "set": "v4_de",
+      "lang": "de",
+      "kind": "rate",
+      "n": 40,
+      "correct": 37,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1303.7825000000003
+    },
+    {
+      "set": "v4_de",
+      "lang": "de",
+      "kind": "to",
+      "n": 40,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1385.0475
+    },
+    {
+      "set": "v4_en",
+      "lang": "all",
+      "kind": "all",
+      "n": 200,
+      "correct": 184,
+      "flagged": 1,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 199,
+      "ms_per_instruction": 1453.1250000000002
+    },
+    {
+      "set": "v4_en",
+      "lang": "en",
+      "kind": "from",
+      "n": 40,
+      "correct": 36,
+      "flagged": 0,
+      "wrong": 4,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1437.3624999999997
+    },
+    {
+      "set": "v4_en",
+      "lang": "en",
+      "kind": "hours",
+      "n": 40,
+      "correct": 39,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1447.2475
+    },
+    {
+      "set": "v4_en",
+      "lang": "en",
+      "kind": "open",
+      "n": 40,
+      "correct": 37,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1350.8625
+    },
+    {
+      "set": "v4_en",
+      "lang": "en",
+      "kind": "rate",
+      "n": 40,
+      "correct": 39,
+      "flagged": 1,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 39,
+      "ms_per_instruction": 1563.5025
+    },
+    {
+      "set": "v4_en",
+      "lang": "en",
+      "kind": "to",
+      "n": 40,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1466.6499999999996
+    },
+    {
+      "set": "v4_fr",
+      "lang": "all",
+      "kind": "all",
+      "n": 200,
+      "correct": 182,
+      "flagged": 0,
+      "wrong": 18,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 200,
+      "ms_per_instruction": 1318.6055000000001
+    },
+    {
+      "set": "v4_fr",
+      "lang": "fr",
+      "kind": "from",
+      "n": 40,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1372.6174999999998
+    },
+    {
+      "set": "v4_fr",
+      "lang": "fr",
+      "kind": "hours",
+      "n": 40,
+      "correct": 38,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1320.2600000000002
+    },
+    {
+      "set": "v4_fr",
+      "lang": "fr",
+      "kind": "open",
+      "n": 40,
+      "correct": 40,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1233.3474999999999
+    },
+    {
+      "set": "v4_fr",
+      "lang": "fr",
+      "kind": "rate",
+      "n": 40,
+      "correct": 37,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1288.5450000000003
+    },
+    {
+      "set": "v4_fr",
+      "lang": "fr",
+      "kind": "to",
+      "n": 40,
+      "correct": 34,
+      "flagged": 0,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1378.2575000000002
+    },
+    {
+      "set": "v4_it",
+      "lang": "all",
+      "kind": "all",
+      "n": 200,
+      "correct": 179,
+      "flagged": 0,
+      "wrong": 21,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 200,
+      "ms_per_instruction": 1347.6235000000001
+    },
+    {
+      "set": "v4_it",
+      "lang": "it",
+      "kind": "from",
+      "n": 40,
+      "correct": 32,
+      "flagged": 0,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1402.6275
+    },
+    {
+      "set": "v4_it",
+      "lang": "it",
+      "kind": "hours",
+      "n": 40,
+      "correct": 38,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1302.3949999999998
+    },
+    {
+      "set": "v4_it",
+      "lang": "it",
+      "kind": "open",
+      "n": 40,
+      "correct": 35,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1328.4200000000003
+    },
+    {
+      "set": "v4_it",
+      "lang": "it",
+      "kind": "rate",
+      "n": 40,
+      "correct": 38,
+      "flagged": 0,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1270.6225
+    },
+    {
+      "set": "v4_it",
+      "lang": "it",
+      "kind": "to",
+      "n": 40,
+      "correct": 36,
+      "flagged": 0,
+      "wrong": 4,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 1434.0524999999996
+    }
+  ],
+  "examples": [
+    {
+      "set": "owner",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "go from London to Lyon via Oslo, at most 4 hops",
+          "expected": "avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "answer": "avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; scope=from:London; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "to prague freom neighborsd but avoid berlin",
+          "expected": "avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "answer": "avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Prague; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "prague se belin liken munich nahee",
+          "expected": "avoid=Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "answer": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "prefer fewer hops, rouite between central european cities to munich",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=from:Munich; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "paris se mat guzarna, baqi jo kam busy hai woh le lo",
+          "expected": "avoid=Paris; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Paris; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "paris brussels span mat lena aur hops minimum rakho",
+          "expected": "avoid=Paris-Brussels; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v4_de",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Quelle=Kopenhagen only. Bitte den Abschnitt Frankfurt–München umgehen, die Route darf trotzdem nicht länger als 1250 km werden.",
+          "expected": "avoid=Frankfurt-Munich; via=none; hops=any; km=1250; path=any; prefer=none; scope=from:Copenhagen; until=open; rest=none",
+          "answer": "avoid=Frankfurt-Munich; via=none; hops=any; km=1250; path=any; prefer=none; scope=from:unknown; until=open; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "v4_de",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Aber nur bei einer Bitrate von 40 Gbit/s. Bitte über Berlin routen, den Link Warschau–Budapest dabei auslassen und von den passenden Wegen den mit den wenigsten Hops nehmen.",
+          "expected": "avoid=Warsaw-Budapest; via=Berlin; hops=any; km=any; path=any; prefer=hops; scope=rate:40; until=open; rest=none",
+          "answer": "avoid=Warsaw-Budapest; via=none; hops=any; km=any; path=any; prefer=hops; scope=rate:40; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Nur 100G-Pfade. Wartung heute Nacht: Die Strecke zwischen Hamburg und Berlin fällt aus, und Hamburg ist ebenfalls zu umgehen.",
+          "expected": "avoid=Hamburg-Berlin,Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:100; until=open; rest=none",
+          "answer": "avoid=Hamburg-Berlin,Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Der Pfad soll mit 5 Hops oder weniger auskommen (Regel für 40-Gigabit-Lichtpfade)",
+          "expected": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; scope=rate:40; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "- für Verkehr aus Straßburg, wien umgehen, höchstens 6 Hops, und dann die Route mit den meisten freien Slots.",
+          "expected": "avoid=Vienna; via=none; hops=6; km=any; path=any; prefer=load; scope=from:Strasbourg; until=open; rest=none",
+          "answer": "avoid=Strasbourg; via=none; hops=6; km=any; path=any; prefer=load; scope=from:Strasbourg; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Der Standort Brüssel ist wegen Wartung zu umgehen; gleichzeitig muss die Route Hamburg passieren und darf nicht mehr als 5 Links haben (Dies betrifft Lichtpfade, die in Madrid starten)",
+          "expected": "avoid=Brussels; via=Hamburg; hops=5; km=any; path=any; prefer=none; scope=from:Madrid; until=open; rest=none",
+          "answer": "avoid=Hamburg; via=Brussels; hops=5; km=any; path=any; prefer=none; scope=from:Madrid; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Gilt für alles, was aus Athen herauskommt. nicht via München, sondern via Zürich",
+          "expected": "avoid=Munich; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=from:Athens; until=open; rest=none",
+          "answer": "avoid=none; via=Munich; hops=any; km=any; path=any; prefer=none; scope=from:Athens; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "ohne Paris-Straßburg (link gestört), hop-limit 3, längenlimit 1150 km (wenn das Ziel Amsterdam ist)",
+          "expected": "avoid=Paris-Strasbourg; via=none; hops=3; km=1150; path=any; prefer=none; scope=to:Amsterdam; until=open; rest=none",
+          "answer": "avoid=Paris-Strasbourg; via=none; hops=3; km=1150; path=any; prefer=none; scope=from:Amsterdam; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Ziel=Rom only, bitte über Zürich führen, aber mit nicht mehr als 5 Links insgesamt.",
+          "expected": "avoid=none; via=Zurich; hops=5; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
+          "answer": "avoid=none; via=Zurich; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v4_en",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "transit Lyon yes, transit Brussels no, whenever a 40G connection is requested",
+          "expected": "avoid=Brussels; via=Lyon; hops=any; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+          "answer": "avoid=Lyon-Brussels; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "v4_en",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Most spectrum-efficient option, please, but it must transit Strasbourg and stay within 1300 km src=Budapest only.",
+          "expected": "avoid=none; via=Strasbourg; hops=any; km=1300; path=any; prefer=slots; scope=from:Budapest; until=open; rest=none",
+          "answer": "avoid=none; via=Strasbourg; hops=any; km=1300; path=any; prefer=load; scope=from:Budapest; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Length is capped at 750 km by the latency SLA; subject to that, choose the option that uses the least spectrum for this service whenever a request starts at Prague.",
+          "expected": "avoid=none; via=none; hops=any; km=750; path=any; prefer=slots; scope=from:Prague; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=750; path=any; prefer=load; scope=from:Prague; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "For requests with Strasbourg as A-end: pick a candidate that has Zurich on its path.",
+          "expected": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=from:Strasbourg; until=open; rest=none",
+          "answer": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=to:Strasbourg; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "For requests with Rome as A-end, keep this lightpath out of Berlin entirely.",
+          "expected": "avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Rome; until=open; rest=none",
+          "answer": "avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Give me the route with the most free spectrum that still passes through Frankfurt dst=Oslo only.",
+          "expected": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=load; scope=to:Oslo; until=open; rest=none",
+          "answer": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=load; scope=from:Oslo; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Dst=Bordeaux only: ticket note: Vienna<->Prague span degraded (high PMD), not to be used for the new connection.",
+          "expected": "avoid=Vienna-Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Bordeaux; until=open; rest=none",
+          "answer": "avoid=Vienna-Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "The path may be 1150 km long at the most, and it must not pass through Paris, dst=Berlin only",
+          "expected": "avoid=Paris; via=none; hops=any; km=1150; path=any; prefer=none; scope=to:Berlin; until=open; rest=none",
+          "answer": "avoid=Paris; via=none; hops=any; km=1150; path=any; prefer=none; scope=any; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Dst=Belgrade only, go via Vienna, stay off the Munich-Berlin span, and among the candidates left take the one with the fewest hops.",
+          "expected": "avoid=Munich-Berlin; via=Vienna; hops=any; km=any; path=any; prefer=hops; scope=to:Belgrade; until=open; rest=none",
+          "answer": "avoid=Munich-Berlin; via=Vienna; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v4_fr",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "pas au-delà de 1300 km de fibre svp, budget latence serré, Règle pour les lightpaths à 400 gigabits",
+          "expected": "avoid=none; via=none; hops=any; km=1300; path=any; prefer=none; scope=rate:400; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=1300; path=any; prefer=km; scope=rate:400; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Chaque fois qu'une connexion 10G est demandée, 1600 km max, 5 sauts max, pas de fibre Paris/Londres",
+          "expected": "avoid=Paris-London; via=none; hops=5; km=1600; path=any; prefer=none; scope=rate:10; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=1600; path=any; prefer=none; scope=rate:10; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "on part sur la route 4, pour toute requête à 100 Gb/s",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=4; prefer=none; scope=rate:100; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:100; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Transit par Amsterdam obligatoire et tronçon Zurich–Strasbourg interdit (coupure) ; ensuite on prend le moins de sauts possible, Pour toutes les demandes en provenance de Varsovie",
+          "expected": "avoid=Zurich-Strasbourg; via=Amsterdam; hops=any; km=any; path=any; prefer=hops; scope=from:Warsaw; until=open; rest=none",
+          "answer": "avoid=Zurich-Strasbourg,Amsterdam; via=none; hops=any; km=any; path=any; prefer=hops; scope=from:Warsaw; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pour les requêtes ayant Varsovie comme extrémité A, on part sur la route 2",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=2; prefer=none; scope=from:Warsaw; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=2; prefer=none; scope=to:Warsaw; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "au plus court en km, mais sans la liaison Strasbourg-Paris, pour les requêtes ayant Londres comme extrémité A",
+          "expected": "avoid=Strasbourg-Paris; via=none; hops=any; km=any; path=any; prefer=km; scope=from:London; until=open; rest=none",
+          "answer": "avoid=Strasbourg-Paris; via=none; hops=any; km=any; path=any; prefer=km; scope=to:London; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pour les requêtes ayant Berlin comme extrémité A. Pour ce client, merci de limiter la route à 1450 km et de la faire passer par le nœud Lyon.",
+          "expected": "avoid=none; via=Lyon; hops=any; km=1450; path=any; prefer=none; scope=from:Berlin; until=open; rest=none",
+          "answer": "avoid=none; via=Lyon; hops=any; km=1450; path=any; prefer=none; scope=to:Berlin; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Pour les requêtes ayant Bruxelles comme extrémité A, merci d'exclure la liaison entre Lyon et Paris et de veiller à ce que la route traverse bien Dublin, où le client a son équipement.",
+          "expected": "avoid=Lyon-Paris; via=Dublin; hops=any; km=any; path=any; prefer=none; scope=from:Brussels; until=open; rest=none",
+          "answer": "avoid=Lyon-Paris; via=Dublin; hops=any; km=any; path=any; prefer=none; scope=to:Brussels; until=open; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v4_it",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Per lo SLA il percorso deve stare entro 600 km e attraversare al più 2 link, per i servizi 10G",
+          "expected": "avoid=none; via=none; hops=2; km=600; path=any; prefer=none; scope=rate:10; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=600; path=any; prefer=hops; scope=rate:10; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Per qualsiasi richiesta a 40 Gb/s: tieni il numero di hop entro 4, lo SLA del cliente non ne ammette di più.",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; scope=rate:40; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Se il nodo sorgente è Strasburgo: per l'audit di domani Francoforte non deve comparire nel percorso; in più tieni i link attraversati a 7 o meno.",
+          "expected": "avoid=Frankfurt; via=none; hops=7; km=any; path=any; prefer=none; scope=from:Strasbourg; until=open; rest=none",
+          "answer": "avoid=Strasbourg-Frankfurt; via=none; hops=7; km=any; path=any; prefer=none; scope=from:Strasbourg; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Src=Glasgow soltanto. Scegli un candidato che non superi 1350 km e che non abbia Milano tra i nodi attraversati.",
+          "expected": "avoid=Milan; via=none; hops=any; km=1350; path=any; prefer=none; scope=from:Glasgow; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=1350; path=any; prefer=none; scope=from:Glasgow; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Src=Barcellona soltanto. rotta con più slot liberi, max 4 salti",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=load; scope=from:Barcelona; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=slots; scope=from:Barcelona; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "p.f. non più di 3 tratte attraversate (- per il traffico in uscita da Lione)",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; scope=from:Lyon; until=open; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; scope=from:Lyon; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Per le richieste con Parigi come estremità A: lunghezza max 2100 km, niente passaggio da Zagabria",
+          "expected": "avoid=Zagreb; via=none; hops=any; km=2100; path=any; prefer=none; scope=from:Paris; until=open; rest=none",
+          "answer": "avoid=Zagreb; via=none; hops=any; km=2100; path=any; prefer=none; scope=to:Paris; until=open; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Per le richieste con Vienna come estremità A. Fuori Bruxelles dal percorso; fra i candidati rimasti quello che fa consumare meno slot al servizio.",
+          "expected": "avoid=Brussels; via=none; hops=any; km=any; path=any; prefer=slots; scope=from:Vienna; until=open; rest=none",
+          "answer": "avoid=Brussels; via=none; hops=any; km=any; path=any; prefer=slots; scope=to:Vienna; until=open; rest=none",
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}

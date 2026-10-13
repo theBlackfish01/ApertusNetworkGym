@@ -226,7 +226,9 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the policies) | 47.9 | 100.0 | 1.2 | 1.22 | – | 47.1 / 49.5 / 46.9 |
 | True policies, scope ignored (every policy covers every request) | 12.7 | 8.9 | 43.5 | 43.55 | 0 | 7.2 / 17.0 / 13.7 |
 | True policies, lifetime ignored (no policy ever expires) | 11.9 | 8.8 | 42.7 | 42.73 | 0 | 3.9 / 13.4 / 18.4 |
+| Policies read by the third-format reader (no scope, no lifetime) | 21.4 | 15.2 | 52.0 | 52.03 | 0 | 13.5 / 25.6 / 25.1 |
 | Policies read by the fourth-format reader | 1.1 | 2.1 | 30.7 | 30.67 | 0 | 0.9 / 0.0 / 2.4 |
+| Policies read by the fourth-format reader, on the laptop | 2.4 | 2.8 | 31.8 | 31.75 | 0 | 0.9 / 3.9 / 2.4 |
 
 ## Standing policies in closed loop (policies arrive, hold for the hours they state or until withdrawn, and cover the requests their scope names): violations against the true table, % — load 390 E
 
@@ -237,7 +239,9 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | No-intent teacher (ignores the policies) | 45.6 | 99.9 | 6.0 | 5.98 | – | 50.9 / 51.9 / 33.9 |
 | True policies, scope ignored (every policy covers every request) | 30.0 | 17.1 | 61.4 | 61.37 | 0 | 54.4 / 0.0 / 35.5 |
 | True policies, lifetime ignored (no policy ever expires) | 6.4 | 5.3 | 39.8 | 39.80 | 0 | 6.0 / 7.6 / 5.5 |
+| Policies read by the third-format reader (no scope, no lifetime) | 36.9 | 22.2 | 68.1 | 68.10 | 0 | 53.7 / 7.6 / 49.2 |
 | Policies read by the fourth-format reader | 1.5 | 2.4 | 34.2 | 34.18 | 0 | 0.0 / 4.4 / 0.1 |
+| Policies read by the fourth-format reader, on the laptop | 1.6 | 2.6 | 34.2 | 34.17 | 0 | 0.4 / 4.4 / 0.1 |
 
 ## The policy language on a Swiss network (24 cities named in each language's own form, never in training): right meaning, % of instructions
 

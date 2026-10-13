@@ -59,3 +59,21 @@ start at slot 12 if that whole block is free | other: use a block beginning at s
 keep modulation on qpsk for this req | other: use QPSK modulation
 candidate 3 looks fine, use that | candidate 3
 any update on that outage ticket | none
+ops note: keep hamburg-berlin out of the route for now | avoid Hamburg-Berlin
+Please leave the Rome-Milan span unused on this request. | avoid Rome-Milan
+pick whichever path has the least traffic on it | prefer load
+less congested route please, this ones not urgent | prefer load
+need the option that eats up the fewest spectrum slots | prefer slots
+make sure this goes through amsterdam | via Amsterdam
+cap this at 3 hops pls | max 3 hops
+lyon-zurich is unavailable, go around that and use as few slots as you can | avoid Lyon-Zurich, prefer slots
+pass through budapest but dont go through zagreb | via Budapest, avoid Zagreb
+6 hops is the limit, within that choose the least loaded path | max 6 hops, prefer load
+fewest hops first. if thats tied use the shorter distance in km | prefer hops, then km
+allocate from the high end of the spectrum this time | other: allocate slots from the high end of the spectrum
+leave one empty slot either side of this allocation | other: leave a one-slot guard band on both sides of the allocation
+16qam only for this one, reject it if that wont reach | other: use only 16-QAM modulation and reject the request if its reach is insufficient
+dont split this over seperate chunks, needs one continuous block | other: allocate one contiguous spectrum block without splitting it
+how many slots are free at the moment? | none
+cheers, handing over to the evening shift now | none
+can someone explain what qpsk means again | none
