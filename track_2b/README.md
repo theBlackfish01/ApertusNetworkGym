@@ -49,7 +49,7 @@ is in [`../SPEC.md`](../SPEC.md); every deviation from it, every mistake and its
 | Phase 1: translate versus decide | done. The same model as a *translator* (instruction -> one line of constraints and preferences, executed by a rule engine) against the fine-tuned *decider*, on harder test sets: independent wording, German, French, Italian, Swiss German, misspelt cities, instructions that must not be applied, and a topology no model saw. Closed loop at 390 E: fine-tuned translator 0 % violations on single intents and unseen wording, 2.8 % on unseen pairs (decider 0.1–3.3 %, 1.0 %, 12.9 %); with 7 examples and no training the translator misreads one wording family (10.6 % on least loaded). Tables in [`results/tables/phase1.md`](results/tables/phase1.md); USD 4.88 of GPU time |
 | Second round: stronger translator and hybrid | done. A second translator (taught two preferences, German, French, Italian, and to tell an unsupported routing instruction from text that is no instruction) translates 95 % of independently worded and 94–98 % of natively written German, French and Italian instructions; closed loop 0.0–0.2 % violations. The fine-tuned decider follows three instruction types it never saw (pass through a node, avoid a node, a given candidate) on 87 % of 600 requests, where a choice that ignores the instruction complies on 20 %; on three further types it is no better than the shortest candidate. A hybrid (translator first, decider for what the translator calls unsupported) has 4.0 % violations on a mixed stream at 390 E, the decider alone 6.3 %, the translator alone 9.3 %, first fit 19.4 %. Tables in [`results/tables/phase2.md`](results/tables/phase2.md); analysis behind the plan in [`docs/analysis/next_steps.html`](docs/analysis/next_steps.html); USD 4.85 of GPU time |
 | Third round: policy language, two readers, guarded fallback, laptop | done. A third answer format in slots (links and nodes to avoid, a node to pass through, limits on hops and length, a candidate by number, ordered preferences, a marker for a part that does not fit). Two readers fine-tuned in 34 min each: 94.8 % of 2,078 independently written instructions in four languages right; pairs of clauses never seen together 96.5 %, triples 91.2 %; decisions comply in 99.6 % (decider alone 91.1 %). Of four instruction types shown to no component the reader silently applies 46.6 % as something else; asking the operator when two readers differ leaves 16.2 %. Mixed stream at 390 E: hybrid that asks 8.5 % violations, hybrid 9.5 %, translator alone 10.6 %, decider alone 16.8 %, first fit 28.6 %. With the untrained Apertus 70B as the second reader the hybrid asks for 24.1 % of requests instead of 8.9 % and breaks 8.3 %: 0.3 % inside the language, still 28 % of the unknown types, which then go to the decider. On an RTX 4060 laptop under llama.cpp: 0.89 s per instruction, 93.1 % right. Of 22 instructions typed by the owner (17 English, 5 Urdu in Latin script, a language in no training data) reader 1 on the laptop is right on 18: 16 of 17 and 2 of 5. Apertus 70B with examples and no training: 71.9 % (first generation). Tables in [`results/tables/phase3.md`](results/tables/phase3.md); USD 11.70 of GPU time |
-| Fourth round: console, TAPI, asking by consequence, Swiss network, standing policies, benchmark | done. An operator console (`make console`); the policy line as a TAPI 2.1.3 constraint; the operator asked only on a request that tells two readings apart (16 % fewer questions at the same error); a Swiss 24-city network with the cities named in four languages; a fourth format with scope and lifetime, its reader (93.5 % right on 800 blind policy sentences) and a policy table with conflicts and a report, measured in closed loop against the true table (1.1 / 1.5 % violations at 240 / 390 E, where ignoring scope gives 12.7 / 30.0 and first fit 42.0 / 38.1); the test sets and every reader's answers as a dataset (`data/benchmark/`). On the Swiss network reader 1 is right on 89 to 92 % and the translator that asks breaks 9.0 % of requests in closed loop; the third-format reader on the policy stream breaks 21 / 37 % (no scope, no lifetime), the fourth-format reader in 4 bits on the laptop 2.4 / 1.6 %. Five readings of reader 1 at temperature 0.8 as a third check (`results/design/consistency3.json`): any differing sample catches 3.4 of its 6.9 points of error in the language at 8.0 % asked (reader 2: 2.7 points at 5.4 %) and nearly all of it on the never-shown types at 88 % asked; disagreement marks unfamiliar input more than error. USD 3.14 of GPU time |
+| Fourth round: console, TAPI, asking by consequence, Swiss network, standing policies, benchmark | done. An operator console (`make console`; rebuilt on 13 October as one stream with a feed of what the model does, standing policies and per-request instructions together, questions by consequence, play); the policy line as a TAPI 2.1.3 constraint; the operator asked only on a request that tells two readings apart (16 % fewer questions at the same error); a Swiss 24-city network with the cities named in four languages; a fourth format with scope and lifetime, its reader (93.5 % right on 800 blind policy sentences) and a policy table with conflicts and a report, measured in closed loop against the true table (1.1 / 1.5 % violations at 240 / 390 E, where ignoring scope gives 12.7 / 30.0 and first fit 42.0 / 38.1); the test sets and every reader's answers as a dataset (`data/benchmark/`). On the Swiss network reader 1 is right on 89 to 92 % and the translator that asks breaks 9.0 % of requests in closed loop; the third-format reader on the policy stream breaks 21 / 37 % (no scope, no lifetime), the fourth-format reader in 4 bits on the laptop 2.4 / 1.6 %. Five readings of reader 1 at temperature 0.8 as a third check (`results/design/consistency3.json`): any differing sample catches 3.4 of its 6.9 points of error in the language at 8.0 % asked (reader 2: 2.7 points at 5.4 %) and nearly all of it on the never-shown types at 88 % asked; disagreement marks unfamiliar input more than error. USD 3.14 of GPU time |
 | Report | draft in `technical_report.md` (six-page target, PDF not yet rendered); awaits the owner's review (team, video and public links are marked TODO). The long account of the first two rounds is `docs/report_rounds_1_2.md` |
 | Video, dataset and model cards on the Hub | not started (`data/README.md` is a draft card) |
 
@@ -88,17 +88,49 @@ make console                      # http://localhost:8090, from recorded answers
 uv run python src/console.py --base-url http://127.0.0.1:8089/v1    # live, in the uv environment
 ```
 
-The hybrid on a map of the network. Type an instruction in any language: both readers translate
-it, and the page shows each reading as a line of the policy language, as a sentence read back,
-and as a TAPI constraint. A preview runs the next 100 requests on a copy of the simulator under
-each reading and without any, and reports blocking and how many decisions change; when the two
-readers disagree, it lists the first requests on which the readings would decide differently,
-and you choose. Once applied, every request flows through the hybrid (the rule engine for what
-the language carries, the decider for the rest), the map shows link occupation, the avoided links
-and nodes and the route of the last decision, and the audit trail lists per lightpath the
-instruction, the line, who decided and whether the decision respects the confirmed line.
-Without a model server only instructions read before can be typed (the page lists them); with
-`LLM_BASE_URL` pointing at the llama.cpp server of the next section, anything can.
+An operations view of the whole system on one page, built for a dark room. The network is the
+stage: a map with link brightness for occupation, red for what the policies in force avoid,
+green for what they require, the route of the last decision drawn as it is set up, the pending
+request's end points marked. A feed on the left narrates what the AI does, step by step: a policy
+arrives, the reader reads it back, a conflict is named, the policy is in force; a request carries
+an instruction, the two readers agree or differ, a question is put, the rule engine or the
+decider decides, the guard replaces a route, a decision respects or breaks what was meant.
+Policies in force sit on the map as chips with their scope and remaining hours; the rail on the
+right shows the pending request and its instruction, the open question, and each policy's report.
+A strip of counters runs along the bottom (served, rejected, violations, policy constraints
+broken, questions, decisions by the decider, guard, not applied), and one command line takes a
+standing policy or an instruction for the next request, in any language.
+
+One stream carries both kinds of operator text. Standing policies (the fourth format: scope and
+lifetime) are typed, or arrive on the schedule of the closed-loop policy stream when "policies
+arrive" is on; the reader of the fourth format translates each, the page reads it back, names
+the conflicts with the policies in force, previews it on a copy of the network (the next 100
+requests under the table with and without it) and adds it to the table, where it covers the
+requests its scope names until it expires or is withdrawn. Per-request instructions (the third
+format) are drawn with each request from the mixed stream of the third round when "instructions
+with requests" is on, or typed for the next request; the two readers of the third format
+translate each one, and where they differ the operator is asked by consequence: the first
+reading stands until a request would be decided differently under the two, when the stream
+pauses and the page shows both readings with the route each would take (a reading outside the
+language or carried in part is asked about at once). "Simulated operator" answers every question
+with the recorded meaning, as the evaluation does, so the stream can play unattended. Every
+request is decided by the rule engine under the one line the covering policies and the
+instruction combine to; an instruction outside the language or carried in part goes to the
+decider with the guard, live only: without a model server the rule engine stands in and the
+feed says so.
+
+Every decision is judged against what was meant: the instruction's recorded meaning (or the
+line the operator confirmed) and the true policies together, combined by the table's own rule;
+an instruction of a type the language cannot express is judged by its own rule, policies aside.
+A policy's own "violations" count the routes that broke a constraint it truly states. The audit
+trail keeps one row per lightpath: request, instruction, the line applied, the policies that
+covered it, who decided, the decision, and both verdicts. Play runs the stream at a chosen pace
+from the browser; "detail" switches the feed between what an operator needs and everything (the
+lines, the recorded meaning, the TAPI constraint). Without a model server only texts the readers
+answered before can be typed (the command line offers them); with `LLM_BASE_URL` pointing at the
+llama.cpp server of the next section, anything can, and the decider runs. The defaults (load
+390, seed 1, the evaluation's warm-up of 1,000 requests) make every drawn instruction and every
+arriving policy a recorded one; seeds 2 and 3 at that load are recorded too.
 
 ## Asking only when it matters
 
@@ -106,8 +138,9 @@ Two readers translate every instruction; where their readings differ the operato
 Policy names with `_ask-<reader>` ask at once (`hybrid3_ft_ask-ft2`). Names with `_askif-<reader>`
 apply the first reading for the time being and ask on the first request on which the two
 readings would decide differently; a reading outside the language or carried in part is asked
-about at once, because what the decider would do with it cannot be foreseen. The console shows
-the same thing to a person: the first requests on which the readings disagree, with both routes.
+about at once, because what the decider would do with it cannot be foreseen. The console does
+the same for a person: the stream pauses on the first request that tells the readings apart and
+shows both routes.
 Measured in `results/tables/phase3.md` (closed loop, `*_askif-*` rows).
 
 ## Standing policies
@@ -123,7 +156,7 @@ decides), the conflicts a new policy raises (a contradiction, an override, a nod
 report per policy. `src/standing_stream.py` is the closed-loop condition `standing4`: policies
 arrive, hold for the hours they state or until withdrawn, and the evaluator judges every
 decision against the true table; `standing_noscope` and `standing_nountil` are the ablations.
-The console runs the table with `--standing`.
+The console keeps the table, with policies typed or arriving on this stream's schedule.
 
 ## A Swiss network
 

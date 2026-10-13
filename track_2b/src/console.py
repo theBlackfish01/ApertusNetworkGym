@@ -1,30 +1,33 @@
-"""The operator console: the hybrid on a map of the network, one instruction at a time.
+"""The operator console: one stream of requests under standing policies and per-request instructions,
+with a feed of what the AI does.
 
-A page (``src/console.html``) served by this script. The operator types an instruction in any
-language; both readers translate it; the page shows each reading as a line of the policy
-language, as a sentence read back, and as a TAPI constraint; a preview runs the next requests
-on a copy of the simulator under each reading and without any, and reports blocking and how
-many decisions change. When the two readings differ, the preview also lists the first requests
-on which they would decide differently, and the operator chooses. Once a reading is applied,
-every request flows through the hybrid: the rule engine for what the language carries, the
-decider for the rest; the audit trail lists per lightpath the instruction, the line, who decided,
-and whether the decision respects the confirmed line. The map shows link occupation, the links
-and nodes an instruction avoids or requires, and the route of the last decision.
+A page (``src/console.html``) served by this script. The simulator runs a stream of requests at the
+given load and seed. Two kinds of operator text govern it:
+
+* **standing policies** (the fourth format: scope and lifetime), typed in the command bar or, in
+  demo mode, arriving on the schedule of the standing-policy stream. One reader translates each
+  policy; the console reads it back, names the conflicts with the policies in force, previews it
+  on a copy of the network, and adds it to the policy table, where it covers the requests its
+  scope names until it expires or is withdrawn;
+* **per-request instructions** (the third format), drawn with each request from the mixed stream
+  of the third round (in the language, never-shown types, carried in part, no instruction, places
+  outside) or typed for the next request. Two readers translate each one; when they differ the
+  operator is asked, by consequence: the first reading stands until a request would be decided
+  differently under the two readings (a reading that does not apply, or one carried in part, is
+  asked about at once).
+
+Every request is decided by the rule engine under the one line the policies and the instruction
+combine to, except an instruction outside the language or carried in part, which goes to the
+decider with the guard (live only; without a model server the rule engine stands in and the feed
+says so). The feed narrates each step; the audit trail keeps one row per lightpath; every policy
+reports what it did. Questions pause the stream until the operator answers, unless the simulated
+operator is on, which answers with the recorded meaning, as the closed-loop evaluation does.
 
     uv run python src/console.py                      # readers and decider from recorded answers
     uv run python src/console.py --base-url http://127.0.0.1:8089/v1   # live, behind llama.cpp
-    uv run python src/console.py --standing --reader translate4_ft_laptop   # standing policies
 
-With ``--standing`` the console keeps a table of standing policies instead of one instruction:
-a policy is read by one reader of the fourth format (scope and lifetime), checked for conflicts
-against the policies in force, previewed, and added; it covers the requests its scope names
-until it expires or is withdrawn; the rule engine decides every request under the policies that
-cover it, and the table reports what each policy did. One simulator hour is ``standing_stream.HOUR``
-time units.
-
-Without a server only instructions answered before can be read (the page lists them); with one,
-anything can be typed. The simulator always runs: the episode starts after a warm-up at the
-given load and seed.
+Without a server only texts answered before can be read (the page lists them); with one, anything
+can be typed. One simulator hour is ``standing_stream.HOUR`` time units.
 """
 
 from __future__ import annotations
@@ -36,23 +39,43 @@ import json
 import os
 import threading
 import xml.dom.minidom
+from collections import Counter
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+import mixed3
+import standing_stream
 from evaluate import Episode, answer_tags
 from intents import Intent
-from policies import Decision
-from spec import EMPTY, Spec, choose, describe, format_spec, load_topology, parse_spec, respects, validate
-from standing import PolicyTable
+from mixed import respected
+from policies import Decision, Request
+from spec import (
+    EMPTY,
+    Spec,
+    choose,
+    describe,
+    format_spec,
+    load_topology,
+    meets,
+    parse_spec,
+    respects,
+    validate,
+)
+from standing import PolicyTable, combine
 from standing_stream import HOUR
 from tapi import constraints
-from translate import format_version, make_hybrid_policy, make_translator, messages, read_rows
+from translate import make_hybrid_policy, make_translator, meant, messages, read_rows
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = Path(__file__).with_name("console.html")
-RECORDED_SETS = ("owner", "mix3", "v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_partial", "v3_not")
-RECORDED_SETS4 = ("v4_en", "v4_de", "v4_fr", "v4_it")
+RECORDED_SETS = ("owner", "mix3_390", "v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_partial", "v3_not")
+RECORDED_SETS4 = ("v4_en", "v4_de", "v4_fr", "v4_it", "owner")
 NOT_APPLIED = ("unsupported", "no_instruction", "unresolved", "malformed")
+FEED_KEEP = 400
+KINDS = {  # what the mixed stream's kinds mean to an operator
+    "supported": "in the language", "new": "a type never shown", "partial": "carried in part",
+    "not_instruction": "no routing instruction", "faulty": "a place outside the network", "none": "no instruction",
+}  # fmt: skip
 
 
 def node_coordinates(topology_id: str) -> dict[str, tuple[float, float]]:
@@ -88,150 +111,275 @@ def who_decided(raw: str | None) -> str:
     return "rule engine"
 
 
+def route_of(view, choice) -> list[str] | None:
+    return list(view.paths[choice[0]].nodes) if choice is not None else None
+
+
 class Console:
     def __init__(self, args: argparse.Namespace) -> None:
         self.args = args
         self.lock = threading.Lock()
         self.live = bool(args.base_url)
         suffix = "live" if self.live else "laptop"
-        self.policy_name = args.policy or f"hybrid3_ft_{suffix}_ask-ft2_{suffix}"
+        self.hybrid_name = args.policy or f"hybrid3_ft_{suffix}_askif-ft2_{suffix}"
         self.decider_name = args.decider or f"apertus_ft_{suffix}"
+        self.reader_name = args.reader or f"translate4_ft_{suffix}"
         if self.live and "LLM_LORA_IDS" not in os.environ:
             os.environ["LLM_LORA_IDS"] = json.dumps(
-                {f"translate3_ft_{suffix}": 0, f"translate3_ft2_{suffix}": 1, f"apertus_ft_{suffix}": 2}
-            )
+                {f"translate3_ft_{suffix}": 0, f"translate3_ft2_{suffix}": 1, f"apertus_ft_{suffix}": 2,
+                 f"translate4_ft_{suffix}": 3}
+            )  # fmt: skip
         self.topology = load_topology(args.topology)
         self.coordinates = node_coordinates(args.topology)
-        job = {"policy": self.policy_name, "condition": "I0", "load": args.load, "seed": args.seed,
-               "warmup": args.warmup, "window": 10**6}  # fmt: skip
+        job = {"policy": self.hybrid_name, "condition": mixed3.CONDITION, "load": args.load, "seed": args.seed,
+               "warmup": args.warmup, "window": 10**6, "topology": args.topology}  # fmt: skip
         self.episode = Episode(job)
-        self.standing = bool(args.standing)
-        if self.standing:
-            self.reader_name = args.reader
-            if self.live and self.reader_name not in json.loads(os.environ.get("LLM_LORA_IDS", "{}")):
-                raise SystemExit(f"LLM_LORA_IDS must name the adapter of {self.reader_name}")
-            self.reader = make_translator(
-                self.reader_name, args.topology, base_url=args.base_url or None, concurrency=1
-            )
-            self.table = PolicyTable(self.topology)
-            self.policy = None
-        else:
-            self.policy = make_hybrid_policy(
-                self.policy_name, args.topology, decider=self.decider_name,
-                base_url=args.base_url or None, concurrency=1,
-            )  # fmt: skip
-        self.text, self.spec = "none", EMPTY
+        llm = {"base_url": args.base_url or None, "concurrency": 1}
+        self.hybrid = make_hybrid_policy(self.hybrid_name, args.topology, decider=self.decider_name, **llm)
+        if self.hybrid.second is None:
+            raise SystemExit("the console needs a hybrid with two readers (a name with _ask- or _askif-)")
+        self.readers = (self.hybrid.translator, self.hybrid.second)
+        self.reader = make_translator(self.reader_name, args.topology, **llm)
+        self.table = PolicyTable(self.topology)  # what the operator confirmed
+        self.stream = standing_stream.Stream(job)  # the schedule of arrivals, and the true table
+        self.truth = self.stream.table
+        self.arrivals = bool(getattr(args, "arrivals", True))
+        self.mix = bool(getattr(args, "mix", True))
+        self.auto_answer = bool(getattr(args, "auto_answer", False))
+        self.override: str | None = None  # an instruction the operator typed for the next request
+        self._specs: dict[str, Spec] = {"none": EMPTY}  # confirmed readings per instruction text
+        self._asked: set[str] = set()
+        self._pending: dict[str, tuple[Spec, Spec]] = {}  # two readings not yet told apart by a request
+        self._announced: int = 0  # the request number whose instruction the feed announced
+        self.question: dict | None = None
+        self._questions = 0
+        self.feed: list[dict] = []
         self.audit: list[dict] = []
-        self.last_route: tuple[str, ...] | None = None
-        self.recorded = [] if self.live else self._recorded()
+        self.last_route: list[str] | None = None
+        self.counts: Counter = Counter()
+        self.recorded = {"instructions": [], "policies": []} if self.live else self._recorded()
+        self._event("start", "operator", "console ready",
+                    f"{args.topology}, {args.load} Erlang, seed {args.seed}; "
+                    + ("models live" if self.live else "recorded answers, no model server"))  # fmt: skip
 
     @property
     def now(self) -> float:
         """The simulator's clock in hours."""
         return float(self.episode.env.simulator.state.current_time) / HOUR
 
+    # ---- the feed ----------------------------------------------------------------------------
+    def _event(
+        self, kind: str, level: str, title: str, detail: str | None = None, data: dict | None = None
+    ) -> dict:
+        event = {"n": len(self.feed) + 1, "hour": round(self.now, 2), "request": len(self.audit) + 1,
+                 "kind": kind, "level": level, "title": title, "detail": detail, "data": data}  # fmt: skip
+        self.feed.append(event)
+        if len(self.feed) > 4 * FEED_KEEP:
+            del self.feed[: len(self.feed) - FEED_KEEP]
+        return event
+
     # ---- what the page shows -----------------------------------------------------------------
-    def _recorded(self) -> list[dict]:
-        """Instructions both readers answered before, so the console works without a server."""
-        readers = (self.reader,) if self.standing else (self.policy.translator, self.policy.second)
-        caches = [getattr(getattr(t, "llm", None), "_cache", {}) for t in readers]
-        few = [getattr(t, "few", False) for t in readers]
-        version = format_version(self.reader_name if self.standing else self.policy_name)
-        sets = RECORDED_SETS4 + RECORDED_SETS if self.standing and version >= 4 else RECORDED_SETS
-        paths = [ROOT / "data" / "instructions" / f"{name}.jsonl" for name in sets]
-        out, seen = [], set()
-        for row in read_rows([p for p in paths if p.exists()]):
-            text = row["text"]
-            if text in seen:
-                continue
-            keys = [
-                hashlib.sha256(
-                    json.dumps(messages(text, self.topology, f, version), sort_keys=True).encode()
-                ).hexdigest()
-                for f in few
-            ]
-            if all(key in cache for key, cache in zip(keys, caches, strict=True)):
-                seen.add(text)
-                out.append(
-                    {
-                        "text": text,
-                        "set": row["set"],
-                        "lang": row.get("lang", "en"),
-                        "kind": row.get("kind", ""),
-                    }
-                )
-        return out
+    def _recorded(self) -> dict[str, list[dict]]:
+        """Texts answered before by the readers, so the console works without a server."""
+
+        def listing(readers, sets) -> list[dict]:
+            caches = [getattr(getattr(t, "llm", None), "_cache", {}) for t in readers]
+            few = [getattr(t, "few", False) for t in readers]
+            versions = [getattr(t, "version", 3) for t in readers]
+            paths = [ROOT / "data" / "instructions" / f"{name}.jsonl" for name in sets]
+            out, seen = [], set()
+            for row in read_rows([p for p in paths if p.exists()]):
+                text = row["text"]
+                if text in seen:
+                    continue
+                keys = [
+                    hashlib.sha256(
+                        json.dumps(messages(text, self.topology, f, v), sort_keys=True).encode()
+                    ).hexdigest()
+                    for f, v in zip(few, versions, strict=True)
+                ]
+                if all(key in cache for key, cache in zip(keys, caches, strict=True)):
+                    seen.add(text)
+                    out.append(
+                        {
+                            "text": text,
+                            "set": row["set"],
+                            "lang": row.get("lang", "en"),
+                            "kind": row.get("kind", ""),
+                        }
+                    )
+            return out
+
+        return {
+            "instructions": listing(self.readers, RECORDED_SETS),
+            "policies": listing((self.reader,), RECORDED_SETS4),
+        }
+
+    def _policy_rows(self) -> list[dict]:
+        specs = {p.id: p.spec for p in self.table.policies + self.table.withdrawn}
+        rows = self.table.report(self.now)
+        for row in rows:
+            spec = specs[row["id"]]
+            row["line"] = format_spec(spec, 4)
+            row["readback"] = describe(spec)
+            row["spec"] = spec.to_json()
+        return rows
 
     def state(self) -> dict:
         env = self.episode.env
         model, alloc = env.simulator.topology, env.simulator.state.slot_allocation
-        links = []
-        for link in model.links:
-            used = float((alloc[link.id] >= 0).mean())
-            links.append(
-                {
-                    "a": link.source_name,
-                    "b": link.target_name,
-                    "km": round(link.length_km),
-                    "used": round(used, 3),
-                }
-            )
+        links = [{"a": link.source_name, "b": link.target_name, "km": round(link.length_km),
+                  "used": round(float((alloc[link.id] >= 0).mean()), 3)} for link in model.links]  # fmt: skip
         snap = env.simulator.statistics.snapshot()
-        view = self.episode.view
-        if self.standing:  # the map shows what every policy in force avoids or requires
-            self.spec = self.table.effective(view, self.now) if self.table.active(self.now) else EMPTY
-            self.text = "; ".join(p.text for p in self.table.active(self.now)) or "none"
+        view, now = self.episode.view, self.now
+        active = self.table.active(now)
+        in_force = combine([p.spec.routing() for p in reversed(active)])
+        covering = [p.id for p in self.table.applicable(view, now)]
+        text = (
+            self.override if self.override is not None else (self.episode.intent.text if self.mix else "none")
+        )
+        intent = self.episode.intent if self.override is None and self.mix else None
+        served = len(self.audit)
         return {
             "topology": self.args.topology,
-            "standing": self.standing,
-            "now": round(self.now, 2),
-            "policies": self.table.report(self.now) if self.standing else [],
+            "now": round(now, 2),
+            "mode": {"live": self.live, "hybrid": self.hybrid_name, "reader": self.reader_name,
+                     "decider": self.decider_name if self.live else "offline (the rule engine stands in)",
+                     "base_url": self.args.base_url or ""},
+            "settings": {"arrivals": self.arrivals, "mix": self.mix, "auto_answer": self.auto_answer},
             "nodes": [{"name": n, "lon": x, "lat": y} for n, (x, y) in self.coordinates.items()],
             "links": links,
-            "instruction": {"text": self.text, "line": format_spec(self.spec, 3) if self.spec.applies else self.spec.status,
-                            "readback": describe(self.spec), "spec": self.spec.to_json()},
-            "pending": {"source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
-                        "paths": [list(p.nodes) for p in view.paths]},
-            "last_route": list(self.last_route) if self.last_route else None,
-            "stats": {"served": len(self.audit), "processed": int(snap.episode_services_processed),
+            "policies": self._policy_rows(),
+            "in_force": {"line": format_spec(in_force, 3), "spec": in_force.to_json(), "count": len(active), "covering": covering},
+            "pending": {"n": served + 1, "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
+                        "paths": [list(p.nodes) for p in view.paths],
+                        "instruction": {"text": text, "kind": getattr(intent, "kind", "typed" if text != "none" else "none"),
+                                        "lang": getattr(intent, "lang", ""), "typed": self.override is not None}},
+            "question": self.question,
+            "last_route": self.last_route,
+            "stats": {"served": served, "processed": int(snap.episode_services_processed),
                       "blocking": round(float(snap.episode_service_blocking_rate), 4),
-                      "load": self.args.load, "seed": self.args.seed},
-            "mode": {"live": self.live, "policy": self.reader_name if self.standing else self.policy_name,
-                     "decider": "rule engine" if self.standing else self.decider_name,
-                     "base_url": self.args.base_url or ""},
-            "audit": self.audit[-80:],
+                      "rejected": self.counts["rejected"], "violations": self.counts["violations"],
+                      "policy_violations": self.counts["policy_violations"], "questions": self._questions,
+                      "decider": self.counts["decider"], "guarded": self.counts["guarded"],
+                      "flagged": self.counts["flagged"], "unread": self.counts["unread"],
+                      "policies_active": len(active), "load": self.args.load, "seed": self.args.seed},
+            "feed": self.feed[-FEED_KEEP:],
+            "audit": self.audit[-100:],
         }  # fmt: skip
 
-    # ---- reading an instruction --------------------------------------------------------------
-    def read(self, text: str) -> dict:
-        text = " ".join(text.split()) or "none"
-        view = self.episode.view
-        if text == "none":
-            specs, lines = [EMPTY, EMPTY], ["none", "none"]
-        else:
-            lines = []
-            for translator in (self.policy.translator, self.policy.second):
-                try:
-                    lines.append(translator.lines([text])[0][0])
-                except (RuntimeError, ImportError) as error:  # no server; a cache miss would load the model
-                    return {"error": f"no model server, and this instruction was not read before ({error})"}
-            specs = [validate(parse_spec(line), self.topology) for line in lines]
+    # ---- reading -----------------------------------------------------------------------------
+    def _read_instruction(self, text: str) -> tuple[list[str], list[Spec], list[float]] | None:
+        """Both readers' lines for an instruction; ``None`` when there is no server and no record."""
+        lines, seconds = [], []
+        for translator in self.readers:
+            try:
+                line, took = translator.lines([text])[0]
+            except (RuntimeError, ImportError):
+                return None
+            lines.append(line)
+            seconds.append(took)
+        return lines, [validate(parse_spec(line), self.topology) for line in lines], seconds
+
+    def _readings(
+        self, text: str, lines: list[str], specs: list[Spec], seconds: list[float], view, standing: Spec
+    ) -> list[dict]:
+        out = []
+        for name, line, spec, took in zip(("reader 1", "reader 2"), lines, specs, seconds, strict=True):
+            effective = combine([spec.routing(), standing]) if spec.applies else standing
+            choice = choose(view, effective) if not self._forwarded(spec) else None
+            out.append({"reader": name, "line": line, "spec": spec.to_json(), "readback": describe(spec),
+                        "status": spec.status, "applies": spec.applies, "tapi": constraints(spec, view),
+                        "seconds": round(took, 2),
+                        "decision": {"route": route_of(view, choice), "reject": choice is None,
+                                     "to_decider": self._forwarded(spec)}})  # fmt: skip
+        return out
+
+    @staticmethod
+    def _forwarded(spec: Spec) -> bool:
+        return spec.status == "unsupported" or (spec.applies and spec.rest)
+
+    def read_instruction(self, text: str) -> dict:
+        """The operator types an instruction for the next request: both readings and what each would do."""
+        text = " ".join(text.split())
+        if not text or text == "none":
+            self.override = None if not text else "none"
+            return {"ok": True, "text": self.override or "", "readings": []}
+        read = self._read_instruction(text)
+        if read is None:
+            return {"error": "no model server, and this instruction was not read before"}
+        lines, specs, seconds = read
+        self.override = text
+        view, now = self.episode.view, self.now
+        standing = self.table.effective(view, now)
+        readings = self._readings(text, lines, specs, seconds, view, standing)
         differ = specs[0].meaning() != specs[1].meaning()
-        readings = [
-            {"reader": name, "line": line, "spec": spec.to_json(), "readback": describe(spec),
-             "tapi": constraints(spec, view), "applies": spec.applies, "status": spec.status}
-            for name, line, spec in zip(("reader 1", "reader 2"), lines, specs, strict=True)
-        ]  # fmt: skip
-        candidates: list[Spec] = []
-        for spec in specs:
-            effective = spec if spec.applies else EMPTY
-            if all(effective.meaning() != c.meaning() for c in candidates):
-                candidates.append(effective)
-        return {"text": text, "readings": readings, "differ": differ, "preview": self.preview(candidates)}
+        decide_differently = differ and readings[0]["decision"] != readings[1]["decision"]
+        return {"ok": True, "text": text, "readings": readings, "differ": differ,
+                "decide_differently": decide_differently, "request": self.state()["pending"]}  # fmt: skip
+
+    def confirm_instruction(self, text: str, line: str) -> dict:
+        """The operator settles the reading of an instruction (typed, or asked about)."""
+        text = " ".join(text.split())
+        spec = validate(parse_spec(line), self.topology)
+        if spec.status == "malformed":
+            return {"error": f"not a line of the policy language: {line!r}"}
+        self._specs[text] = spec
+        self._asked.add(text)
+        self._pending.pop(text, None)
+        if self.question and self.question["text"] == text:
+            self.question = None
+        self._event(
+            "answer", "operator", "you settled the reading", f"{describe(spec)}", {"text": text, "line": line}
+        )
+        return {"ok": True, "line": format_spec(spec, 3) if spec.applies else spec.status}
+
+    def answer(self, question_id: int, choice: str | int, line: str = "") -> dict:
+        if not self.question or self.question["id"] != int(question_id):
+            return {"error": "no such question is open"}
+        if str(choice) in ("1", "2"):
+            picked = self.question["readings"][int(choice) - 1]["line"]
+        else:
+            picked = line
+        return self.confirm_instruction(self.question["text"], picked)
+
+    # ---- standing policies -------------------------------------------------------------------
+    def read_policy(self, text: str, preview: bool = True) -> dict:
+        text = " ".join(text.split())
+        if not text:
+            return {"error": "type a policy first"}
+        try:
+            line, took = self.reader.lines([text])[0]
+        except (RuntimeError, ImportError):
+            return {"error": "no model server, and this policy was not read before"}
+        spec = validate(parse_spec(line), self.topology)
+        now, view = self.now, self.episode.view
+        conflicts = self.table.conflicts(spec, now) if spec.applies else []
+        out = {"text": text, "line": line, "status": spec.status, "applies": spec.applies, "readback": describe(spec),
+               "scope": spec.scope or "any", "until": spec.until, "tapi": constraints(spec, view),
+               "conflicts": conflicts, "seconds": round(took, 2), "preview": None}  # fmt: skip
+        if spec.applies and preview:
+            trial = copy.deepcopy(self.table)
+            trial.add(text, spec, now)
+            horizon = self.args.horizon
+            without = self._rollout(self.table.effective, horizon)
+            with_it = self._rollout(trial.effective, horizon)
+            changed = sum(a["path"] != b["path"] for a, b in zip(with_it, without, strict=True))
+            out["preview"] = {"horizon": horizon,
+                              "without": {"blocked": sum(r["blocked"] for r in without)},
+                              "with": {"blocked": sum(r["blocked"] for r in with_it), "changed": changed},
+                              "covers": sum(spec.scope is None or self._covers(spec.scope, r) for r in with_it)}  # fmt: skip
+        return out
+
+    @staticmethod
+    def _covers(scope: str, row: dict) -> bool:
+        kind, _, value = scope.partition(":")
+        return {"rate": str(row["bit_rate"]) == value, "from": row["source"] == value,
+                "to": row["destination"] == value}.get(kind, True)  # fmt: skip
 
     def _rollout(self, spec, horizon: int) -> list[dict]:
         """The next requests on a copy of the simulator, decided by the rule engine under ``spec``
-        (a spec, or a function of the request's view and the hour that gives one)."""
+        (a spec, or a function of the request's view and the hour that gives one); policies only."""
         from optical_networking_gym.heuristics import select_first_fit_action
 
         from sim import action_from_choice, view_from_analysis
@@ -246,175 +394,316 @@ class Console:
             action = action_from_choice(analysis, choice)
             if action is None:
                 action = select_first_fit_action(env.action_masks())
-            route = list(view.paths[choice[0]].nodes) if choice is not None else None
             rows.append({"source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
-                         "path": choice[0] if choice else None, "route": route, "blocked": choice is None})  # fmt: skip
+                         "path": choice[0] if choice else None, "route": route_of(view, choice), "blocked": choice is None})  # fmt: skip
             env.step(action)
         return rows
 
-    def preview(self, candidates: list[Spec]) -> dict:
-        horizon = self.args.horizon
-        base = self._rollout(EMPTY, horizon)
-        runs = [self._rollout(spec, horizon) for spec in candidates]
-
-        def summary(rows: list[dict]) -> dict:
-            blocked = sum(r["blocked"] for r in rows)
-            return {
-                "requests": len(rows),
-                "blocked": blocked,
-                "blocking": round(blocked / max(len(rows), 1), 3),
-            }
-
-        out: dict = {"horizon": horizon, "without": summary(base), "readings": []}
-        for spec, run in zip(candidates, runs, strict=True):
-            changed = sum(a["path"] != b["path"] for a, b in zip(run, base, strict=True))
-            out["readings"].append(summary(run) | {"line": format_spec(spec, 3), "changed": changed})
-        if len(runs) == 2:
-            differences = []
-            for i, (a, b) in enumerate(zip(runs[0], runs[1], strict=True)):
-                if a["path"] != b["path"]:
-                    differences.append({"at": i + 1, "source": a["source"], "destination": a["destination"],
-                                        "bit_rate": a["bit_rate"], "route1": a["route"], "route2": b["route"]})  # fmt: skip
-                if len(differences) == 5:
-                    break
-            out["differences"] = differences
-            out["decide_differently"] = sum(
-                a["path"] != b["path"] for a, b in zip(runs[0], runs[1], strict=True)
-            )
-        return out
-
-    # ---- standing policies -------------------------------------------------------------------
-    def read_policy(self, text: str) -> dict:
-        text = " ".join(text.split())
-        if not text:
-            return {"error": "type a policy first"}
-        try:
-            line = self.reader.lines([text])[0][0]
-        except (RuntimeError, ImportError) as error:
-            return {"error": f"no model server, and this policy was not read before ({error})"}
-        spec = validate(parse_spec(line), self.topology)
-        now, view = self.now, self.episode.view
-        conflicts = self.table.conflicts(spec, now) if spec.applies else []
-        preview = None
-        if spec.applies:
-            trial = copy.deepcopy(self.table)
-            trial.add(text, spec, now)
-            horizon = self.args.horizon
-            without = self._rollout(self.table.effective, horizon)
-            with_it = self._rollout(trial.effective, horizon)
-            changed = sum(a["path"] != b["path"] for a, b in zip(with_it, without, strict=True))
-            preview = {"horizon": horizon,
-                       "without": {"blocked": sum(r["blocked"] for r in without)},
-                       "with": {"blocked": sum(r["blocked"] for r in with_it), "changed": changed},
-                       "covers": sum(spec.scope is None or self._covers(spec.scope, r) for r in with_it)}  # fmt: skip
-        return {"text": text, "line": line, "status": spec.status, "applies": spec.applies, "readback": describe(spec),
-                "tapi": constraints(spec, view), "conflicts": conflicts, "preview": preview}  # fmt: skip
-
-    @staticmethod
-    def _covers(scope: str, row: dict) -> bool:
-        kind, _, value = scope.partition(":")
-        return {"rate": str(row["bit_rate"]) == value, "from": row["source"] == value,
-                "to": row["destination"] == value}.get(kind, True)  # fmt: skip
-
-    def add_policy(self, text: str, line: str) -> dict:
+    def add_policy(self, text: str, line: str, truth: Spec | None = None, source: str = "operator") -> dict:
         text = " ".join(text.split())
         spec = validate(parse_spec(line), self.topology)
         if not spec.applies:
             return {"error": f"not a policy the table can hold: {spec.status}"}
-        policy, conflicts = self.table.add(text, spec, self.now)
+        now = self.now
+        policy, conflicts = self.table.add(text, spec, now)
+        if source == "operator":  # what the operator confirmed is the truth of a typed policy
+            self.truth.add(text, spec, now)
+        for c in conflicts:
+            self._event("conflict", "operator", f"{c['kind']} with policy {c['with']}" if c["with"] else c["kind"], c["why"],
+                        {"policy": policy.id, "with": c["with"]})  # fmt: skip
+        holds = "until withdrawn" if spec.until is None else f"for {spec.until} h"
+        self._event("policy_added", "operator", f"policy {policy.id} in force, {holds}",
+                    f"{describe(spec)}", {"policy": policy.id, "line": format_spec(spec, 4), "text": text, "source": source,
+                                          "truth": format_spec(truth, 4) if truth is not None else None,
+                                          "right": None if truth is None else truth.meaning() == spec.meaning()})  # fmt: skip
         return {"ok": True, "id": policy.id, "conflicts": conflicts}
 
     def withdraw_policy(self, policy_id: int) -> dict:
         gone = self.table.withdraw(int(policy_id))
-        return {"ok": gone is not None}
+        if gone is None:
+            return {"error": "no such policy in force"}
+        for p in list(self.truth.policies):
+            if p.text == gone.text:
+                self.truth.withdraw(p.id)
+        self._event(
+            "policy_withdrawn", "operator", f"policy {gone.id} withdrawn", gone.text, {"policy": gone.id}
+        )
+        return {"ok": True}
 
-    def step_standing(self, count: int) -> list[dict]:
-        from sim import action_from_choice
+    def _arrivals(self, view, now: float) -> None:
+        """Policies arriving and leaving on the stream's schedule (demo mode)."""
+        intent = self.stream.intent(view, now)
+        for text in intent.withdrawn:
+            mine = next((p for p in self.table.policies if p.text == text), None)
+            if mine is not None:
+                self.table.withdraw(mine.id)
+                self._event("policy_withdrawn", "operator", f"policy {mine.id} withdrawn by the stream (four at most)", text,
+                            {"policy": mine.id})  # fmt: skip
+        for text, true_line in intent.arrivals:
+            self._event("policy_in", "operator", "policy arrives", text, {"text": text})
+            reading = self.read_policy(text, preview=False)
+            if "error" in reading:
+                self._event(
+                    "unread", "operator", "the policy could not be read", reading["error"], {"text": text}
+                )
+                self.counts["unread"] += 1
+                continue
+            truth = validate(parse_spec(true_line), self.topology)
+            right = validate(parse_spec(reading["line"]), self.topology).meaning() == truth.meaning()
+            self._event("policy_read", "operator", f"reader: {reading['readback']}",
+                        f"scope {reading['scope']}, " + ("until withdrawn" if reading["until"] is None else f"{reading['until']} h")
+                        + ("" if right else " (differs from the recorded meaning)"),
+                        {"line": reading["line"], "truth": true_line, "right": right, "tapi": reading["tapi"],
+                         "seconds": reading["seconds"], "text": text})  # fmt: skip
+            if not reading["applies"]:
+                self._event(
+                    "not_applied", "operator", f"not a policy the table can hold ({reading['status']})", text
+                )
+                self.counts["flagged"] += 1
+                continue
+            self.add_policy(text, reading["line"], truth=truth, source="stream")
 
-        rows = []
-        for _ in range(count):
-            episode, now = self.episode, self.now
-            episode.intent = Intent(text="none")
-            view = episode.request().view
-            expired = self.table.expire(now)
-            covering = self.table.applicable(view, now)
-            effective = self.table.effective(view, now)
-            choice = choose(view, effective)
-            without = choose(view, EMPTY)
-            analysis = episode.env.simulator.current_analysis
-            invalid = action_from_choice(analysis, choice) is None
-            ok = respects(view, effective, choice) if covering and not invalid else None
-            self.table.record(view, now, choice, without, ok)
-            row = {
-                "n": len(self.audit) + 1, "hour": round(now, 2),
-                "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
-                "instruction": "; ".join(f"#{p.id}" for p in covering) or "none",
-                "line": format_spec(effective, 3) if covering else "none",
-                "who": "rule engine" + (f" (policies {', '.join(str(p.id) for p in covering)})" if covering else ""),
-                "asked": False, "answer": format_spec(effective, 3),
-                "path": choice[0] if choice else None, "slot": choice[1] if choice else None,
-                "route": list(view.paths[choice[0]].nodes) if choice else None,
-                "blocked": choice is None, "invalid": invalid, "respects": ok,
-                "expired": [p.text for p in expired], "tapi": constraints(effective, view) if covering else None,
-            }  # fmt: skip
-            episode.apply(Decision(choice, raw=format_spec(effective, 3)))
-            self.last_route = tuple(row["route"]) if row["route"] else None
-            self.audit.append(row)
-            rows.append(row)
-        return rows
+    # ---- settings ----------------------------------------------------------------------------
+    def settings(self, **changes) -> dict:
+        for key in ("arrivals", "mix", "auto_answer"):
+            if key in changes and changes[key] is not None:
+                setattr(self, key, bool(changes[key]))
+        self._event("settings", "inspect", "settings changed",
+                    f"policies arrive on the stream: {self.arrivals}; instructions with requests: {self.mix}; "
+                    f"simulated operator: {self.auto_answer}")  # fmt: skip
+        return {
+            "ok": True,
+            "settings": {"arrivals": self.arrivals, "mix": self.mix, "auto_answer": self.auto_answer},
+        }
 
-    # ---- applying and stepping ---------------------------------------------------------------
-    def apply(self, text: str, line: str, asked: bool) -> dict:
-        text = " ".join(text.split()) or "none"
-        spec = EMPTY if text == "none" else validate(parse_spec(line), self.topology)
-        if spec.status == "malformed":
-            return {"error": f"not a line of the policy language: {line!r}"}
-        self.text, self.spec = text, spec
-        self.policy._specs[text] = spec  # what the operator confirmed is what the hybrid applies
-        if asked:
-            self.policy._asked.add(text)
-        return {"ok": True, "instruction": {"text": text, "line": line, "readback": describe(spec)}}
-
+    # ---- the stream --------------------------------------------------------------------------
     def step(self, count: int) -> list[dict]:
-        from sim import action_from_choice
-
-        if self.standing:
-            return self.step_standing(count)
         rows = []
         for _ in range(count):
-            episode = self.episode
-            episode.intent = Intent(text=self.text)
-            request = episode.request()
-            view = request.view
-            try:
-                (decision,) = self.policy.decide([request])
-            except (RuntimeError, ImportError):  # the decider is needed and there is no server
-                carried = self.spec if self.spec.applies else EMPTY
-                decision = Decision(choose(view, carried), raw="offline:" + format_spec(self.spec, 3))
-            analysis = episode.env.simulator.current_analysis
-            invalid = decision.well_formed and action_from_choice(analysis, decision.choice) is None
-            choice = decision.choice if decision.well_formed and not invalid else None
-            row = {
-                "n": len(self.audit) + 1,
-                "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
-                "instruction": self.text,
-                "line": format_spec(self.spec, 3) if self.spec.applies else self.spec.status,
-                "who": who_decided(decision.raw),
-                "asked": answer_tags(decision.raw)["asked"],
-                "answer": (decision.raw or "").removeprefix("asked+").split(chr(9))[0],
-                "path": choice[0] if choice else None,
-                "slot": choice[1] if choice else None,
-                "route": list(view.paths[choice[0]].nodes) if choice else None,
-                "blocked": choice is None,
-                "invalid": invalid or not decision.well_formed,
-                "respects": respects(view, self.spec, choice) if self.text != "none" and self.spec.applies and not invalid else None,
-                "tapi": constraints(self.spec, view),
-            }  # fmt: skip
-            episode.apply(decision)
-            self.last_route = tuple(row["route"]) if row["route"] else None
-            self.audit.append(row)
+            if self.question is not None:
+                break
+            row = self._process()
+            if row is None:
+                break
             rows.append(row)
         return rows
+
+    def _understand(
+        self, text: str, intent, view, standing: Spec, truth: Spec | None
+    ) -> tuple[Spec | None, bool]:
+        """The instruction's reading for this request, asking when it matters. ``(None, _)`` when a question is open."""
+        if text in self._specs:
+            return self._specs[text], text in self._asked
+        if text in self._pending:
+            first, other = self._pending[text]
+            if choose(view, combine([first, standing])) == choose(view, combine([other, standing])):
+                self._event(
+                    "provisional",
+                    "inspect",
+                    "first reading kept",
+                    "this request does not tell the two readings apart",
+                )
+                return first, False
+            return self._ask(
+                text,
+                view,
+                standing,
+                [first, other],
+                truth,
+                "the two readings decide this request differently",
+            )
+        read = self._read_instruction(text)
+        if read is None:
+            self._event("unread", "operator", "instruction not read: no model server and no record", text)
+            self.counts["unread"] += 1
+            self._specs[text] = Spec(status="unread")
+            return self._specs[text], False
+        lines, specs, seconds = read
+        differ = specs[0].meaning() != specs[1].meaning()
+        self._event("reading", "operator", "readers agree: " + describe(specs[0]) if not differ else "readers differ",
+                    None if not differ else f"reader 1: {describe(specs[0])}  |  reader 2: {describe(specs[1])}",
+                    {"lines": lines, "seconds": [round(s, 2) for s in seconds], "statuses": [s.status for s in specs],
+                     "tapi": constraints(specs[0], view)})  # fmt: skip
+        if not differ:
+            self._specs[text] = specs[0]
+            return specs[0], False
+        foreseeable = all(s.applies and not s.rest for s in specs)
+        if foreseeable:
+            self._pending[text] = (specs[0], specs[1])
+            if choose(view, combine([specs[0], standing])) == choose(view, combine([specs[1], standing])):
+                self._event("provisional", "operator", "first reading applied for now",
+                            "the readings differ, but decide this request alike; you are asked when one tells them apart")  # fmt: skip
+                return specs[0], False
+            return self._ask(
+                text, view, standing, specs, truth, "the two readings decide this request differently"
+            )
+        return self._ask(
+            text,
+            view,
+            standing,
+            specs,
+            truth,
+            "a reading that does not apply, or is carried in part, is asked about at once",
+        )
+
+    def _ask(
+        self, text: str, view, standing: Spec, specs: list[Spec], truth: Spec | None, why: str
+    ) -> tuple[Spec | None, bool]:
+        self._questions += 1
+        self._pending.pop(text, None)
+        lines = [format_spec(s, 3) if s.applies or s.status == "unsupported" else s.status for s in specs]
+        readings = self._readings(text, lines, specs, [0.0, 0.0], view, standing)
+        true_line = None if truth is None else (format_spec(truth, 3) if truth.applies else truth.status)
+        if self.auto_answer:
+            spec = truth if truth is not None else specs[0]
+            self._specs[text] = spec
+            self._asked.add(text)
+            self._event("question", "operator", "readers differ: the simulated operator answered",
+                        "with the recorded meaning" if truth is not None else "no recorded meaning: the first reading stands",
+                        {"text": text, "readings": readings, "why": why, "truth": true_line,
+                         "answer": format_spec(spec, 3) if spec.applies else spec.status})  # fmt: skip
+            return spec, True
+        self.question = {"id": self._questions, "text": text, "why": why, "readings": readings, "truth": true_line,
+                         "request": {"n": len(self.audit) + 1, "source": view.source, "destination": view.destination,
+                                     "bit_rate": view.bit_rate}}  # fmt: skip
+        self._event(
+            "question", "operator", "readers differ: you are asked", why, {"text": text, "readings": readings}
+        )
+        return None, True
+
+    def _decide(self, view, intent, spec: Spec, effective: Spec, covering, asked: bool) -> tuple:
+        """``(choice, who, raw)`` for one request: the rule engine, or the decider with the guard."""
+        engine = choose(view, effective if effective.applies else EMPTY)
+        prefix = "asked+" if asked else ""
+        policies = f" (policies {', '.join(str(p.id) for p in covering)})" if covering else ""
+        if not self._forwarded(spec):
+            body = format_spec(spec, 3) if spec.applies else spec.status
+            return engine, "rule engine" + policies, prefix + body
+        episode = self.episode
+        carried = "\t" + format_spec(spec, 3) if spec.applies else ""
+        try:
+            (d,) = self.hybrid.decider.decide([Request(view, intent, episode.env, episode.info)])
+        except (RuntimeError, ImportError):
+            self._event("decider", "operator", "outside the language: the decider would decide, but there is no model server",
+                        "the rule engine stands in under what the line carries")  # fmt: skip
+            return (
+                engine,
+                "rule engine (decider offline)" + policies,
+                prefix + "offline:" + (spec.status if not spec.applies else format_spec(spec, 3)),
+            )
+        self.counts["decider"] += 1
+        choice, tag, who = d.choice if d.well_formed else None, "decider:", "decider"
+        checkable = effective.applies and effective.constrains and d.well_formed and choice is not None
+        if checkable and (choice[0] >= len(view.paths) or not meets(view.paths[choice[0]], effective)):
+            self.counts["guarded"] += 1
+            self._event("guard", "operator", "the decider's route broke a constraint the line carries; replaced by the rule engine's",
+                        f"decider: {' - '.join(route_of(view, choice) or ['reject'])}  ->  {' - '.join(route_of(view, engine) or ['reject'])}")  # fmt: skip
+            choice, tag, who = engine, "guard:", "decider, choice replaced by the guard"
+        else:
+            self._event("decider", "operator", "outside the language: the decider decided",
+                        f"{' - '.join(route_of(view, choice) or ['reject'])} ({d.seconds:.1f} s)")  # fmt: skip
+        return choice, who + policies, prefix + tag + (d.raw or "") + carried
+
+    def _process(self) -> dict | None:
+        """One request through the console; ``None`` when a question stopped it."""
+        from sim import action_from_choice
+
+        episode = self.episode
+        view, now, n = episode.view, self.now, len(self.audit) + 1
+        for policy in self.table.expire(now):
+            self._event(
+                "policy_expired",
+                "operator",
+                f"policy {policy.id} expired",
+                policy.text,
+                {"policy": policy.id},
+            )
+        self.truth.expire(now)
+        if self.arrivals:
+            self._arrivals(view, now)
+        covering = self.table.applicable(view, now)
+        standing = self.table.effective(view, now)
+        if self.override is not None:
+            text, intent = self.override, Intent(text=self.override)
+            truth = None
+        elif self.mix:
+            text, intent = episode.intent.text, episode.intent
+            truth = meant(intent) if isinstance(intent, mixed3.Instruction) else EMPTY
+        else:
+            text, intent, truth = "none", Intent(text="none"), EMPTY
+        if text != "none" and self._announced != n:
+            self._announced = n
+            kind = KINDS.get(getattr(intent, "kind", ""), "typed by you" if self.override is not None else "")
+            self._event("instruction", "operator", f"request {n} carries an instruction" + (f" ({kind})" if kind else ""), text,
+                        {"text": text, "kind": getattr(intent, "kind", "typed"), "lang": getattr(intent, "lang", "")})  # fmt: skip
+        spec, asked = (
+            self._understand(text, intent, view, standing, truth) if text != "none" else (EMPTY, False)
+        )
+        if spec is None:
+            return None
+        applies = spec.applies and spec.status != "unread"
+        effective = combine([spec.routing(), standing]) if applies else standing
+        choice, who, raw = self._decide(view, intent, spec, effective, covering, asked)
+        analysis = episode.env.simulator.current_analysis
+        invalid = choice is not None and action_from_choice(analysis, choice) is None
+        if invalid:
+            choice = None
+        # The verdict: against what was meant, instruction and policies together. A typed instruction
+        # means what the operator confirmed; a recorded one its recorded meaning; a type outside the
+        # language is judged by its own rule, without the policies, as the mixed evaluation does.
+        meant_spec = spec if truth is None and applies else truth
+        policy_truth = self.truth.effective(view, now)
+        parts = (
+            [meant_spec.routing()] if meant_spec is not None and meant_spec.applies and text != "none" else []
+        ) + [policy_truth]
+        truth_line = combine(parts)
+        if text != "none" and truth is not None and truth.status == "unsupported":
+            ok = respected(view, intent, choice)
+            judged = "the instruction's own rule, policies aside"
+        elif parts[:-1] or covering:
+            ok = respects(view, truth_line, choice)
+            judged = (
+                "the instruction and the policies together"
+                if parts[:-1] and covering
+                else ("the instruction" if parts[:-1] else "the policies")
+            )
+        else:
+            ok, judged = None, None
+        # Per policy: did the chosen route break a constraint the policy truly states? (A newer
+        # preference may outrank a policy's; that is the table's rule, not a breach.)
+        true_by_text = {p.text: p.spec for p in self.truth.policies}
+        broken = [p.id for p in covering if choice is not None and p.text in true_by_text
+                  and not meets(view.paths[choice[0]], true_by_text[p.text].routing())]  # fmt: skip
+        ok_policies = None if not covering or choice is None else not broken
+        self.table.record(view, now, choice, choose(view, EMPTY), ok_policies)
+        flagged = spec.status in NOT_APPLIED or spec.status == "unread" or (applies and spec.rest)
+        self.counts.update({"served": 1, "rejected": choice is None, "violations": ok is False,
+                            "policy_violations": ok_policies is False, "flagged": flagged and text != "none"})  # fmt: skip
+        route = route_of(view, choice)
+        row = {"n": n, "hour": round(now, 2), "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
+               "instruction": text, "kind": getattr(intent, "kind", "typed" if text != "none" else "none"),
+               "line": (format_spec(spec, 3) if applies else spec.status) if text != "none" else "none",
+               "policies": [p.id for p in covering], "effective": format_spec(effective, 3) if covering or applies else "none",
+               "who": who, "asked": asked, "answer": raw, "path": choice[0] if choice else None,
+               "slot": choice[1] if choice else None, "route": route, "blocked": choice is None, "invalid": invalid,
+               "respects": ok, "judged": judged, "respects_policies": ok_policies, "broken": broken,
+               "truth": None if truth is None or text == "none" else (format_spec(truth, 3) if truth.applies else truth.status),
+               "meant": format_spec(truth_line, 3) if parts[:-1] or covering else None,
+               "tapi": constraints(effective, view) if (covering or applies) else None}  # fmt: skip
+        episode.intent = intent
+        episode.apply(Decision(choice, True, raw))
+        self.override = None
+        self.last_route = route
+        self.audit.append(row)
+        verdict = "" if ok is None else (f"; respects {judged}" if ok else f"; BREAKS {judged}")
+        if broken:
+            verdict += f"; breaks a constraint of {'policy' if len(broken) == 1 else 'policies'} {', '.join(str(i) for i in broken)}"
+        self._event("decision", "operator",
+                    f"request {n}: {view.source} to {view.destination}, {view.bit_rate}G: " + (" - ".join(route) if route else "rejected"),
+                    f"{who}" + (f", slot {choice[1]}" if choice else "") + verdict,
+                    {"route": route, "who": who, "policies": row["policies"], "line": row["effective"], "meant": row["meant"],
+                     "respects": ok, "respects_policies": ok_policies, "tapi": row["tapi"]})  # fmt: skip
+        return row
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -457,21 +746,32 @@ class Handler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             self._json({"error": "bad JSON"}, 400)
             return
+        text = str(payload.get("text", ""))
         with console.lock:
-            if self.path == "/api/read":
-                self._json(console.read(str(payload.get("text", ""))))
-            elif self.path == "/api/apply":
-                self._json(console.apply(str(payload.get("text", "")), str(payload.get("line", "")),
-                                         bool(payload.get("asked", False))))  # fmt: skip
-            elif self.path == "/api/step":
+            if self.path == "/api/step":
                 count = max(1, min(int(payload.get("count", 1)), 200))
-                self._json({"rows": console.step(count), "state": console.state()})
-            elif self.path == "/api/policy/read" and console.standing:
-                self._json(console.read_policy(str(payload.get("text", ""))))
-            elif self.path == "/api/policy/add" and console.standing:
-                self._json(console.add_policy(str(payload.get("text", "")), str(payload.get("line", ""))))
-            elif self.path == "/api/policy/withdraw" and console.standing:
+                rows = console.step(count)
+                self._json({"rows": rows, "state": console.state()})
+            elif self.path == "/api/instruction":
+                self._json(console.read_instruction(text))
+            elif self.path == "/api/instruction/confirm":
+                self._json(console.confirm_instruction(text, str(payload.get("line", ""))))
+            elif self.path == "/api/answer":
+                self._json(
+                    console.answer(
+                        int(payload.get("id", 0)), payload.get("choice", "1"), str(payload.get("line", ""))
+                    )
+                )
+            elif self.path == "/api/policy/read":
+                self._json(console.read_policy(text))
+            elif self.path == "/api/policy/add":
+                self._json(console.add_policy(text, str(payload.get("line", ""))))
+            elif self.path == "/api/policy/withdraw":
                 self._json(console.withdraw_policy(int(payload.get("id", 0))))
+            elif self.path == "/api/settings":
+                self._json(
+                    console.settings(**{k: payload.get(k) for k in ("arrivals", "mix", "auto_answer")})
+                )
             else:
                 self._json({"error": "not found"}, 404)
 
@@ -482,30 +782,34 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=8090)
     parser.add_argument("--topology", default="nobel-eu")
     parser.add_argument("--load", type=int, default=390)
-    parser.add_argument("--seed", type=int, default=11)
-    parser.add_argument("--warmup", type=int, default=300)
-    parser.add_argument("--horizon", type=int, default=100, help="requests simulated for the preview")
+    parser.add_argument("--seed", type=int, default=1, help="1 to 3 at load 240 or 390 are fully recorded")
+    parser.add_argument(
+        "--warmup", type=int, default=1000, help="as in the evaluation, so recorded answers match"
+    )
+    parser.add_argument("--horizon", type=int, default=100, help="requests simulated for a policy's preview")
     parser.add_argument("--base-url", default=os.environ.get("LLM_BASE_URL", ""))
-    parser.add_argument("--policy", default=None, help="hybrid policy name (default by mode)")
+    parser.add_argument("--policy", default=None, help="hybrid with two readers (default by mode)")
     parser.add_argument("--decider", default=None, help="decider policy name (default by mode)")
+    parser.add_argument("--reader", default=None, help="the reader of standing policies (default by mode)")
     parser.add_argument(
-        "--standing", action="store_true", help="a table of standing policies instead of one instruction"
+        "--no-arrivals", dest="arrivals", action="store_false", help="no policies from the stream"
     )
     parser.add_argument(
-        "--reader", default="translate4_ft_laptop", help="standing: the reader of the fourth format"
+        "--no-mix", dest="mix", action="store_false", help="requests carry no instruction unless typed"
     )
+    parser.add_argument("--auto-answer", action="store_true", help="the simulated operator answers questions")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
     print("building the simulator and the policies ...", flush=True)
     Handler.console = Console(args)
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     server.verbose = args.verbose  # type: ignore[attr-defined]
+    recorded = Handler.console.recorded
     mode = (
         f"live at {args.base_url}"
         if args.base_url
-        else f"recorded answers only ({len(Handler.console.recorded)} instructions)"
+        else f"recorded answers only ({len(recorded['instructions'])} instructions, {len(recorded['policies'])} policies)"
     )
-    mode += "; standing policies" if args.standing else ""
     print(
         f"console: http://{args.host}:{args.port}/  ({mode}; {args.topology}, load {args.load}, seed {args.seed})",
         flush=True,

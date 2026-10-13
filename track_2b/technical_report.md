@@ -20,9 +20,11 @@ for as long as it holds. A second reader translates it again, and the operator i
 request would be decided differently under the two readings. An instruction outside the
 language goes to a fine-tuned Apertus that decides the request itself, with its choice checked
 against the part the language carries. The line is also a TAPI 2.1.3 constraint, the object a
-transport SDN controller takes. An operator console shows the network on a map, reads back every
-policy, previews its effect on a copy of the network before it is applied, names conflicts with
-the policies in force, and keeps an audit trail per lightpath. Everything runs on a laptop GPU.
+transport SDN controller takes. An operator console shows the network on a map with a feed of
+what the model does: it reads back every policy, previews its effect on a copy of the network
+before it is applied, names conflicts with the policies in force, pauses the stream to ask when
+two readings would decide a request differently, and keeps an audit trail per lightpath.
+Everything runs on a laptop GPU.
 
 Measured in the Optical Networking Gym simulator on sentences written by separate AI instances
 in four languages: the reader is right on 94.8 % of 2,078 instructions, and on clauses it never
@@ -42,7 +44,7 @@ and the phrase "to Prague" is a scope to the new reader and a destination to the
 operator policy ──> reader 1 ─┐  same reading, or no request   ┌─ in the language ──> policy table ──> rule engine ─┐
  (any language) ──> reader 2 ─┴─ tells them apart? ── yes ─────┤   (scope, lifetime, conflicts, report)             ├─> allocation
                                    │ no: ask (show the difference) └─ outside it / in part ───────────> decider (guarded) ┘
-console: map, read-back, TAPI constraint, preview on a copy of the network, audit trail
+console: map, feed of the model's steps, read-back, TAPI constraint, preview on a copy of the network, questions, audit
 request and network state ───────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -70,9 +72,11 @@ request and network state ──────────────────
 - **TAPI** (`src/tapi.py`): the line as a `topology-constraint` and `routing-constraint` of TAPI
   2.1.3 (`exclude-link`, `exclude-node`, `include-node`, `max-allowed-hops`, `max-allowed-cost`,
   `route-objective-function`); what the standard cannot carry travels in `name` entries.
-- **Console** (`src/console.py`, `make console`): the map, both readings read back, the preview
-  (the next 100 requests on a copy of the simulator under each reading and under none), the first
-  requests on which two readings decide differently, the policy table with conflicts, the audit.
+- **Console** (`src/console.py`, `make console`): one stream under standing policies and
+  per-request instructions; a feed that narrates each step of the model (reading, agreement or
+  question, decision, guard); the policy table with conflicts and a preview of each policy on a
+  copy of the simulator; questions put by consequence with both routes; every decision judged
+  against what was meant; the audit trail. From recorded answers, or live behind llama.cpp.
 
 ### Target architecture (mandatory)
 

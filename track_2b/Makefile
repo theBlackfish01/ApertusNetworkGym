@@ -6,8 +6,9 @@
 run:
 	docker compose run --rm --build lightpath
 
-# The operator console in the browser (http://localhost:8090): the hybrid on a map, with recorded
-# answers, or live with LLM_BASE_URL set to a llama.cpp server (README, "On a laptop").
+# The operator console in the browser (http://localhost:8090): one stream under standing policies and
+# per-request instructions, a map and a feed of what the model does; recorded answers, or live with
+# LLM_BASE_URL set to a llama.cpp server (README, "On a laptop").
 console:
 	docker compose run --rm --build --service-ports lightpath python src/console.py --host 0.0.0.0
 

@@ -5,109 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lightpath console</title>
 <style>
-  :root { --bg:#f6f4ef; --ink:#1d1d1b; --muted:#6b6962; --line:#d9d5cc; --card:#ffffff; --accent:#1f5fbf; --warn:#b4432c; --ok:#2e7d4f; --soft:#eef0f5; }
-  * { box-sizing: border-box; }
-  body { margin:0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); }
-  header { display:flex; align-items:baseline; gap:16px; padding:12px 20px; border-bottom:1px solid var(--line); background:var(--card); flex-wrap:wrap; }
-  header h1 { font-size:17px; margin:0; font-weight:600; }
-  header .mode { color:var(--muted); font-size:13px; }
-  main { display:grid; grid-template-columns: minmax(420px, 1fr) minmax(380px, 520px); gap:16px; padding:16px 20px; }
-  @media (max-width: 900px) { main { grid-template-columns: 1fr; padding:12px 16px; } }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; min-width:0; }
-  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; font-weight:600; }
-  svg { width:100%; height:auto; display:block; }
-  .link { stroke:#9a9890; stroke-width:2; }
-  .link.avoid { stroke:var(--warn); stroke-dasharray:6 4; stroke-width:3; }
-  .link.route { stroke:var(--accent); stroke-width:5; opacity:.9; }
-  .node { fill:#fff; stroke:#444; stroke-width:1.5; }
-  .node.via { stroke:var(--ok); stroke-width:4; }
-  .node.avoid { stroke:var(--warn); stroke-width:4; }
-  .node.end { fill:var(--accent); stroke:var(--accent); }
-  .label { font-size:10px; fill:#333; pointer-events:none; }
-  textarea, input[type=text], select { width:100%; font:inherit; padding:8px; border:1px solid var(--line); border-radius:6px; background:#fff; }
-  button { font:inherit; padding:7px 12px; border:1px solid var(--line); border-radius:6px; background:#fff; cursor:pointer; }
-  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
-  button:disabled { opacity:.5; cursor:default; }
-  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px; }
-  .reading { border:1px solid var(--line); border-radius:6px; padding:10px; margin-top:10px; background:var(--soft); }
-  .reading.same { background:#eef7f0; }
-  .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size:12.5px; word-break:break-all; }
-  .readback { margin:6px 0; }
-  details summary { cursor:pointer; color:var(--muted); font-size:12.5px; }
-  pre { font-size:11.5px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; overflow:auto; max-height:220px; margin:6px 0 0; }
-  table { width:100%; border-collapse:collapse; font-size:12.5px; }
-  th, td { text-align:left; padding:4px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
-  th { color:var(--muted); font-weight:600; }
-  .num { text-align:right; font-variant-numeric: tabular-nums; }
-  .warn { color:var(--warn); } .ok { color:var(--ok); } .muted { color:var(--muted); }
-  .badge { display:inline-block; padding:1px 6px; border-radius:10px; font-size:11.5px; background:var(--soft); }
-  .audit { grid-column: 1 / -1; overflow-x:auto; }
-  .policies { grid-column: 1 / -1; overflow-x:auto; }
-  .conflict { padding:6px 8px; border-radius:6px; margin-top:6px; font-size:12.5px; }
-  .conflict.contradiction { background:#fbe9e5; color:var(--warn); }
-  .conflict.override { background:#fff4d6; color:#7a5a00; }
-  .policies tr.expired td { color:var(--muted); text-decoration: line-through; }
-  .audit tbody tr { cursor:pointer; } .audit tbody tr:hover { background:var(--soft); }
-  .legend { display:flex; gap:14px; font-size:12px; color:var(--muted); margin-top:6px; flex-wrap:wrap; }
-  .legend span::before { content:""; display:inline-block; width:18px; height:4px; margin-right:5px; vertical-align:middle; border-radius:2px; }
-  .legend .l1::before { background:#9a9890; } .legend .l2::before { background:var(--warn); } .legend .l3::before { background:var(--accent); }
-  .stats { display:flex; gap:18px; font-size:12.5px; color:var(--muted); margin-top:8px; flex-wrap:wrap; }
-  .stats b { color:var(--ink); }
-  #error { color:var(--warn); margin-top:8px; }
+  :root {
+    --bg:#0b0f17; --panel:#111726; --panel2:#161d2e; --line:#243049; --ink:#e6ebf5; --muted:#8b96ad; --dim:#5b667d;
+    --cyan:#3fc1ff; --amber:#f2b63d; --red:#ff5d5d; --green:#49d49d; --violet:#a48bff; --mono: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; display:flex; flex-direction:column; min-height:100vh; }
+  header { display:flex; align-items:center; gap:14px; padding:8px 16px; border-bottom:1px solid var(--line); background:var(--panel); flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; font-weight:600; letter-spacing:.02em; }
+  header .sub { color:var(--muted); font-size:12px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:2px 9px; border:1px solid var(--line); border-radius:999px; font-size:11.5px; color:var(--muted); background:var(--panel2); }
+  .chip.on { color:var(--green); border-color:#1f4a3a; }
+  .chip.off { color:var(--amber); border-color:#4a3a1f; }
+  .spacer { flex:1; }
+  button { font:inherit; font-size:12.5px; padding:5px 11px; border:1px solid var(--line); border-radius:6px; background:var(--panel2); color:var(--ink); cursor:pointer; }
+  button:hover { border-color:#3a4a6b; }
+  button.primary { background:#1d4f8a; border-color:#2a6cbf; }
+  button.ghost { background:transparent; }
+  button.on { border-color:var(--cyan); color:var(--cyan); }
+  button:disabled { opacity:.45; cursor:default; }
+  select, input[type=text] { font:inherit; font-size:12.5px; padding:5px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--ink); }
+  label.tog { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--muted); cursor:pointer; }
+  label.tog input { accent-color:var(--cyan); }
+  main { display:grid; grid-template-columns: 340px minmax(0,1fr) 320px; flex:1; min-height:0; }
+  @media (max-width: 1100px) {
+    main { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+    .stage { grid-column: 1 / -1; order:-1; border-bottom:1px solid var(--line); }
+    .events, .rail { max-height:380px; }
+  }
+  .feed { border-right:1px solid var(--line); display:flex; flex-direction:column; min-height:0; }
+  .feed h2, .rail h2 { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:0; padding:10px 14px 6px; font-weight:600; }
+  .events { flex:1; overflow:auto; padding:0 10px 10px; min-height:0; max-height: calc(100vh - 200px); }
+  .ev { position:relative; padding:5px 8px 5px 14px; margin:2px 0; border-left:2px solid var(--line); border-radius:0 6px 6px 0; }
+  .ev .t { color:var(--dim); font-family:var(--mono); font-size:10.5px; margin-right:6px; }
+  .ev .h { color:var(--ink); }
+  .ev .d { color:var(--muted); font-size:12px; margin-top:1px; }
+  .ev .x { color:var(--dim); font-family:var(--mono); font-size:11px; margin-top:2px; white-space:pre-wrap; word-break:break-word; }
+  .ev.decision { border-color:var(--cyan); }
+  .ev.policy_in, .ev.policy_added, .ev.policy_expired, .ev.policy_withdrawn, .ev.policy_read { border-color:var(--violet); }
+  .ev.question, .ev.conflict, .ev.unread, .ev.not_applied { border-color:var(--amber); background:#1a1708; }
+  .ev.bad { border-color:var(--red); background:#1f0f10; }
+  .ev.guard, .ev.decider { border-color:var(--green); }
+  .ev.inspect { opacity:.75; }
+  .stage { position:relative; display:flex; flex-direction:column; min-height:0; }
+  .stage svg { width:100%; height:auto; display:block; aspect-ratio: 800 / 560; max-height: calc(100vh - 240px); margin:0 auto; }
+  .chips { position:absolute; top:10px; left:12px; right:12px; display:flex; gap:6px; flex-wrap:wrap; pointer-events:none; }
+  .chips .pol { pointer-events:auto; display:inline-flex; gap:8px; align-items:center; padding:4px 10px; border-radius:999px; border:1px solid #3a2f6b; background:#17132c; color:#cfc4ff; font-size:11.5px; max-width:420px; }
+  .pol b { color:#e9e3ff; font-weight:600; }
+  .pol .life { font-family:var(--mono); color:#a48bff; }
+  .pol button { padding:0 6px; font-size:11px; line-height:18px; background:transparent; border-color:#3a2f6b; color:#a48bff; }
+  .legend { display:flex; gap:14px; padding:6px 14px; color:var(--dim); font-size:11px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .legend i { display:inline-block; width:16px; height:3px; margin-right:5px; vertical-align:middle; border-radius:2px; }
+  .link { stroke:#2b3a57; stroke-width:1.6; }
+  .link.avoid { stroke:var(--red); stroke-dasharray:5 4; stroke-width:2.4; }
+  .link.route { stroke:var(--cyan); stroke-width:4; stroke-linecap:round; stroke-dasharray:8 6; animation: flow 1.4s linear 3; }
+  @keyframes flow { to { stroke-dashoffset:-28; } }
+  .link.route.still { animation:none; stroke-dasharray:none; }
+  .node { fill:#0b0f17; stroke:#6a7a9a; stroke-width:1.4; }
+  .node.via { stroke:var(--green); stroke-width:3; }
+  .node.avoid { stroke:var(--red); stroke-width:3; }
+  .node.end { fill:var(--cyan); stroke:var(--cyan); }
+  .node.pend { stroke:var(--amber); stroke-width:3; }
+  .label { font-size:9.5px; fill:#8b96ad; pointer-events:none; }
+  .rail { border-left:1px solid var(--line); display:flex; flex-direction:column; min-height:0; overflow:auto; max-height: calc(100vh - 200px); }
+  .card { margin:6px 12px; padding:10px 12px; border:1px solid var(--line); border-radius:8px; background:var(--panel); }
+  .card.q { border-color:var(--amber); background:#1a1708; }
+  .card h3 { margin:0 0 6px; font-size:12.5px; font-weight:600; }
+  .mono { font-family:var(--mono); font-size:11.5px; color:var(--muted); word-break:break-word; }
+  .muted { color:var(--muted); } .dim { color:var(--dim); } .warn { color:var(--amber); } .bad { color:var(--red); } .good { color:var(--green); }
+  .reading { padding:8px; border:1px solid var(--line); border-radius:6px; margin-top:6px; background:var(--panel2); }
+  .reading .rb { margin:2px 0 4px; }
+  details summary { cursor:pointer; color:var(--dim); font-size:11.5px; }
+  pre { font-family:var(--mono); font-size:10.5px; color:var(--muted); background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:6px; overflow:auto; max-height:200px; margin:4px 0 0; }
+  .conf { padding:5px 8px; border-radius:6px; margin-top:6px; font-size:12px; }
+  .conf.contradiction { background:#2a1414; color:#ff9a9a; } .conf.override { background:#2a2210; color:#ffd58a; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-top:6px; }
+  footer { border-top:1px solid var(--line); background:var(--panel); }
+  .strip { display:flex; gap:18px; padding:6px 16px; flex-wrap:wrap; font-size:12px; color:var(--muted); border-bottom:1px solid var(--line); }
+  .strip b { color:var(--ink); font-weight:600; margin-left:4px; font-variant-numeric:tabular-nums; }
+  .strip b.bad { color:var(--red); }
+  .cmd { display:flex; gap:8px; padding:8px 16px; align-items:center; flex-wrap:wrap; }
+  .cmd input[type=text] { flex:1; min-width:280px; }
+  .result { padding:0 16px 10px; }
+  .drawers { display:grid; grid-template-columns:1fr; }
+  .drawer { border-top:1px solid var(--line); }
+  .drawer summary { padding:6px 16px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); cursor:pointer; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th, td { text-align:left; padding:4px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--dim); font-weight:600; }
+  .num { text-align:right; font-variant-numeric:tabular-nums; }
+  tr.gone td { color:var(--dim); text-decoration:line-through; }
+  .scroll { overflow:auto; max-height:320px; padding:0 8px 8px; }
+  #err { color:var(--red); padding:0 16px 6px; min-height:0; }
 </style>
 </head>
 <body>
 <header>
   <h1>Lightpath console</h1>
-  <span class="mode" id="mode">connecting…</span>
+  <span class="sub" id="sub">connecting…</span>
+  <span class="chip" id="hour">hour –</span>
+  <span class="chip" id="modeChip"></span>
+  <span class="chip" id="deciderChip"></span>
+  <span class="spacer"></span>
+  <button id="playBtn" onclick="togglePlay()">▶ Play</button>
+  <select id="pace" title="requests per second"><option value="1000">1 /s</option><option value="500" selected>2 /s</option><option value="200">5 /s</option><option value="50">fast</option></select>
+  <button class="ghost" onclick="step(1)">Step</button>
+  <button class="ghost" onclick="step(10)">+10</button>
+  <label class="tog" title="standing policies arrive on the schedule of the evaluation's policy stream"><input type="checkbox" id="tArr" onchange="settings()"> policies arrive</label>
+  <label class="tog" title="each request carries an instruction drawn from the mixed stream"><input type="checkbox" id="tMix" onchange="settings()"> instructions with requests</label>
+  <label class="tog" title="questions are answered with the recorded meaning, as in the closed-loop evaluation"><input type="checkbox" id="tAuto" onchange="settings()"> simulated operator</label>
+  <button class="ghost" id="detailBtn" onclick="toggleDetail()">detail: full</button>
 </header>
 <main>
-  <section class="card">
-    <h2>Network</h2>
-    <svg id="map" viewBox="0 0 640 480" aria-label="network map"></svg>
-    <div class="legend"><span class="l1">link, darker = more occupied</span><span class="l2">avoided</span><span class="l3">last route</span></div>
-    <div class="stats" id="stats"></div>
-    <div class="row">
-      <button onclick="step(1)">Next request</button>
-      <button onclick="step(10)">Next 10</button>
-      <button onclick="step(50)">Next 50</button>
-      <span class="muted" id="pending"></span>
-    </div>
+  <section class="feed">
+    <h2>What the system is doing</h2>
+    <div class="events" id="events"></div>
   </section>
-  <section class="card">
-    <h2>Instruction</h2>
-    <textarea id="text" rows="2" placeholder="e.g. the Zurich–Milan span is under maintenance; keep it short in hops"></textarea>
-    <div class="row">
-      <button class="primary" id="readBtn" onclick="read()">Read</button>
-      <button onclick="clearInstruction()">Clear instruction</button>
-    </div>
-    <div class="row"><select id="recordedSel" onchange="pick(this)"><option value="">recorded instructions (no model server needed)…</option></select></div>
-    <div id="error"></div>
-    <div id="readings"></div>
-    <div id="preview"></div>
-    <div id="current" class="muted" style="margin-top:10px"></div>
+  <section class="stage">
+    <div class="chips" id="chips"></div>
+    <svg id="map" viewBox="0 0 800 560" aria-label="network map"></svg>
+    <div class="legend"><span><i style="background:#2b3a57"></i>link, brighter = more occupied</span><span><i style="background:var(--red)"></i>avoided by a policy or the instruction</span><span><i style="background:var(--cyan)"></i>route just set up</span><span><i style="background:var(--green);height:8px;width:8px;border-radius:50%"></i>must pass through</span><span><i style="background:var(--amber);height:8px;width:8px;border-radius:50%"></i>pending request</span></div>
   </section>
-  <section class="card policies" id="policiesCard" style="display:none">
-    <h2>Standing policies <span class="muted" id="hour"></span></h2>
-    <textarea id="ptext" rows="2" placeholder="e.g. for the next 6 hours, 400G services avoid the Zurich–Milan link"></textarea>
-    <div class="row">
-      <button class="primary" id="preadBtn" onclick="readPolicy()">Read policy</button>
-      <select id="precordedSel" onchange="pickPolicy(this)" style="max-width:420px"><option value="">recorded policies (no model server needed)…</option></select>
-    </div>
-    <div id="perror" class="warn"></div>
-    <div id="preading"></div>
-    <table style="margin-top:10px"><thead><tr><th>#</th><th>Policy</th><th>Scope</th><th>Holds</th><th class="num">Covered</th><th class="num">Changed</th><th class="num">Rejected</th><th class="num">Violations</th><th></th></tr></thead><tbody id="policyBody"></tbody></table>
-  </section>
-  <section class="card audit">
-    <h2>Audit trail <span class="muted" id="auditCount"></span></h2>
-    <table><thead><tr><th>#</th><th>Request</th><th>Instruction</th><th>Understood (line)</th><th>Decided by</th><th>Decision</th><th>Respects</th></tr></thead><tbody id="auditBody"></tbody></table>
+  <section class="rail">
+    <h2>Pending request</h2>
+    <div class="card" id="pendingCard"></div>
+    <div id="questionBox"></div>
+    <h2>Policies in force</h2>
+    <div id="policyCards"></div>
   </section>
 </main>
+<footer>
+  <div class="strip" id="strip"></div>
+  <div class="cmd">
+    <select id="cmdMode"><option value="policy">standing policy</option><option value="instruction">instruction for the next request</option></select>
+    <input type="text" id="cmdText" list="recordedList" placeholder="type a policy in any language, or pick one that was read before" onkeydown="if(event.key==='Enter')readCmd()">
+    <datalist id="recordedList"></datalist>
+    <button class="primary" id="readBtn" onclick="readCmd()">Read</button>
+    <button class="ghost" onclick="clearCmd()">Clear</button>
+  </div>
+  <div id="err"></div>
+  <div class="result" id="result"></div>
+  <div class="drawers">
+    <details class="drawer"><summary>Audit trail <span id="auditCount"></span></summary><div class="scroll"><table><thead><tr><th>#</th><th>h</th><th>Request</th><th>Instruction</th><th>Line applied</th><th>Policies</th><th>Decided by</th><th>Decision</th><th>Instr.</th><th>Policies</th></tr></thead><tbody id="auditBody"></tbody></table></div></details>
+    <details class="drawer"><summary>Policy report</summary><div class="scroll"><table><thead><tr><th>#</th><th>Policy</th><th>Line</th><th>Scope</th><th>Holds</th><th class="num">Covered</th><th class="num">Changed</th><th class="num">Rejected</th><th class="num">Violations</th><th></th></tr></thead><tbody id="policyBody"></tbody></table></div></details>
+  </div>
+</footer>
 <script>
-let STATE = null, READ = null, HIGHLIGHT = null;
+let STATE = null, RECORDED = {instructions: [], policies: []}, DETAIL = true, PLAYING = null, LASTN = 0, READ = null;
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
+const routeText = (r) => r ? r.join(" – ") : "reject";
 async function api(path, body) {
   const r = await fetch(path, body ? {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)} : {});
   return r.json();
@@ -118,168 +166,223 @@ function project(nodes) {
   const minLon = Math.min(...lons), maxLon = Math.max(...lons), minLat = Math.min(...lats), maxLat = Math.max(...lats);
   const k = Math.cos((minLat + maxLat) / 2 * Math.PI / 180);
   const w = (maxLon - minLon) * k || 1, h = (maxLat - minLat) || 1;
-  const s = Math.min(600 / w, 440 / h);
-  const ox = (640 - w * s) / 2, oy = (480 - h * s) / 2;
+  const s = Math.min(740 / w, 500 / h);
+  const ox = (800 - w * s) / 2, oy = (560 - h * s) / 2;
   const out = {};
   for (const n of nodes) out[n.name] = { x: ox + (n.lon - minLon) * k * s, y: oy + (maxLat - n.lat) * s };
   return out;
 }
 
-function drawMap() {
+function drawMap(animate) {
   if (!STATE) return;
   const P = project(STATE.nodes);
-  const spec = STATE.instruction.spec || {};
+  const spec = STATE.in_force.spec || {};
   const avoidLinks = new Set((spec.avoid || []).map(l => [...l].sort().join("|")));
   const avoidNodes = new Set(spec.nodes || []), via = new Set(spec.via || []);
-  const route = HIGHLIGHT || STATE.last_route || [];
+  const route = STATE.last_route || [];
   const routeLinks = new Set(); for (let i = 1; i < route.length; i++) routeLinks.add([route[i-1], route[i]].sort().join("|"));
   let svg = "";
   for (const l of STATE.links) {
     const key = [l.a, l.b].sort().join("|"), a = P[l.a], b = P[l.b];
-    const cls = routeLinks.has(key) ? "link route" : avoidLinks.has(key) ? "link avoid" : "link";
-    const shade = Math.round(200 - 150 * l.used);
-    const style = cls === "link" ? `stroke: rgb(${shade},${shade - 10},${shade - 20}); stroke-width:${1.5 + 3 * l.used}` : "";
+    const cls = avoidLinks.has(key) ? "link avoid" : "link";
+    const light = Math.round(45 + 160 * l.used);
+    const style = cls === "link" ? `stroke: rgb(${Math.round(light*0.55)},${Math.round(light*0.75)},${light}); stroke-width:${1.4 + 3.2 * l.used}` : "";
     svg += `<line class="${cls}" style="${style}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"><title>${esc(l.a)} – ${esc(l.b)}: ${l.km} km, ${Math.round(100*l.used)} % of slots in use</title></line>`;
   }
+  if (route.length > 1) svg += `<polyline class="link route ${animate ? "" : "still"}" fill="none" points="${route.map(n => `${P[n].x},${P[n].y}`).join(" ")}"></polyline>`;
   const ends = new Set(route.length ? [route[0], route[route.length-1]] : []);
+  const pend = new Set([STATE.pending.source, STATE.pending.destination]);
   for (const n of STATE.nodes) {
     const p = P[n.name];
-    const cls = ends.has(n.name) ? "node end" : via.has(n.name) ? "node via" : avoidNodes.has(n.name) ? "node avoid" : "node";
-    svg += `<circle class="${cls}" cx="${p.x}" cy="${p.y}" r="5"><title>${esc(n.name)}</title></circle><text class="label" x="${p.x + 7}" y="${p.y - 5}">${esc(n.name)}</text>`;
+    const cls = ends.has(n.name) ? "node end" : pend.has(n.name) ? "node pend" : via.has(n.name) ? "node via" : avoidNodes.has(n.name) ? "node avoid" : "node";
+    svg += `<circle class="${cls}" cx="${p.x}" cy="${p.y}" r="4.5"><title>${esc(n.name)}</title></circle><text class="label" x="${p.x + 6}" y="${p.y - 5}">${esc(n.name)}</text>`;
   }
   $("map").innerHTML = svg;
 }
 
-function renderPolicies() {
-  if (!STATE || !STATE.standing) return;
-  $("policiesCard").style.display = "";
-  $("hour").textContent = `(simulator hour ${STATE.now})`;
-  $("policyBody").innerHTML = STATE.policies.slice().reverse().map(p => `<tr class="${p.active ? "" : "expired"}">
-    <td class="num">${p.id}</td><td>${esc(p.text)}</td><td>${esc(p.scope)}</td>
-    <td>${p.until === null ? "until withdrawn" : `${p.until} h (until hour ${p.expires})`}${p.active ? "" : " · no longer in force"}</td>
+function renderChips() {
+  const active = STATE.policies.filter(p => p.active);
+  $("chips").innerHTML = active.map(p => {
+    const left = p.expires === null ? "open" : `${Math.max(0, p.expires - STATE.now).toFixed(1)} h left`;
+    return `<span class="pol" title="${esc(p.text)}"><b>#${p.id}</b> ${esc(p.readback)} <span class="life">${esc(p.scope)} · ${left}</span><button onclick="withdrawPolicy(${p.id})" title="withdraw">×</button></span>`;
+  }).join("");
+}
+
+function renderPolicyCards() {
+  const active = STATE.policies.filter(p => p.active).slice().reverse();
+  $("policyCards").innerHTML = active.length ? active.map(p => `<div class="card">
+    <h3>#${p.id} · ${esc(p.scope)} · ${p.until === null ? "until withdrawn" : `${p.until} h, until hour ${p.expires}`}</h3>
+    <div>${esc(p.text)}</div>
+    <div class="mono">${esc(p.line)}</div>
+    <div class="dim" style="margin-top:4px">covered ${p.in_scope} · changed ${p.changed} · rejected ${p.rejected} · <span class="${p.violations ? "bad" : ""}">violations ${p.violations}</span></div>
+  </div>`).join("") : `<div class="card dim">None. Type one below, or let them arrive.</div>`;
+  $("policyBody").innerHTML = STATE.policies.slice().reverse().map(p => `<tr class="${p.active ? "" : "gone"}">
+    <td class="num">${p.id}</td><td>${esc(p.text)}</td><td class="mono">${esc(p.line)}</td><td>${esc(p.scope)}</td>
+    <td>${p.until === null ? "until withdrawn" : `${p.until} h (until ${p.expires})`}${p.active ? "" : " · gone"}</td>
     <td class="num">${p.in_scope}</td><td class="num">${p.changed}</td><td class="num">${p.rejected}</td><td class="num">${p.violations}</td>
     <td>${p.active ? `<button onclick="withdrawPolicy(${p.id})">Withdraw</button>` : ""}</td></tr>`).join("");
 }
 
-let PREAD = null;
-function pickPolicy(sel) { if (sel.value) { $("ptext").value = sel.value; readPolicy(); } }
-async function readPolicy() {
-  const text = $("ptext").value.trim();
-  $("perror").textContent = ""; $("preading").innerHTML = "";
-  $("preadBtn").disabled = true; $("preadBtn").textContent = "Reading…";
-  const r = await api("/api/policy/read", {text});
-  $("preadBtn").disabled = false; $("preadBtn").textContent = "Read policy";
-  if (r.error) { $("perror").textContent = r.error; return; }
-  PREAD = r;
-  let html = `<div class="reading"><b>Reading</b> <span class="badge">${esc(r.status)}</span><div class="readback">${esc(r.readback)}</div><div class="mono">${esc(r.line)}</div>
-    <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(r.tapi, null, 1))}</pre></details>`;
-  for (const c of r.conflicts) html += `<div class="conflict ${c.kind}"><b>${c.kind}</b>: ${esc(c.why)}${c.with_text ? ` — policy #${c.with}: “${esc(c.with_text)}”` : ""}</div>`;
-  if (r.preview) html += `<p style="margin:8px 0 4px">Preview, next ${r.preview.horizon} requests: this policy covers <b>${r.preview.covers}</b> of them and changes <b>${r.preview.with.changed}</b> decisions; rejected ${r.preview.without.blocked} → ${r.preview.with.blocked}.</p>`;
-  html += `<div class="row"><button class="primary" ${r.applies ? "" : "disabled"} onclick="addPolicy()">${r.conflicts.some(c => c.kind === "contradiction") ? "Add despite the contradiction" : "Add policy"}</button>
-    <input type="text" id="pline" value="${esc(r.line)}" style="max-width:600px"><button onclick="addPolicy(true)">Add my line</button></div></div>`;
-  $("preading").innerHTML = html;
+function renderPending() {
+  const p = STATE.pending, ins = p.instruction;
+  let html = `<h3>#${p.n} · ${esc(p.source)} → ${esc(p.destination)}, ${p.bit_rate} Gb/s</h3>`;
+  html += ins.text === "none" ? `<div class="dim">no instruction with this request</div>` : `<div><span class="dim">${ins.typed ? "typed by you" : esc(ins.kind)}${ins.lang ? " · " + esc(ins.lang) : ""}</span><br>“${esc(ins.text)}”</div>`;
+  html += `<div class="dim" style="margin-top:4px">${p.paths.length} candidate paths · policies covering it: ${STATE.in_force.covering.length ? STATE.in_force.covering.map(i => "#" + i).join(" ") : "none"}</div>`;
+  $("pendingCard").innerHTML = html;
 }
-async function addPolicy(own) {
-  const r = await api("/api/policy/add", {text: PREAD.text, line: own ? $("pline").value : PREAD.line});
-  if (r.error) { $("perror").textContent = r.error; return; }
-  $("preading").innerHTML = ""; $("ptext").value = "";
+
+function renderQuestion() {
+  const q = STATE.question;
+  if (!q) { $("questionBox").innerHTML = ""; return; }
+  let html = `<div class="card q"><h3 class="warn">You are asked</h3><div>${esc(q.why)}.</div><div style="margin:4px 0">“${esc(q.text)}”</div>`;
+  q.readings.forEach((r, i) => {
+    html += `<div class="reading"><b>${esc(r.reader)}</b> <span class="dim">${esc(r.status)}</span><div class="rb">${esc(r.readback)}</div><div class="mono">${esc(r.line)}</div>
+      <div class="dim">would ${r.decision.to_decider ? "hand this request to the decider" : "route " + esc(routeText(r.decision.route))}</div>
+      <div class="row"><button class="primary" onclick="answer(${q.id}, ${i + 1})">Use reading ${i + 1}</button></div></div>`;
+  });
+  html += `<div class="row"><input type="text" id="ownLine" value="${esc(q.readings[0].line)}" style="flex:1"><button onclick="answerOwn(${q.id})">Use my line</button></div>`;
+  if (DETAIL && q.truth) html += `<div class="dim" style="margin-top:6px">recorded meaning: <span class="mono">${esc(q.truth)}</span></div>`;
+  html += `</div>`;
+  $("questionBox").innerHTML = html;
+}
+
+function renderFeed() {
+  const box = $("events");
+  const atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 40;
+  const events = STATE.feed.filter(e => DETAIL || e.level === "operator");
+  box.innerHTML = events.map(e => {
+    const bad = (e.kind === "decision" && (e.data?.respects === false || e.data?.respects_policies === false)) || (e.kind === "policy_read" && e.data?.right === false);
+    let x = "";
+    if (DETAIL && e.data) {
+      if (e.data.lines) x += `reader 1: ${e.data.lines[0]}\nreader 2: ${e.data.lines[1]}`;
+      else if (e.data.line) x += e.data.line;
+      if (e.data.truth && e.kind !== "policy_added") x += `\nrecorded: ${e.data.truth}`;
+      if (e.data.answer) x += `\nanswer: ${e.data.answer}`;
+    }
+    return `<div class="ev ${e.kind} ${e.level}${bad ? " bad" : ""}"><span class="t">${e.hour.toFixed(1)}h</span><span class="h">${esc(e.title)}</span>${e.detail ? `<div class="d">${esc(e.detail)}</div>` : ""}${x ? `<div class="x">${esc(x)}</div>` : ""}</div>`;
+  }).join("");
+  if (atBottom) box.scrollTop = box.scrollHeight;
+}
+
+function renderStrip() {
+  const s = STATE.stats;
+  const pct = (a, b) => b ? (100 * a / b).toFixed(1) + " %" : "–";
+  $("strip").innerHTML = `<span>served<b>${s.served}</b></span><span>rejected<b>${pct(s.rejected, s.served)}</b></span>
+    <span title="decisions that break what was meant: the instruction and the policies in force, judged together">violations<b class="${s.violations ? "bad" : ""}">${s.violations}</b></span><span title="routes that break a constraint a policy truly states">policy constraints broken<b class="${s.policy_violations ? "bad" : ""}">${s.policy_violations}</b></span>
+    <span>questions<b>${s.questions}</b></span><span>to the decider<b>${s.decider}</b></span><span>guard<b>${s.guarded}</b></span><span>not applied<b>${s.flagged}</b></span>${s.unread ? `<span>unread<b class="bad">${s.unread}</b></span>` : ""}
+    <span>policies in force<b>${s.policies_active}</b></span>`;
+  $("hour").textContent = `hour ${STATE.now.toFixed(2)}`;
+  const m = STATE.mode;
+  $("sub").textContent = `${STATE.topology} · ${s.load} E · seed ${s.seed} · ${m.hybrid} · ${m.reader}`;
+  $("modeChip").textContent = m.live ? `live at ${m.base_url}` : "recorded answers";
+  $("modeChip").className = "chip " + (m.live ? "on" : "");
+  $("deciderChip").textContent = `decider: ${m.decider}`;
+  $("deciderChip").className = "chip " + (m.live ? "on" : "off");
+  $("tArr").checked = STATE.settings.arrivals; $("tMix").checked = STATE.settings.mix; $("tAuto").checked = STATE.settings.auto_answer;
+}
+
+function renderAudit() {
+  const rows = STATE.audit.slice().reverse();
+  $("auditCount").textContent = STATE.audit.length ? `(last ${rows.length} of ${STATE.stats.served})` : "";
+  const mark = (v) => v === null ? '<span class="dim">—</span>' : v ? '<span class="good">yes</span>' : '<span class="bad">no</span>';
+  $("auditBody").innerHTML = rows.map(r => `<tr>
+    <td class="num">${r.n}</td><td class="num">${r.hour}</td><td>${esc(r.source)} → ${esc(r.destination)}, ${r.bit_rate} G</td>
+    <td>${r.instruction === "none" ? '<span class="dim">—</span>' : esc(r.instruction)}</td><td class="mono">${esc(r.effective)}</td>
+    <td>${r.policies.length ? r.policies.map(i => "#" + i).join(" ") : '<span class="dim">—</span>'}</td>
+    <td>${esc(r.who)}${r.asked ? ' <span class="warn">· asked</span>' : ""}</td>
+    <td>${r.blocked ? '<span class="warn">rejected</span>' : `${esc(routeText(r.route))}, slot ${r.slot}`}${r.invalid ? ' <span class="bad">invalid</span>' : ""}</td>
+    <td>${mark(r.respects)}</td><td>${mark(r.respects_policies)}</td></tr>`).join("");
+}
+
+function render(animate) {
+  if (!STATE) return;
+  renderStrip(); renderChips(); renderPolicyCards(); renderPending(); renderQuestion(); renderFeed(); renderAudit(); drawMap(animate);
+  if (STATE.question && PLAYING) pause();
+}
+
+async function refresh() { STATE = await api("/api/state"); render(false); }
+async function step(n) {
+  const r = await api("/api/step", {count: n});
+  if (r.error) { $("err").textContent = r.error; return; }
+  STATE = r.state; render(r.rows.length > 0);
+}
+function pause() { if (PLAYING) clearInterval(PLAYING); PLAYING = null; $("playBtn").textContent = "▶ Play"; $("playBtn").classList.remove("on"); }
+function togglePlay() {
+  if (PLAYING) { pause(); return; }
+  const ms = parseInt($("pace").value, 10);
+  const tick = async () => { if (!STATE || STATE.question) { pause(); return; } await step(ms <= 50 ? 5 : 1); };
+  PLAYING = setInterval(tick, ms); $("playBtn").textContent = "❚❚ Pause"; $("playBtn").classList.add("on"); tick();
+}
+$("pace").onchange = () => { if (PLAYING) { pause(); togglePlay(); } };
+function toggleDetail() { DETAIL = !DETAIL; $("detailBtn").textContent = `detail: ${DETAIL ? "full" : "quiet"}`; render(false); }
+async function settings() {
+  await api("/api/settings", {arrivals: $("tArr").checked, mix: $("tMix").checked, auto_answer: $("tAuto").checked});
   await refresh();
 }
 async function withdrawPolicy(id) { await api("/api/policy/withdraw", {id}); await refresh(); }
+async function answer(id, choice) { const r = await api("/api/answer", {id, choice}); if (r.error) { $("err").textContent = r.error; return; } await refresh(); }
+async function answerOwn(id) { const r = await api("/api/answer", {id, choice: "own", line: $("ownLine").value}); if (r.error) { $("err").textContent = r.error; return; } await refresh(); }
 
-function render() {
-  if (!STATE) return;
-  const m = STATE.mode, s = STATE.stats;
-  if (STATE.standing) { document.querySelector("section.card:nth-of-type(2)").style.display = "none"; renderPolicies(); }
-  $("mode").textContent = (m.live ? `live, models at ${m.base_url}` : "recorded answers, no model server") + ` · ${STATE.topology}, load ${s.load} E, seed ${s.seed} · ${m.policy}`;
-  $("stats").innerHTML = `<span>served <b>${s.served}</b></span><span>blocking so far <b>${(100*s.blocking).toFixed(1)} %</b></span>`;
-  $("pending").textContent = `pending: ${STATE.pending.source} → ${STATE.pending.destination}, ${STATE.pending.bit_rate} Gb/s`;
-  const ins = STATE.instruction;
-  $("current").innerHTML = ins.text === "none" ? "No instruction is in force." : `In force: <b>${esc(ins.text)}</b><br><span class="mono">${esc(ins.line)}</span><br>${esc(ins.readback)}`;
-  const rows = STATE.audit.slice().reverse();
-  $("auditCount").textContent = STATE.audit.length ? `(last ${rows.length} of ${s.served})` : "";
-  $("auditBody").innerHTML = rows.map(r => `<tr data-route='${esc(JSON.stringify(r.route))}'>
-    <td class="num">${r.n}</td><td>${esc(r.source)} → ${esc(r.destination)}, ${r.bit_rate} G</td>
-    <td>${esc(r.instruction === "none" ? "—" : r.instruction)}</td><td class="mono" style="font-size:11.5px">${esc(r.line)}</td>
-    <td>${esc(r.who)}${r.asked ? ' <span class="badge">operator asked</span>' : ""}</td>
-    <td>${r.blocked ? '<span class="warn">rejected</span>' : `path ${r.path} (${r.route.join("–")}), slot ${r.slot}`}${r.invalid ? ' <span class="warn">invalid answer, first fit used</span>' : ""}</td>
-    <td>${r.respects === null ? '<span class="muted">—</span>' : r.respects ? '<span class="ok">yes</span>' : '<span class="warn">no</span>'}</td></tr>`).join("");
-  for (const tr of $("auditBody").querySelectorAll("tr")) tr.onclick = () => { HIGHLIGHT = JSON.parse(tr.dataset.route); drawMap(); };
-  drawMap();
+function fillRecorded() {
+  const mode = $("cmdMode").value, list = RECORDED[mode === "policy" ? "policies" : "instructions"];
+  $("recordedList").innerHTML = list.slice(0, 600).map(r => `<option value="${esc(r.text)}">${esc(r.lang)} · ${esc(r.set)}</option>`).join("");
+  $("cmdText").placeholder = mode === "policy" ? "type a standing policy in any language, or pick one that was read before" : "type an instruction for the next request, or pick one that was read before";
 }
+$("cmdMode").onchange = fillRecorded;
 
-async function refresh() { STATE = await api("/api/state"); HIGHLIGHT = null; render(); }
-
-async function step(n) {
-  const r = await api("/api/step", {count: n});
-  if (r.error) { $("error").textContent = r.error; return; }
-  STATE = r.state; HIGHLIGHT = null; render();
-}
-
-function pick(sel) { if (sel.value) { $("text").value = sel.value; read(); } }
-
-async function read() {
-  const text = $("text").value.trim();
-  $("error").textContent = ""; $("readings").innerHTML = ""; $("preview").innerHTML = "";
+async function readCmd() {
+  const text = $("cmdText").value.trim(), mode = $("cmdMode").value;
+  $("err").textContent = ""; $("result").innerHTML = "";
+  if (!text) return;
   $("readBtn").disabled = true; $("readBtn").textContent = "Reading…";
-  const r = await api("/api/read", {text});
+  const r = await api(mode === "policy" ? "/api/policy/read" : "/api/instruction", {text});
   $("readBtn").disabled = false; $("readBtn").textContent = "Read";
-  if (r.error) { $("error").textContent = r.error; return; }
+  if (r.error) { $("err").textContent = r.error; return; }
   READ = r;
-  const same = !r.differ;
-  let html = same ? `<div class="reading same"><b>Both readers agree.</b></div>` : `<div class="reading"><b class="warn">The two readers disagree: you are asked.</b> Choose the reading you meant, or edit the line.</div>`;
+  if (mode === "policy") renderPolicyRead(r); else { renderInstructionRead(r); await refresh(); }
+}
+function renderPolicyRead(r) {
+  let html = `<div class="reading"><b>Reading</b> <span class="dim">${esc(r.status)} · ${STATE.mode.live ? `${r.seconds} s` : "recorded answer"}</span><div class="rb">${esc(r.readback)}</div><div class="mono">${esc(r.line)}</div>
+    <div class="dim">scope ${esc(r.scope)} · ${r.until === null ? "until withdrawn" : r.until + " h"}</div>
+    <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(r.tapi, null, 1))}</pre></details>`;
+  for (const c of r.conflicts) html += `<div class="conf ${c.kind}"><b>${c.kind}</b>: ${esc(c.why)}${c.with_text ? ` — policy #${c.with}: “${esc(c.with_text)}”` : ""}</div>`;
+  if (r.preview) html += `<div style="margin-top:6px">Preview, next ${r.preview.horizon} requests on a copy of the network: covers <b>${r.preview.covers}</b>, changes <b>${r.preview.with.changed}</b> decisions, rejected ${r.preview.without.blocked} → ${r.preview.with.blocked}.</div>`;
+  html += `<div class="row"><button class="primary" ${r.applies ? "" : "disabled"} onclick="addPolicy(false)">${r.conflicts.some(c => c.kind === "contradiction") ? "Add despite the contradiction" : "Add policy"}</button>
+    <input type="text" id="pline" value="${esc(r.line)}" style="flex:1;min-width:300px"><button onclick="addPolicy(true)">Add my line</button></div></div>`;
+  $("result").innerHTML = html;
+}
+async function addPolicy(own) {
+  const r = await api("/api/policy/add", {text: READ.text, line: own ? $("pline").value : READ.line});
+  if (r.error) { $("err").textContent = r.error; return; }
+  $("result").innerHTML = ""; $("cmdText").value = "";
+  await refresh();
+}
+function renderInstructionRead(r) {
+  if (!r.readings.length) { $("result").innerHTML = ""; return; }
+  let html = r.differ ? `<div class="reading"><b class="warn">The two readers disagree</b> · ${r.decide_differently ? "and would decide the pending request differently: you are asked when it is served, unless you settle it now." : "but decide the pending request alike; the first reading stands until a request tells them apart."}</div>` : `<div class="reading"><b class="good">Both readers agree.</b> Applied to the next request.</div>`;
   r.readings.forEach((rd, i) => {
-    if (same && i === 1) return;
-    html += `<div class="reading"><b>${same ? "Reading" : rd.reader}</b> <span class="badge">${esc(rd.status)}</span>
-      <div class="readback">${esc(rd.readback)}</div>
-      <div class="mono">${esc(rd.line)}</div>
+    if (!r.differ && i === 1) return;
+    html += `<div class="reading"><b>${r.differ ? esc(rd.reader) : "Reading"}</b> <span class="dim">${esc(rd.status)}</span><div class="rb">${esc(rd.readback)}</div><div class="mono">${esc(rd.line)}</div>
+      <div class="dim">would ${rd.decision.to_decider ? "hand the request to the decider" : "route " + esc(routeText(rd.decision.route))}</div>
       <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(rd.tapi, null, 1))}</pre></details>
-      <div class="row"><button class="primary" onclick="apply(${i})">Apply this reading</button></div></div>`;
+      ${r.differ ? `<div class="row"><button class="primary" onclick="confirmInstruction(${i})">Use this reading</button></div>` : ""}</div>`;
   });
-  html += `<div class="reading"><b>Or your own line</b><input type="text" id="ownLine" value="${esc(r.readings[0].line)}"><div class="row"><button onclick="applyOwn()">Apply my line</button></div></div>`;
-  $("readings").innerHTML = html;
-  const p = r.preview, w = p.without;
-  let pv = `<h2 style="margin-top:14px">Preview: the next ${p.horizon} requests, rule engine on a copy of the network</h2><table><thead><tr><th>Under</th><th class="num">rejected</th><th class="num">blocking</th><th class="num">decisions changed</th></tr></thead><tbody>`;
-  pv += `<tr><td>no instruction</td><td class="num">${w.blocked}</td><td class="num">${(100*w.blocking).toFixed(1)} %</td><td class="num">—</td></tr>`;
-  p.readings.forEach((x, i) => { pv += `<tr><td>reading ${p.readings.length > 1 ? i + 1 : ""}: <span class="mono" style="font-size:11.5px">${esc(x.line)}</span></td><td class="num">${x.blocked}</td><td class="num">${(100*x.blocking).toFixed(1)} %</td><td class="num">${x.changed}</td></tr>`; });
-  pv += "</tbody></table>";
-  if (p.differences) {
-    pv += `<p style="margin:8px 0 4px">The two readings decide differently on <b>${p.decide_differently}</b> of the next ${p.horizon} requests` + (p.differences.length ? ", the first ones:" : ".") + "</p>";
-    if (p.differences.length) pv += "<table><thead><tr><th>#</th><th>Request</th><th>Reading 1</th><th>Reading 2</th></tr></thead><tbody>" + p.differences.map(d => `<tr><td class="num">${d.at}</td><td>${esc(d.source)} → ${esc(d.destination)}, ${d.bit_rate} G</td><td>${d.route1 ? d.route1.join("–") : '<span class="warn">reject</span>'}</td><td>${d.route2 ? d.route2.join("–") : '<span class="warn">reject</span>'}</td></tr>`).join("") + "</tbody></table>";
-  }
-  $("preview").innerHTML = pv;
+  html += `<div class="row"><input type="text" id="iline" value="${esc(r.readings[0].line)}" style="flex:1;min-width:300px"><button onclick="confirmInstruction(-1)">Use my line</button></div>`;
+  $("result").innerHTML = html;
 }
-
-async function apply(i) {
-  const rd = READ.readings[i];
-  const r = await api("/api/apply", {text: READ.text, line: rd.line, asked: READ.differ});
-  if (r.error) { $("error").textContent = r.error; return; }
+async function confirmInstruction(i) {
+  const line = i < 0 ? $("iline").value : READ.readings[i].line;
+  const r = await api("/api/instruction/confirm", {text: READ.text, line});
+  if (r.error) { $("err").textContent = r.error; return; }
+  $("result").innerHTML = `<div class="reading good">Settled: <span class="mono">${esc(r.line)}</span></div>`;
   await refresh();
 }
-async function applyOwn() {
-  const r = await api("/api/apply", {text: READ.text, line: $("ownLine").value, asked: true});
-  if (r.error) { $("error").textContent = r.error; return; }
-  await refresh();
-}
-async function clearInstruction() {
-  $("text").value = ""; $("readings").innerHTML = ""; $("preview").innerHTML = "";
-  await api("/api/apply", {text: "none", line: "none", asked: false});
-  await refresh();
-}
+async function clearCmd() { $("cmdText").value = ""; $("result").innerHTML = ""; $("err").textContent = ""; if ($("cmdMode").value === "instruction") { await api("/api/instruction", {text: ""}); await refresh(); } }
 
 (async () => {
   await refresh();
-  const rec = await api("/api/recorded");
-  if (rec.length) {
-    const sel = STATE.standing ? $("precordedSel") : $("recordedSel");
-    const byLang = {};
-    for (const r of rec) (byLang[r.lang] ||= []).push(r);
-    for (const lang of Object.keys(byLang).sort()) {
-      const g = document.createElement("optgroup"); g.label = `${lang} (${byLang[lang].length})`;
-      for (const r of byLang[lang].slice(0, 400)) { const o = document.createElement("option"); o.value = r.text; o.textContent = r.text.slice(0, 90); g.appendChild(o); }
-      sel.appendChild(g);
-    }
-  } else { $("recordedSel").parentElement.style.display = "none"; $("precordedSel").style.display = "none"; }
+  RECORDED = await api("/api/recorded");
+  fillRecorded();
 })();
 </script>
 </body>

@@ -6,9 +6,13 @@
 data/**
 !data/topologies/**
 !data/instructions/v3_source_*.json
-# the console lists the instructions both readers answered before (answers are in results/cache)
+# the console: the sets the readers answered before (answers are in results/cache), the policy
+# stream's sentences (v4_*), and the sources of the mixed stream
 !data/instructions/owner.jsonl
 !data/instructions/mix3_390.jsonl
+!data/instructions/v3_*.jsonl
+!data/instructions/v4_*.jsonl
+!data/instructions/*_source.json
 runs
 tests
 results/**/*.partial.jsonl
