@@ -176,6 +176,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid that asks when its two readers disagree | 0.8 | 1.4 | 28.9 | 34.7 | 0.0 | 6.3 | 8.5 | 12.25 | 17.3 | 1.0 | 8.9 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.3 | 0.5 | 28.3 | 37.0 | 0.0 | 3.7 | 8.3 | 12.03 | 21.2 | 0.9 | 24.1 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 1.2 | 3.3 | 31.1 | 38.4 | 0.0 | 2.6 | 9.2 | 11.98 | 15.4 | 0.6 | 9.6 |
+| Hybrid that asks only when a request tells the readings apart, on the laptop | 1.2 | 3.4 | 32.0 | 40.0 | 0.0 | 3.3 | 9.5 | 11.65 | 14.2 | 0.6 | 7.4 |
 
 ## The same, only requests on which the instruction changes the right answer — load 390 E
 
@@ -192,6 +193,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid that asks when its two readers disagree | 1.8 | 2.3 | 65.3 | 55.5 | 1138 | 472 | 360 | 344 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.7 | 0.9 | 60.2 | 58.9 | 1163 | 470 | 377 | 341 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 2.1 | 4.7 | 70.4 | 59.4 | 1179 | 472 | 379 | 352 |
+| Hybrid that asks only when a request tells the readings apart, on the laptop | 2.0 | 4.5 | 71.1 | 61.0 | 1172 | 486 | 391 | 351 |
 
 ## All requests, violations in % per seed — load 390 E
 
@@ -208,6 +210,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 7.95 | 8.60 | 8.25 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 8.80 | 9.40 | 9.35 |
+| Hybrid that asks only when a request tells the readings apart, on the laptop | 9.25 | 9.75 | 9.60 |
 
 ## Standing policies in closed loop (policies arrive, hold for the hours they state or until withdrawn, and cover the requests their scope names): violations against the true table, % — load 240 E
 
@@ -230,6 +233,52 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | True policies, scope ignored (every policy covers every request) | 30.0 | 17.1 | 61.4 | 61.37 | 0 | 54.4 / 0.0 / 35.5 |
 | True policies, lifetime ignored (no policy ever expires) | 6.4 | 5.3 | 39.8 | 39.80 | 0 | 6.0 / 7.6 / 5.5 |
 | Policies read by the fourth-format reader | 1.5 | 2.4 | 34.2 | 34.18 | 0 | 0.0 / 4.4 / 0.1 |
+
+## The policy language on a Swiss network (24 cities named in each language's own form, never in training): right meaning, % of instructions
+
+| Reader | Language | n | Right | Applied with another meaning | Not applied | One clause | Pair seen in training | Pair never seen together | Three clauses, never seen together | Two preferences |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Reader 1 on the laptop | English | 287 | 90.6 | 9.1 | 0.3 | 95.9 | 95.3 | 86.5 | 72.5 | 87.5 |
+| Reader 1 on the laptop | German | 288 | 92.0 | 6.9 | 1.0 | 96.7 | 93.7 | 85.2 | 85.0 | 87.5 |
+| Reader 1 on the laptop | French | 293 | 90.8 | 7.2 | 2.0 | 94.4 | 93.8 | 92.9 | 70.0 | 100.0 |
+| Reader 1 on the laptop | Italian | 283 | 89.0 | 8.8 | 2.1 | 92.4 | 93.8 | 88.5 | 75.0 | 75.0 |
+| Reader 2 on the laptop | English | 287 | 90.6 | 9.1 | 0.3 | 94.3 | 95.3 | 84.6 | 80.0 | 87.5 |
+| Reader 2 on the laptop | German | 288 | 90.6 | 9.0 | 0.3 | 91.9 | 95.2 | 87.0 | 82.5 | 100.0 |
+| Reader 2 on the laptop | French | 293 | 86.0 | 12.3 | 1.7 | 89.6 | 90.6 | 85.7 | 65.0 | 100.0 |
+| Reader 2 on the laptop | Italian | 283 | 86.6 | 12.0 | 1.4 | 84.9 | 90.6 | 94.2 | 75.0 | 87.5 |
+
+## The mixed stream of the third round in closed loop on the Swiss network: violations, % of the requests of each kind — load 600 E
+
+| Policy | In the format | Combinations never seen | New types | Carried in part | No instruction | Place outside the network | All requests | Blocking, % | Sent to the decider, % | Guard replaced the choice, % | Operator asked, % |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Rules for every kind (reference) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 24.57 | 0.0 | 0.0 | 0.0 |
+| First fit (ignores the instruction) | 30.4 | 45.2 | 37.3 | 49.9 | 0.0 | 0.0 | 24.7 | 17.83 | 0.0 | 0.0 | 0.0 |
+| No-intent teacher (ignores the instruction) | 35.5 | 49.1 | 33.5 | 46.9 | 0.0 | 0.0 | 26.1 | 17.08 | 0.0 | 0.0 | 0.0 |
+| Translator alone (reader 1 on the laptop) | 2.2 | 5.5 | 30.9 | 37.1 | 0.0 | 4.9 | 9.8 | 22.32 | 0.0 | 0.0 | 0.0 |
+| Translator that asks when its two readers disagree | 1.2 | 2.7 | 31.1 | 33.2 | 0.0 | 5.2 | 9.0 | 22.45 | 0.0 | 0.0 | 12.6 |
+| Translator that asks only when a request tells the readings apart | 1.4 | 3.5 | 30.9 | 35.3 | 0.0 | 4.9 | 9.3 | 22.15 | 0.0 | 0.0 | 8.0 |
+
+## The same, only requests on which the instruction changes the right answer — load 600 E
+
+| Policy | In the format: violations, % | Combinations never seen: violations, % | New types: violations, % | Carried in part: violations, % | In the format: such requests | Combinations never seen: such requests | New types: such requests | Carried in part: such requests |
+|---|---|---|---|---|---|---|---|---|
+| Rules for every kind (reference) | 0.0 | 0.0 | 0.0 | 0.0 | 1047 | 467 | 298 | 332 |
+| First fit (ignores the instruction) | 71.8 | 81.9 | 92.1 | 87.8 | 970 | 437 | 265 | 279 |
+| No-intent teacher (ignores the instruction) | 100.0 | 100.0 | 100.0 | 100.0 | 959 | 425 | 296 | 308 |
+| Translator alone (reader 1 on the laptop) | 4.5 | 8.3 | 95.3 | 70.3 | 1007 | 446 | 277 | 317 |
+| Translator that asks when its two readers disagree | 2.6 | 4.2 | 95.4 | 64.8 | 1036 | 453 | 284 | 310 |
+| Translator that asks only when a request tells the readings apart | 3.3 | 5.8 | 94.1 | 68.4 | 1022 | 449 | 288 | 320 |
+
+## All requests, violations in % per seed — load 600 E
+
+| Policy | Seed 1 | Seed 2 | Seed 3 |
+|---|---|---|---|
+| Rules for every kind (reference) | 0.00 | 0.00 | 0.00 |
+| First fit (ignores the instruction) | 24.10 | 25.50 | 24.40 |
+| No-intent teacher (ignores the instruction) | 24.85 | 27.85 | 25.45 |
+| Translator alone (reader 1 on the laptop) | 9.35 | 9.55 | 10.55 |
+| Translator that asks when its two readers disagree | 8.80 | 8.85 | 9.30 |
+| Translator that asks only when a request tells the readings apart | 8.50 | 10.05 | 9.30 |
 
 ## The project owner's own instructions, on the laptop (4-bit base model, llama.cpp): number of instructions
 

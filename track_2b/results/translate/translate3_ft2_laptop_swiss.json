@@ -1,0 +1,1191 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "translate3_ft2_laptop",
+      "topology": "swiss",
+      "few_shot": false,
+      "format_version": 3,
+      "llm": {
+        "name": "translate3_ft2_laptop",
+        "backend": "endpoint",
+        "model": "",
+        "structured": "gbnf",
+        "extra_body": {
+          "lora": [
+            {
+              "id": 0,
+              "scale": 0.0
+            },
+            {
+              "id": 1,
+              "scale": 1.0
+            },
+            {
+              "id": 2,
+              "scale": 0.0
+            }
+          ]
+        },
+        "cache": "translate3_ft2_laptop.jsonl",
+        "endpoint": "http://127.0.0.1:8089/v1"
+      }
+    },
+    "command": "src/translate.py batch --base-url http://127.0.0.1:8089/v1 --concurrency 1 --chunk 100 --jobs translate3_ft_laptop:swiss:regex:data/instructions/v3_swiss_en.jsonl,data/instructions/v3_swiss_de.jsonl,data/instructions/v3_swiss_fr.jsonl,data/instructions/v3_swiss_it.jsonl,data/instructions/mix3_swiss.jsonl translate3_ft2_laptop:swiss:regex:data/instructions/v3_swiss_en.jsonl,data/instructions/v3_swiss_de.jsonl,data/instructions/v3_swiss_fr.jsonl,data/instructions/v3_swiss_it.jsonl,data/instructions/mix3_swiss.jsonl",
+    "finished_utc": "2026-10-12T22:48:16.725330+00:00",
+    "sets": [
+      "v3_swiss_en.jsonl",
+      "v3_swiss_de.jsonl",
+      "v3_swiss_fr.jsonl",
+      "v3_swiss_it.jsonl",
+      "mix3_swiss.jsonl"
+    ]
+  },
+  "groups": [
+    {
+      "set": "operations_mix3",
+      "lang": "all",
+      "kind": "all",
+      "n": 2577,
+      "correct": 1775,
+      "flagged": 276,
+      "wrong": 424,
+      "applied": 102,
+      "malformed": 0,
+      "same_status": 2448,
+      "ms_per_instruction": 766.4667830811014
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "atom",
+      "n": 122,
+      "correct": 115,
+      "flagged": 1,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 121,
+      "ms_per_instruction": 757.2696721311473
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "heldout_pair",
+      "n": 73,
+      "correct": 66,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 73,
+      "ms_per_instruction": 805.2849315068491
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "pair",
+      "n": 75,
+      "correct": 66,
+      "flagged": 1,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 74,
+      "ms_per_instruction": 815.9680000000001
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "triple",
+      "n": 48,
+      "correct": 43,
+      "flagged": 0,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 48,
+      "ms_per_instruction": 836.2291666666669
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "de",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 791.0250000000001
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "atom",
+      "n": 280,
+      "correct": 263,
+      "flagged": 0,
+      "wrong": 17,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 280,
+      "ms_per_instruction": 759.545357142857
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "faulty",
+      "n": 207,
+      "correct": 0,
+      "flagged": 161,
+      "wrong": 0,
+      "applied": 46,
+      "malformed": 0,
+      "same_status": 153,
+      "ms_per_instruction": 734.0565217391307
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "heldout_pair",
+      "n": 240,
+      "correct": 197,
+      "flagged": 0,
+      "wrong": 43,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 240,
+      "ms_per_instruction": 813.8837499999998
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "largest_block",
+      "n": 8,
+      "correct": 0,
+      "flagged": 4,
+      "wrong": 0,
+      "applied": 4,
+      "malformed": 0,
+      "same_status": 4,
+      "ms_per_instruction": 413.75
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "min_free",
+      "n": 74,
+      "correct": 0,
+      "flagged": 28,
+      "wrong": 0,
+      "applied": 46,
+      "malformed": 0,
+      "same_status": 28,
+      "ms_per_instruction": 489.2702702702704
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "min_mod",
+      "n": 32,
+      "correct": 0,
+      "flagged": 30,
+      "wrong": 0,
+      "applied": 2,
+      "malformed": 0,
+      "same_status": 30,
+      "ms_per_instruction": 219.83125
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "not_first",
+      "n": 8,
+      "correct": 0,
+      "flagged": 5,
+      "wrong": 0,
+      "applied": 3,
+      "malformed": 0,
+      "same_status": 5,
+      "ms_per_instruction": 728.8625
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "not_instruction",
+      "n": 30,
+      "correct": 0,
+      "flagged": 29,
+      "wrong": 0,
+      "applied": 1,
+      "malformed": 0,
+      "same_status": 29,
+      "ms_per_instruction": 145.45666666666662
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "pair",
+      "n": 273,
+      "correct": 258,
+      "flagged": 0,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 273,
+      "ms_per_instruction": 807.6904761904757
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "partial",
+      "n": 260,
+      "correct": 68,
+      "flagged": 2,
+      "wrong": 190,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 258,
+      "ms_per_instruction": 778.7538461538463
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "triple",
+      "n": 182,
+      "correct": 145,
+      "flagged": 0,
+      "wrong": 37,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 182,
+      "ms_per_instruction": 836.5901098901102
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "en",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 782.5250000000001
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "atom",
+      "n": 106,
+      "correct": 95,
+      "flagged": 1,
+      "wrong": 10,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 105,
+      "ms_per_instruction": 760.4160377358489
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "heldout_pair",
+      "n": 73,
+      "correct": 65,
+      "flagged": 0,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 73,
+      "ms_per_instruction": 817.8493150684932
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "pair",
+      "n": 77,
+      "correct": 65,
+      "flagged": 4,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 73,
+      "ms_per_instruction": 814.0818181818183
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "triple",
+      "n": 55,
+      "correct": 38,
+      "flagged": 2,
+      "wrong": 15,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 53,
+      "ms_per_instruction": 851.8945454545456
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "fr",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 788.9625
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "atom",
+      "n": 112,
+      "correct": 90,
+      "flagged": 0,
+      "wrong": 22,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 112,
+      "ms_per_instruction": 755.7982142857144
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "heldout_pair",
+      "n": 78,
+      "correct": 66,
+      "flagged": 1,
+      "wrong": 11,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 77,
+      "ms_per_instruction": 812.1717948717952
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "pair",
+      "n": 88,
+      "correct": 73,
+      "flagged": 7,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 81,
+      "ms_per_instruction": 808.6636363636364
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "triple",
+      "n": 44,
+      "correct": 32,
+      "flagged": 0,
+      "wrong": 12,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 44,
+      "ms_per_instruction": 830.2045454545455
+    },
+    {
+      "set": "operations_mix3",
+      "lang": "it",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 788.1375
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "all",
+      "kind": "all",
+      "n": 288,
+      "correct": 261,
+      "flagged": 1,
+      "wrong": 26,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 287,
+      "ms_per_instruction": 785.6392361111111
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "de",
+      "kind": "atom",
+      "n": 123,
+      "correct": 113,
+      "flagged": 1,
+      "wrong": 9,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 122,
+      "ms_per_instruction": 751.1382113821139
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "de",
+      "kind": "heldout_pair",
+      "n": 54,
+      "correct": 47,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 54,
+      "ms_per_instruction": 804.4351851851854
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "de",
+      "kind": "pair",
+      "n": 63,
+      "correct": 60,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 63,
+      "ms_per_instruction": 811.1634920634921
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "de",
+      "kind": "triple",
+      "n": 40,
+      "correct": 33,
+      "flagged": 0,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 825.0775000000001
+    },
+    {
+      "set": "v3_swiss_de",
+      "lang": "de",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 791.0249999999999
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "all",
+      "kind": "all",
+      "n": 287,
+      "correct": 260,
+      "flagged": 1,
+      "wrong": 26,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 286,
+      "ms_per_instruction": 788.5108013937287
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "en",
+      "kind": "atom",
+      "n": 123,
+      "correct": 116,
+      "flagged": 1,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 122,
+      "ms_per_instruction": 753.7146341463412
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "en",
+      "kind": "heldout_pair",
+      "n": 52,
+      "correct": 44,
+      "flagged": 0,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 52,
+      "ms_per_instruction": 809.126923076923
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "en",
+      "kind": "pair",
+      "n": 64,
+      "correct": 61,
+      "flagged": 0,
+      "wrong": 3,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 64,
+      "ms_per_instruction": 808.7359374999997
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "en",
+      "kind": "triple",
+      "n": 40,
+      "correct": 32,
+      "flagged": 0,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 40,
+      "ms_per_instruction": 837.5450000000001
+    },
+    {
+      "set": "v3_swiss_en",
+      "lang": "en",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 782.525
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "all",
+      "kind": "all",
+      "n": 293,
+      "correct": 252,
+      "flagged": 5,
+      "wrong": 36,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 288,
+      "ms_per_instruction": 790.8604095563137
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "fr",
+      "kind": "atom",
+      "n": 125,
+      "correct": 112,
+      "flagged": 1,
+      "wrong": 12,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 124,
+      "ms_per_instruction": 755.7423999999995
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "fr",
+      "kind": "heldout_pair",
+      "n": 56,
+      "correct": 48,
+      "flagged": 1,
+      "wrong": 7,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 55,
+      "ms_per_instruction": 811.6982142857142
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "fr",
+      "kind": "pair",
+      "n": 64,
+      "correct": 58,
+      "flagged": 0,
+      "wrong": 6,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 64,
+      "ms_per_instruction": 811.6156250000001
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "fr",
+      "kind": "triple",
+      "n": 40,
+      "correct": 26,
+      "flagged": 3,
+      "wrong": 11,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 37,
+      "ms_per_instruction": 838.6025
+    },
+    {
+      "set": "v3_swiss_fr",
+      "lang": "fr",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 8,
+      "flagged": 0,
+      "wrong": 0,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 788.9625000000001
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "all",
+      "kind": "all",
+      "n": 283,
+      "correct": 245,
+      "flagged": 4,
+      "wrong": 34,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 279,
+      "ms_per_instruction": 788.7021201413423
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "it",
+      "kind": "atom",
+      "n": 119,
+      "correct": 101,
+      "flagged": 0,
+      "wrong": 18,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 119,
+      "ms_per_instruction": 755.9697478991599
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "it",
+      "kind": "heldout_pair",
+      "n": 52,
+      "correct": 49,
+      "flagged": 1,
+      "wrong": 2,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 51,
+      "ms_per_instruction": 807.7269230769233
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "it",
+      "kind": "pair",
+      "n": 64,
+      "correct": 58,
+      "flagged": 1,
+      "wrong": 5,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 63,
+      "ms_per_instruction": 806.0484375000003
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "it",
+      "kind": "triple",
+      "n": 40,
+      "correct": 30,
+      "flagged": 2,
+      "wrong": 8,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 38,
+      "ms_per_instruction": 833.7074999999999
+    },
+    {
+      "set": "v3_swiss_it",
+      "lang": "it",
+      "kind": "two_preferences",
+      "n": 8,
+      "correct": 7,
+      "flagged": 0,
+      "wrong": 1,
+      "applied": 0,
+      "malformed": 0,
+      "same_status": 8,
+      "ms_per_instruction": 788.1374999999999
+    }
+  ],
+  "examples": [
+    {
+      "set": "operations_mix3",
+      "outcome": "applied",
+      "cases": [
+        {
+          "text": "Amplifier swap planned on the hop joining Basel and Strasbourg, so nothing that crosses that hop, please.",
+          "expected": "unresolved",
+          "answer": "avoid=Basel-Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Amplifier swap planned on the hop joining Kyiv and Biel, so nothing that crosses that hop, please.",
+          "expected": "unresolved",
+          "answer": "avoid=Biel/Bienne; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Amplifier swap planned on the hop joining Lucerne and Stuttgart, so nothing that crosses that hop, please.",
+          "expected": "unresolved",
+          "answer": "avoid=Luzern-Zug; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Amplifier swap planned on the hop joining Munich and Biel, so nothing that crosses that hop, please.",
+          "expected": "unresolved",
+          "answer": "avoid=Biel/Bienne; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Because of the ongoing audit at our Geneva PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Genève; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Because of the ongoing audit at our Munich PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Because of the ongoing audit at our Paris PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Genève; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Because of the ongoing audit at our Seville PoP, please choose a path that bypasses that city.",
+          "expected": "unresolved",
+          "answer": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "operations_mix3",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Bitte weder den Link Delsberg–Biel benutzen noch durch Winterthur routen.",
+          "expected": "avoid=Delémont-Biel/Bienne,Winterthur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Delémont-Winterthur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Der neue Dienst soll die direkte Faserstrecke zwischen Biel und Bern meiden.",
+          "expected": "avoid=Biel/Bienne-Bern; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Luzern; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Evita la tratta Zurigo–Coira e, tra quello che resta, prendi il percorso con meno hop.",
+          "expected": "avoid=Zürich-Chur; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=Zürich-Interlaken; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Je souhaite une route de 2 sauts au plus qui n'emprunte pas la fibre entre Bienne et Berne.",
+          "expected": "avoid=Biel/Bienne-Bern; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Luzern; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Ne pas emprunter le tronçon Berne–Olten, il est en maintenance cette nuit.",
+          "expected": "avoid=Bern-Olten; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Olten; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Non usare il link Coira-Bellinzona e resta entro 7 hop.",
+          "expected": "avoid=Chur-Bellinzona; via=none; hops=7; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=unknown-Bellinzona; via=none; hops=7; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Not the first candidate in the list, and nothing that goes through Lucerne either.",
+          "expected": "avoid=Luzern; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=none; via=unknown; hops=any; km=any; path=any; prefer=none; rest=more",
+          "status": "unresolved"
+        },
+        {
+          "text": "On évite le tronçon Berne-Fribourg en maintenance, sans pour autant dépasser 5 liens traversés.",
+          "expected": "avoid=Bern-Fribourg; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Fribourg; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "operations_mix3",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "100 km max, 10 sauts max, pas de fibre Interlaken/Brigue",
+          "expected": "avoid=Interlaken-Brig; via=none; hops=10; km=100; path=any; prefer=none; rest=none",
+          "answer": "avoid=Interlaken-Brig; via=none; hops=1; km=100; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "250 km max, 5 sauts max, pas de fibre Zurich/Coire",
+          "expected": "avoid=Zürich-Chur; via=none; hops=5; km=250; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zürich; via=none; hops=5; km=250; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "50 km max, 2 sauts max, pas de fibre Aarau/Olten",
+          "expected": "avoid=Aarau-Olten; via=none; hops=2; km=50; path=any; prefer=none; rest=none",
+          "answer": "avoid=Aarau-Olten; via=none; hops=2; km=500; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Aarau is closed for power works, so do not transit it; the circuit must still be taken through Bern, and the hop count may not go above 4.",
+          "expected": "avoid=Aarau; via=Bern; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Aarau,Bern; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Aarau is under maintenance and the fibre between Aarau and Zurich is cut, so the route must avoid both.",
+          "expected": "avoid=Aarau-Zürich,Aarau; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Aarau-Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Aarau is under maintenance, so keep away from it; of the remaining routes take the one with the widest single free spectrum block.",
+          "expected": "avoid=Aarau; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "answer": "avoid=Aarau; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Accetto solo instradamenti con al massimo 3 salti.",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Accetto solo instradamenti con al massimo 4 salti.",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_de",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "kandidat 1, danke",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=1; prefer=none; rest=none",
+          "answer": "no_instruction",
+          "status": "no_instruction"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_de",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Der Pfad darf nicht durch Zürich laufen, am Standort wird an der Stromversorgung gearbeitet.",
+          "expected": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "Der Pfad darf nicht durch Lausanne laufen, am Standort wird an der Stromversorgung gearbeitet.",
+          "expected": "avoid=Lausanne; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Lausanne; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte nicht mehr als 2 Hops, sonst wird das OSNR-Budget zu knapp.",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Der Pfad soll mit 5 Hops oder weniger auskommen.",
+          "expected": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Der Pfad soll mit 3 Hops oder weniger auskommen.",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "km minimieren, latenz ist dem kunden wichtig",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km,hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Bitte die Option wählen, bei der die Anfrage am wenigsten Slots belegt.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "möglichst wenig spektrum verbrauchen, also die route mit der effizientesten modulation",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_en",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Please make sure this circuit stays clear of the fibre section linking Bienne with Berne.",
+          "expected": "avoid=Biel/Bienne-Bern; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Luzern; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_en",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "The customer's SLA caps the number of links crossed at 4, so reject anything that goes over that.",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "I need a candidate with 5 or fewer hops.",
+          "expected": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "I need a candidate with 6 or fewer hops.",
+          "expected": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep it to 2 links or less, every extra ROADM pass costs us OSNR margin.",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Keep it to 3 links or less, every extra ROADM pass costs us OSNR margin.",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Prefer whichever option consumes the least spectrum for this connection.",
+          "expected": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Please find a candidate that neither passes through Zug nor uses the direct link from Zug to Zurich.",
+          "expected": "avoid=Zug-Zürich,Zug; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zug-Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Go for the option needing the fewest spectrum slots, but nothing that crosses Fribourg/Bern.",
+          "expected": "avoid=Fribourg-Bern; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Fribourg,Bern; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_fr",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Merci d'éviter le lien Coire-Bellinzone pour ce service.",
+          "expected": "avoid=Chur-Bellinzona; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Brig-Bellinzona; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "transit par Delémont obligatoire, et pas de fibre Berne/Olten (travaux)",
+          "expected": "avoid=Bern-Olten; via=Delémont; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne-Olten; via=Delémont; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Merci de retenir, parmi les chemins qui traversent Thoune et n'empruntent pas la liaison entre Berne et Fribourg, celui où la demande occupe le moins de slots.",
+          "expected": "avoid=Bern-Fribourg; via=Thun; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Biel/Bienne-Fribourg; via=Thun; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Merci de retenir, parmi les chemins qui traversent Interlaken et n'empruntent pas la liaison entre Berne et Olten, celui où la demande occupe le moins de slots.",
+          "expected": "avoid=Bern-Olten; via=Interlaken; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "answer": "avoid=Biel/Bienne-Olten; via=Interlaken; hops=any; km=any; path=any; prefer=slots; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Le tronçon Saint-Gall–Winterthour est coupé : trouvez une route qui s'en passe, limitée à 2 liens traversés et à 750 km de longueur.",
+          "expected": "avoid=St. Gallen-Winterthur; via=none; hops=2; km=750; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zug-Winterthur; via=none; hops=2; km=750; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_fr",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "Ne pas emprunter le tronçon Zurich–Coire, il est en maintenance cette nuit.",
+          "expected": "avoid=Zürich-Chur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Interdiction de router sur la fibre Berne/Bienne jusqu'à nouvel ordre.",
+          "expected": "avoid=Bern-Biel/Bienne; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Le nombre de liens traversés ne doit pas dépasser 3.",
+          "expected": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=3; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Le nombre de liens traversés ne doit pas dépasser 2.",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "max 4 sauts svp",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "max 5 sauts svp",
+          "expected": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "On reste à 2 tronçons ou moins, sinon on multiplie les points de panne.",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "On reste à 6 tronçons ou moins, sinon on multiplie les points de panne.",
+          "expected": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_it",
+      "outcome": "flagged",
+      "cases": [
+        {
+          "text": "Evita la tratta Winterthur–San Gallo e, tra quello che resta, prendi il percorso con meno hop.",
+          "expected": "avoid=Winterthur-St. Gallen; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "answer": "avoid=Winterthur-Zug; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Il cliente vuole il passaggio da Ginevra; inoltre la fibra tra Winterthur e San Gallo è tagliata, quindi il percorso non può usarla.",
+          "expected": "avoid=Winterthur-St. Gallen; via=Genève; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Genève-Winterthur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "via Neuchâtel, no link Winterthur-San Gallo, minima distanza in km",
+          "expected": "avoid=Winterthur-St. Gallen; via=Neuchâtel; hops=any; km=any; path=any; prefer=km; rest=none",
+          "answer": "avoid=Winterthur-Zug; via=Neuchâtel; hops=any; km=any; path=any; prefer=km; rest=none",
+          "status": "unresolved"
+        },
+        {
+          "text": "Il cliente pretende il passaggio da Basilea; visto che Ginevra è in manutenzione il circuito non deve attraversarlo, e in ogni caso non voglio più di 3 link sul percorso.",
+          "expected": "avoid=Genève; via=Basel; hops=3; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Basel-Genève; via=none; hops=3; km=any; path=any; prefer=none; rest=none",
+          "status": "unresolved"
+        }
+      ]
+    },
+    {
+      "set": "v3_swiss_it",
+      "outcome": "wrong",
+      "cases": [
+        {
+          "text": "evitare link Berna-Neuchâtel (manutenzione programmata stanotte)",
+          "expected": "avoid=Bern-Neuchâtel; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Biel/Bienne,Neuchâtel; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "tratta San Gallo–Winterthur off limits per questo circuito, prendi un candidato che non la contiene",
+          "expected": "avoid=St. Gallen-Winterthur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=St. Gallen-Winterthur; via=none; hops=any; km=any; path=any; prefer=none; rest=more",
+          "status": "ok"
+        },
+        {
+          "text": "Vietato transitare sul segmento Zurigo/Coira per questa richiesta, disposizione del responsabile di rete.",
+          "expected": "avoid=Zürich-Chur; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=Zürich; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "p.f. non più di 2 tratte attraversate",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "p.f. non più di 4 tratte attraversate",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Tieni il numero di hop entro 4, lo SLA del cliente non ne ammette di più.",
+          "expected": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Limite di 6 link sul percorso: oltre non va bene.",
+          "expected": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        },
+        {
+          "text": "Limite di 2 link sul percorso: oltre non va bene.",
+          "expected": "avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none",
+          "answer": "avoid=none; via=none; hops=2; km=any; path=any; prefer=hops; rest=none",
+          "status": "ok"
+        }
+      ]
+    }
+  ]
+}

@@ -52,6 +52,14 @@ CLOSED = {
     "hybrid3_ft_laptop_ask-ft2_laptop_mix3": "Hybrid that asks, all three models on the laptop (4-bit)",
     "hybrid3_ft_laptop_askif-ft2_laptop_mix3": "Hybrid that asks only when a request tells the readings apart, on the laptop",
 }
+CLOSED_SWISS = {
+    "oracle_mix3_swiss": "Rules for every kind (reference)",
+    "first_fit_mix3_swiss": "First fit (ignores the instruction)",
+    "teacher_mix3_swiss": "No-intent teacher (ignores the instruction)",
+    "translate3_ft_laptop_mix3_swiss": "Translator alone (reader 1 on the laptop)",
+    "translate3_ft_laptop_ask-ft2_laptop_mix3_swiss": "Translator that asks when its two readers disagree",
+    "translate3_ft_laptop_askif-ft2_laptop_mix3_swiss": "Translator that asks only when a request tells the readings apart",
+}
 KINDS = {
     "In the format": ("atom", "pair", "heldout_pair", "triple", "two_preferences"),
     "Combinations never seen": ("heldout_pair", "triple"),
@@ -247,8 +255,9 @@ def offline_tables(results: Path) -> list:
     return out
 
 
-def closed_tables(results: Path) -> list:
-    found = {name: data for name in CLOSED if (data := read(results / "eval" / f"{name}.json"))}
+def closed_tables(results: Path, policies: dict | None = None, where: str = "") -> list:
+    policies = CLOSED if policies is None else policies
+    found = {name: data for name in policies if (data := read(results / "eval" / f"{name}.json"))}
     out = []
     for load in sorted({e["load"] for d in found.values() for e in d["summary"]}):
         table, binding, seeds = [], [], []
@@ -262,16 +271,16 @@ def closed_tables(results: Path) -> list:
                 return sum(counts.get(k, {}).get(field, 0) for k in keys)
 
             n = total(("all",), "requests")
-            table.append([CLOSED[name]] + [pct(total(keys, "violations"), total(keys, "requests")) for keys in KINDS.values()]
+            table.append([policies[name]] + [pct(total(keys, "violations"), total(keys, "requests")) for keys in KINDS.values()]
                          + [f"{100 * entry['service_blocking_rate_mean']:.2f}", pct(total(("all",), "forwarded"), n),
                             pct(total(("all",), "guarded"), n), pct(total(("all",), "asked"), n)])  # fmt: skip
-            binding.append([CLOSED[name]] + [pct(total(keys, "binding_violations"), total(keys, "binding"))
+            binding.append([policies[name]] + [pct(total(keys, "binding_violations"), total(keys, "binding"))
                                              for keys in list(KINDS.values())[:4]]
                            + [str(total(keys, "binding")) for keys in list(KINDS.values())[:4]])  # fmt: skip
             runs = sorted((e["seed"], e["violation_rate"]) for e in data["episodes"] if e["load"] == load)
-            seeds.append([CLOSED[name]] + [f"{100 * rate:.2f}" for _, rate in runs])
+            seeds.append([policies[name]] + [f"{100 * rate:.2f}" for _, rate in runs])
         if table:
-            out.append(((f"The mixed stream of the third round in closed loop: violations, % of the requests of each "
+            out.append(((f"The mixed stream of the third round in closed loop{where}: violations, % of the requests of each "
                         f"kind — load {load} E"), ["Policy", *KINDS, "Blocking, %", "Sent to the decider, %",
                                                  "Guard replaced the choice, %", "Operator asked, %"], table))  # fmt: skip
             kinds = list(KINDS)[:4]
@@ -421,6 +430,7 @@ def main() -> None:
     design = read(args.results / "design" / "readers3.json")
     tables = (reader_tables(design, args.results) if design else []) + offline_tables(args.results)
     tables += closed_tables(args.results) + standing_tables(args.results) + swiss_tables(args.results)
+    tables += closed_tables(args.results, CLOSED_SWISS, " on the Swiss network")
     tables += consistency_tables(args.results) + owner_tables(args.results)
     lines = ["# Third round: a policy language, two readers, and a guarded fallback", "", NOTES, ""]
     for title, header, rows in tables:

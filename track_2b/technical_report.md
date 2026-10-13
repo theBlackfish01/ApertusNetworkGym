@@ -1,7 +1,7 @@
 # Technical report — Operator instructions for lightpath provisioning with Apertus 8B
 
 > DRAFT for the owner's review. Every number is copied from the file named next to it. Open
-> items are marked TODO: team, video, public links, the final commit, and three laptop runs still
+> items are marked TODO: team, video, public links, the final commit, and two laptop runs still
 > queued (marked PENDING). The long account of the first two rounds is in
 > `docs/report_rounds_1_2.md`.
 
@@ -204,8 +204,15 @@ the true table); what the ablations show is the cost of ignoring scope or lifeti
 reader's table stays within 1.5 points of the truth (per seed 0.9 / 0.0 / 2.4 and 0.0 / 4.4 /
 0.1).
 
-**A Swiss network and the author's lines.** PENDING (laptop): both readers on 1,151 sentences
-with Swiss cities in each language's own name. Of the author's 22 lines, reader 1 is right on 18
+**A Swiss network and the author's lines.** On 1,151 sentences with Swiss cities in each
+language's own name (*Genf*, *Genève*, *Ginevra*, *Sankt Gallen*; no reader ever saw them), reader 1
+on the laptop is right on 90.6 (en), 92.0 (de), 90.8 (fr) and 89.0 (it) %, against 93.1 % on the
+network it was trained on; one clause 92–97 %, three clauses 70–85 %
+(`results/translate/translate3_ft_laptop_swiss.json`). In closed loop on that network at 600
+Erlang (three seeds, `results/eval/*_mix3_swiss.json`) the translator alone breaks 9.8 % of
+requests (2.2 % inside the language, against 0.9 % on the European network), the translator that
+asks 9.0 % (1.2 % inside the language, asked on 12.6 % of requests), asking by consequence 9.3 %
+(asked on 8.0 %), first fit 24.7 %. Of the author's 22 lines, reader 1 is right on 18
 (16 of 17 in English, 2 of 5 in Urdu), the fourth-format reader on 17: its two new errors read
 "go from London to Lyon via Oslo" and "to Prague, avoid Berlin" as scopes (`to:Lyon`, `to:Prague`),
 where the author meant the current request's end points. The language has no word for a
