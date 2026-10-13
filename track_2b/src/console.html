@@ -156,6 +156,8 @@ let STATE = null, RECORDED = {instructions: [], policies: []}, DETAIL = true, PL
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const routeText = (r) => r ? r.join(" – ") : "reject";
+const would = (d, it) => d.to_decider ? `hand ${it} to the decider` : d.route ? `route ${it} ${esc(routeText(d.route))}` : `reject ${it}`;
+const KIND = {supported: "in the language", new: "a type never shown", partial: "carried in part", not_instruction: "no routing instruction", faulty: "a place outside the network", typed: "typed by you", none: ""};
 async function api(path, body) {
   const r = await fetch(path, body ? {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)} : {});
   return r.json();
@@ -226,7 +228,7 @@ function renderPolicyCards() {
 function renderPending() {
   const p = STATE.pending, ins = p.instruction;
   let html = `<h3>#${p.n} · ${esc(p.source)} → ${esc(p.destination)}, ${p.bit_rate} Gb/s</h3>`;
-  html += ins.text === "none" ? `<div class="dim">no instruction with this request</div>` : `<div><span class="dim">${ins.typed ? "typed by you" : esc(ins.kind)}${ins.lang ? " · " + esc(ins.lang) : ""}</span><br>“${esc(ins.text)}”</div>`;
+  html += ins.text === "none" ? `<div class="dim">no instruction with this request</div>` : `<div><span class="dim">${ins.typed ? "typed by you" : esc(KIND[ins.kind] ?? ins.kind)}${ins.lang ? " · " + esc(ins.lang) : ""}</span><br>“${esc(ins.text)}”</div>`;
   html += `<div class="dim" style="margin-top:4px">${p.paths.length} candidate paths · policies covering it: ${STATE.in_force.covering.length ? STATE.in_force.covering.map(i => "#" + i).join(" ") : "none"}</div>`;
   $("pendingCard").innerHTML = html;
 }
@@ -237,7 +239,7 @@ function renderQuestion() {
   let html = `<div class="card q"><h3 class="warn">You are asked</h3><div>${esc(q.why)}.</div><div style="margin:4px 0">“${esc(q.text)}”</div>`;
   q.readings.forEach((r, i) => {
     html += `<div class="reading"><b>${esc(r.reader)}</b> <span class="dim">${esc(r.status)}</span><div class="rb">${esc(r.readback)}</div><div class="mono">${esc(r.line)}</div>
-      <div class="dim">would ${r.decision.to_decider ? "hand this request to the decider" : "route " + esc(routeText(r.decision.route))}</div>
+      <div class="dim">would ${would(r.decision, "this request")}</div>
       <div class="row"><button class="primary" onclick="answer(${q.id}, ${i + 1})">Use reading ${i + 1}</button></div></div>`;
   });
   html += `<div class="row"><input type="text" id="ownLine" value="${esc(q.readings[0].line)}" style="flex:1"><button onclick="answerOwn(${q.id})">Use my line</button></div>`;
@@ -363,7 +365,7 @@ function renderInstructionRead(r) {
   r.readings.forEach((rd, i) => {
     if (!r.differ && i === 1) return;
     html += `<div class="reading"><b>${r.differ ? esc(rd.reader) : "Reading"}</b> <span class="dim">${esc(rd.status)}</span><div class="rb">${esc(rd.readback)}</div><div class="mono">${esc(rd.line)}</div>
-      <div class="dim">would ${rd.decision.to_decider ? "hand the request to the decider" : "route " + esc(routeText(rd.decision.route))}</div>
+      <div class="dim">would ${would(rd.decision, "the pending request")}</div>
       <details><summary>as a TAPI constraint</summary><pre>${esc(JSON.stringify(rd.tapi, null, 1))}</pre></details>
       ${r.differ ? `<div class="row"><button class="primary" onclick="confirmInstruction(${i})">Use this reading</button></div>` : ""}</div>`;
   });
