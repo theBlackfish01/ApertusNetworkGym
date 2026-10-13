@@ -238,7 +238,7 @@ request's own end points; that is the next slot to add.
 the hybrid; `make console` serves the console on port 8090. Every results file records the
 command, the simulator commit (`f7c4491`), seeds and loads; every model answer is in
 `results/cache/`; `docs/decisions.md` logs every deviation, mistake and its cost. Hugging Face
-Jobs on one A100: 17.2 GPU-hours and about USD 43.18 over four rounds (the fourth: USD 3.14).
+Jobs on one A100: 17.3 GPU-hours and about USD 43.18 over four rounds (the fourth: USD 3.14).
 TODO: exact commit of the submission.
 
 ## 8. Related work

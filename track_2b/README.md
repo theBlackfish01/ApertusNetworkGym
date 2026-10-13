@@ -169,10 +169,11 @@ llama-server -m models/apertus-v1.5-8b-text-Q4_K_M.gguf \
     --lora models/lightpath-translator-v3-reader1-lora-f16.gguf \
     --lora models/lightpath-translator-v3-reader2-lora-f16.gguf \
     --lora models/lightpath-decider-v2-lora-f16.gguf \
+    --lora models/lightpath-translator-v4-lora-f16.gguf \
     --lora-init-without-apply -ngl 999 -c 4096 -np 1 --port 8089 --jinja
 
 # the hybrid, live: two readers, rule engine, decider with guard (in the uv environment)
-export LLM_LORA_IDS='{"translate3_ft_live": 0, "translate3_ft2_live": 1, "apertus_ft_live": 2}'
+export LLM_LORA_IDS='{"translate3_ft_live": 0, "translate3_ft2_live": 1, "apertus_ft_live": 2, "translate4_ft_live": 3}'
 uv run python src/evaluate.py demo --policy hybrid3_ft_live_ask-ft2_live --decider apertus_ft_live \
     --base-url http://127.0.0.1:8089/v1 --concurrency 1 \
     --conditions operations_mix3 --loads 390 --seeds 11 --warmup 300 --window 50 --show 50
@@ -358,7 +359,7 @@ Copy `.env.example` to `.env`.
 | Purpose | Machine |
 | --- | --- |
 | Simulation, data generation, MLP, CPU evaluation | Windows 11 laptop, WSL2 Ubuntu 24.04, 16 logical CPUs, 7.6 GB RAM visible to WSL |
-| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 17.2 GPU-hours and about USD 43.18 over all four rounds (peak memory 18.8 GB training a reader, 23.6 GB answering) |
+| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 17.3 GPU-hours and about USD 43.18 over all four rounds (peak memory 18.8 GB training a reader, 23.6 GB answering) |
 | The hybrid on a laptop (llama.cpp, 4-bit GGUF, three adapters) | RTX 4060 laptop GPU, 8 GB: 0.89 s per instruction, 0.97 s per decision |
 
 ## AI assistance
