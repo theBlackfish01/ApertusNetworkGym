@@ -75,10 +75,10 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 | Model | Answers | Median | Mean | 95th percentile |
 |---|---|---|---|---|
-| Reader 1 | 8598 | 0.89 | 0.98 | 1.71 |
+| Reader 1 | 8898 | 0.89 | 0.99 | 1.70 |
 | Reader 2 | 8098 | 0.82 | 0.87 | 1.19 |
 | Decider | 134 | 0.97 | 0.97 | 1.20 |
-| Reader of the fourth format | 2 | 4.87 | 3.72 | 4.87 |
+| Reader of the fourth format | 824 | 1.28 | 1.35 | 1.80 |
 
 ## New types, on requests where the instruction is restrictive: decisions that comply, %
 
@@ -288,6 +288,38 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Translator alone (reader 1 on the laptop) | 9.35 | 9.55 | 10.55 |
 | Translator that asks when its two readers disagree | 8.80 | 8.85 | 9.30 |
 | Translator that asks only when a request tells the readings apart | 8.50 | 10.05 | 9.30 |
+
+## Three signals that could make the system ask, on the laptop's greedy reading of reader 1: % of instructions
+
+| Instructions | Signal | n | Asked | Not right alone | Not right and not asked | Applied wrongly and not asked | Asked although right |
+|---|---|---|---|---|---|---|---|
+| carried in part | 1 or more of 5 samples of reader 1 differ | 212 | 68.9 | 70.3 | 30.2 | 30.2 | 28.8 |
+| carried in part | 2 or more of 5 samples of reader 1 differ | 212 | 58.5 | 70.3 | 36.3 | 36.3 | 24.5 |
+| carried in part | 3 or more of 5 samples of reader 1 differ | 212 | 32.1 | 70.3 | 51.9 | 51.9 | 13.7 |
+| carried in part | 4 or more of 5 samples of reader 1 differ | 212 | 10.4 | 70.3 | 66.0 | 66.0 | 6.1 |
+| carried in part | 5 or more of 5 samples of reader 1 differ | 212 | 1.4 | 70.3 | 69.3 | 69.3 | 0.5 |
+| carried in part | untrained Apertus 70B | 212 | 77.8 | 70.3 | 17.5 | 17.5 | 25.0 |
+| carried in part | the 70B, or a sample differs | 212 | 89.6 | 70.3 | 10.4 | 10.4 | 29.7 |
+| carried in part | reader 2 (same recipe, on the laptop) | 212 | 31.1 | 70.3 | 50.5 | 50.5 | 11.3 |
+| carried in part | reader 2, or a sample differs | 212 | 72.2 | 70.3 | 27.4 | 27.4 | 29.2 |
+| policy language | 1 or more of 5 samples of reader 1 differ | 2078 | 8.0 | 6.9 | 3.5 | 3.4 | 4.6 |
+| policy language | 2 or more of 5 samples of reader 1 differ | 2078 | 6.3 | 6.9 | 4.0 | 3.9 | 3.4 |
+| policy language | 3 or more of 5 samples of reader 1 differ | 2078 | 2.6 | 6.9 | 5.4 | 5.0 | 1.0 |
+| policy language | 4 or more of 5 samples of reader 1 differ | 2078 | 0.7 | 6.9 | 6.4 | 6.0 | 0.2 |
+| policy language | 5 or more of 5 samples of reader 1 differ | 2078 | 0.2 | 6.9 | 6.8 | 6.4 | 0.0 |
+| policy language | untrained Apertus 70B | 2078 | 15.1 | 6.9 | 0.6 | 0.4 | 8.8 |
+| policy language | the 70B, or a sample differs | 2078 | 18.8 | 6.9 | 0.1 | 0.1 | 12.0 |
+| policy language | reader 2 (same recipe, on the laptop) | 2078 | 5.4 | 6.9 | 4.2 | 4.0 | 2.7 |
+| policy language | reader 2, or a sample differs | 2078 | 10.1 | 6.9 | 2.9 | 2.8 | 6.1 |
+| types never shown | 1 or more of 5 samples of reader 1 differ | 108 | 88.0 | 43.5 | 2.8 | 2.8 | 47.2 |
+| types never shown | 2 or more of 5 samples of reader 1 differ | 108 | 75.0 | 43.5 | 4.6 | 4.6 | 36.1 |
+| types never shown | 3 or more of 5 samples of reader 1 differ | 108 | 22.2 | 43.5 | 22.2 | 22.2 | 0.9 |
+| types never shown | 4 or more of 5 samples of reader 1 differ | 108 | 7.4 | 43.5 | 36.1 | 36.1 | 0.0 |
+| types never shown | 5 or more of 5 samples of reader 1 differ | 108 | 0.9 | 43.5 | 42.6 | 42.6 | 0.0 |
+| types never shown | untrained Apertus 70B | 108 | 59.3 | 43.5 | 0.9 | 0.9 | 16.7 |
+| types never shown | the 70B, or a sample differs | 108 | 91.7 | 43.5 | 0.0 | 0.0 | 48.1 |
+| types never shown | reader 2 (same recipe, on the laptop) | 108 | 37.0 | 43.5 | 8.3 | 8.3 | 1.9 |
+| types never shown | reader 2, or a sample differs | 108 | 88.0 | 43.5 | 2.8 | 2.8 | 47.2 |
 
 ## The project owner's own instructions, on the laptop (4-bit base model, llama.cpp): number of instructions
 

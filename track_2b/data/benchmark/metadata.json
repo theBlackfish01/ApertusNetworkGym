@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-12T19:56:51.323693+00:00",
+ "generated_utc": "2026-10-13T08:42:32.846163+00:00",
  "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
  "no_personal_data": true,
  "topologies": {
@@ -130,12 +130,40 @@
    "model": "Apertus v1.5 70B, 15 examples, no training, 4-bit GGUF"
   },
   "translate3_ft_laptop": {
-   "rows": 2761,
+   "rows": 4712,
    "model": "reader 1, 4-bit GGUF under llama.cpp on an RTX 4060 laptop"
   },
   "translate3_ft2_laptop": {
-   "rows": 792,
+   "rows": 3912,
    "model": "reader 2, 4-bit GGUF on the laptop"
+  },
+  "translate3_ft_laptop_s1": {
+   "rows": 2726,
+   "model": "reader 1 on the laptop, sample 1 at temperature 0.8"
+  },
+  "translate3_ft_laptop_s2": {
+   "rows": 2726,
+   "model": "reader 1 on the laptop, sample 2 at temperature 0.8"
+  },
+  "translate3_ft_laptop_s3": {
+   "rows": 2726,
+   "model": "reader 1 on the laptop, sample 3 at temperature 0.8"
+  },
+  "translate3_ft_laptop_s4": {
+   "rows": 2726,
+   "model": "reader 1 on the laptop, sample 4 at temperature 0.8"
+  },
+  "translate3_ft_laptop_s5": {
+   "rows": 2726,
+   "model": "reader 1 on the laptop, sample 5 at temperature 0.8"
+  },
+  "translate4_ft": {
+   "rows": 3561,
+   "model": "Apertus v1.5 8B, fine-tuned reader of the fourth format (scope, lifetime), A100"
+  },
+  "translate4_ft_laptop": {
+   "rows": 822,
+   "model": "the fourth-format reader, 4-bit GGUF on the laptop"
   }
  },
  "outcomes": {

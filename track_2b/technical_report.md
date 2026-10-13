@@ -1,9 +1,8 @@
 # Technical report — Operator instructions for lightpath provisioning with Apertus 8B
 
 > DRAFT for the owner's review. Every number is copied from the file named next to it. Open
-> items are marked TODO: team, video, public links, the final commit, and one laptop run still
-> queued (marked PENDING). The long account of the first two rounds is in
-> `docs/report_rounds_1_2.md`.
+> items are marked TODO: team, video, public links, the final commit. The long account of the first
+> two rounds is in `docs/report_rounds_1_2.md`.
 
 - **Track:** Track 2B — Intent-conditioned lightpath provisioning
 - **Event:** Online
@@ -166,8 +165,14 @@ for cross-model disagreement. The fourth-format reader (section on standing poli
 on the same recipe with 1,600 more sentences that carry an extra clause, silently applies only
 16.7 % of the never-shown types (reader 1: 46.3 %) and, as the check behind reader 1, leaves
 10.2 % of them at 38.0 % asked and 1.5 % inside the language at 3.3 % asked, better than reader 2
-on both counts; one training run, so a lead, not a result. PENDING (laptop): five samples of reader 1 at temperature 0.8 as a
-third signal (`results/design/consistency3.json`).
+on both counts; one training run, so a lead, not a result. A third signal, five readings of reader 1
+at temperature 0.8 (`results/design/consistency3.json`): asking when any sample differs from the
+greedy reading leaves 3.5 % of the policy-language sentences wrong and unasked at 8.0 % asked
+(reader 2: 4.2 % at 5.4 %; the 70B: 0.6 % at 15.1 %), and 2.8 % of the never-shown types at 88.0 %
+asked (reader 2: 8.3 % at 37.0 %). Disagreement among samples marks unfamiliar input more than it
+marks error, as Cole et al. (2023) and Hamidieh et al. (2026) report, and costs five more readings,
+each about one point worse than greedy (92.1 % against 93.1 % in the language); reader 2 or any
+differing sample together leave 2.9 % at 10.1 % asked.
 
 **Closed loop, mixed stream** (45 % in the language, 15 % unknown types, 10 % in part, 10 %
 no instruction, 5 % places outside, 15 % none; `results/eval/*_mix3.json`), violations % of
