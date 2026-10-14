@@ -1,4 +1,14 @@
 # Image for `make run`: rebuilds the results tables and runs the closed-loop demo. CPU only.
+
+# The operator console's browser frontend (Svelte and TypeScript, src/console_ui), built here so that
+# the image, and whoever runs `make console`, needs no Node.
+FROM node:22.14.0-bookworm-slim AS ui
+WORKDIR /ui
+COPY src/console_ui/package.json src/console_ui/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY src/console_ui/ ./
+RUN npm run build
+
 FROM python:3.12-slim-bookworm
 
 # build-essential: Optical Networking Gym compiles its Cython kernels when it is installed.
@@ -20,6 +30,7 @@ COPY pyproject.toml uv.lock .python-version README.md ./
 RUN uv sync --frozen --no-dev
 
 COPY src ./src
+COPY --from=ui /ui/dist ./src/console_ui/dist
 # The topology and the independently written sentences of the third round's instruction stream
 # (.dockerignore keeps the rest of data/ out).
 COPY data ./data

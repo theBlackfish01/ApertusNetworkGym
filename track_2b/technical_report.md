@@ -84,7 +84,13 @@ request and network state ──────────────────
   per-request instructions; a feed that narrates each step of the model (reading, agreement or
   question, decision, guard); the policy table with conflicts and a preview of each policy on a
   copy of the simulator; questions put by consequence with both routes; every decision judged
-  against what was meant; the audit trail. From recorded answers, or live behind llama.cpp.
+  against what was meant; the audit trail. An inspector opens any request: the five candidate
+  paths, the constraint of the line that dropped each one, how the rest were ranked, and the
+  spectrum the lightpath took. A race decides the evaluation's mixed stream by first fit, the
+  decider, the reader and the hybrid side by side from the stored answers; at 390 Erlang, seed 1,
+  the four replay their stored runs exactly (560, 329, 199 and 170 violations). The frontend is
+  Svelte and TypeScript (`src/console_ui`), built inside the image. From recorded answers, or
+  live behind llama.cpp.
 
 ### Target architecture (mandatory)
 

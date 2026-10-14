@@ -114,28 +114,65 @@ directory.
 
 ```bash
 make console                      # http://localhost:8090, from recorded answers (no GPU, no server)
+make ui                           # the browser frontend, for running the console outside Docker (Node 22)
 uv run python src/console.py --base-url http://127.0.0.1:8089/v1    # live, in the uv environment
 ```
 
-An operations view of the whole system on one page, built for a dark room. The header says what
-runs (network, load, seed; live models or recorded answers, with the model names on hover; the
-simulator's hour) and holds the transport (play at a chosen pace, step, ten steps) and a Stream
-menu with the switches. The network is the stage: a map with link brightness for occupation, red
-for what the policies in force avoid, green for what they require, the route of the last decision
-drawn as it is set up, the next request's end points marked, and a row of counters above it
-(served, rejected, violations, policy breaches, questions, decisions by the decider, guard, not
-applied; the problem counters open the feed's Problems filter). The feed on the left narrates what
-the AI does, newest first, as one card per request (the instruction and its language, the two
-readers agreeing or differing, a question, the decider or the guard, the route, and a verdict
-badge: respects or breaks what was meant) and one card per policy (it arrives, the reader reads it
-back, against the recorded meaning when there is one, a conflict is named, it is in force);
-filters show all, requests, policies, or problems. Clicking a request card, or a row of the audit
-trail, draws that request's route on the map. The rail on the right shows the open question, the
-next request, the last decision, and the policies in force with their scope, remaining hours and
-report; hovering a policy lights up on the map what it avoids and requires. One command line takes
-a standing policy or an instruction for the next request, in any language; what was read opens in
-a panel above it. The audit trail and the policy report are tabs at the bottom. Keys: space plays
-or pauses, s steps, Esc returns the map to the live route.
+The console is a Python server (`src/console.py`, standard library only) and a browser frontend in
+Svelte and TypeScript (`src/console_ui`, built by Vite into `src/console_ui/dist`, which the server
+serves). `make console` builds the frontend inside the image; outside Docker, `make ui` builds it
+(and type-checks it and runs its unit tests), and without a build the server falls back to the
+earlier single-file page, which also stays at `/legacy`. The frontend asks the server for every
+step, so the simulator runs only when someone presses Play or Step.
+
+Two views. **Operate** is the operator's view of one stream, built for a dark room. The header says
+what runs (network, load, seed; live models or recorded answers, with the model names on hover;
+the simulator's hour), switches the view, holds the transport (play at a chosen pace, step, ten
+steps) and a Stream menu with the switches. The network is the stage: a map with link brightness
+for occupation, red for what the policies in force avoid, green for what they require, the route
+of the last decision drawn as it is set up and the next request's end points marked; it zooms on
+the wheel and pans on a drag. Above it a row of counters (served, rejected, violations, policy
+breaches, questions, decisions by the decider, guard, not applied); below it a timeline of every
+decided request (violations red, questions amber, the guard violet, rejections grey, triangles
+where a policy came into force, and the share of violations over the last 50); clicking a mark, or
+pressing the arrow keys on it, shows the network as it was for that request. The feed on the left
+narrates what the AI does, newest first, as one card per request (the instruction and its
+language, the two readers agreeing or differing, a question, the decider or the guard, the route,
+and a verdict badge: respects or breaks what was meant) and one card per policy (it arrives, the
+reader reads it back, against the recorded meaning when there is one, a conflict is named, it is
+in force); filters show all, requests, policies, or problems. The rail on the right shows the open
+question (both readings, read back, with what each would do to the request), the next request,
+the last decision, and the policies in force with their scope and remaining hours; hovering a
+policy lights up on the map exactly what it avoids and requires. One command line takes a standing
+policy or an instruction for the next request, in any language; what was read opens in a panel
+above it. Four tabs at the bottom: the audit trail, the policy report, the policies over time (one
+bar per policy from the hour it came into force to its expiry or withdrawal, coloured by scope),
+and the metrics (violations, rejections, questions and decisions by the decider as shares of the
+last 50 requests, along the stream).
+
+**The inspector** opens any request, decided or next: the five candidate paths with their hops,
+length, free slots and modulation, the constraint of the applied line that dropped each one (an
+avoided link or node, a missing via, too many hops, too long, no free block), how the preferences
+ranked the rest, the tie-break, which candidate the rule engine would take and which the decision
+took (they differ when the decider or the guard decided), where the recorded meaning differs from
+the line applied, field by field, and the spectrum of every link of the chosen route at the moment
+of the decision: 320 slots, those in use, and the block this lightpath took.
+
+**Race** decides the evaluation's own stream (the mixed condition of the third round, load 240 or
+390 Erlang, seed 1, 2 or 3; warm-up of 1,000 requests, window of 2,000) four times side by side:
+by first fit, which ignores the instruction; by the decider alone (the first decider, instruction
+in the prompt); by the reader with the rule engine; and by the hybrid. Each lane has its own
+network and replays the answers stored when the closed loop was run, so no model is needed. Every
+lane shows its route for the request just decided and its verdict, its violations and rejections,
+and its violations on instructions inside the language and on types never shown; below them, the
+violations so far along the stream and a table by class of instruction. At the end each lane is
+checked against its stored run (`results/eval/<method>_mix3.json`, answers from `results/cache`): at 390 Erlang, seed 1, the four
+replay 560, 329, 199 and 170 violations, exactly the stored counts.
+
+Ctrl+K (⌘K on a Mac) opens a palette with every command by name ("inspect 37" opens request 37);
+Tour walks through the system in nine steps, driving the stream to the moments worth seeing (a
+policy arriving, a question, the decider, an inspection, the race). Keys: space plays or pauses
+(in both views), s steps, Esc closes the inspector or returns the map to the live route.
 
 One stream carries both kinds of operator text. Standing policies (the fourth format: scope and
 lifetime) are typed, or arrive on the schedule of the closed-loop policy stream when "policies
@@ -342,7 +379,9 @@ track_2b/
     corpora3_owner.py  instructions written by people (the owner's, a contributor's) as test sets, and what the readers made of them
     readers3.py        third round: what each reader does with every test instruction; two readers
     tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
-    console.py         the operator console (http server); console.html is its page
+    console.py         the operator console (http server); console.html is the earlier page, at /legacy
+    console_extras.py  the console's inspector (why each candidate was kept or dropped, the spectrum) and race
+    console_ui/        the console's browser frontend: Svelte 5 and TypeScript, built by Vite into dist/
     corpora4.py        fourth round: training data of the fourth format (scope and lifetime)
     corpora4_tests.py  fourth round: test sets from the separately written scope and lifetime phrases
     standing.py        the policy table: scope, lifetime, combination, conflicts, report

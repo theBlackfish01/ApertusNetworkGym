@@ -1,6 +1,9 @@
 .venv
 .env
 **/__pycache__
+# the console's frontend is built inside the image (the ui stage of the Dockerfile)
+src/console_ui/node_modules
+src/console_ui/dist
 .pytest_cache
 .ruff_cache
 data/**

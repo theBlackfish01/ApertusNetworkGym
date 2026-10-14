@@ -28,6 +28,12 @@ operator is on, which answers with the recorded meaning, as the closed-loop eval
 
 Without a server only texts answered before can be read (the page lists them); with one, anything
 can be typed. One simulator hour is ``standing_stream.HOUR`` time units.
+
+The page is the frontend in ``src/console_ui`` (Svelte), built to ``src/console_ui/dist``; without
+a build the server falls back to ``console.html``. Besides the stream, the server keeps for every
+decided request why each candidate path was kept or dropped and the spectrum of its route
+(``/api/request?n=``), and runs the race of four methods on the evaluation's stream from stored
+answers (``/api/race``; ``console_extras.Race``).
 """
 
 from __future__ import annotations
@@ -36,15 +42,18 @@ import argparse
 import copy
 import hashlib
 import json
+import mimetypes
 import os
 import threading
 import xml.dom.minidom
 from collections import Counter
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 import mixed3
 import standing_stream
+from console_extras import RACE_LOADS, RACE_SEEDS, Race, explain, spectrum
 from evaluate import Episode, answer_tags
 from intents import Intent
 from mixed import respected
@@ -67,7 +76,13 @@ from tapi import constraints
 from translate import make_hybrid_policy, make_translator, meant, messages, read_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGE = Path(__file__).with_name("console.html")
+PAGE = Path(__file__).with_name("console.html")  # the page without a build step (served at /legacy)
+DIST = Path(__file__).with_name("console_ui") / "dist"  # the built frontend (src/console_ui: npm run build)
+HEAVY = ("inspect", "spectrum", "used")  # per-request detail served by /api/request, not in every state
+DETAIL = 2000  # requests that keep that detail (about 10 kB each); older rows keep the audit fields only
+MAX_BODY = 1 << 20  # bytes of a request body
+TYPES = {".js": "text/javascript", ".css": "text/css", ".html": "text/html", ".svg": "image/svg+xml",
+         ".json": "application/json"}  # fixed, so the Windows registry cannot change them  # fmt: skip
 RECORDED_SETS = ("owner", "mix3_390", "v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_partial", "v3_not")
 RECORDED_SETS4 = ("v4_en", "v4_de", "v4_fr", "v4_it", "owner")
 NOT_APPLIED = ("unsupported", "no_instruction", "unresolved", "malformed")
@@ -157,6 +172,10 @@ class Console:
         self.audit: list[dict] = []
         self.last_route: list[str] | None = None
         self.counts: Counter = Counter()
+        self.series: list[tuple[int, ...]] = []  # per request: violation, rejected, asked, decider, guard
+        self._ended: dict[int, float] = {}  # policy id -> the hour it was withdrawn
+        self.race: Race | None = None
+        self.race_lock = threading.Lock()  # guards replacing the race; the race has its own lock
         self.recorded = {"instructions": [], "policies": []} if self.live else self._recorded()
         self._event("start", "operator", "console ready",
                     f"{args.topology}, {args.load} Erlang, seed {args.seed}; "
@@ -223,6 +242,10 @@ class Console:
             row["line"] = format_spec(spec, 4)
             row["readback"] = describe(spec)
             row["spec"] = spec.to_json()
+            ended = self._ended.get(row["id"])
+            if ended is None and not row["active"] and row["expires"] is not None:
+                ended = row["expires"]
+            row["ended"] = ended
         return rows
 
     def state(self) -> dict:
@@ -265,7 +288,11 @@ class Console:
                       "flagged": self.counts["flagged"], "unread": self.counts["unread"],
                       "policies_active": len(active), "load": self.args.load, "seed": self.args.seed},
             "feed": self.feed[-FEED_KEEP:],
-            "audit": self.audit[-100:],
+            "audit": [{k: v for k, v in row.items() if k not in HEAVY} for row in self.audit[-100:]],
+            "series": {name: "".join(str(s[i]) for s in self.series) for i, name in
+                       enumerate(("violation", "rejected", "asked", "decider", "guard"))},
+            "race_default": {"load": self.args.load if self.args.load in RACE_LOADS else 390,
+                             "seed": self.args.seed if self.args.seed in RACE_SEEDS else 1},
         }  # fmt: skip
 
     # ---- reading -----------------------------------------------------------------------------
@@ -326,7 +353,9 @@ class Console:
     def confirm_instruction(self, text: str, line: str) -> dict:
         """The operator settles the reading of an instruction (typed, or asked about)."""
         text = " ".join(text.split())
-        spec = validate(parse_spec(line), self.topology)
+        # "unresolved" (a place outside the network) is a reading a question can offer, not a line to parse
+        unresolved = line.strip() == "unresolved"
+        spec = Spec(status="unresolved") if unresolved else validate(parse_spec(line), self.topology)
         if spec.status == "malformed":
             return {"error": f"not a line of the policy language: {line!r}"}
         self._specs[text] = spec
@@ -427,6 +456,7 @@ class Console:
         gone = self.table.withdraw(int(policy_id))
         if gone is None:
             return {"error": "no such policy in force"}
+        self._ended[gone.id] = round(self.now, 2)
         for p in list(self.truth.policies):
             if p.text == gone.text:
                 self.truth.withdraw(p.id)
@@ -442,6 +472,7 @@ class Console:
             mine = next((p for p in self.table.policies if p.text == text), None)
             if mine is not None:
                 self.table.withdraw(mine.id)
+                self._ended[mine.id] = round(now, 2)
                 self._event("policy_withdrawn", "operator", f"policy {mine.id} withdrawn by the stream (four at most)", text,
                             {"policy": mine.id})  # fmt: skip
         for text, true_line in intent.arrivals:
@@ -480,6 +511,21 @@ class Console:
             "ok": True,
             "settings": {"arrivals": self.arrivals, "mix": self.mix, "auto_answer": self.auto_answer},
         }
+
+    def request_detail(self, n: int) -> dict:
+        """One request for the inspector: a decided one from the audit trail, or the pending one."""
+        if 1 <= n <= len(self.audit):
+            row = self.audit[n - 1]
+            return {"ok": True, "decided": True, "row": row, "pruned": "inspect" not in row}
+        if n == len(self.audit) + 1:
+            view, now = self.episode.view, self.now
+            standing = self.table.effective(view, now)
+            return {"ok": True, "decided": False,
+                    "row": {"n": n, "source": view.source, "destination": view.destination, "bit_rate": view.bit_rate,
+                            "inspect": explain(view, standing if standing.applies else None, None,
+                                               choose(view, standing if standing.applies else EMPTY)),
+                            "effective": format_spec(standing, 3)}}  # fmt: skip
+        return {"error": f"no request {n}"}
 
     # ---- the stream --------------------------------------------------------------------------
     def step(self, count: int) -> list[dict]:
@@ -696,11 +742,31 @@ class Console:
                "truth": None if truth is None or text == "none" else (format_spec(truth, 3) if truth.applies else truth.status),
                "meant": format_spec(truth_line, 3) if parts[:-1] or covering else None,
                "tapi": constraints(effective, view) if (covering or applies) else None}  # fmt: skip
+        model, alloc = episode.env.simulator.topology, episode.env.simulator.state.slot_allocation
+        row["used"] = [
+            round(float((alloc[link.id] >= 0).mean()), 3) for link in model.links
+        ]  # before the decision
+        engine_choice = choose(view, effective if effective.applies else EMPTY)
+        row["inspect"] = explain(view, effective if (covering or applies) else None, choice, engine_choice)
+        row["spectrum"] = spectrum(episode.env, view, choice)
+        self.series.append(
+            (
+                int(ok is False),
+                int(choice is None),
+                int(asked),
+                int(who.startswith("decider")),
+                int("guard" in who),
+            )
+        )
         episode.intent = intent
         episode.apply(Decision(choice, True, raw))
         self.override = None
         self.last_route = route
         self.audit.append(row)
+        # a long session keeps the candidates and the spectrum of the last requests only
+        if len(self.audit) > DETAIL:
+            for key in HEAVY:
+                self.audit[-DETAIL - 1].pop(key, None)
         verdict = "" if ok is None else (f"; respects {judged}" if ok else f"; BREAKS {judged}")
         if broken:
             verdict += f"; breaks a constraint of {'policy' if len(broken) == 1 else 'policies'} {', '.join(str(i) for i in broken)}"
@@ -727,36 +793,96 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _file(self, path: Path, cache: bool = False) -> None:
+        body = path.read_bytes()
+        kind = TYPES.get(path.suffix) or mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        self.send_response(200)
+        self.send_header(
+            "Content-Type",
+            kind + ("; charset=utf-8" if kind.startswith("text/") or kind.endswith("javascript") else ""),
+        )
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "max-age=31536000, immutable" if cache else "no-cache")
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self) -> None:
         console = self.console
-        if self.path in ("/", "/index.html"):
-            body = PAGE.read_bytes()
-            self.send_response(200)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.send_header("Content-Length", str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
-        elif self.path == "/api/state":
+        url = urlparse(self.path)
+        path, query = url.path, parse_qs(url.query)
+        if path in ("/", "/index.html"):
+            self._file(DIST / "index.html" if (DIST / "index.html").exists() else PAGE)
+        elif path == "/legacy":
+            self._file(PAGE)
+        elif path.startswith("/assets/") and DIST.exists():
+            target = (DIST / path.lstrip("/")).resolve()
+            if target.is_file() and target.is_relative_to((DIST / "assets").resolve()):
+                self._file(target, cache=True)  # hashed names: a new build is a new file
+            else:
+                self._json({"error": "not found"}, 404)
+        elif path == "/api/state":
             with console.lock:
                 self._json(console.state())
-        elif self.path == "/api/recorded":
+        elif path == "/api/recorded":
             self._json(console.recorded)
+        elif path == "/api/request":
+            try:
+                n = int(query.get("n", ["0"])[0])
+            except ValueError:
+                n = 0
+            with console.lock:
+                self._json(console.request_detail(n))
+        elif path == "/api/race":
+            race = console.race
+            self._json(race.state() if race else {"status": "off"})
         else:
             self._json({"error": "not found"}, 404)
 
     def do_POST(self) -> None:
+        try:
+            self._post()
+        except (TypeError, ValueError, OverflowError) as error:  # a number that is not one, say
+            self._json({"error": f"bad request: {error}"}, 400)
+
+    def _post(self) -> None:
         console = self.console
         length = int(self.headers.get("Content-Length") or 0)
+        if not 0 <= length <= MAX_BODY:
+            self._json({"error": "body too large"}, 413)
+            return
         try:
             payload = json.loads(self.rfile.read(length) or b"{}")
         except json.JSONDecodeError:
             self._json({"error": "bad JSON"}, 400)
             return
+        if not isinstance(payload, dict):
+            self._json({"error": "the body must be a JSON object"}, 400)
+            return
         text = str(payload.get("text", ""))
+        if self.path == "/api/race/start":  # the race has its own simulators and lock
+            load, seed = int(payload.get("load", 390)), int(payload.get("seed", 1))
+            with console.race_lock:  # a second click while the same race is being prepared starts nothing new
+                race = console.race
+                if race is None or race.status != "preparing" or (race.load, race.seed) != (load, seed):
+                    try:
+                        race = console.race = Race(load, seed, console.args.topology)
+                    except ValueError as error:
+                        self._json({"error": str(error)}, 400)
+                        return
+            self._json(race.state())
+            return
+        if self.path == "/api/race/step":
+            race = console.race
+            if race is None:
+                self._json({"error": "no race: start one first"}, 400)
+                return
+            done = race.step(max(1, min(int(payload.get("count", 1)), 100)))
+            self._json(race.state() | {"done": done})
+            return
         with console.lock:
             if self.path == "/api/step":
                 count = max(1, min(int(payload.get("count", 1)), 200))
-                rows = console.step(count)
+                rows = [{k: v for k, v in row.items() if k not in HEAVY} for row in console.step(count)]
                 self._json({"rows": rows, "state": console.state()})
             elif self.path == "/api/instruction":
                 self._json(console.read_instruction(text))
@@ -807,6 +933,11 @@ def main() -> None:
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
     print("building the simulator and the policies ...", flush=True)
+    if not (DIST / "index.html").exists():
+        print(
+            "note: no built frontend in src/console_ui/dist (npm ci && npm run build there); serving console.html",
+            flush=True,
+        )
     Handler.console = Console(args)
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     server.verbose = args.verbose  # type: ignore[attr-defined]
