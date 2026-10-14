@@ -275,7 +275,7 @@ class Console:
         for translator in self.readers:
             try:
                 line, took = translator.lines([text])[0]
-            except (RuntimeError, ImportError):
+            except (RuntimeError, ImportError, OSError):  # no server and no record, or no answer
                 return None
             lines.append(line)
             seconds.append(took)
@@ -295,6 +295,11 @@ class Console:
                                      "to_decider": self._forwarded(spec)}})  # fmt: skip
         return out
 
+    def _unread(self, what: str) -> str:
+        if self.live:
+            return f"the model server at {self.args.base_url} did not answer, and {what} was not read before"
+        return f"no model server, and {what} was not read before"
+
     @staticmethod
     def _forwarded(spec: Spec) -> bool:
         return spec.status == "unsupported" or (spec.applies and spec.rest)
@@ -307,7 +312,7 @@ class Console:
             return {"ok": True, "text": self.override or "", "readings": []}
         read = self._read_instruction(text)
         if read is None:
-            return {"error": "no model server, and this instruction was not read before"}
+            return {"error": self._unread("this instruction")}
         lines, specs, seconds = read
         self.override = text
         view, now = self.episode.view, self.now
@@ -350,8 +355,8 @@ class Console:
             return {"error": "type a policy first"}
         try:
             line, took = self.reader.lines([text])[0]
-        except (RuntimeError, ImportError):
-            return {"error": "no model server, and this policy was not read before"}
+        except (RuntimeError, ImportError, OSError):
+            return {"error": self._unread("this policy")}
         spec = validate(parse_spec(line), self.topology)
         now, view = self.now, self.episode.view
         conflicts = self.table.conflicts(spec, now) if spec.applies else []
@@ -514,7 +519,8 @@ class Console:
             )
         read = self._read_instruction(text)
         if read is None:
-            self._event("unread", "operator", "instruction not read: no model server and no record", text)
+            why = "the model server did not answer" if self.live else "no model server and no record"
+            self._event("unread", "operator", f"instruction not read: {why}", text)
             self.counts["unread"] += 1
             self._specs[text] = Spec(status="unread")
             return self._specs[text], False
@@ -583,7 +589,7 @@ class Console:
         carried = "\t" + format_spec(spec, 3) if spec.applies else ""
         try:
             (d,) = self.hybrid.decider.decide([Request(view, intent, episode.env, episode.info)])
-        except (RuntimeError, ImportError):
+        except (RuntimeError, ImportError, OSError):
             self._event("decider", "operator", "outside the language: the decider would decide, but there is no model server",
                         "the rule engine stands in under what the line carries")  # fmt: skip
             return (
@@ -701,7 +707,7 @@ class Console:
         self._event("decision", "operator",
                     f"request {n}: {view.source} to {view.destination}, {view.bit_rate}G: " + (" - ".join(route) if route else "rejected"),
                     f"{who}" + (f", slot {choice[1]}" if choice else "") + verdict,
-                    {"route": route, "who": who, "policies": row["policies"], "line": row["effective"], "meant": row["meant"],
+                    {"n": n, "route": route, "who": who, "policies": row["policies"], "line": row["effective"], "meant": row["meant"],
                      "respects": ok, "respects_policies": ok_policies, "tapi": row["tapi"]})  # fmt: skip
         return row
 

@@ -117,18 +117,25 @@ make console                      # http://localhost:8090, from recorded answers
 uv run python src/console.py --base-url http://127.0.0.1:8089/v1    # live, in the uv environment
 ```
 
-An operations view of the whole system on one page, built for a dark room. The network is the
-stage: a map with link brightness for occupation, red for what the policies in force avoid,
-green for what they require, the route of the last decision drawn as it is set up, the pending
-request's end points marked. A feed on the left narrates what the AI does, step by step: a policy
-arrives, the reader reads it back, a conflict is named, the policy is in force; a request carries
-an instruction, the two readers agree or differ, a question is put, the rule engine or the
-decider decides, the guard replaces a route, a decision respects or breaks what was meant.
-Policies in force sit on the map as chips with their scope and remaining hours; the rail on the
-right shows the pending request and its instruction, the open question, and each policy's report.
-A strip of counters runs along the bottom (served, rejected, violations, policy constraints
-broken, questions, decisions by the decider, guard, not applied), and one command line takes a
-standing policy or an instruction for the next request, in any language.
+An operations view of the whole system on one page, built for a dark room. The header says what
+runs (network, load, seed; live models or recorded answers, with the model names on hover; the
+simulator's hour) and holds the transport (play at a chosen pace, step, ten steps) and a Stream
+menu with the switches. The network is the stage: a map with link brightness for occupation, red
+for what the policies in force avoid, green for what they require, the route of the last decision
+drawn as it is set up, the next request's end points marked, and a row of counters above it
+(served, rejected, violations, policy breaches, questions, decisions by the decider, guard, not
+applied; the problem counters open the feed's Problems filter). The feed on the left narrates what
+the AI does, newest first, as one card per request (the instruction and its language, the two
+readers agreeing or differing, a question, the decider or the guard, the route, and a verdict
+badge: respects or breaks what was meant) and one card per policy (it arrives, the reader reads it
+back, against the recorded meaning when there is one, a conflict is named, it is in force);
+filters show all, requests, policies, or problems. Clicking a request card, or a row of the audit
+trail, draws that request's route on the map. The rail on the right shows the open question, the
+next request, the last decision, and the policies in force with their scope, remaining hours and
+report; hovering a policy lights up on the map what it avoids and requires. One command line takes
+a standing policy or an instruction for the next request, in any language; what was read opens in
+a panel above it. The audit trail and the policy report are tabs at the bottom. Keys: space plays
+or pauses, s steps, Esc returns the map to the live route.
 
 One stream carries both kinds of operator text. Standing policies (the fourth format: scope and
 lifetime) are typed, or arrive on the schedule of the closed-loop policy stream when "policies
@@ -153,9 +160,9 @@ line the operator confirmed) and the true policies together, combined by the tab
 an instruction of a type the language cannot express is judged by its own rule, policies aside.
 A policy's own "violations" count the routes that broke a constraint it truly states. The audit
 trail keeps one row per lightpath: request, instruction, the line applied, the policies that
-covered it, who decided, the decision, and both verdicts. Play runs the stream at a chosen pace
-from the browser; "detail" switches the feed between what an operator needs and everything (the
-lines, the recorded meaning, the TAPI constraint). Without a model server only texts the readers
+covered it, who decided, the decision, and both verdicts. "Show the model's lines" (in the Stream
+menu) adds to the feed and the rail what an operator does not need: the lines of the policy
+language, the recorded meaning, the TAPI constraint and the internal steps. Without a model server only texts the readers
 answered before can be typed (the command line offers them); with `LLM_BASE_URL` pointing at the
 llama.cpp server of the next section, anything can, and the decider runs. The defaults (load
 390, seed 1, the evaluation's warm-up of 1,000 requests) make every drawn instruction and every
