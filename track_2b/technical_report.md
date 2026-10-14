@@ -218,7 +218,13 @@ first decider; types never shown 29.0 against 27.9 %): in closed loop matched da
 16.1 % of requests to the decider instead of 11.5 %, the hybrid breaks 9.1 % (9.7 % with the
 matched decider; the reader alone 10.7 %), within the seeds' spread of the 9.5 % above; it still
 breaks 31.2 % of the types never shown (third-format hybrid 31.6 %), because the decider fails on
-them too (`results/eval/hybrid4_ft*_mix3.json`). Figure 1 puts the two closed loops side by side.
+them too (`results/eval/hybrid4_ft*_mix3.json`). Why the deciders do so much worse here than on the
+probes (`results/design/decider_gap.json`, a replay from the answer caches): the probes put every
+sentence where some path complies, while on 11.4 % of the stream's in-language requests none does
+and only a reject complies; the matched decider takes a path on 93.5 % of those (the first decider
+85.3 %, the rule engine 2.6 %), 10.65 of its 14.09 points. Where some path complies it breaks 4.7 %
+(first decider 12.8 %, reader 0.8 %), as on the probes. Both deciders saw a reject in under 3 % of
+their training examples. Figure 1 puts the two closed loops side by side.
 
 ![Violations in closed loop](docs/figures/violations.png)
 

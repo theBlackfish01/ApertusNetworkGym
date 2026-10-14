@@ -65,7 +65,10 @@ answers `path=1 slot=120` or `reject`.
   against 78.8 %).
 - Closed loop on a mixed stream at 390 Erlang, three seeds: it breaks 14.4 % of requests (first
   decider 16.8, reader with the rule engine 10.6, first fit 28.6), 14.1 % of those with an
-  instruction inside the policy language (first decider 19.2, reader 0.9). Behind a reader, as
+  instruction inside the policy language (first decider 19.2, reader 0.9). Most of that is one
+  case the probes do not contain: on 11.4 % of those requests no feasible path complies and only a
+  reject does, and it takes a path on 93.5 % of them (10.65 of its 14.09 points); it was taught to
+  reject on 2.4 % of its training examples. Where some path complies it breaks 4.7 %. Behind a reader, as
   the fallback for instructions outside the language, it is no better than the first decider
   (9.7 against 9.1 %).
 

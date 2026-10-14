@@ -328,7 +328,18 @@ hybrid, within one seed spread, and it reads the standing policies as well; one 
 the whole system. Outside the language the reversal stays: alone it breaks 42.5 % of the
 instructions carried in part and 38.5 % of the types never shown, the first decider 36.3 and 27.9.
 Behind a reader the matched decider is no better than the first: the requests it receives are
-those outside the language, where the two deciders are equal on their own too. The two jobs cost
+those outside the language, where the two deciders are equal on their own too.
+
+**Why the closed loop is so much harder for a decider than the probes**
+(`results/design/decider_gap.json`, a replay of the runs above from their answer caches). The
+probes put every sentence on a request where some feasible path complies and some does not. The
+stream draws its instructions without that condition, and on 11.4 % of the in-language requests at
+390 E no feasible path complies, so only a reject does. There the matched decider takes a path on
+93.5 % of the requests, the first decider on 85.3 %, the rule engine on 2.6 %: 10.65 of the
+matched decider's 14.09 points. On the requests that look like the probes (73 %), the closed loop
+agrees with the probes: the matched decider breaks 4.7 %, the first decider 12.8 %, the reader
+0.8 %, so matched data closes 68 % of the gap there too. Both deciders were taught to reject on
+fewer than 3 % of their examples; for the rule engine a forced reject follows from the line. The two jobs cost
 about USD 8.4 (`docs/decisions.md`).
 
 ## 5. What the results do not show, and what is left

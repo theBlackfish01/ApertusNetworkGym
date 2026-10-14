@@ -345,6 +345,7 @@ track_2b/
     benchmark_export.py the test instructions and every reader's answers as a dataset
     decider3_data.py   the matched decider's data: the first decider's states, the reader's sentences
     report_matched3.py the matched decider and the full-format reader's hybrids -> results/design/matched3.json
+    analyse_decider_gap.py why a decider breaks more in closed loop than on the probes -> results/design/decider_gap.json
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
     report_pdf.py      the report as HTML and, through a headless browser, as PDF
     report_figure.py   the report's figure: violations on the two closed-loop streams
