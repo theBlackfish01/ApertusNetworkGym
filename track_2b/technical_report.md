@@ -29,13 +29,18 @@ Everything runs on a laptop GPU.
 Measured in the Optical Networking Gym simulator on sentences written by separate AI instances
 in four languages: the reader is right on 94.8 % of 2,078 instructions, on clause pairs it never
 saw together as on trained pairs (96.5 against 95.6 %; triples three points lower); its decisions
-comply in 99.6 %, those of the model that decides alone in 91.1 % (English probes). With scope and lifetime added, a reader trained on the
+comply in 99.6 %, those of the model that decides alone in 91.1 % (English probes), and 96.4 % when
+that model is trained on the reader's own sentences: matched training data closes two thirds of
+the gap offline, but in closed loop the matched decider still breaks 14.1 % of in-language
+requests against the reader's 0.9 %. With scope and lifetime added, a reader trained on the
 same recipe is right on 93.5 % of 800 blind policy sentences, and in closed loop the policy table
 built from its readings breaks 1.1–1.5 % of requests against the true table, where ignoring
 scope breaks 13–30 %, ignoring lifetime 6–12 %, first fit 38–42 %. On a mixed stream the hybrid
 that asks breaks 8.5 % of requests (decider alone 16.8 %, first fit 28.6 %); asking only when a
 request tells the readings apart puts 16 % fewer questions at the same error for the job
-translator, and a third fewer for 0.35 points on the laptop hybrid. The weak points are
+translator, and a third fewer for 0.35 points on the laptop hybrid. The fourth-format reader can
+replace the third-format one, alone and in the hybrid, at the same error (hybrid 9.1 against
+9.5 %), so one adapter serves both instructions and standing policies. The weak points are
 measured too: the reader silently applies 47 % of instruction types no component was ever shown,
 and the phrase "to Prague" is a scope to the new reader and a destination to the operator. The
 4-bit laptop build, the one a judge can run, is one to four points weaker on every measure and is
@@ -102,7 +107,9 @@ GPU.
 - **Four adapters** (QLoRA: 4-bit NF4 base, r = 32, α = 32, 79.7 M trainable parameters,
   completion-only loss; `src/train.py`): the decider on 12,000 simulator decisions (138 min); two
   readers of the third format on 5,570 instructions each (34 min each); one reader of the fourth
-  format on 7,170 (65 min). TODO: public links.
+  format on 7,170 (65 min). A fifth, the **matched decider**, serves only the comparison: the
+  decider's 12,000 states carrying reader 1's 5,570 training sentences (two epochs, 127 min).
+  TODO: public links.
 - **Decoding:** greedy, constrained to the decision line or the policy language.
 - **Serving:** Transformers in Hugging Face Jobs (one A100) for training and scoring; llama.cpp
   with our own 4-bit GGUF of the base and GGUF adapters on the laptop; the rendered prompts are
@@ -129,6 +136,7 @@ answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/
 | Data | Size | How it was made |
 | --- | --- | --- |
 | Decider, training | 12,000 decisions | simulator episodes (seeds 101–106) labelled by rule-based teachers |
+| Matched decider, training | 12,000 decisions | the same states; on 8,000 of them reader 1's training sentences, each where it is restrictive when it applies, labelled by the rule engine under its line (`src/decider3_data.py`) |
 | Readers, training | 5,570 (third format), 7,170 (fourth) | templates in four languages filled from the topology; the fourth adds scope and lifetime clauses |
 | Readers, test | 2,078 + 661 | 168 sentences per language by four separate AI instances from a brief naming the clause kinds and none of our wording |
 | Standing policies, test | 800 | 200 scope and lifetime phrases by another separate instance, attached to the test sentences |
@@ -157,11 +165,17 @@ without an instruction. Tables: `results/tables/phase3.md`.
 | Apertus 8B, 15 examples, no training, % | 89.5 | 81.0 | 91.1 | 85.6 | 87.2 |
 | Comply: first candidate that fits, % | 70.6 | 63.3 | 62.5 | 57.5 | 66.8 |
 | Comply: decider alone, % | 96.2 | 90.6 | 85.7 | 76.2 | 91.1 |
+| Comply: matched decider, % | 98.8 | 95.3 | 95.5 | 90.0 | 96.4 |
 | Comply: reader 1 and rule engine, % | 99.4 | 100.0 | 99.1 | 100.0 | 99.6 |
 
-The slots carry the composition; the decider loses ground with every clause, part of which is
-training rather than architecture: it was taught the first round's four intents, not the third
-round's clause kinds (its violations split by kind are in `docs/results_overview.md`). By language the
+The slots carry the composition; the decider loses ground with every clause, and part of that
+was training: the first decider was taught the first round's four intents, not the third round's
+clause kinds. The matched decider learned from the same states with reader 1's own training
+sentences (`results/design/matched3.json`): it complies on 96.4 / 94.8 / 95.2 / 95.4 % (en / de /
+fr / it) against 91.1 / 87.1 / 86.0 / 86.6 % for the first decider and 99.6 / 98.2 / 99.1 / 99.3 %
+under reader 1's line, so the training data accounts for 62–70 % of the gap; a second epoch was
+taken because the first scored 94.0 % on held-out decisions, under the 98 % fixed beforehand. On
+types outside the language the two deciders are alike (new types 77.6 against 78.8 %). By language the
 reader is right on 96.7 (en), 91.4 (de), 96.0 (fr), 94.8 (it) %. Apertus 70B with examples and
 no training reaches 89.2 % (generation 1.5; the first 71.9 %): the fine-tuned 8B reads better
 than a model nine times its size, as Qiu et al. (2022) found for compositional parsing.
@@ -198,7 +212,13 @@ requests at 390 Erlang, three seeds: first fit 28.6, decider alone 16.8, transla
 hybrid with guard 9.5, hybrid that asks 8.5 (asks for 8.9 % of requests), with the untrained 70B
 as the check 8.3 (asks 24.1 %). Inside the language the hybrid breaks 0.8 %, on unknown types
 28.9 %, and a better gate does not move the latter (28.3 %): the limit is what the decider can
-follow. Figure 1 puts the two closed loops side by side.
+follow. The matched decider alone breaks 14.4 % (inside the language 14.1 against 19.2 % for the
+first decider; types never shown 29.0 against 27.9 %): in closed loop matched data closes only
+28 % of the in-language gap to the reader. With the fourth-format reader in front, which passes
+16.1 % of requests to the decider instead of 11.5 %, the hybrid breaks 9.1 % (9.7 % with the
+matched decider; the reader alone 10.7 %), within the seeds' spread of the 9.5 % above; it still
+breaks 31.2 % of the types never shown (third-format hybrid 31.6 %), because the decider fails on
+them too (`results/eval/hybrid4_ft*_mix3.json`). Figure 1 puts the two closed loops side by side.
 
 ![Violations in closed loop](docs/figures/violations.png)
 
@@ -279,9 +299,10 @@ request's own end points; that is the next slot to add.
   weekday and date phrases are not in the language.
 - One training run per adapter (readers 1 and 2, same recipe, differ by 1.5 points, so smaller
   differences between readers sit inside seed noise); the simulated operator answers a question
-  with the true meaning, so every gain from asking is an upper bound; the decider was trained on
-  the first round's intents, so "decider alone" measures a training mismatch as well as the
-  architecture; combination and conflict rules of the table are our choices.
+  with the true meaning, so every gain from asking is an upper bound; the decider of the system
+  was trained on the first round's intents; the matched decider removes most of that mismatch
+  offline and little of the closed-loop gap, with one training run and one recipe (no larger
+  decider, no longer training); combination and conflict rules of the table are our choices.
 - The 4-bit laptop build loses 1.7 points on the third-format sets, most of it on composition
   (clause pairs never seen together 96.5 to 90.2 %, triples 91.2 to 83.8 %); the 70B ran from
   community GGUF builds; the TAPI object was not sent to a controller.
@@ -296,7 +317,9 @@ request's own end points; that is the next slot to add.
 the hybrid; `make console` serves the console on port 8090. Every results file records the
 command, the simulator commit (`f7c4491`), seeds and loads; every model answer is in
 `results/cache/`; `docs/decisions.md` logs every deviation, mistake and its cost. Hugging Face
-Jobs on one A100: 17.3 GPU-hours and about USD 43.18 over four rounds (the fourth: USD 3.14).
+Jobs on one A100: about 20.6 GPU-hours and about USD 51.6 over four rounds and one follow-up
+(the fourth round USD 3.14; the matched decider and the fourth-format reader in the mixed stream
+about USD 8.4).
 The submission is the commit tagged `submission` in the repository.
 
 ## 8. Related work

@@ -325,8 +325,8 @@ requests, mean of three seeds, ± the seed standard deviation):
 
 What it shows: the full-format reader can replace the routing-field reader, alone and in the
 hybrid, within one seed spread, and it reads the standing policies as well; one adapter can serve
-the whole system. Outside the language the reversal stays: alone it breaks 42.6 % of the
-instructions carried in part and 38.4 % of the types never shown, the first decider 36.4 and 27.9.
+the whole system. Outside the language the reversal stays: alone it breaks 42.5 % of the
+instructions carried in part and 38.5 % of the types never shown, the first decider 36.3 and 27.9.
 Behind a reader the matched decider is no better than the first: the requests it receives are
 those outside the language, where the two deciders are equal on their own too. The two jobs cost
 about USD 8.4 (`docs/decisions.md`).

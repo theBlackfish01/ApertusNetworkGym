@@ -20,7 +20,8 @@ operator instruction ──> reader 1 ─┐                        ┌─ in th
 What the numbers say, in short (`technical_report.md`, `results/tables/phase3.md`): the reader
 gets 94.8 % of 2,078 independently written instructions right, and pairs of clauses it never saw
 together as well as trained pairs (triples three points lower); its decisions comply in 99.6 %, those of the model
-that decides alone in 91.1 %. On a mixed stream in closed loop the hybrid that asks breaks 8.5 %
+that decides alone in 91.1 %, and in 96.4 % when that model learns from the reader's own sentences (in closed loop it still
+breaks 14.1 % of in-language requests, the reader 0.9 %). On a mixed stream in closed loop the hybrid that asks breaks 8.5 %
 of requests, the translator alone 10.6 %, the decider alone 16.8 %, first fit 28.6 %. Instruction
 types that no component was ever shown remain the weak point. In 4 bits on a laptop GPU, the build a
 judge can run, the reader reads 93.1 % of the same sentences and the hybrid breaks 9.2 %; the reader of

@@ -87,6 +87,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First candidate that fits (ignores the instruction) | 25.5 | 0.0 | 77.0 | 100.0 | 50.6 |
 | Decision without an instruction (ignores it) | 18.0 | 43.0 | 85.0 | 86.5 | 58.1 |
 | Decider alone | 30.0 | 88.0 | 99.0 | 98.0 | 78.8 |
+| Decider alone (German, French, Italian) | – | – | – | – | – |
+| Matched decider (trained on reader 1's sentences) | 29.5 | 86.0 | 96.5 | 98.5 | 77.6 |
 | Translator alone (reader 1) | 28.5 | 53.5 | 79.5 | 88.5 | 62.5 |
 | Hybrid without the guard | 30.0 | 72.5 | 90.5 | 97.5 | 72.6 |
 | Hybrid | 30.0 | 72.5 | 90.5 | 97.5 | 72.6 |
@@ -98,6 +100,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First candidate that fits (ignores the instruction) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 | Decision without an instruction (ignores it) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 | Decider alone | 11.0 | 75.0 | 98.0 | 100.0 | 61.6 |
+| Decider alone (German, French, Italian) | – | – | – | – | – |
+| Matched decider (trained on reader 1's sentences) | 11.0 | 72.0 | 89.0 | 100.0 | 57.6 |
 | Translator alone (reader 1) | 6.0 | 13.0 | 0.0 | 0.0 | 6.3 |
 | Hybrid without the guard | 11.0 | 51.0 | 61.0 | 100.0 | 41.4 |
 | Hybrid | 11.0 | 51.0 | 61.0 | 100.0 | 41.4 |
@@ -109,6 +113,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First candidate that fits (ignores the instruction) | 21.2 | 43.8 | 0.0 | 0.0 |
 | Decision without an instruction (ignores it) | 21.2 | 44.5 | 0.0 | 0.0 |
 | Decider alone | 49.5 | 67.2 | 0.0 | 0.0 |
+| Decider alone (German, French, Italian) | – | – | – | – |
+| Matched decider (trained on reader 1's sentences) | 42.9 | 72.2 | 0.0 | 0.0 |
 | Translator alone (reader 1) | 21.7 | 68.0 | 0.0 | 0.0 |
 | Hybrid without the guard | 42.4 | 63.5 | 35.5 | 0.0 |
 | Hybrid | 42.4 | 70.5 | 35.5 | 7.2 |
@@ -120,6 +126,8 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First candidate that fits (ignores the instruction) | 70.6 | 63.3 | 62.5 | 57.5 | 81.2 | 66.8 | 68.5 | 66.8 | 66.7 |
 | Decision without an instruction (ignores it) | 61.9 | 66.4 | 52.7 | 46.2 | 75.0 | 60.0 | 58.2 | 55.7 | 56.2 |
 | Decider alone | 96.2 | 90.6 | 85.7 | 76.2 | 96.9 | 91.1 | – | – | – |
+| Decider alone (German, French, Italian) | – | – | – | – | – | – | 87.1 | 86.0 | 86.6 |
+| Matched decider (trained on reader 1's sentences) | 98.8 | 95.3 | 95.5 | 90.0 | 96.9 | 96.4 | 94.8 | 95.2 | 95.4 |
 | Translator alone (reader 1) | 99.4 | 100.0 | 99.1 | 100.0 | 100.0 | 99.6 | 97.9 | 99.1 | 99.3 |
 | Hybrid without the guard | 99.4 | 100.0 | 99.1 | 100.0 | 100.0 | 99.6 | – | – | – |
 | Hybrid | 99.4 | 100.0 | 99.1 | 100.0 | 100.0 | 99.6 | – | – | – |
@@ -132,10 +140,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 36.0 | 50.2 | 45.6 | 58.5 | 0.0 | 0.0 | 28.9 | 2.68 | 0.0 | 0.0 | 0.0 |
 | No-intent teacher (ignores the instruction) | 44.0 | 58.5 | 38.7 | 59.2 | 0.0 | 0.0 | 31.5 | 1.22 | 0.0 | 0.0 | 0.0 |
 | Decider alone | 19.0 | 35.4 | 24.3 | 39.2 | 2.3 | 0.3 | 16.4 | 2.68 | 0.0 | 0.0 | 0.0 |
+| Matched decider alone (trained on reader 1's sentences) | 13.4 | 28.9 | 25.7 | 37.1 | 0.2 | 3.8 | 13.8 | 2.58 | 0.0 | 0.0 | 0.0 |
 | Translator alone (reader 1) | 1.2 | 2.4 | 35.6 | 42.7 | 0.0 | 6.1 | 10.5 | 6.03 | 0.0 | 0.0 | 0.0 |
+| Translator alone (the fourth-format reader) | 1.5 | 3.2 | 38.8 | 40.3 | 0.0 | 7.0 | 10.9 | 6.15 | 0.0 | 0.0 | 0.0 |
 | Translator that asks when its two readers disagree | 0.8 | 1.5 | 35.6 | 40.6 | 0.0 | 5.1 | 10.1 | 6.13 | 0.0 | 0.0 | 9.5 |
 | Translator that asks only when a request tells the readings apart | 0.9 | 1.7 | 35.7 | 41.1 | 0.0 | 5.1 | 10.2 | 5.97 | 0.0 | 0.0 | 8.1 |
 | Hybrid | 1.1 | 1.9 | 27.3 | 37.1 | 0.0 | 6.1 | 8.7 | 6.47 | 11.6 | 0.9 | 0.0 |
+| Hybrid, the fourth-format reader in front | 1.6 | 3.6 | 29.6 | 35.0 | 0.0 | 7.0 | 9.1 | 6.43 | 16.6 | 1.1 | 0.0 |
+| Hybrid, the fourth-format reader and the matched decider | 1.3 | 3.0 | 29.8 | 36.9 | 0.0 | 7.3 | 9.2 | 6.47 | 16.6 | 0.3 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.5 | 28.7 | 32.4 | 0.0 | 5.1 | 8.2 | 6.60 | 17.2 | 1.1 | 9.5 |
 
 ## The same, only requests on which the instruction changes the right answer — load 240 E
@@ -146,10 +158,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 64.2 | 73.9 | 85.0 | 80.9 | 1201 | 486 | 306 | 356 |
 | No-intent teacher (ignores the instruction) | 99.7 | 100.0 | 100.0 | 100.0 | 1185 | 491 | 341 | 367 |
 | Decider alone | 40.3 | 60.1 | 54.7 | 59.6 | 1201 | 476 | 362 | 364 |
+| Matched decider alone (trained on reader 1's sentences) | 29.0 | 49.9 | 56.7 | 57.7 | 1203 | 485 | 365 | 366 |
 | Translator alone (reader 1) | 2.1 | 3.6 | 91.9 | 65.1 | 1216 | 497 | 321 | 378 |
+| Translator alone (the fourth-format reader) | 2.7 | 4.8 | 96.3 | 61.3 | 1201 | 480 | 347 | 372 |
 | Translator that asks when its two readers disagree | 1.6 | 2.5 | 91.3 | 64.9 | 1182 | 477 | 335 | 356 |
 | Translator that asks only when a request tells the readings apart | 1.8 | 2.9 | 91.9 | 62.3 | 1162 | 476 | 334 | 374 |
 | Hybrid | 2.1 | 3.1 | 62.0 | 57.2 | 1221 | 490 | 353 | 369 |
+| Hybrid, the fourth-format reader in front | 3.0 | 5.3 | 65.0 | 54.6 | 1206 | 486 | 363 | 357 |
+| Hybrid, the fourth-format reader and the matched decider | 2.2 | 4.4 | 65.9 | 56.9 | 1207 | 482 | 358 | 369 |
 | Hybrid that asks when its two readers disagree | 1.6 | 2.5 | 65.5 | 49.9 | 1206 | 488 | 348 | 361 |
 
 ## All requests, violations in % per seed — load 240 E
@@ -160,10 +176,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 31.05 | 29.10 | 26.50 |
 | No-intent teacher (ignores the instruction) | 32.85 | 31.85 | 29.80 |
 | Decider alone | 17.40 | 16.95 | 14.85 |
+| Matched decider alone (trained on reader 1's sentences) | 14.40 | 14.15 | 13.00 |
 | Translator alone (reader 1) | 10.60 | 11.60 | 9.30 |
+| Translator alone (the fourth-format reader) | 11.25 | 11.35 | 10.10 |
 | Translator that asks when its two readers disagree | 10.70 | 10.40 | 9.10 |
 | Translator that asks only when a request tells the readings apart | 10.40 | 10.50 | 9.55 |
 | Hybrid | 8.90 | 9.10 | 8.00 |
+| Hybrid, the fourth-format reader in front | 9.25 | 9.30 | 8.60 |
+| Hybrid, the fourth-format reader and the matched decider | 9.15 | 9.15 | 9.15 |
 | Hybrid that asks when its two readers disagree | 8.85 | 8.15 | 7.60 |
 
 ## The mixed stream of the third round in closed loop: violations, % of the requests of each kind — load 390 E
@@ -174,10 +194,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 35.3 | 48.6 | 47.6 | 55.3 | 0.0 | 0.0 | 28.6 | 8.23 | 0.0 | 0.0 | 0.0 |
 | No-intent teacher (ignores the instruction) | 42.8 | 54.1 | 42.5 | 55.4 | 0.0 | 0.0 | 31.2 | 5.98 | 0.0 | 0.0 | 0.0 |
 | Decider alone | 19.2 | 34.8 | 27.9 | 36.3 | 3.1 | 0.4 | 16.8 | 8.27 | 0.0 | 0.0 | 0.0 |
+| Matched decider alone (trained on reader 1's sentences) | 14.1 | 26.4 | 29.0 | 35.7 | 0.2 | 1.9 | 14.4 | 7.92 | 0.0 | 0.0 | 0.0 |
 | Translator alone (reader 1) | 0.9 | 1.5 | 36.7 | 43.6 | 0.0 | 6.7 | 10.6 | 11.73 | 0.0 | 0.0 | 0.0 |
+| Translator alone (the fourth-format reader) | 0.7 | 1.5 | 38.4 | 42.5 | 0.0 | 8.2 | 10.7 | 11.65 | 0.0 | 0.0 | 0.0 |
 | Translator that asks when its two readers disagree | 0.8 | 1.3 | 35.8 | 42.4 | 0.0 | 6.3 | 10.3 | 11.73 | 0.0 | 0.0 | 8.9 |
 | Translator that asks only when a request tells the readings apart | 0.8 | 1.3 | 35.6 | 42.4 | 0.0 | 6.3 | 10.2 | 11.78 | 0.0 | 0.0 | 7.8 |
 | Hybrid | 1.0 | 1.6 | 31.6 | 40.4 | 0.0 | 6.7 | 9.5 | 12.12 | 11.5 | 0.7 | 0.0 |
+| Hybrid, the fourth-format reader in front | 0.7 | 1.4 | 31.2 | 37.7 | 0.0 | 7.8 | 9.1 | 12.00 | 16.1 | 0.7 | 0.0 |
+| Hybrid, the fourth-format reader and the matched decider | 0.6 | 1.4 | 34.0 | 39.4 | 0.0 | 7.4 | 9.7 | 12.48 | 16.1 | 0.3 | 0.0 |
 | Hybrid that asks when its two readers disagree | 0.8 | 1.4 | 28.9 | 34.7 | 0.0 | 6.3 | 8.5 | 12.25 | 17.3 | 1.0 | 8.9 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.3 | 0.5 | 28.3 | 37.0 | 0.0 | 3.7 | 8.3 | 12.03 | 21.2 | 0.9 | 24.1 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 1.2 | 3.3 | 31.1 | 38.4 | 0.0 | 2.6 | 9.2 | 11.98 | 15.4 | 0.6 | 9.6 |
@@ -191,10 +215,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 67.2 | 76.9 | 92.3 | 78.7 | 1122 | 459 | 337 | 305 |
 | No-intent teacher (ignores the instruction) | 100.0 | 100.0 | 100.0 | 100.0 | 1156 | 463 | 386 | 331 |
 | Decider alone | 42.6 | 60.3 | 57.6 | 58.7 | 1143 | 469 | 394 | 339 |
+| Matched decider alone (trained on reader 1's sentences) | 33.4 | 47.6 | 63.0 | 58.9 | 1117 | 468 | 381 | 336 |
 | Translator alone (reader 1) | 2.1 | 2.6 | 88.5 | 67.8 | 1155 | 453 | 365 | 338 |
+| Translator alone (the fourth-format reader) | 1.4 | 2.3 | 95.3 | 61.4 | 1165 | 475 | 359 | 355 |
 | Translator that asks when its two readers disagree | 1.7 | 2.1 | 89.1 | 64.6 | 1181 | 479 | 357 | 345 |
 | Translator that asks only when a request tells the readings apart | 1.7 | 2.1 | 89.2 | 65.6 | 1185 | 481 | 353 | 337 |
 | Hybrid | 2.0 | 2.3 | 68.7 | 63.5 | 1169 | 476 | 383 | 348 |
+| Hybrid, the fourth-format reader in front | 1.1 | 1.9 | 66.6 | 57.5 | 1193 | 486 | 377 | 348 |
+| Hybrid, the fourth-format reader and the matched decider | 1.3 | 2.3 | 72.4 | 60.8 | 1163 | 471 | 392 | 347 |
 | Hybrid that asks when its two readers disagree | 1.8 | 2.3 | 65.3 | 55.5 | 1138 | 472 | 360 | 344 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 0.7 | 0.9 | 60.2 | 58.9 | 1163 | 470 | 377 | 341 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 2.1 | 4.7 | 70.4 | 59.4 | 1179 | 472 | 379 | 352 |
@@ -208,10 +236,14 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | First fit (ignores the instruction) | 28.00 | 30.05 | 27.85 |
 | No-intent teacher (ignores the instruction) | 30.70 | 31.85 | 31.15 |
 | Decider alone | 16.45 | 16.90 | 17.15 |
+| Matched decider alone (trained on reader 1's sentences) | 14.85 | 14.55 | 13.75 |
 | Translator alone (reader 1) | 9.95 | 11.20 | 10.65 |
+| Translator alone (the fourth-format reader) | 10.10 | 10.65 | 11.45 |
 | Translator that asks when its two readers disagree | 10.15 | 10.60 | 10.10 |
 | Translator that asks only when a request tells the readings apart | 10.15 | 10.60 | 10.00 |
 | Hybrid | 8.50 | 10.25 | 9.85 |
+| Hybrid, the fourth-format reader in front | 8.55 | 9.15 | 9.65 |
+| Hybrid, the fourth-format reader and the matched decider | 9.95 | 9.25 | 9.85 |
 | Hybrid that asks when its two readers disagree | 7.95 | 8.95 | 8.50 |
 | Hybrid that asks, the untrained Apertus 70B as second reader | 7.95 | 8.60 | 8.25 |
 | Hybrid that asks, all three models on the laptop (4-bit) | 8.80 | 9.40 | 9.35 |

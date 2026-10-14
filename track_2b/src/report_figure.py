@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MIXED = [  # results/eval/<name>_mix3.json at 390 Erlang
     ("first_fit", "first fit"),
     ("apertus_ft", "decider\nalone"),
+    ("apertus3_ft", "matched\ndecider"),
     ("translate3_ft", "reader +\nrule engine"),
     ("hybrid3_ft", "hybrid,\nguard"),
     ("hybrid3_ft_ask-ft2", "hybrid,\nasks"),
@@ -44,7 +45,7 @@ def violations(path: Path, load: int) -> float | None:
 
 def main() -> None:
     results = ROOT / "results" / "eval"
-    fig, (left, right) = plt.subplots(1, 2, figsize=(7.4, 2.6), gridspec_kw={"width_ratios": [6, 7]})
+    fig, (left, right) = plt.subplots(1, 2, figsize=(7.4, 2.6), gridspec_kw={"width_ratios": [7.4, 6.6]})
     plt.rcParams.update({"font.size": 7.5})
     names, values = [], []
     for name, label in MIXED:

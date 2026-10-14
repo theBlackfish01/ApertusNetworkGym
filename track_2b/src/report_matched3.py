@@ -83,9 +83,14 @@ def closed() -> dict:
                      "rejected_pct": round(100 * statistics.mean(e["service_blocking_rate"] for e in episodes), 2),
                      "seeds": [e["seed"] for e in episodes]}  # fmt: skip
             for name, keys in CLASSES.items():
-                n = sum(e["by_intent"].get(k, {}).get("requests", 0) for e in episodes for k in keys)
-                v = sum(e["by_intent"].get(k, {}).get("violations", 0) for e in episodes for k in keys)
-                entry[name] = round(100 * v / n, 2) if n else None
+                # the mean over seeds of each seed's rate in the class, as in the paper's figures
+                rates = []
+                for e in episodes:
+                    n = sum(e["by_intent"].get(k, {}).get("requests", 0) for k in keys)
+                    v = sum(e["by_intent"].get(k, {}).get("violations", 0) for k in keys)
+                    rates.append(100 * v / n if n else None)
+                entry[name] = round(statistics.mean(rates), 2) if None not in rates else None
+            entry["violations_seed_std"] = round(statistics.stdev(100 * e["violation_rate"] for e in episodes), 2)
             forwarded = sum(c.get("forwarded", 0) for e in episodes for c in e["by_intent"].values())
             entry["forwarded_to_decider_pct"] = round(100 * forwarded / sum(e["processed"] for e in episodes), 2)
             row[str(load_)] = entry
@@ -103,7 +108,7 @@ def main() -> None:
         "probes": probes(),
         "mixed_condition": closed(),
         "note": "probes: decisions that comply, ordered preferences; outside the language the probe's own "
-                "list of complying paths. Mixed condition: three seeds per load; classes as in the paper.",
+                "list of complying paths. Mixed condition: three seeds per load, class rates the mean of the seeds' rates; classes as in the paper.",
     }
     out = RESULTS / "design" / "matched3.json"
     out.write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

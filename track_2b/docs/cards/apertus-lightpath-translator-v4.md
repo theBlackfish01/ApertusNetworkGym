@@ -64,6 +64,9 @@ line they combine to, the conflicts a new policy raises, and a report per policy
   third format (no scope, no lifetime) 21.4 / 36.9 %.
 - In 4-bit GGUF form on a laptop GPU it reads 90.6 % of the policy sentences and its table stays
   within 2.4 points of the truth.
+- On the third round's mixed stream of per-request instructions (390 Erlang, three seeds) it can
+  replace reader 1: alone it breaks 10.7 % of requests (reader 1: 10.6 %), in front of the decider
+  9.1 % (9.5 %), passing 16.1 % of requests to the decider instead of 11.5 %.
 - Known error: "to Prague, avoid Berlin" is read as a scope (`to:Prague`) where an operator means
   the current request's destination; the language has no word yet for a request's own end points.
 

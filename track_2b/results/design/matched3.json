@@ -517,9 +517,10 @@
      3
     ],
     "inside the language": 36.0,
-    "carried in part": 58.55,
-    "types never shown": 45.58,
+    "carried in part": 58.51,
+    "types never shown": 45.48,
     "nothing to apply": 0.0,
+    "violations_seed_std": 2.28,
     "forwarded_to_decider_pct": 0.0
    },
    "390": {
@@ -530,10 +531,11 @@
      2,
      3
     ],
-    "inside the language": 35.34,
-    "carried in part": 55.28,
-    "types never shown": 47.58,
+    "inside the language": 35.36,
+    "carried in part": 55.3,
+    "types never shown": 47.6,
     "nothing to apply": 0.0,
+    "violations_seed_std": 1.23,
     "forwarded_to_decider_pct": 0.0
    },
    "file": "eval/first_fit_mix3.json"
@@ -548,9 +550,10 @@
      3
     ],
     "inside the language": 19.04,
-    "carried in part": 39.19,
-    "types never shown": 24.26,
+    "carried in part": 39.1,
+    "types never shown": 24.18,
     "nothing to apply": 0.83,
+    "violations_seed_std": 1.36,
     "forwarded_to_decider_pct": 0.0
    },
    "390": {
@@ -562,9 +565,10 @@
      3
     ],
     "inside the language": 19.19,
-    "carried in part": 36.35,
+    "carried in part": 36.34,
     "types never shown": 27.86,
-    "nothing to apply": 1.17,
+    "nothing to apply": 1.19,
+    "violations_seed_std": 0.35,
     "forwarded_to_decider_pct": 0.0
    },
    "file": "eval/apertus_ft_mix3.json"
@@ -579,9 +583,10 @@
      3
     ],
     "inside the language": 13.43,
-    "carried in part": 37.1,
-    "types never shown": 25.74,
-    "nothing to apply": 0.72,
+    "carried in part": 37.12,
+    "types never shown": 25.67,
+    "nothing to apply": 0.73,
+    "violations_seed_std": 0.75,
     "forwarded_to_decider_pct": 0.0
    },
    "390": {
@@ -592,10 +597,11 @@
      2,
      3
     ],
-    "inside the language": 14.09,
-    "carried in part": 35.68,
-    "types never shown": 28.96,
+    "inside the language": 14.1,
+    "carried in part": 35.71,
+    "types never shown": 28.97,
     "nothing to apply": 0.34,
+    "violations_seed_std": 0.57,
     "forwarded_to_decider_pct": 0.0
    },
    "file": "eval/apertus3_ft_mix3.json"
@@ -610,9 +616,10 @@
      3
     ],
     "inside the language": 1.19,
-    "carried in part": 42.74,
-    "types never shown": 35.6,
-    "nothing to apply": 1.05,
+    "carried in part": 42.62,
+    "types never shown": 35.5,
+    "nothing to apply": 1.04,
+    "violations_seed_std": 1.15,
     "forwarded_to_decider_pct": 0.0
    },
    "390": {
@@ -625,8 +632,9 @@
     ],
     "inside the language": 0.92,
     "carried in part": 43.55,
-    "types never shown": 36.67,
-    "nothing to apply": 1.01,
+    "types never shown": 36.68,
+    "nothing to apply": 1.0,
+    "violations_seed_std": 0.63,
     "forwarded_to_decider_pct": 0.0
    },
    "file": "eval/translate3_ft_mix3.json"
@@ -641,9 +649,10 @@
      3
     ],
     "inside the language": 1.49,
-    "carried in part": 40.32,
-    "types never shown": 38.78,
-    "nothing to apply": 1.22,
+    "carried in part": 40.27,
+    "types never shown": 38.74,
+    "nothing to apply": 1.21,
+    "violations_seed_std": 0.69,
     "forwarded_to_decider_pct": 0.0
    },
    "390": {
@@ -655,9 +664,10 @@
      3
     ],
     "inside the language": 0.7,
-    "carried in part": 42.55,
-    "types never shown": 38.44,
-    "nothing to apply": 1.23,
+    "carried in part": 42.5,
+    "types never shown": 38.46,
+    "nothing to apply": 1.22,
+    "violations_seed_std": 0.68,
     "forwarded_to_decider_pct": 0.0
    },
    "file": "eval/translate4_ft_mix3.json"
@@ -672,9 +682,10 @@
      3
     ],
     "inside the language": 1.12,
-    "carried in part": 37.1,
+    "carried in part": 37.01,
     "types never shown": 27.32,
-    "nothing to apply": 1.05,
+    "nothing to apply": 1.04,
+    "violations_seed_std": 0.59,
     "forwarded_to_decider_pct": 11.55
    },
    "390": {
@@ -686,9 +697,10 @@
      3
     ],
     "inside the language": 0.96,
-    "carried in part": 40.37,
-    "types never shown": 31.61,
-    "nothing to apply": 1.01,
+    "carried in part": 40.38,
+    "types never shown": 31.64,
+    "nothing to apply": 1.0,
+    "violations_seed_std": 0.92,
     "forwarded_to_decider_pct": 11.47
    },
    "file": "eval/hybrid3_ft_mix3.json"
@@ -703,9 +715,10 @@
      3
     ],
     "inside the language": 1.6,
-    "carried in part": 35.0,
-    "types never shown": 29.59,
-    "nothing to apply": 1.22,
+    "carried in part": 35.02,
+    "types never shown": 29.57,
+    "nothing to apply": 1.21,
+    "violations_seed_std": 0.39,
     "forwarded_to_decider_pct": 16.57
    },
    "390": {
@@ -716,10 +729,11 @@
      2,
      3
     ],
-    "inside the language": 0.67,
-    "carried in part": 37.69,
-    "types never shown": 31.17,
+    "inside the language": 0.66,
+    "carried in part": 37.63,
+    "types never shown": 31.19,
     "nothing to apply": 1.17,
+    "violations_seed_std": 0.55,
     "forwarded_to_decider_pct": 16.12
    },
    "file": "eval/hybrid4_ft_mix3.json"
@@ -734,9 +748,10 @@
      3
     ],
     "inside the language": 1.26,
-    "carried in part": 36.94,
+    "carried in part": 37.06,
     "types never shown": 29.82,
-    "nothing to apply": 1.27,
+    "nothing to apply": 1.26,
+    "violations_seed_std": 0.0,
     "forwarded_to_decider_pct": 16.57
    },
    "390": {
@@ -748,13 +763,14 @@
      3
     ],
     "inside the language": 0.63,
-    "carried in part": 39.36,
-    "types never shown": 34.03,
+    "carried in part": 39.34,
+    "types never shown": 34.02,
     "nothing to apply": 1.12,
+    "violations_seed_std": 0.38,
     "forwarded_to_decider_pct": 16.12
    },
    "file": "eval/hybrid4_ft_d3_mix3.json"
   }
  },
- "note": "probes: decisions that comply, ordered preferences; outside the language the probe's own list of complying paths. Mixed condition: three seeds per load; classes as in the paper."
+ "note": "probes: decisions that comply, ordered preferences; outside the language the probe's own list of complying paths. Mixed condition: three seeds per load, class rates the mean of the seeds' rates; classes as in the paper."
 }

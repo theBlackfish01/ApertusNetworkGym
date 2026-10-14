@@ -1,6 +1,6 @@
 # Submission: what is prepared, what is yours to do, and what a fresh pair of eyes said
 
-Written 13 October 2026 for the owner. The organisers' requirements are in `docs/challenge.md`;
+Written 13 October 2026 for the owner, updated 14 October. The organisers' requirements are in `docs/challenge.md`;
 this page maps them to the material in the repository and lists the steps only the owner can take.
 
 ## 1. What you are submitting, in one page
@@ -8,7 +8,7 @@ this page maps them to the material in the repository and lists the steps only t
 | Piece | What it is | Where |
 | --- | --- | --- |
 | The idea | An operator states a routing policy in plain language; Apertus 8B reads it once into one line of a seven-slot policy language; a rule engine enforces the line on every request the policy covers, for as long as it holds. Two readers, and a question to the operator only when their readings would route a request differently. What the language cannot express goes to a fine-tuned decider with a guard. | `README.md` (first page), `technical_report.md` §1–2 |
-| The models | Four LoRA adapters on `andreasmartin/apertus-v1.5-8b-text`: reader 1 and reader 2 (third format), the reader of standing policies (fourth format: scope and lifetime), the decider. Each 160 MB; all four as GGUF for llama.cpp with the 4-bit base. | Hub repos `blackfish021/apertus-lightpath-*` (private until you flip them); cards in `docs/cards/` |
+| The models | Four LoRA adapters on `andreasmartin/apertus-v1.5-8b-text`: reader 1 and reader 2 (third format), the reader of standing policies (fourth format: scope and lifetime), the decider. Each 160 MB; all four as GGUF for llama.cpp with the 4-bit base. A fifth, the matched decider (`apertus-lightpath-decider-v3-e2`), was trained only for the comparison of translating and deciding on the same sentences and is not part of the system. | Hub repos `blackfish021/apertus-lightpath-*` (private until you flip them); cards in `docs/cards/` |
 | The evidence | Blind test sentences in four languages written by separate AI instances; held-out clause combinations fixed before the sentences were opened; closed-loop runs in the simulator with instruction-blind baselines; a standing-policy stream judged against the true table; a 4-bit laptop build measured beside the job build. | `results/` (every number), `results/tables/phase3.md`, `docs/results_overview.md` |
 | The standards link | The policy line maps onto TAPI 2.1.3 constraints. | `src/tapi.py`, the console |
 | The console | A dark operations view: the map as the stage, a feed of what the model does, policies as chips with remaining hours, questions that pause the stream, play at a chosen pace. From recorded answers in Docker, or live on the laptop. | `src/console.py`, `src/console.html`, `make console` |
@@ -16,7 +16,7 @@ this page maps them to the material in the repository and lists the steps only t
 | The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
-Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
+Cost: about USD 51.6 of GPU time for everything, about 20.6 GPU-hours on one rented A100 (USD 8.4 of it on 14 October, for the matched decider and the fourth-format reader in the mixed stream).
 
 ## 2. The deliverables, against the brief
 
@@ -27,7 +27,7 @@ Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
 | Technical report, PDF, max. 6 pages, `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf` renders at five pages; two placeholders remain (the video link, the public links); the commit is named by the tag `submission` | **You:** team name and members; then I fill, re-render and copy to `track_2b/<TeamName>_Report.pdf` |
 | Demo video, max. 2 min | Script and shot list in `docs/video_script.md` | **You:** record; give me the link |
 | Dataset (optional): evaluation, responses, metadata, card | Uploaded as a private dataset with the card | **You:** make it public; the link goes into the report and the README |
-| Apertus weights published | Four adapters and the GGUF bundle with cards, private | **You:** make them public (the organisers accepted the text-only base on condition that the fine-tuned weights are published) |
+| Apertus weights published | Five adapters and the GGUF bundle with cards, private | **You:** make them public (the organisers accepted the text-only base on condition that the fine-tuned weights are published) |
 | Other models' role described | Report §3 states what Claude did and did not do; `README.md` "AI assistance" | done |
 | Target architecture | On-premise and air-gapped: one llama.cpp server, no outbound call; report §2 | done |
 | Licence | Apache-2.0 code, CC-BY-4.0 report, CDLA-Permissive-2.0 data | done |
@@ -38,17 +38,21 @@ Cost: USD 43.18 of GPU time for everything, 17.3 GPU-hours on one rented A100.
 2. **Create the public repository** from the Hack Apertus template on GitHub (Use this template),
    then tell me its URL. I push, set the links in the report, README and cards, and run `make run`
    from a fresh clone of it.
-3. **Make the five Hub repositories and the dataset public** (Settings, Change visibility) when
+3. **Make the six Hub repositories and the dataset public** (Settings, Change visibility) when
    you are ready: `apertus-lightpath-lora-v2-e2`, `-translator-v3`, `-translator-v3-b`,
-   `-translator-v4`, `-translator-v3-gguf`, and the dataset `apertus-lightpath-benchmark`.
+   `-translator-v4`, `-translator-v3-gguf`, `-decider-v3-e2`, and the dataset
+   `apertus-lightpath-benchmark`. `apertus-lightpath-decider-v3` holds the matched decider's first
+   epoch, which no reported result uses; keep it private or delete it.
 4. **Record the video** (`docs/video_script.md`): the console live on the laptop, one German
    standing policy, one question. If the server is not up, `make console` with recorded lines.
 5. **Submit** at the organisers' URL: the repository URL, the PDF, the video URL, the dataset URL.
 
 Optional, and the best answer to the reviewers' main doubt (all evidence is synthetic): **30 to 50
 sentences typed by other people** (colleagues, friends, in any of the four languages, about
-routing). Put them in `data/instructions/owner_source.txt` under a marker line, and I score them on
-the laptop the way your 22 were scored; no cost, an hour of my time, and a line in the report.
+routing). The guide and template to hand out is `data/instructions/contributor_template.txt`;
+put the returned lines in `data/instructions/owner_source.txt` under a marker line, and I score
+them on the laptop the way your 22 were scored; no cost, an hour of my time, and a line in the
+report.
 
 ## 4. What a fresh pair of eyes said
 
@@ -68,7 +72,9 @@ Their reports are in the session's scratchpad; the substance:
   same recorded answers (`docs/decisions.md`), and one sentence compared an English-only figure with
   a four-language one and now compares like with like. Wordings tightened: triples cost three
   points, the asking gain is an upper bound because the simulated operator answers with the truth,
-  "decider alone" also measures a training mismatch, the standing ablations swing with the seed,
+  "decider alone" also measures a training mismatch (answered on 14 October by a decider trained
+  on the reader's own sentences: two thirds of the offline gap was training data, the closed-loop
+  gap stays), the standing ablations swing with the seed,
   laptop and job figures labelled. Still running at the time of writing (CPU replays from recorded
   answers): a fair simulated operator that picks the right reading only when one of the two is
   right, the laptop translators on the European network for a like-with-like Swiss comparison, and
@@ -82,7 +88,7 @@ Their reports are in the session's scratchpad; the substance:
 | Item | Value | Effort / cost |
 | --- | --- | --- |
 | Sentences from other people (section 3) | The single best answer to "all synthetic" | an hour of yours to collect, an hour of mine |
-| A second reader of the fourth format | Gives scope and lifetime the disagreement check the third format has; a training-variance estimate | about USD 2.7 of GPU, needs a top-up (1.82 left) |
+| A second reader of the fourth format | Gives scope and lifetime the disagreement check the third format has; a training-variance estimate | about USD 2.7 of GPU (about 3.4 left) |
 | The model server as a compose service | Sovereign deployment in one command; judges with a GPU could run the live mode | half a day |
 | TAPI object sent to a controller (TeraFlowSDN) | Turns the mapping into an integration | a day or more; uncertain |
 | Operators consulted | Value evidence beyond the simulator | depends on access |

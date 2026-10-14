@@ -55,6 +55,9 @@ against the part the language does carry.
 - On the third round's probes it complies on 91.1 % of requests against 99.6 % for the reader
   with the rule engine; composition is its weakness (one clause 96.2 %, three clauses 76.2 %),
   which is why the system translates first and decides only what it cannot translate.
+- A decider trained on the reader's own sentences (`blackfish021/apertus-lightpath-decider-v3-e2`)
+  complies on 96.4 % of the same probes, so about two thirds of that gap is training data; in
+  closed loop it still breaks 14.1 % of in-language requests against the reader's 0.9 %.
 
 ## How to use
 
