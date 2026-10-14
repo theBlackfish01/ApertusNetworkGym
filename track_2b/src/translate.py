@@ -538,7 +538,8 @@ def _parts(name: str) -> tuple[str, str | None, bool, bool, str]:
     guard = "_noguard" not in base
     first = base.replace("_noguard", "").replace("hybrid", "translate", 1)
     version = format_version(first)
-    return first, (f"translate{version}_{second}" if second else None), guard, ordered or version == 3, ask
+    # the third format and the fourth (the third with scope and lifetime) rank preferences in order
+    return first, (f"translate{version}_{second}" if second else None), guard, ordered or version >= 3, ask
 
 
 def make_hybrid_policy(
@@ -555,7 +556,7 @@ def make_hybrid_policy(
     replay). With it the decider is loaded with that adapter and asked live, and the translators
     still answer from their caches only: their instructions are translated beforehand, and a
     missing one must stop the run instead of being answered by a model without the translator's
-    adapter. The third format is defined with ordered preferences.
+    adapter. The third and fourth formats are defined with ordered preferences.
     """
     from policies import make_policy
 

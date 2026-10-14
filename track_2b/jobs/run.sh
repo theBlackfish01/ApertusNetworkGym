@@ -42,6 +42,14 @@
 #           grammar; BIG_NAME names the reader (its answers go to results/cache/<name>.jsonl)
 #   phase1-closed  the translators named in CLOSED_POLICIES answer every instruction of the
 #           closed-loop protocol (the closed loop itself is then replayed on a laptop)
+#   read4   the fourth-format reader (TRANSLATOR_REPO) reads the mixed condition's instructions and
+#           is scored again on all its sets (the cached ones are replayed, not recomputed)
+#   train-d3  the matched decider (data/full3: the first decider's states, the routing-field reader's
+#           training sentences) for one epoch, pushed to ADAPTER_REPO; TRAIN_ARGS can start from an
+#           earlier epoch's adapter (--init-adapter)
+#   eval-d3  the matched decider (ADAPTER_REPO) on the probes and alone in the mixed condition; the
+#           full-format reader in front of the first decider (DECIDER_REPO) and of the matched one
+#   check6  CPU only, tiny model: the plumbing of read4, train-d3 and eval-d3
 #
 # Nothing a job computes is kept only in the job. Training pushes a checkpoint (adapter, optimizer,
 # scheduler) every 100 optimizer steps and the adapter at every epoch; evaluation appends every
@@ -55,7 +63,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | check6}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -534,6 +542,79 @@ print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.
     $PY src/evaluate.py closed --policy "hybrid3_ft_ask-$SECOND" --decider "apertus_ft_hybrid3ask${SECOND#few}" \
         --decider-adapter runs/adapter --model $MODEL --conditions operations_mix3 --sim-workers 2 \
         ${EVAL_ARGS:-} $SYNC --out "results/eval/hybrid3_ft_ask-${SECOND}_mix3.json"
+    ;;
+read4)
+    # The full-format reader reads the mixed condition's instructions. The job re-scores every set it
+    # was scored on before as well, because a batch replaces results/translate/translate4_ft.json:
+    # those sentences come from the answer cache, only the new ones are asked of the model.
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (the fourth-format reader)}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator4', allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
+    V4="$I/v4_en.jsonl,$I/v4_de.jsonl,$I/v4_fr.jsonl,$I/v4_it.jsonl"
+    stamp "translate4_ft: the fourth and third rounds' test sets (cached) and the mixed condition (new)"
+    $PY src/translate.py batch --model "$MODEL" --adapter runs/translator4 --batch 96 --sync-repo "$WORK_REPO" \
+        --jobs "translate4_ft:nobel-eu:regex:$V4,$I/owner.jsonl,$V3,$I/mix3.jsonl"
+    keep results/translate results/cache
+    ;;
+train-d3)
+    # The matched decider: the first decider's 12,000 states with the routing-field reader's own
+    # training sentences (data/full3, src/decider3_data.py). One epoch per job, as for the first
+    # decider; a second epoch is TRAIN_ARGS="--init-adapter <the first epoch's repo> --lr 1e-4".
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the repo the matched decider is pushed to)}"
+    stamp "fine-tune the matched decider on data/full3 (resumes from $ADAPTER_REPO if a checkpoint is there)"
+    # shellcheck disable=SC2086
+    $PY src/train.py --model "$MODEL" --data-dir data/full3 --out runs/decider3 --hub-adapter "$ADAPTER_REPO" \
+        --resume --save-steps 100 --epochs 1 --skip-merge ${TRAIN_ARGS:-}
+    OUT_DIR="results/train/$(basename "$ADAPTER_REPO")"
+    mkdir -p "$OUT_DIR"
+    cp runs/decider3/training_log.json runs/decider3/heldout_predictions.jsonl "$OUT_DIR/"
+    keep "$OUT_DIR"
+    ;;
+eval-d3)
+    # Needs read4 first (the full-format reader's answers to every instruction of the mixed
+    # condition are in the work repo's cache; the hybrids answer from it and stop on a missing one).
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the matched decider)}" "${DECIDER_REPO:?set DECIDER_REPO (the first decider)}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+for repo, where in (('$ADAPTER_REPO', 'runs/decider3'), ('$DECIDER_REPO', 'runs/adapter')):
+    print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
+    export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+    stamp "offline: the matched decider on the probes (four languages, new types, carried in part); the first decider on German, French, Italian"
+    together \
+        "$PY src/evaluate.py offline --policy apertus3_ft_probes --backend transformers --model $MODEL --adapter runs/decider3 --data data/probes --splits v3_en v3_de v3_fr v3_it v3_new v3_new_hard v3_new_impossible v3_partial --batch-envs 48 --out results/offline/apertus3_ft_probes3.json" \
+        "$PY src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model $MODEL --adapter runs/adapter --data data/probes --splits v3_de v3_fr v3_it --batch-envs 48 --out results/offline/apertus_ft_probes3_langs.json"
+    keep results/offline results/cache
+    stamp "closed loop, mixed condition: the matched decider alone; the full-format reader in front of the first and of the matched decider"
+    CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"
+    # shellcheck disable=SC2086
+    together \
+        "$PY src/evaluate.py closed --policy apertus3_ft_mix3 --backend transformers --adapter runs/decider3 $CLOSED $SYNC" \
+        "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus_ft_hybrid4 --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid4_ft_mix3.json" \
+        "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus3_ft_hybrid4 --decider-adapter runs/decider3 $CLOSED --out results/eval/hybrid4_ft_d3_mix3.json"
+    ;;
+check6)
+    # CPU only, tiny model: the plumbing of read4, train-d3 and eval-d3 (data/full3, probes in four
+    # languages, a fourth-format reader in front of a live decider in the mixed condition).
+    TINY=HuggingFaceTB/SmolLM2-135M-Instruct
+    SHORT="--conditions operations_mix3 --loads 390 --seeds 1 --warmup 30 --window 8"
+    stamp "training on data/full3 (tiny model, two steps) and its held-out predictions"
+    $PY src/train.py --model $TINY --data-dir data/full3 --out runs/check6 --no-4bit --limit-train 16 \
+        --limit-heldout 4 --max-steps 2 --save-steps 0 --batch 4 --accumulation 1 --eval-records 4 --skip-merge
+    $PY src/evaluate.py offline --policy check6_heldout --predictions runs/check6/heldout_predictions.jsonl \
+        --data data/full3 --splits heldout_indist heldout_paraphrase heldout_pairs --limit 4
+    stamp "the decider on probes in another language"
+    $PY src/evaluate.py offline --policy check6_probes --backend transformers --model $TINY \
+        --adapter runs/check6/adapter --data data/probes --splits v3_de v3_new --limit 6 --batch-envs 4
+    stamp "a fourth-format reader (tiny) on the short episodes' instructions, then the hybrid with a live decider"
+    # shellcheck disable=SC2086
+    $PY src/translate.py texts $SHORT --workers 1 --out /tmp/mix3_check6.jsonl
+    $PY src/translate.py batch --model $TINY --batch 8 --jobs "translate4_check6:nobel-eu:regex:/tmp/mix3_check6.jsonl"
+    # shellcheck disable=SC2086
+    $PY src/evaluate.py closed --policy hybrid4_check6 --decider check6_hybrid --decider-adapter runs/check6/adapter \
+        --model $TINY $SHORT --sim-workers 1 --out results/eval/hybrid4_check6_mix3.json
     ;;
 check2)
     TINY=HuggingFaceTB/SmolLM2-135M-Instruct

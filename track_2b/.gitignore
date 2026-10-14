@@ -28,6 +28,7 @@ build/
 
 # Full dataset and per-episode files (published on the Hugging Face Hub; data/sample/ is committed)
 data/full/
+data/full3/
 
 # Training outputs (adapter and merged model go to the Hub)
 runs/

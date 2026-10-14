@@ -11,6 +11,8 @@ cp src/*.py "$stage/src/"
 cp jobs/run.sh "$stage/jobs/"
 cp pyproject.toml uv.lock .python-version README.md "$stage/"
 cp data/full/*.jsonl "$stage/data/full/"
+# The matched decider's data (decider3_data.py); absent before that.
+[ -d data/full3 ] && mkdir -p "$stage/data/full3" && cp data/full3/*.json* "$stage/data/full3/"
 # Phase 1 (built by corpora.py, transfer.py and "translate.py texts"); absent before that.
 for dir in instructions probes translate translate2 fewshot topologies; do
     cp data/$dir/*.json* "$stage/data/$dir/" 2>/dev/null || true
