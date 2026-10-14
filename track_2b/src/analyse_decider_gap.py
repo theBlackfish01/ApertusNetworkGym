@@ -50,7 +50,9 @@ def case_of(view, instruction) -> tuple[str, str]:
     if not allowed:
         spec, fills = mixed3.expressed(instruction), instruction.values
         rules = [k for k in instruction.clauses if k in NEW_TYPES and k not in mixed3.NEW_PREFERENCES]
-        meeting = [p for p in view.paths if meets(p, spec) and all(mixed3._new_rule(p, k, fills) for k in rules)]
+        meeting = [
+            p for p in view.paths if meets(p, spec) and all(mixed3._new_rule(p, k, fills) for k in rules)
+        ]
         return "only a reject complies", "by the spectrum" if meeting else "by the candidates"
     return ("every feasible path complies" if len(allowed) == len(feasible) else "restrictive"), ""
 
@@ -104,13 +106,18 @@ def summary(records: list[dict]) -> dict:
     for load in (240, 390):
         here = [r for r in records if r["load"] == load]
         total = len(here)
-        entry = {"in_language_requests": total, "violations_pct": round(100 * sum(r["violation"] for r in here) / total, 2)}
+        entry = {
+            "in_language_requests": total,
+            "violations_pct": round(100 * sum(r["violation"] for r in here) / total, 2),
+        }
         for case in CASES:
             items = [r for r in here if r["case"] == case]
             entry[case] = rate(items) | {
                 "share_of_in_language_pct": round(100 * len(items) / total, 2),
                 "violations_pct_of_in_language": round(100 * sum(r["violation"] for r in items) / total, 2),
-                "rejected_pct": round(100 * sum(r["rejected"] for r in items) / len(items), 2) if items else None,
+                "rejected_pct": round(100 * sum(r["rejected"] for r in items) / len(items), 2)
+                if items
+                else None,
             }
         only = [r for r in here if r["case"] == "only a reject complies"]
         entry["only a reject complies"] |= {
@@ -144,7 +151,9 @@ def training_rejects() -> dict:
         out[name] = {"records": n, "reject_labels_pct": round(100 * rejects / n, 2)}
     stats = ROOT / "data" / "full3" / "stats.json"
     if stats.exists():
-        out["matched decider"]["placements"] = json.loads(stats.read_text(encoding="utf-8"))["train"]["placement"]
+        out["matched decider"]["placements"] = json.loads(stats.read_text(encoding="utf-8"))["train"][
+            "placement"
+        ]
     return out
 
 

@@ -401,33 +401,61 @@ def swiss_tables(results: Path) -> list:
 
 
 def owner_tables(results: Path) -> list:
-    """The project owner's own instructions (``design/owner.json``, written by ``corpora3_owner.py``)."""
-    owner = read(results / "design" / "owner.json")
-    if not owner:
-        return []
+    """Instructions written by people (``design/owner.json``, ``design/contributor1.json``, written by ``corpora3_owner.py``)."""
     names = {"translate3_ft_laptop": "Reader 1", "translate3_ft2_laptop": "Reader 2",
-             "translate3_few_laptop": "Apertus 8B, 15 examples, no training"}  # fmt: skip
-    groups = {"all": "All", "en": "English", "ur": "Urdu in Latin script"}
-    summary = [[names[r["reader"]], groups[r["group"]], str(r["n"]), str(r.get("right", 0)),
-                str(r.get("silent", 0) + r.get("part_only", 0)),
-                str(r["n"] - r.get("right", 0) - r.get("silent", 0) - r.get("part_only", 0))]
-               for r in owner["readers"] if r["group"] in groups]  # fmt: skip
-    summary.sort(key=lambda row: (list(names.values()).index(row[0]), list(groups.values()).index(row[1])))
-    asking = [[f"Reader 1 / {names[p['second']]}", str(p["n"]), str(p["wrong_alone"]), str(p["wrong_left"]),
-               str(p["asked"]), str(p["right_but_asked"])] for p in owner["pairs"]]  # fmt: skip
-    first, second = list(names)[:2]
-    lines = [[e["text"].replace("|", "/"), e["expect"], e[first]["answer"] if e[first]["outcome"] != "right" else "=",
-              e[first]["outcome"], "yes" if e[second]["asked"] else ""] for e in owner["lines"]]  # fmt: skip
+             "translate3_few_laptop": "Apertus 8B, 15 examples, no training",
+             "translate4_ft_laptop": "Reader of the fourth format"}  # fmt: skip
+    languages = {
+        "en": "English",
+        "ur": "Urdu in Latin script",
+        "de": "German",
+        "it": "Italian",
+        "sv": "Swedish",
+    }
+    sources = {
+        "owner": "the project owner (40 lines)",
+        "contributor1": "a contributor (40 lines, 15 of them standing policies)",
+    }
     where = "on the laptop (4-bit base model, llama.cpp)"
-    return [
-        (f"The project owner's own instructions, {where}: number of instructions",
-         ["Reader", "Lines", "n", "Right", "Applied with another meaning", "Not applied"], summary),
-        ("The owner's instructions, two readers: the operator is asked when their readings differ",
-         ["First reader / second reader", "n", "Not right, first reader alone", "Not right and not asked", "Asked",
-          "Asked although right"], asking),
-        ("The owner's instructions, line by line (= : reader 1 wrote what was meant)",
-         ["Instruction", "Meant", "Reader 1 wrote", "Outcome", "Reader 2 differs: asked"], lines),
-    ]  # fmt: skip
+    out = []
+    for source, who in sources.items():
+        data = read(results / "design" / f"{source}.json")
+        if not data:
+            continue
+        groups = (
+            {"all": "All"}
+            | {f"set:{source}_standing": "Standing policies"}
+            | {f"lang:{k}": v for k, v in languages.items()}
+        )
+        summary = [[names[r["reader"]], groups[r["group"]], str(r["n"]), str(r.get("right", 0)),
+                    str(r.get("silent", 0) + r.get("part_only", 0)),
+                    str(r["n"] - r.get("right", 0) - r.get("silent", 0) - r.get("part_only", 0))]
+                   for r in data["readers"] if r["group"] in groups]  # fmt: skip
+        summary.sort(
+            key=lambda row: (list(names.values()).index(row[0]), list(groups.values()).index(row[1]))
+        )
+        asking = [[f"Reader 1 / {names[p['second']]}", str(p["n"]), str(p["wrong_alone"]), str(p["wrong_left"]),
+                   str(p["asked"]), str(p["right_but_asked"])] for p in data["pairs"]]  # fmt: skip
+        first, second, fourth = "translate3_ft_laptop", "translate3_ft2_laptop", "translate4_ft_laptop"
+
+        def wrote(entry: dict, reader: str) -> str:
+            if reader not in entry:
+                return "–"
+            return "=" if entry[reader]["outcome"] == "right" else entry[reader]["answer"]
+
+        lines = [[e["text"].replace("|", "/"), e["lang"], e["expect"], wrote(e, first),
+                  "yes" if e.get(second, {}).get("asked") else "", wrote(e, fourth)] for e in data["lines"]]  # fmt: skip
+        out += [
+            (f"Instructions written by {who}, {where}: number of instructions",
+             ["Reader", "Lines", "n", "Right", "Applied with another meaning", "Not applied"], summary),
+            ("The same, two readers of the third format: the operator is asked when their readings differ",
+             ["First reader / second reader", "n", "Not right, first reader alone", "Not right and not asked", "Asked",
+              "Asked although right"], asking),
+            (f"Instructions written by {who}, line by line (= : wrote what was meant; – : not read, a standing policy)",
+             ["Instruction", "Language", "Meant", "Reader 1 wrote", "Reader 2 differs: asked", "Fourth format wrote"],
+             lines),
+        ]  # fmt: skip
+    return out
 
 
 def main() -> None:

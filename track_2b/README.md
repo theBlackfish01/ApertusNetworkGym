@@ -332,7 +332,7 @@ track_2b/
     corpora3.py        third round: training data of two readers; trained and held-out clause combinations
     corpora3_tests.py  third round: test sets from the independently written sources
     mixed3.py          third round: instructions tied to a request, rules of the new types, the mixed stream
-    corpora3_owner.py  third round: the owner's own instructions as a test set, and what the readers made of them
+    corpora3_owner.py  instructions written by people (the owner's, a contributor's) as test sets, and what the readers made of them
     readers3.py        third round: what each reader does with every test instruction; two readers
     tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
     console.py         the operator console (http server); console.html is its page

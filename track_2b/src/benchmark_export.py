@@ -38,7 +38,12 @@ SETS = {
     "v3_other": ("a separate AI instance: routing instructions of yet other kinds", "nobel-eu"),
     "v3_not": ("a separate AI instance: text that is no routing instruction", "nobel-eu"),
     "v3_faulty": ("v3 sentences naming a place outside the network", "nobel-eu"),
-    "owner": ("the project's author (17 English, 5 Urdu in Latin script)", "nobel-eu"),
+    "owner": ("the project's author (35 English, 5 Urdu in Latin script)", "nobel-eu"),
+    "contributor1": (
+        "a contributor, from the project's template: one request each, English, German, Italian, Swedish",
+        "nobel-eu",
+    ),
+    "contributor1_standing": ("the same contributor: standing policies with a scope or a lifetime", "nobel-eu"),
     "v4_en": ("v3 sentences with a scope or lifetime phrase by another separate AI instance", "nobel-eu"),
     "v4_de": ("as v4_en (German)", "nobel-eu"),
     "v4_fr": ("as v4_en (French)", "nobel-eu"),

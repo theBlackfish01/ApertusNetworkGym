@@ -24,7 +24,8 @@ provisioning with Apertus 8B*.
 
 - **Curated by:** the project's author (Wadood Ranjha), with sentences written by separate AI
   instances from briefs; see *Source Data*.
-- **Language(s) (NLP):** English, German, French, Italian; 5 lines of Urdu in Latin script.
+- **Language(s) (NLP):** English, German, French, Italian; 5 lines of Urdu in Latin script and 10 of
+  Swedish, written by people.
 - **License:** CDLA-Permissive-2.0 (the whole dataset and every instance).
 - **Git repository:** the project repository (`track_2b/`), which holds the generators
   (`src/corpora3_tests.py`, `src/corpora4_tests.py`, `src/swiss.py`, `src/benchmark_export.py`).
@@ -40,8 +41,8 @@ project's readers, so new models can be compared with them on the same sentences
 
 ### Out-of-Scope Use
 
-The sentences are synthetic (written by AI instances from briefs, except the author's 22). They
-are not a record of what operators say. The policy language carries seven slots; instructions
+The sentences are synthetic (written by AI instances from briefs), except 80: the author's 40 and
+40 from a contributor. They are not a record of what operators say. The policy language carries seven slots; instructions
 outside it are included only as material the model should refuse or hand on.
 
 ### Specifications
@@ -59,7 +60,8 @@ every clause kind alone, clause pairs seen and never seen in training, triples, 
 instruction types shown to no component (`v3_new`, `v3_new_hard`, `v3_new_impossible`);
 instructions carried in part (`v3_partial`); other routing instructions (`v3_other`); text that is
 no instruction (`v3_not`); places outside the network (`v3_faulty`); the author's own lines
-(`owner`); standing policies with a scope or a lifetime (`v4_en` … `v4_it`); the same sentences on
+(`owner`, 40); a contributor's lines, per request (`contributor1`, 25) and standing policies
+(`contributor1_standing`, 15); standing policies with a scope or a lifetime (`v4_en` … `v4_it`); the same sentences on
 a Swiss network with the cities in each language's own name (`v3_swiss_en` … `v3_swiss_it`).
 
 The line format: `avoid=<links,nodes>; via=<node>; hops=<n|any>; km=<n|any>; path=<0-4|any>;
@@ -83,18 +85,22 @@ The sentences of the `v3_*` sets were written by four separate AI instances (one
 from a brief that named the clause kinds, the cities and none of the project's wording. The
 scope and lifetime phrases of the `v4_*` sets were written by another instance from a brief, and
 attached to `v3` sentences by a script. The `v3_swiss_*` sets fill the `v3` sentences with Swiss
-cities in each language's own name. The `owner` set was typed by the author. Placeholders
+cities in each language's own name. The `owner` set was typed by the author; the `contributor1` sets were written by a contributor
+from the project's template (`data/instructions/contributor_template.txt`), who labelled each line
+with what was meant and its language. Placeholders
 (cities, links, limits, bit rates, hours) were filled by scripts with values from the topology.
 
 #### Source Data Producers and Data Subjects
 
-Producers: AI instances (Claude, Anthropic) writing from briefs; the author. No data subjects:
+Producers: AI instances (Claude, Anthropic) writing from briefs; the author; one contributor. No
+data subjects:
 the sentences describe no person.
 
 #### Ownership and Consent Management
 
-All sentences were created for this dataset by its author or by AI instances under the author's
-direction; nothing was collected from third parties.
+All sentences were created for this dataset by its author, by AI instances under the author's
+direction, or by a contributor who wrote them for it under the template's terms (an open test set,
+CDLA-Permissive-2.0, never used for training); nothing was collected from other sources.
 
 #### Data Processing and Quality Control
 
@@ -118,7 +124,8 @@ computed by comparing the meaning of the line with the expected one.
 
 #### Annotator Details
 
-Scripts in the project repository; no human annotation beyond the author's 22 lines.
+Scripts in the project repository; human annotation only on the 80 lines written by people, each
+labelled by its writer (`src/corpora3_owner.py` turns the labels into lines).
 
 ## Risks, Bias, and Limitations
 

@@ -20,3 +20,21 @@
 {"text": "keep modulation on qpsk for this req", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
 {"text": "candidate 3 looks fine, use that", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "owner", "lang": "en", "kind": "atom"}
 {"text": "any update on that outage ticket", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}
+{"text": "ops note: keep hamburg-berlin out of the route for now", "expect": {"status": "ok", "avoid": [["Hamburg", "Berlin"]], "prefer": []}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "Please leave the Rome-Milan span unused on this request.", "expect": {"status": "ok", "avoid": [["Rome", "Milan"]], "prefer": []}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "pick whichever path has the least traffic on it", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "less congested route please, this ones not urgent", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "need the option that eats up the fewest spectrum slots", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "make sure this goes through amsterdam", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Amsterdam"]}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "cap this at 3 hops pls", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 3}, "set": "owner", "lang": "en", "kind": "atom"}
+{"text": "lyon-zurich is unavailable, go around that and use as few slots as you can", "expect": {"status": "ok", "avoid": [["Lyon", "Zurich"]], "prefer": ["slots"]}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "pass through budapest but dont go through zagreb", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Zagreb"], "via": ["Budapest"]}, "set": "owner", "lang": "en", "kind": "heldout"}
+{"text": "6 hops is the limit, within that choose the least loaded path", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "max_hops": 6}, "set": "owner", "lang": "en", "kind": "heldout"}
+{"text": "fewest hops first. if thats tied use the shorter distance in km", "expect": {"status": "ok", "avoid": [], "prefer": ["hops", "km"]}, "set": "owner", "lang": "en", "kind": "trained"}
+{"text": "allocate from the high end of the spectrum this time", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "leave one empty slot either side of this allocation", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "16qam only for this one, reject it if that wont reach", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "dont split this over seperate chunks, needs one continuous block", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "other_routing"}
+{"text": "how many slots are free at the moment?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}
+{"text": "cheers, handing over to the evening shift now", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}
+{"text": "can someone explain what qpsk means again", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "owner", "lang": "en", "kind": "not_instruction"}

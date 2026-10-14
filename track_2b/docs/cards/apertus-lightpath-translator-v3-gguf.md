@@ -56,7 +56,10 @@ passes the answer grammar as GBNF; the project's client does both (`src/translat
   policy table in closed loop stays within 2.4 points of the true table.
 - The hybrid (two readers, rule engine, decider with guard) run live on the laptop on a mixed
   stream at 390 Erlang: 9.18 % violations (job: 8.47 %).
-- 22 instructions typed by the author (17 English, 5 Urdu in Latin script): reader 1 right on 18.
+- 80 instructions written by people: of the author's 40 (35 English, 5 Urdu in Latin script)
+  reader 1 is right on 33, reader 2 on 35, the fourth-format reader on 31; of a contributor's 40
+  (English, German, Italian, Swedish) reader 1 on 20 of the 25 per-request lines and the
+  fourth-format reader on 35, standing policies included.
 
 ## Intended use and limits
 

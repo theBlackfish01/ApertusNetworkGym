@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-13T08:42:32.846163+00:00",
+ "generated_utc": "2026-10-14T13:02:00.146636+00:00",
  "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
  "no_personal_data": true,
  "topologies": {
@@ -63,8 +63,18 @@
    "topology": "nobel-eu"
   },
   "owner": {
-   "rows": 22,
-   "written_by": "the project's author (17 English, 5 Urdu in Latin script)",
+   "rows": 40,
+   "written_by": "the project's author (35 English, 5 Urdu in Latin script)",
+   "topology": "nobel-eu"
+  },
+  "contributor1": {
+   "rows": 25,
+   "written_by": "a contributor, from the project's template: one request each, English, German, Italian, Swedish",
+   "topology": "nobel-eu"
+  },
+  "contributor1_standing": {
+   "rows": 15,
+   "written_by": "the same contributor: standing policies with a scope or a lifetime",
    "topology": "nobel-eu"
   },
   "v4_en": {
@@ -130,11 +140,11 @@
    "model": "Apertus v1.5 70B, 15 examples, no training, 4-bit GGUF"
   },
   "translate3_ft_laptop": {
-   "rows": 4712,
+   "rows": 4755,
    "model": "reader 1, 4-bit GGUF under llama.cpp on an RTX 4060 laptop"
   },
   "translate3_ft2_laptop": {
-   "rows": 3912,
+   "rows": 3955,
    "model": "reader 2, 4-bit GGUF on the laptop"
   },
   "translate3_ft_laptop_s1": {
@@ -162,7 +172,7 @@
    "model": "Apertus v1.5 8B, fine-tuned reader of the fourth format (scope, lifetime), A100"
   },
   "translate4_ft_laptop": {
-   "rows": 822,
+   "rows": 880,
    "model": "the fourth-format reader, 4-bit GGUF on the laptop"
   }
  },

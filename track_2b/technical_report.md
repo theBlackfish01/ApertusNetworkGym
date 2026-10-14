@@ -124,14 +124,14 @@ GPU.
   labelled a training example (every training line comes from the project's generators, which
   fill templates from the topology and know the line by construction), and it never judged an
   answer (scoring is exact comparison of lines; the simulator judges decisions). What rests on it
-  is the wording of the sentences, and that is checked by the author's own 22 lines and by the
-  sentences from other people we invite before the demo.
+  is the wording of the sentences, and that is checked by 80 sentences written by people: the
+  author's 40 and a contributor's 40 (§5).
 
 ## 4. Data
 
 Synthetic, no personal data; licence CDLA-Permissive-2.0; the test sets with every reader's
 answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/benchmark/`:
-4,712 instructions, 20 sets).
+4,770 instructions, 22 sets).
 
 | Data | Size | How it was made |
 | --- | --- | --- |
@@ -141,7 +141,7 @@ answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/
 | Readers, test | 2,078 + 661 | 168 sentences per language by four separate AI instances from a brief naming the clause kinds and none of our wording |
 | Standing policies, test | 800 | 200 scope and lifetime phrases by another separate instance, attached to the test sentences |
 | Swiss network, test | 1,151 | the test sentences filled with Swiss cities in each language's own name (*Genf*, *Genève*, *Ginevra*) |
-| The author's lines | 22 | typed by the owner: 17 English, 5 Urdu in Latin script |
+| Lines written by people | 40 + 40 | the owner: 35 English, 5 Urdu in Latin script; a contributor, from the project's template: 10 each in English, German, Italian, Swedish, 15 of them standing policies |
 | Closed loop | 2 loads × 3 seeds × 2,000 requests | traffic seeds 1–3, never trained on; 4,599 distinct instructions; a second stream of standing policies |
 
 Which clause combinations are trained (eight pairs) and which held out (seven pairs, five
@@ -286,17 +286,31 @@ translator alone breaks 9.8 % of requests (2.2 % inside the language), the trans
 9.0 % (1.2 % inside the language; asked on 12.6 % of requests), asking by consequence 9.3 %
 (asked on 8.0 %), first fit 24.7 %. The same laptop readers on the European network at 390 Erlang
 (`results/eval/translate3_ft_laptop*_mix3.json`) break 1.9 % inside the language alone and 1.2 %
-asking: the unseen city names cost 0.3 points alone and nothing once a second reader is asked. Of the author's 22 lines, reader 1 is right on 18
-(16 of 17 in English, 2 of 5 in Urdu), the fourth-format reader on 17: its two new errors read
-"go from London to Lyon via Oslo" and "to Prague, avoid Berlin" as scopes (`to:Lyon`, `to:Prague`),
-where the author meant the current request's end points. The language has no word for a
-request's own end points; that is the next slot to add.
+asking: the unseen city names cost 0.3 points alone and nothing once a second reader is asked.
+
+**Lines written by people** (`results/design/owner.json`, `results/design/contributor1.json`; the
+laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
+script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
+fourth-format reader on 31 (at 16 bits it read 17 of the first 22). A contributor returned 40
+lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
+standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
+16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
+10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training). With reader 2 as
+the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
+asked about. Errors that recur: a request's end point read as a waypoint or a scope ("go from
+London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
+end points); an ordinal written as its digit ("den andra rutten", the second route, as `path=2`,
+where the template and the candidate list count from 0); *Wien* read as Warsaw by both
+third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
+the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
+instead of `unsupported`.
 
 ## 6. Limitations
 
 - One topology in closed loop (the Swiss one offline so far), one traffic model, one simulator;
   the model ranks candidates the simulator has already checked, it does not compute physics.
-- Every test sentence but 22 was written by an AI instance; four languages, no Swiss German in
+- Every test sentence but 80 was written by an AI instance (40 by the author, 40 by one
+  contributor, the only Urdu and Swedish); four languages otherwise, no Swiss German in
   the demo (72.7 % on a stress set).
 - Unknown types remain the weak point (28–37 % violations for every policy in the mixed stream).
 - The fourth-format reader has no second reader yet, so scope and lifetime are read once; the

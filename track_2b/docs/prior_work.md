@@ -87,7 +87,7 @@ examples (Clarify); conflict detection between intents; time-bounded intents; ag
 5. The negative results: a learned gate does not recognise what it was never shown; self-consistency
    marks unfamiliar input more than error; a second reader of the same recipe shares most errors.
 6. Four languages on an open Swiss model, 4-bit on a laptop, with the cost of quantisation stated.
-7. The benchmark: 4,712 instructions with the line each means and every reader's answers.
+7. The benchmark: 4,770 instructions with the line each means and every reader's answers.
 
 **What a reviewer will push on:**
 

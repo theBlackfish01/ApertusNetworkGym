@@ -270,11 +270,26 @@ European network at 390 E (`results/eval/translate3_ft_laptop*_mix3.json`) break
 inside the language), 10.9 % asking (1.2 %), 10.6 % asking by consequence (1.2 %): the Swiss names
 cost 0.3 points inside the language alone and nothing with a second reader.
 
-**The owner's 22 lines** (`results/design/owner.json`; 17 English, 5 Urdu in Latin script):
-reader 1 on the laptop right on 18 (16 of 17 English, 2 of 5 Urdu); the fourth-format reader on 17.
-Its two new errors read "go from London to Lyon via Oslo" and "to Prague, avoid Berlin" as scopes
-(`to:Lyon`, `to:Prague`) where the owner meant the current request's end points. The language has
-no word for a request's own end points; that is the next slot to add.
+**Lines written by people** (`results/design/owner.json`, `results/design/contributor1.json`; the
+laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
+script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
+fourth-format reader on 31 (at 16 bits it read 17 of the first 22). A contributor returned 40
+lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
+standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
+16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
+10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training). With reader 2 as
+the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
+asked about. Errors that recur: a request's end point read as a waypoint or a scope ("go from
+London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
+end points); an ordinal written as its digit ("den andra rutten", the second route, as `path=2`,
+where the template and the candidate list count from 0); *Wien* read as Warsaw by both
+third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
+the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
+instead of `unsupported`. What it shows: 78–88 % right on
+sentences people wrote, against 91–95 % on the AI-written test sets; most errors are phrasings
+the templates never used, and the two languages outside training cost more (Urdu: 2 or 3 of 5
+right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader). What it does not show: two writers, 80 lines; the
+contributor's lines are taken as written by a person on the contributor's word.
 
 **TAPI export** (`src/tapi.py`, `tests/test_tapi.py`): the line becomes a `topology-constraint`
 and `routing-constraint` of TAPI 2.1.3 (`exclude-link`, `exclude-node`, `include-node`,
@@ -287,7 +302,7 @@ fourth-format reader (an English rate-and-hours policy and a German "everything 
 until withdrawn" read correctly, applied over eight requests), and through Docker from recorded
 answers on 13 October (`docs/decisions.md`).
 
-**The benchmark** (`data/benchmark/`): 4,712 test instructions in 20 sets with the line each
+**The benchmark** (`data/benchmark/`): 4,770 test instructions in 22 sets with the line each
 means, 40,332 reader answers with their outcome, metadata and a dataset card.
 
 ## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
@@ -347,7 +362,7 @@ about USD 8.4 (`docs/decisions.md`).
 - One topology in closed loop for the mixed stream (the Swiss one at 600 E for the translators
   only; no hybrid there, since the decider would have to run live), one traffic model, one
   simulator; the model ranks candidates the simulator has checked, it computes no physics.
-- Every test sentence but 22 was written by an AI instance. Four languages; Swiss German only on a
+- Every test sentence but 80 was written by an AI instance (the author's 40, a contributor's 40). Four languages; Swiss German only on a
   stress set (72.7 %).
 - Unknown instruction types remain the weak point in the mixed stream (28–37 % violations for
   every policy); the limit is what the decider can follow, not the gate.

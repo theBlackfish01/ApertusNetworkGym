@@ -1,0 +1,47 @@
+# Routing instructions from a contributor (contributor 1, anonymous), returned on 14 October 2026.
+#
+# Written against data/instructions/contributor_template.txt: part A, one request (lines 1-25); part B,
+# standing policies (lines 26-40). Each line: the instruction, " | ", what was meant in the template's
+# words, and " | <language>" when not English. Received as routing_reference.md; copied unchanged
+# below. A test set only: never used for training (licence as in the template, CDLA-Permissive-2.0).
+#
+For this one, leave the London–Paris span out of the route. | avoid London-Paris
+Die Verbindung Frankfurt–Hamburg für diesen Auftrag bitte nicht nutzen. | avoid Frankfurt-Hamburg | de
+Den här förbindelsen får inte gå genom Prag. | avoid Prague | sv
+Fai passare questa richiesta da Zurigo. | via Zurich | it
+cap this one at 4 hops pls | max 4 hops
+Max. 1800 km Gesamtlänge für diese Strecke, darüber bitte ablehnen. | max 1800 km | de
+Ta den andra rutten i kandidatlistan för den här beställningen. | candidate 1 | sv
+Per questo circuito scegli il percorso con meno salti possibile. | prefer hops | it
+Use whichever path has the lowest total distance in km for this request. | prefer km
+Für diesen Lightpath möglichst den Pfad mit der geringsten Auslastung nehmen. | prefer load | de
+Kör den här via Köpenhamn, men inte mer än fem hopp totalt. | via Copenhagen, max 5 hops | sv
+Niente tratta Milano–Roma per questa richiesta; tra le alternative scegli quella che richiede meno slot. | avoid Milan-Rome, prefer slots | it
+Keep this request out of Berlin, six hops max, and favour the least loaded path. | avoid Berlin, max 6 hops, prefer load
+Bitte über Wien führen, München auslassen und unter den passenden Routen die kürzeste nach km nehmen. | via Vienna, avoid Munich, prefer km | de
+Undvik länken Bryssel–Paris för den här och håll hela sträckan inom 2200 km. | avoid Brussels-Paris, max 2200 km | sv
+Passa da Lione. Prima minimizza gli slot richiesti, poi la lunghezza in km a parità di slot. | via Lyon, prefer slots, then km | it
+Allocate a contiguous block of spectrum slots for this lightpath, using the same slot indices on every link. | other: require contiguous spectrum slots and spectrum continuity across all links
+Für diesen Auftrag QPSK fest einstellen, keine automatische Wahl der Modulation. | other: use QPSK modulation without automatic modulation selection | de
+Lägg till en reservväg för den här förbindelsen som inte delar någon länk med huvudvägen. | other: provide a backup path that shares no links with the primary path | sv
+Per questo lightpath lascia due slot di guardia liberi su ciascun lato del blocco assegnato. | other: leave two unused guard slots on each side of the allocated spectrum block | it
+Reassign the spectrum slots on this existing circuit, but keep its current route exactly as it is. | other: change the spectrum allocation while preserving the existing route
+Ist das Wartungsfenster in Frankfurt schon bestätigt? | none | de
+Överlämning: larmet i Oslo är kvitterat och ärendet ligger hos nästa skift. | none | sv
+Oggi il caffè del turno di notte è meglio del solito. | none | it
+Anyone know where the spare transceiver for Amsterdam ended up? | none
+In den nächsten 3 Std. keine neuen Lightpaths über Zürich–Mailand legen. | avoid Zurich-Milan, for 3 hours | de
+Alla nya förbindelser ska gå via Berlin under de kommande två timmarna. | via Berlin, for 2 hours | sv
+Per le prossime quattro ore, massimo cinque salti per ogni nuova richiesta. | max 5 hops, for 4 hours | it
+For the next six hours, favour paths that need the fewest spectrum slots for all new requests. | prefer slots, for 6 hours
+Bis diese Regel ausdrücklich aufgehoben wird, Straßburg bei allen neuen Routen auslassen. | avoid Strasbourg, until withdrawn | de
+Länken Oslo–Köpenhamn ska inte användas för nya förbindelser förrän spärren hävs. | avoid Oslo-Copenhagen, until withdrawn | sv
+Fino alla revoca della regola, dai priorità al percorso più corto in km per tutte le nuove richieste. | prefer km, until withdrawn | it
+All new requests must stay within 2500 km total route length until we lift this limit. | max 2500 km, until withdrawn
+Für alle 400G-Anfragen gilt: Die direkte Strecke Frankfurt–München darf nicht verwendet werden. | avoid Frankfurt-Munich, only rate 400 | de
+För alla beställningar med start i Stockholm ska vi prioritera vägen med lägst belastning. | prefer load, only from Stockholm | sv
+Tutte le richieste con destinazione Roma devono passare da Milano. | via Milan, only to Rome | it
+Apply a six-hop ceiling to every 10G request. | max 6 hops, only rate 10
+Für die nächsten acht Stunden Brüssel–Paris sperren und für neue Anfragen möglichst wenige Hops wählen. | avoid Brussels-Paris, prefer hops, for 8 hours | de
+Alla nya förbindelser till Zagreb ska gå via Wien och inte genom München. | via Vienna, avoid Munich, only to Zagreb | sv
+Per le prossime 12 ore, tutte le richieste da 100G devono evitare Amburgo e restare entro sette salti. | avoid Hamburg, max 7 hops, only rate 100, for 12 hours | it
