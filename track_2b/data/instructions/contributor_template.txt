@@ -1,0 +1,98 @@
+# Routing instructions written by people who run networks
+#
+# Thank you for helping. This file is a test: a small AI model turns operators' instructions into routing
+# constraints, and we want to know how it copes with sentences written by real people rather than by
+# machines. It takes about 30 to 45 minutes. Lines starting with # are ignored; write yours at the bottom.
+#
+# ABOUT YOU (optional, used only to describe the contributors in a paper; leave blank if you prefer)
+#   Name for the acknowledgments, or "anonymous":
+#   Role (for example NOC engineer, network planner, researcher, student):
+#   Years working with networks:
+#
+# THE RULES
+#   1. Write as you would really type at work: ticket notes, chat messages, full sentences, abbreviations,
+#      typos. All of that is welcome. Vary it.
+#   2. Do not use an AI assistant or a translation tool to write, translate or polish your lines.
+#   3. Do not look at the project's code, data or paper before you write. The examples in this file are
+#      the only ones you need; please do not copy their wording.
+#   4. One instruction per line. Then " | " and what you meant, using the words listed below.
+#   5. If a line is not in English, add " | " and its language at the end, for example " | de" or " | Urdu".
+#   6. No real customer names, people's names or anything confidential.
+#
+# THE NETWORK (a European research network of 28 cities and 41 links)
+#   Name these cities only: Amsterdam, Athens, Barcelona, Belgrade, Berlin, Bordeaux, Brussels, Budapest,
+#   Copenhagen, Dublin, Frankfurt, Glasgow, Hamburg, London, Lyon, Madrid, Milan, Munich, Oslo, Paris,
+#   Prague, Rome, Stockholm, Strasbourg, Vienna, Warsaw, Zagreb, Zurich.
+#   A link is a direct span between two neighbouring cities. Each city and its neighbours:
+#     Amsterdam: Brussels, Glasgow, Hamburg, London      Athens: Belgrade, Rome
+#     Barcelona: Lyon, Madrid                            Belgrade: Athens, Budapest, Zagreb
+#     Berlin: Copenhagen, Hamburg, Munich, Prague, Warsaw  Bordeaux: Madrid, Paris
+#     Brussels: Amsterdam, Frankfurt, Paris              Budapest: Belgrade, Prague, Warsaw
+#     Copenhagen: Berlin, Oslo                           Dublin: Glasgow, London
+#     Frankfurt: Brussels, Hamburg, Munich, Strasbourg   Glasgow: Amsterdam, Dublin
+#     Hamburg: Amsterdam, Berlin, Frankfurt              London: Amsterdam, Dublin, Paris
+#     Lyon: Barcelona, Paris, Zurich                     Madrid: Barcelona, Bordeaux
+#     Milan: Munich, Rome, Zurich                        Munich: Berlin, Frankfurt, Milan, Vienna
+#     Oslo: Copenhagen, Stockholm                        Paris: Bordeaux, Brussels, London, Lyon, Strasbourg
+#     Prague: Berlin, Budapest, Vienna                   Rome: Athens, Milan, Zagreb
+#     Stockholm: Oslo, Warsaw                            Strasbourg: Frankfurt, Paris, Zurich
+#     Vienna: Munich, Prague, Zagreb                     Warsaw: Berlin, Budapest, Stockholm
+#     Zagreb: Belgrade, Rome, Vienna                     Zurich: Lyon, Milan, Strasbourg
+#   Every request asks for one lightpath between two cities at 10, 40, 100 or 400 Gb/s. The system offers
+#   five candidate routes, numbered 0 to 4 from the shortest to the longest.
+#
+# WHAT TO WRITE (about 40 lines in all)
+#
+#   Part A. An instruction for one request, about 25 lines:
+#     10  one wish each: keep a link out of use (x2), keep a city out of the route (x1), go through a
+#         city (x1), a limit on hops (x1), a limit on length in km (x1), pick a candidate by its number
+#         (x1), and three different preferences among: fewest hops, shortest in km, least loaded path,
+#         fewest spectrum slots (x3)
+#      6  two or three of those wishes in one instruction
+#      5  anything else you would really ask about the route, the spectrum slots or the modulation,
+#         which the list above cannot say
+#      4  messages that are not routing instructions (a question, a handover note, small talk)
+#
+#   Part B. A standing rule that holds for many requests, about 15 lines:
+#      4  a rule for a limited time ("for the next 6 hours ...")
+#      4  a rule that holds until someone lifts it ("until further notice ...")
+#      4  a rule for only some requests: one bit rate, or requests from a city, or requests to a city
+#      3  two routing wishes in one rule, with a time limit or for only some requests
+#
+#   Languages: if you speak a language other than English fluently, write at least a third of your lines
+#   in it. German, French and Italian are especially useful; any other language is welcome too.
+#
+# HOW TO WRITE WHAT YOU MEANT (after the " | "), with these words so nobody has to guess:
+#   avoid A-B             the route must not use the link between A and B
+#   avoid A               the route must not pass through city A
+#   via A                 the route must pass through city A
+#   max N hops            at most N hops (N from 1 to 9)
+#   max N km              at most N km
+#   candidate N           use candidate number N (0 to 4; "the second one" is candidate 1)
+#   prefer hops | km | load | slots
+#                         fewest hops | shortest in km | least loaded | fewest spectrum slots
+#                         (several in order of importance: "prefer load, then hops")
+#   other: <what>         a routing instruction that none of the words above can say; describe it
+#   none                  not a routing instruction
+#   For a standing rule (part B), add who it covers and how long it holds:
+#   only rate N           only requests of N Gb/s (10, 40, 100 or 400)
+#   only from A           only requests that start in city A
+#   only to A             only requests that end in city A
+#   for N hours           holds for the next N hours
+#   until withdrawn       holds until someone lifts it
+#   Separate the parts with commas. If you are not sure how to label a line, use "other:" and describe it
+#   in plain words: a careful "other:" is more useful than a forced label.
+#
+# EXAMPLES OF THE FORMAT (please do not reuse their wording)
+#   Glasgow-Dublin fibre is being spliced tonight, keep this one off it, fewest hops otherwise | avoid Glasgow-Dublin, prefer hops
+#   whats the ETA on the warsaw ticket | none
+#   until the repair crew signs off, no 100G over Budapest-Prague | avoid Budapest-Prague, only rate 100, until withdrawn
+#   für die nächsten 8 Stunden alles nach Athen über Belgrad führen | via Belgrade, only to Athens, for 8 hours | de
+#
+# WHAT HAPPENS WITH YOUR LINES
+#   They become part of an open test set published with the project (licence CDLA-Permissive-2.0) and may
+#   be quoted in a scientific paper. They are used to test the models, never to train them. Save this file
+#   and send it back to: [return address]
+#
+# Your lines below:
+
