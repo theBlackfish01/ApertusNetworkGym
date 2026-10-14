@@ -16,7 +16,7 @@ this page maps them to the material in the repository and lists the steps only t
 | The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
-Cost: about USD 51.6 of GPU time for everything, about 20.6 GPU-hours on one rented A100 (USD 8.4 of it on 14 October, for the matched decider and the fourth-format reader in the mixed stream).
+Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one rented A100 (USD 8.5 of it on 14 October: the matched decider, the fourth-format reader in the mixed stream, and the lines written by people at 16 bits).
 
 ## 2. The deliverables, against the brief
 
@@ -93,7 +93,7 @@ Their reports are in the session's scratchpad; the substance:
 | Item | Value | Effort / cost |
 | --- | --- | --- |
 | More sentences from other people (section 3; one contributor's 40 are in) | The single best answer to "all synthetic" | an hour of yours to collect, an hour of mine |
-| A second reader of the fourth format | Gives scope and lifetime the disagreement check the third format has; a training-variance estimate | about USD 2.7 of GPU (about 3.4 left) |
+| A second reader of the fourth format | Gives scope and lifetime the disagreement check the third format has; a training-variance estimate | about USD 2.7 of GPU (about 3.3 left) |
 | The model server as a compose service | Sovereign deployment in one command; judges with a GPU could run the live mode | half a day |
 | TAPI object sent to a controller (TeraFlowSDN) | Turns the mapping into an integration | a day or more; uncertain |
 | Operators consulted | Value evidence beyond the simulator | depends on access |

@@ -67,6 +67,9 @@ line they combine to, the conflicts a new policy raises, and a report per policy
 - On the third round's mixed stream of per-request instructions (390 Erlang, three seeds) it can
   replace reader 1: alone it breaks 10.7 % of requests (reader 1: 10.6 %), in front of the decider
   9.1 % (9.5 %), passing 16.1 % of requests to the decider instead of 11.5 %.
+- Lines written by people, at 16 bits: right on 34 of the author's 40 and on 36 of a contributor's
+  40 (English, German, Italian, Swedish; 15 standing policies), Swedish 9 of 10, although no
+  training sentence is Swedish.
 - Known error: "to Prague, avoid Berlin" is read as a scope (`to:Prague`) where an operator means
   the current request's destination; the language has no word yet for a request's own end points.
 

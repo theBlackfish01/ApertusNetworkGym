@@ -273,11 +273,15 @@ cost 0.3 points inside the language alone and nothing with a second reader.
 **Lines written by people** (`results/design/owner.json`, `results/design/contributor1.json`; the
 laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
 script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
-fourth-format reader on 31 (at 16 bits it read 17 of the first 22). A contributor returned 40
+fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). A contributor returned 40
 lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
 standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
 16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
-10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training). With reader 2 as
+10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training), and at 16 bits on
+36 of 40 (Swedish 9 of 10). The 16-bit build gets right some lines the laptop's misses (a routing
+request outside the language flagged as such; "to munich" no longer read as a scope; a second
+preference kept) and misses others (an avoided link dropped from a standing policy; "the second
+route" left without a candidate number). With reader 2 as
 the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
 asked about. Errors that recur: a request's end point read as a waypoint or a scope ("go from
 London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
@@ -285,10 +289,10 @@ end points); an ordinal written as its digit ("den andra rutten", the second rou
 where the template and the candidate list count from 0); *Wien* read as Warsaw by both
 third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
 the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
-instead of `unsupported`. What it shows: 78–88 % right on
+instead of `unsupported`. What it shows: 78–90 % right on
 sentences people wrote, against 91–95 % on the AI-written test sets; most errors are phrasings
 the templates never used, and the two languages outside training cost more (Urdu: 2 or 3 of 5
-right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader). What it does not show: two writers, 80 lines; the
+right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader, 9 at 16 bits). What it does not show: two writers, 80 lines; the
 contributor's lines are taken as written by a person on the contributor's word.
 
 **TAPI export** (`src/tapi.py`, `tests/test_tapi.py`): the line becomes a `topology-constraint`
@@ -303,7 +307,7 @@ until withdrawn" read correctly, applied over eight requests), and through Docke
 answers on 13 October (`docs/decisions.md`).
 
 **The benchmark** (`data/benchmark/`): 4,770 test instructions in 22 sets with the line each
-means, 40,332 reader answers with their outcome, metadata and a dataset card.
+means, 40,534 reader answers with their outcome, metadata and a dataset card.
 
 ## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
 

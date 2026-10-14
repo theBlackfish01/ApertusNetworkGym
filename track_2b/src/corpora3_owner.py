@@ -40,8 +40,15 @@ SOURCES = {
     "contributor1": INSTRUCTIONS / "contributor1_source.txt",
 }
 SOURCE = SOURCES["owner"]
-READERS = ("translate3_ft_laptop", "translate3_ft2_laptop", "translate3_few_laptop", "translate4_ft_laptop")
-STANDING_READERS = ("translate4_ft_laptop",)  # the only format that can write a scope or a lifetime
+# the laptop readers (4-bit base, llama.cpp), then the fourth-format reader at 16 bits (an A100 job)
+READERS = (
+    "translate3_ft_laptop",
+    "translate3_ft2_laptop",
+    "translate3_few_laptop",
+    "translate4_ft_laptop",
+    "translate4_ft",
+)
+STANDING_READERS = ("translate4_ft_laptop", "translate4_ft")  # the only format with scope and lifetime
 URDU = {"se", "hai", "mat", "nahi", "nahee", "aur", "kar", "lena", "rakho", "liken", "lekin", "baqi"}
 
 
@@ -178,7 +185,7 @@ def score(rows: list[dict], readers: tuple[str, ...] = READERS) -> dict:
                     for name, c in counts.items() for group in sorted({g for g, _ in c})],
         "pairs": [{"first": first, "second": name, "n": in_language, **dict(c)} for name, c in asked.items()],
         "metadata": {"command": "src/corpora3_owner.py --score", "instructions": len(rows),
-                     "note": "laptop readers (4-bit base, llama.cpp); standing policies are read by the fourth-format reader only"},
+                     "note": "laptop readers (4-bit base, llama.cpp) and translate4_ft at 16 bits; standing policies are read by the fourth-format reader only"},
     }  # fmt: skip
 
 

@@ -63,7 +63,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | hybrids-d3 | check6}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | hybrids-d3 | read-people | check6}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -620,6 +620,29 @@ PYEOF
     together \
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus_ft_hybrid4 --decider-adapter runs/adapter $CLOSED $SYNC --out results/eval/hybrid4_ft_mix3.json" \
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus3_ft_hybrid4 --decider-adapter runs/decider3 $CLOSED --out results/eval/hybrid4_ft_d3_mix3.json"
+    ;;
+read-people)
+    # The fourth-format reader at 16 bits on the lines written by people (corpora3_owner.py): the
+    # owner's 40 (22 already in the answer cache) and contributor 1's 40. ``parse`` only fills the
+    # cache, so no score file is replaced; scoring happens on the laptop (readers3.py).
+    : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (the fourth-format reader)}"
+    $PY - <<'PYEOF'
+import sys
+from pathlib import Path
+cache = Path("results/cache/translate4_ft.jsonl")
+lines = sum(1 for _ in cache.open(encoding="utf-8")) if cache.exists() else 0
+print("translate4_ft cache:", lines, "answers")
+if lines < 7000:
+    sys.exit("the full-format reader's cache is missing or stale: restore it first")
+PYEOF
+    $PY -c "
+from huggingface_hub import snapshot_download
+print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator4', allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
+    stamp "translate4_ft: the lines written by people (owner, contributor 1)"
+    $PY src/translate.py parse --policy translate4_ft --model "$MODEL" --adapter runs/translator4 --batch 64 \
+        --sets $I/owner.jsonl $I/contributor1.jsonl $I/contributor1_standing.jsonl
+    keep results/cache/translate4_ft.jsonl
     ;;
 check6)
     # CPU only, tiny model: the plumbing of read4, train-d3 and eval-d3 (data/full3, probes in four

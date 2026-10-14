@@ -23,6 +23,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -46,6 +50,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=Frankfurt-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Frankfurt-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -73,6 +81,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -96,6 +108,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -123,6 +139,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -146,6 +166,10 @@
     "asked": true
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -173,6 +197,10 @@
    "translate4_ft_laptop": {
     "answer": "unsupported",
     "outcome": "flagged"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent"
    }
   },
   {
@@ -196,6 +224,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -223,6 +255,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -246,6 +282,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -273,6 +313,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=Copenhagen; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=Copenhagen; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -296,6 +340,10 @@
     "asked": true
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=Milan-Rome; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Milan-Rome; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -323,6 +371,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=Berlin; via=none; hops=6; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=Berlin; via=none; hops=6; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -346,6 +398,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -373,6 +429,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=Brussels-Paris; via=none; hops=any; km=2200; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=Brussels-Paris; via=none; hops=any; km=2200; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -398,6 +458,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
     "outcome": "silent"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots,km; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -423,6 +487,10 @@
    "translate4_ft_laptop": {
     "answer": "unsupported",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal"
    }
   },
   {
@@ -446,6 +514,10 @@
     "asked": true
    },
    "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "unsupported",
     "outcome": "right"
    }
@@ -473,6 +545,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "silent"
+   },
+   "translate4_ft": {
+    "answer": "unsupported",
+    "outcome": "right"
    }
   },
   {
@@ -496,6 +572,10 @@
     "asked": true
    },
    "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "unsupported",
     "outcome": "right"
    }
@@ -523,6 +603,10 @@
    "translate4_ft_laptop": {
     "answer": "no_instruction",
     "outcome": "other_refusal"
+   },
+   "translate4_ft": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal"
    }
   },
   {
@@ -546,6 +630,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "no_instruction",
     "outcome": "right"
    }
@@ -573,6 +661,10 @@
    "translate4_ft_laptop": {
     "answer": "no_instruction",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "no_instruction",
+    "outcome": "right"
    }
   },
   {
@@ -596,6 +688,10 @@
     "asked": false
    },
    "translate4_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "no_instruction",
     "outcome": "right"
    }
@@ -623,6 +719,10 @@
    "translate4_ft_laptop": {
     "answer": "no_instruction",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "no_instruction",
+    "outcome": "right"
    }
   },
   {
@@ -632,6 +732,10 @@
    "kind": "hours",
    "expect": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none",
     "outcome": "right"
    }
@@ -645,6 +749,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -654,6 +762,10 @@
    "kind": "hours",
    "expect": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none",
     "outcome": "right"
    }
@@ -667,6 +779,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=6h; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=6h; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -676,6 +792,10 @@
    "kind": "open",
    "expect": "avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -689,6 +809,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -698,6 +822,10 @@
    "kind": "open",
    "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
     "outcome": "right"
    }
@@ -711,6 +839,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -720,6 +852,10 @@
    "kind": "rate",
    "expect": "avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
     "outcome": "right"
    }
@@ -733,6 +869,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=from:Stockholm; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=from:Stockholm; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -742,6 +882,10 @@
    "kind": "to",
    "expect": "avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
     "outcome": "right"
    }
@@ -755,6 +899,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -766,6 +914,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=Brussels-Paris; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none",
     "outcome": "right"
+   },
+   "translate4_ft": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none",
+    "outcome": "silent"
    }
   },
   {
@@ -777,6 +929,10 @@
    "translate4_ft_laptop": {
     "answer": "avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none",
     "outcome": "silent"
+   },
+   "translate4_ft": {
+    "answer": "avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none",
+    "outcome": "right"
    }
   },
   {
@@ -786,6 +942,10 @@
    "kind": "rate+hours",
    "expect": "avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none",
    "translate4_ft_laptop": {
+    "answer": "avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none",
+    "outcome": "right"
+   },
+   "translate4_ft": {
     "answer": "avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none",
     "outcome": "right"
    }
@@ -1173,6 +1333,131 @@
    "n": 15,
    "right": 14,
    "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "all",
+   "n": 40,
+   "other_refusal": 2,
+   "right": 36,
+   "silent": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:atom",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:from",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:heldout",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:hours",
+   "n": 5,
+   "right": 4,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:new",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:not_instruction",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:open",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:other_routing",
+   "n": 5,
+   "other_refusal": 2,
+   "right": 3
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:rate",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:rate+hours",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:to",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "kind:trained",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "lang:de",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "lang:en",
+   "n": 10,
+   "other_refusal": 2,
+   "right": 8
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "lang:it",
+   "n": 10,
+   "right": 10
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "lang:sv",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "set:contributor1",
+   "n": 25,
+   "other_refusal": 2,
+   "right": 22,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft",
+   "group": "set:contributor1_standing",
+   "n": 15,
+   "right": 14,
+   "silent": 1
   }
  ],
  "pairs": [
@@ -1198,7 +1483,7 @@
  "metadata": {
   "command": "src/corpora3_owner.py --score",
   "instructions": 40,
-  "note": "laptop readers (4-bit base, llama.cpp); standing policies are read by the fourth-format reader only",
+  "note": "laptop readers (4-bit base, llama.cpp) and translate4_ft at 16 bits; standing policies are read by the fourth-format reader only",
   "source": "contributor1_source.txt"
  }
 }

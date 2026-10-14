@@ -291,11 +291,15 @@ asking: the unseen city names cost 0.3 points alone and nothing once a second re
 **Lines written by people** (`results/design/owner.json`, `results/design/contributor1.json`; the
 laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
 script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
-fourth-format reader on 31 (at 16 bits it read 17 of the first 22). A contributor returned 40
+fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). A contributor returned 40
 lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
 standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
 16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
-10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training). With reader 2 as
+10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training), and at 16 bits on
+36 of 40 (Swedish 9 of 10). The 16-bit build gets right some lines the laptop's misses (a routing
+request outside the language flagged as such; "to munich" no longer read as a scope; a second
+preference kept) and misses others (an avoided link dropped from a standing policy; "the second
+route" left without a candidate number). With reader 2 as
 the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
 asked about. Errors that recur: a request's end point read as a waypoint or a scope ("go from
 London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
@@ -337,9 +341,9 @@ instead of `unsupported`.
 the hybrid; `make console` serves the console on port 8090. Every results file records the
 command, the simulator commit (`f7c4491`), seeds and loads; every model answer is in
 `results/cache/`; `docs/decisions.md` logs every deviation, mistake and its cost. Hugging Face
-Jobs on one A100: about 20.6 GPU-hours and about USD 51.6 over four rounds and one follow-up
+Jobs on one A100: about 20.7 GPU-hours and about USD 51.7 over four rounds and the follow-ups
 (the fourth round USD 3.14; the matched decider and the fourth-format reader in the mixed stream
-about USD 8.4).
+about USD 8.4; the lines written by people at 16 bits about USD 0.12).
 The submission is the commit tagged `submission` in the repository.
 
 ## 8. Related work

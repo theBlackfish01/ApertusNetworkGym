@@ -353,7 +353,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | types never shown | reader 2 (same recipe, on the laptop) | 108 | 37.0 | 43.5 | 8.3 | 8.3 | 1.9 |
 | types never shown | reader 2, or a sample differs | 108 | 88.0 | 43.5 | 2.8 | 2.8 | 47.2 |
 
-## Instructions written by the project owner (40 lines), on the laptop (4-bit base model, llama.cpp): number of instructions
+## Instructions written by the project owner (40 lines), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -369,6 +369,9 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader of the fourth format | All | 40 | 31 | 8 | 1 |
 | Reader of the fourth format | English | 35 | 29 | 5 | 1 |
 | Reader of the fourth format | Urdu in Latin script | 5 | 2 | 3 | 0 |
+| Reader of the fourth format, 16 bits (A100) | All | 40 | 34 | 6 | 0 |
+| Reader of the fourth format, 16 bits (A100) | English | 35 | 32 | 3 | 0 |
+| Reader of the fourth format, 16 bits (A100) | Urdu in Latin script | 5 | 2 | 3 | 0 |
 
 ## The same, two readers of the third format: the operator is asked when their readings differ
 
@@ -379,50 +382,50 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 ## Instructions written by the project owner (40 lines), line by line (= : wrote what was meant; – : not read, a standing policy)
 
-| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote |
-|---|---|---|---|---|---|
-| go from London to Lyon via Oslo, at most 4 hops | en | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; rest=none | = |  | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; scope=from:London; until=open; rest=none |
-| to prague freom neighborsd but avoid berlin | en | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Prague; until=open; rest=none |
-| prague se belin liken munich nahee | ur | avoid=Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | avoid=Prague-Berlin,Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
-| prefer fewer hops, rouite between central european cities to munich | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=Munich; hops=any; km=any; path=any; prefer=hops; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=from:Munich; until=open; rest=none |
-| berlin prague link is out, dont send anything over that | en | avoid=Berlin-Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| least busy route pls, if its a tie just take fewer hops | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none | = |  | = |
-| needs to touch vienna, 5 hops max though | en | avoid=none; via=Vienna; hops=5; km=any; path=any; prefer=none; rest=none | = |  | = |
-| save spectrum on this one, as few slots as poss | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = | yes | = |
-| actually just pick the 2nd option in the list | en | avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none | = |  | = |
-| 1800km max, not bothered about the hop count | en | avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none | = |  | = |
-| can u set up protection for this too | en | no_instruction | = |  | = |
-| paris se mat guzarna, baqi jo kam busy hai woh le lo | ur | avoid=Paris; via=none; hops=any; km=any; path=any; prefer=load; rest=none | avoid=none; via=Paris; hops=any; km=any; path=any; prefer=none; rest=none | yes | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Paris; until=open; rest=none |
-| zurich-milan pe maintenance hai, us link ko skip kar do | ur | avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| paris brussels span mat lena aur hops minimum rakho | ur | avoid=Paris-Brussels; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | yes | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none |
-| shortest in km pls, load doesnt matter for this one | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = |  | = |
-| route it via frankfurt, avoid munich-vienna and keep it to 6 hops | en | avoid=Munich-Vienna; via=Frankfurt; hops=6; km=any; path=any; prefer=none; rest=none | = |  | = |
-| load first then spectrum use if both routes are equally busy | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none | = |  | = |
-| 4 hops se zyada nahi aur hamburg se nahi guzarna | ur | avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = |
-| start at slot 12 if that whole block is free | en | unsupported | = |  | = |
-| keep modulation on qpsk for this req | en | unsupported | = |  | no_instruction |
-| candidate 3 looks fine, use that | en | avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none | = |  | = |
-| any update on that outage ticket | en | no_instruction | = |  | = |
-| ops note: keep hamburg-berlin out of the route for now | en | avoid=Hamburg-Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Please leave the Rome-Milan span unused on this request. | en | avoid=Rome-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| pick whichever path has the least traffic on it | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = |
-| less congested route please, this ones not urgent | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = |
-| need the option that eats up the fewest spectrum slots | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = |
-| make sure this goes through amsterdam | en | avoid=none; via=Amsterdam; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| cap this at 3 hops pls | en | avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none | = |  | = |
-| lyon-zurich is unavailable, go around that and use as few slots as you can | en | avoid=Lyon-Zurich; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = |
-| pass through budapest but dont go through zagreb | en | avoid=Zagreb; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none | avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none | yes | = |
-| 6 hops is the limit, within that choose the least loaded path | en | avoid=none; via=none; hops=6; km=any; path=any; prefer=load; rest=none | = |  | = |
-| fewest hops first. if thats tied use the shorter distance in km | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,km; rest=none | = |  | = |
-| allocate from the high end of the spectrum this time | en | unsupported | = |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none |
-| leave one empty slot either side of this allocation | en | unsupported | = |  | = |
-| 16qam only for this one, reject it if that wont reach | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | yes | = |
-| dont split this over seperate chunks, needs one continuous block | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
-| how many slots are free at the moment? | en | no_instruction | = |  | = |
-| cheers, handing over to the evening shift now | en | no_instruction | = |  | = |
-| can someone explain what qpsk means again | en | no_instruction | = |  | = |
+| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
+|---|---|---|---|---|---|---|
+| go from London to Lyon via Oslo, at most 4 hops | en | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; rest=none | = |  | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; scope=from:London; until=open; rest=none | avoid=none; via=Oslo; hops=4; km=any; path=any; prefer=none; scope=to:Lyon; until=open; rest=none |
+| to prague freom neighborsd but avoid berlin | en | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Prague; until=open; rest=none | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Prague; until=open; rest=none |
+| prague se belin liken munich nahee | ur | avoid=Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | avoid=Prague-Berlin,Munich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
+| prefer fewer hops, rouite between central european cities to munich | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=Munich; hops=any; km=any; path=any; prefer=hops; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=from:Munich; until=open; rest=none | = |
+| berlin prague link is out, dont send anything over that | en | avoid=Berlin-Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| least busy route pls, if its a tie just take fewer hops | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; rest=none | = |  | = | = |
+| needs to touch vienna, 5 hops max though | en | avoid=none; via=Vienna; hops=5; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| save spectrum on this one, as few slots as poss | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = | yes | = | = |
+| actually just pick the 2nd option in the list | en | avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none | = |  | = | = |
+| 1800km max, not bothered about the hop count | en | avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none | = |  | = | = |
+| can u set up protection for this too | en | no_instruction | = |  | = | = |
+| paris se mat guzarna, baqi jo kam busy hai woh le lo | ur | avoid=Paris; via=none; hops=any; km=any; path=any; prefer=load; rest=none | avoid=none; via=Paris; hops=any; km=any; path=any; prefer=none; rest=none | yes | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Paris; until=open; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none |
+| zurich-milan pe maintenance hai, us link ko skip kar do | ur | avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| paris brussels span mat lena aur hops minimum rakho | ur | avoid=Paris-Brussels; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | yes | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none |
+| shortest in km pls, load doesnt matter for this one | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = |  | = | = |
+| route it via frankfurt, avoid munich-vienna and keep it to 6 hops | en | avoid=Munich-Vienna; via=Frankfurt; hops=6; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| load first then spectrum use if both routes are equally busy | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,slots; rest=none | = |  | = | = |
+| 4 hops se zyada nahi aur hamburg se nahi guzarna | ur | avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| start at slot 12 if that whole block is free | en | unsupported | = |  | = | = |
+| keep modulation on qpsk for this req | en | unsupported | = |  | no_instruction | = |
+| candidate 3 looks fine, use that | en | avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none | = |  | = | = |
+| any update on that outage ticket | en | no_instruction | = |  | = | = |
+| ops note: keep hamburg-berlin out of the route for now | en | avoid=Hamburg-Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Please leave the Rome-Milan span unused on this request. | en | avoid=Rome-Milan; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| pick whichever path has the least traffic on it | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = | = |
+| less congested route please, this ones not urgent | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = | = |
+| need the option that eats up the fewest spectrum slots | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = | = |
+| make sure this goes through amsterdam | en | avoid=none; via=Amsterdam; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| cap this at 3 hops pls | en | avoid=none; via=none; hops=3; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| lyon-zurich is unavailable, go around that and use as few slots as you can | en | avoid=Lyon-Zurich; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = | = |
+| pass through budapest but dont go through zagreb | en | avoid=Zagreb; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none | avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none | yes | = | = |
+| 6 hops is the limit, within that choose the least loaded path | en | avoid=none; via=none; hops=6; km=any; path=any; prefer=load; rest=none | = |  | = | = |
+| fewest hops first. if thats tied use the shorter distance in km | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,km; rest=none | = |  | = | = |
+| allocate from the high end of the spectrum this time | en | unsupported | = |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none | = |
+| leave one empty slot either side of this allocation | en | unsupported | = |  | = | = |
+| 16qam only for this one, reject it if that wont reach | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | yes | = | = |
+| dont split this over seperate chunks, needs one continuous block | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
+| how many slots are free at the moment? | en | no_instruction | = |  | = | = |
+| cheers, handing over to the evening shift now | en | no_instruction | = |  | = | = |
+| can someone explain what qpsk means again | en | no_instruction | = |  | = | = |
 
-## Instructions written by a contributor (40 lines, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp): number of instructions
+## Instructions written by a contributor (40 lines, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -447,6 +450,12 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader of the fourth format | German | 10 | 10 | 0 | 0 |
 | Reader of the fourth format | Italian | 10 | 9 | 1 | 0 |
 | Reader of the fourth format | Swedish | 10 | 7 | 2 | 1 |
+| Reader of the fourth format, 16 bits (A100) | All | 40 | 36 | 2 | 2 |
+| Reader of the fourth format, 16 bits (A100) | Standing policies | 15 | 14 | 1 | 0 |
+| Reader of the fourth format, 16 bits (A100) | English | 10 | 8 | 0 | 2 |
+| Reader of the fourth format, 16 bits (A100) | German | 10 | 9 | 1 | 0 |
+| Reader of the fourth format, 16 bits (A100) | Italian | 10 | 10 | 0 | 0 |
+| Reader of the fourth format, 16 bits (A100) | Swedish | 10 | 9 | 1 | 0 |
 
 ## The same, two readers of the third format: the operator is asked when their readings differ
 
@@ -457,45 +466,45 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 ## Instructions written by a contributor (40 lines, 15 of them standing policies), line by line (= : wrote what was meant; – : not read, a standing policy)
 
-| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote |
-|---|---|---|---|---|---|
-| For this one, leave the London–Paris span out of the route. | en | avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Die Verbindung Frankfurt–Hamburg für diesen Auftrag bitte nicht nutzen. | de | avoid=Frankfurt-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Den här förbindelsen får inte gå genom Prag. | sv | avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Fai passare questa richiesta da Zurigo. | it | avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = |
-| cap this one at 4 hops pls | en | avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Max. 1800 km Gesamtlänge für diese Strecke, darüber bitte ablehnen. | de | avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none | = |  | = |
-| Ta den andra rutten i kandidatlistan för den här beställningen. | sv | avoid=none; via=none; hops=any; km=any; path=1; prefer=none; rest=none | avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none |  | unsupported |
-| Per questo circuito scegli il percorso con meno salti possibile. | it | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | = |  | = |
-| Use whichever path has the lowest total distance in km for this request. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = |  | = |
-| Für diesen Lightpath möglichst den Pfad mit der geringsten Auslastung nehmen. | de | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = |
-| Kör den här via Köpenhamn, men inte mer än fem hopp totalt. | sv | avoid=none; via=Copenhagen; hops=5; km=any; path=any; prefer=none; rest=none | = |  | = |
-| Niente tratta Milano–Roma per questa richiesta; tra le alternative scegli quella che richiede meno slot. | it | avoid=Milan-Rome; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = |
-| Keep this request out of Berlin, six hops max, and favour the least loaded path. | en | avoid=Berlin; via=none; hops=6; km=any; path=any; prefer=load; rest=none | = |  | = |
-| Bitte über Wien führen, München auslassen und unter den passenden Routen die kürzeste nach km nehmen. | de | avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=km; rest=none | avoid=Munich; via=Warsaw; hops=any; km=any; path=any; prefer=km; rest=none |  | = |
-| Undvik länken Bryssel–Paris för den här och håll hela sträckan inom 2200 km. | sv | avoid=Brussels-Paris; via=none; hops=any; km=2200; path=any; prefer=none; rest=none | = |  | = |
-| Passa da Lione. Prima minimizza gli slot richiesti, poi la lunghezza in km a parità di slot. | it | avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots,km; rest=none | = |  | avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none |
-| Allocate a contiguous block of spectrum slots for this lightpath, using the same slot indices on every link. | en | unsupported | = |  | = |
-| Für diesen Auftrag QPSK fest einstellen, keine automatische Wahl der Modulation. | de | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | = |
-| Lägg till en reservväg för den här förbindelsen som inte delar någon länk med huvudvägen. | sv | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
-| Per questo lightpath lascia due slot di guardia liberi su ciascun lato del blocco assegnato. | it | unsupported | = |  | = |
-| Reassign the spectrum slots on this existing circuit, but keep its current route exactly as it is. | en | unsupported | no_instruction | yes | no_instruction |
-| Ist das Wartungsfenster in Frankfurt schon bestätigt? | de | no_instruction | = |  | = |
-| Överlämning: larmet i Oslo är kvitterat och ärendet ligger hos nästa skift. | sv | no_instruction | = |  | = |
-| Oggi il caffè del turno di notte è meglio del solito. | it | no_instruction | = |  | = |
-| Anyone know where the spare transceiver for Amsterdam ended up? | en | no_instruction | = |  | = |
-| In den nächsten 3 Std. keine neuen Lightpaths über Zürich–Mailand legen. | de | avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none | – |  | = |
-| Alla nya förbindelser ska gå via Berlin under de kommande två timmarna. | sv | avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none | – |  | = |
-| Per le prossime quattro ore, massimo cinque salti per ogni nuova richiesta. | it | avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none | – |  | = |
-| For the next six hours, favour paths that need the fewest spectrum slots for all new requests. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=6h; rest=none | – |  | = |
-| Bis diese Regel ausdrücklich aufgehoben wird, Straßburg bei allen neuen Routen auslassen. | de | avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = |
-| Länken Oslo–Köpenhamn ska inte användas för nya förbindelser förrän spärren hävs. | sv | avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = |
-| Fino alla revoca della regola, dai priorità al percorso più corto in km per tutte le nuove richieste. | it | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none | – |  | = |
-| All new requests must stay within 2500 km total route length until we lift this limit. | en | avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = |
-| Für alle 400G-Anfragen gilt: Die direkte Strecke Frankfurt–München darf nicht verwendet werden. | de | avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none | – |  | = |
-| För alla beställningar med start i Stockholm ska vi prioritera vägen med lägst belastning. | sv | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=from:Stockholm; until=open; rest=none | – |  | = |
-| Tutte le richieste con destinazione Roma devono passare da Milano. | it | avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none | – |  | = |
-| Apply a six-hop ceiling to every 10G request. | en | avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none | – |  | = |
-| Für die nächsten acht Stunden Brüssel–Paris sperren und für neue Anfragen möglichst wenige Hops wählen. | de | avoid=Brussels-Paris; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none | – |  | = |
-| Alla nya förbindelser till Zagreb ska gå via Wien och inte genom München. | sv | avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none | – |  | avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none |
-| Per le prossime 12 ore, tutte le richieste da 100G devono evitare Amburgo e restare entro sette salti. | it | avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none | – |  | = |
+| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
+|---|---|---|---|---|---|---|
+| For this one, leave the London–Paris span out of the route. | en | avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Die Verbindung Frankfurt–Hamburg für diesen Auftrag bitte nicht nutzen. | de | avoid=Frankfurt-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Den här förbindelsen får inte gå genom Prag. | sv | avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Fai passare questa richiesta da Zurigo. | it | avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| cap this one at 4 hops pls | en | avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Max. 1800 km Gesamtlänge für diese Strecke, darüber bitte ablehnen. | de | avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none | = |  | = | = |
+| Ta den andra rutten i kandidatlistan för den här beställningen. | sv | avoid=none; via=none; hops=any; km=any; path=1; prefer=none; rest=none | avoid=none; via=none; hops=any; km=any; path=2; prefer=none; rest=none |  | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none |
+| Per questo circuito scegli il percorso con meno salti possibile. | it | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | = |  | = | = |
+| Use whichever path has the lowest total distance in km for this request. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = |  | = | = |
+| Für diesen Lightpath möglichst den Pfad mit der geringsten Auslastung nehmen. | de | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = | = |
+| Kör den här via Köpenhamn, men inte mer än fem hopp totalt. | sv | avoid=none; via=Copenhagen; hops=5; km=any; path=any; prefer=none; rest=none | = |  | = | = |
+| Niente tratta Milano–Roma per questa richiesta; tra le alternative scegli quella che richiede meno slot. | it | avoid=Milan-Rome; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = | = |
+| Keep this request out of Berlin, six hops max, and favour the least loaded path. | en | avoid=Berlin; via=none; hops=6; km=any; path=any; prefer=load; rest=none | = |  | = | = |
+| Bitte über Wien führen, München auslassen und unter den passenden Routen die kürzeste nach km nehmen. | de | avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=km; rest=none | avoid=Munich; via=Warsaw; hops=any; km=any; path=any; prefer=km; rest=none |  | = | = |
+| Undvik länken Bryssel–Paris för den här och håll hela sträckan inom 2200 km. | sv | avoid=Brussels-Paris; via=none; hops=any; km=2200; path=any; prefer=none; rest=none | = |  | = | = |
+| Passa da Lione. Prima minimizza gli slot richiesti, poi la lunghezza in km a parità di slot. | it | avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots,km; rest=none | = |  | avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none | = |
+| Allocate a contiguous block of spectrum slots for this lightpath, using the same slot indices on every link. | en | unsupported | = |  | = | no_instruction |
+| Für diesen Auftrag QPSK fest einstellen, keine automatische Wahl der Modulation. | de | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | = | = |
+| Lägg till en reservväg för den här förbindelsen som inte delar någon länk med huvudvägen. | sv | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | = |
+| Per questo lightpath lascia due slot di guardia liberi su ciascun lato del blocco assegnato. | it | unsupported | = |  | = | = |
+| Reassign the spectrum slots on this existing circuit, but keep its current route exactly as it is. | en | unsupported | no_instruction | yes | no_instruction | no_instruction |
+| Ist das Wartungsfenster in Frankfurt schon bestätigt? | de | no_instruction | = |  | = | = |
+| Överlämning: larmet i Oslo är kvitterat och ärendet ligger hos nästa skift. | sv | no_instruction | = |  | = | = |
+| Oggi il caffè del turno di notte è meglio del solito. | it | no_instruction | = |  | = | = |
+| Anyone know where the spare transceiver for Amsterdam ended up? | en | no_instruction | = |  | = | = |
+| In den nächsten 3 Std. keine neuen Lightpaths über Zürich–Mailand legen. | de | avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none | – |  | = | = |
+| Alla nya förbindelser ska gå via Berlin under de kommande två timmarna. | sv | avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none | – |  | = | = |
+| Per le prossime quattro ore, massimo cinque salti per ogni nuova richiesta. | it | avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none | – |  | = | = |
+| For the next six hours, favour paths that need the fewest spectrum slots for all new requests. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=6h; rest=none | – |  | = | = |
+| Bis diese Regel ausdrücklich aufgehoben wird, Straßburg bei allen neuen Routen auslassen. | de | avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | = |
+| Länken Oslo–Köpenhamn ska inte användas för nya förbindelser förrän spärren hävs. | sv | avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | = |
+| Fino alla revoca della regola, dai priorità al percorso più corto in km per tutte le nuove richieste. | it | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none | – |  | = | = |
+| All new requests must stay within 2500 km total route length until we lift this limit. | en | avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | = |
+| Für alle 400G-Anfragen gilt: Die direkte Strecke Frankfurt–München darf nicht verwendet werden. | de | avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none | – |  | = | = |
+| För alla beställningar med start i Stockholm ska vi prioritera vägen med lägst belastning. | sv | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=from:Stockholm; until=open; rest=none | – |  | = | = |
+| Tutte le richieste con destinazione Roma devono passare da Milano. | it | avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none | – |  | = | = |
+| Apply a six-hop ceiling to every 10G request. | en | avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none | – |  | = | = |
+| Für die nächsten acht Stunden Brüssel–Paris sperren und für neue Anfragen möglichst wenige Hops wählen. | de | avoid=Brussels-Paris; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none | – |  | = | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none |
+| Alla nya förbindelser till Zagreb ska gå via Wien och inte genom München. | sv | avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none | – |  | avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none | = |
+| Per le prossime 12 ore, tutte le richieste da 100G devono evitare Amburgo e restare entro sette salti. | it | avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none | – |  | = | = |

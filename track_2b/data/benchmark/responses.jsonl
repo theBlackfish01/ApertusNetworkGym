@@ -38794,6 +38794,64 @@
 {"id": "owner:0019", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
 {"id": "owner:0020", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=3; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
 {"id": "owner:0021", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "owner:0022", "reader": "translate4_ft", "line": "avoid=Hamburg-Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0023", "reader": "translate4_ft", "line": "avoid=Rome-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0024", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0025", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0026", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0027", "reader": "translate4_ft", "line": "avoid=none; via=Amsterdam; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0028", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=3; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0029", "reader": "translate4_ft", "line": "avoid=Lyon-Zurich; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0030", "reader": "translate4_ft", "line": "avoid=Zagreb; via=Budapest; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0031", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=6; km=any; path=any; prefer=load; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0032", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,km; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "owner:0033", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "owner:0034", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "owner:0035", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "owner:0036", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "silent"}
+{"id": "owner:0037", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "owner:0038", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "owner:0039", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "contributor1:0000", "reader": "translate4_ft", "line": "avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0001", "reader": "translate4_ft", "line": "avoid=Frankfurt-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0002", "reader": "translate4_ft", "line": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0003", "reader": "translate4_ft", "line": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0004", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0005", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0006", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "silent"}
+{"id": "contributor1:0007", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0008", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0009", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0010", "reader": "translate4_ft", "line": "avoid=none; via=Copenhagen; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0011", "reader": "translate4_ft", "line": "avoid=Milan-Rome; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0012", "reader": "translate4_ft", "line": "avoid=Berlin; via=none; hops=6; km=any; path=any; prefer=load; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0013", "reader": "translate4_ft", "line": "avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0014", "reader": "translate4_ft", "line": "avoid=Brussels-Paris; via=none; hops=any; km=2200; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0015", "reader": "translate4_ft", "line": "avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=slots,km; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1:0016", "reader": "translate4_ft", "line": "no_instruction", "outcome": "other_refusal"}
+{"id": "contributor1:0017", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "contributor1:0018", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "contributor1:0019", "reader": "translate4_ft", "line": "unsupported", "outcome": "right"}
+{"id": "contributor1:0020", "reader": "translate4_ft", "line": "no_instruction", "outcome": "other_refusal"}
+{"id": "contributor1:0021", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "contributor1:0022", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "contributor1:0023", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "contributor1:0024", "reader": "translate4_ft", "line": "no_instruction", "outcome": "right"}
+{"id": "contributor1_standing:0000", "reader": "translate4_ft", "line": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0001", "reader": "translate4_ft", "line": "avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0002", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0003", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=6h; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0004", "reader": "translate4_ft", "line": "avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0005", "reader": "translate4_ft", "line": "avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0006", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0007", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0008", "reader": "translate4_ft", "line": "avoid=Frankfurt-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0009", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=from:Stockholm; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0010", "reader": "translate4_ft", "line": "avoid=none; via=Milan; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0011", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0012", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none", "outcome": "silent"}
+{"id": "contributor1_standing:0013", "reader": "translate4_ft", "line": "avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none", "outcome": "right"}
+{"id": "contributor1_standing:0014", "reader": "translate4_ft", "line": "avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none", "outcome": "right"}
 {"id": "v4_en:0000", "reader": "translate4_ft", "line": "avoid=none; via=Warsaw; hops=any; km=any; path=any; prefer=none; scope=rate:10; until=open; rest=none", "outcome": "right"}
 {"id": "v4_en:0001", "reader": "translate4_ft", "line": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=rate:100; until=open; rest=none", "outcome": "right"}
 {"id": "v4_en:0002", "reader": "translate4_ft", "line": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none", "outcome": "right"}

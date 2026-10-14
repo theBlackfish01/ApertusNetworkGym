@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-14T13:02:00.146636+00:00",
+ "generated_utc": "2026-10-14T17:04:28.076008+00:00",
  "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
  "no_personal_data": true,
  "topologies": {
@@ -168,7 +168,7 @@
    "model": "reader 1 on the laptop, sample 5 at temperature 0.8"
   },
   "translate4_ft": {
-   "rows": 3561,
+   "rows": 3619,
    "model": "Apertus v1.5 8B, fine-tuned reader of the fourth format (scope, lifetime), A100"
   },
   "translate4_ft_laptop": {
