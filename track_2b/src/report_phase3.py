@@ -437,7 +437,12 @@ def owner_tables(results: Path) -> list:
         )
         asking = [[f"Reader 1 / {names[p['second']]}", str(p["n"]), str(p["wrong_alone"]), str(p["wrong_left"]),
                    str(p["asked"]), str(p["right_but_asked"])] for p in data["pairs"]]  # fmt: skip
-        first, second, fourth, full = "translate3_ft_laptop", "translate3_ft2_laptop", "translate4_ft_laptop", "translate4_ft"
+        first, second, fourth, full = (
+            "translate3_ft_laptop",
+            "translate3_ft2_laptop",
+            "translate4_ft_laptop",
+            "translate4_ft",
+        )
 
         def wrote(entry: dict, reader: str) -> str:
             if reader not in entry:
