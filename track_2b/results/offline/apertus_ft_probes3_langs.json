@@ -1,0 +1,240 @@
+{
+  "metadata": {
+    "policy": {
+      "name": "apertus_ft_probes",
+      "backend": "transformers",
+      "model": "andreasmartin/apertus-v1.5-8b-text",
+      "adapter": "runs/adapter",
+      "structured": "regex",
+      "template_kwargs": {},
+      "shots": 0,
+      "cache": "apertus_ft_probes.jsonl"
+    },
+    "command": "src/evaluate.py offline --policy apertus_ft_probes --backend transformers --model andreasmartin/apertus-v1.5-8b-text --adapter runs/adapter --data data/probes --splits v3_de v3_fr v3_it --batch-envs 48 --out results/offline/apertus_ft_probes3_langs.json",
+    "finished_utc": "2026-10-14T10:12:48.007506+00:00"
+  },
+  "splits": {
+    "v3_de": {
+      "all": {
+        "n": 672,
+        "exact_match": 0.8050595238095238,
+        "admissible": 0.8705357142857143,
+        "admissible_ordered": 0.8705357142857143,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.005952380952380952,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "atom": {
+        "n": 320,
+        "exact_match": 0.8625,
+        "admissible": 0.921875,
+        "admissible_ordered": 0.921875,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.00625,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "heldout_pair": {
+        "n": 112,
+        "exact_match": 0.7410714285714286,
+        "admissible": 0.8482142857142857,
+        "admissible_ordered": 0.8482142857142857,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.008928571428571428,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "pair": {
+        "n": 128,
+        "exact_match": 0.7890625,
+        "admissible": 0.8515625,
+        "admissible_ordered": 0.8515625,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0078125,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "triple": {
+        "n": 80,
+        "exact_match": 0.65,
+        "admissible": 0.7125,
+        "admissible_ordered": 0.7125,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "two_preferences": {
+        "n": 32,
+        "exact_match": 0.90625,
+        "admissible": 0.90625,
+        "admissible_ordered": 0.90625,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "v3_fr": {
+      "all": {
+        "n": 672,
+        "exact_match": 0.8095238095238095,
+        "admissible": 0.8601190476190477,
+        "admissible_ordered": 0.8601190476190477,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.005952380952380952,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "atom": {
+        "n": 320,
+        "exact_match": 0.85625,
+        "admissible": 0.915625,
+        "admissible_ordered": 0.915625,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.009375,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "heldout_pair": {
+        "n": 112,
+        "exact_match": 0.8125,
+        "admissible": 0.8571428571428571,
+        "admissible_ordered": 0.8571428571428571,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "pair": {
+        "n": 128,
+        "exact_match": 0.7265625,
+        "admissible": 0.796875,
+        "admissible_ordered": 0.796875,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0078125,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "triple": {
+        "n": 80,
+        "exact_match": 0.7,
+        "admissible": 0.7125,
+        "admissible_ordered": 0.7125,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "two_preferences": {
+        "n": 32,
+        "exact_match": 0.9375,
+        "admissible": 0.9375,
+        "admissible_ordered": 0.9375,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    },
+    "v3_it": {
+      "all": {
+        "n": 672,
+        "exact_match": 0.8110119047619048,
+        "admissible": 0.8660714285714286,
+        "admissible_ordered": 0.8660714285714286,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.004464285714285714,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "atom": {
+        "n": 320,
+        "exact_match": 0.846875,
+        "admissible": 0.915625,
+        "admissible_ordered": 0.915625,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.009375,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "heldout_pair": {
+        "n": 112,
+        "exact_match": 0.7857142857142857,
+        "admissible": 0.8214285714285714,
+        "admissible_ordered": 0.8214285714285714,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "pair": {
+        "n": 128,
+        "exact_match": 0.7734375,
+        "admissible": 0.84375,
+        "admissible_ordered": 0.84375,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "triple": {
+        "n": 80,
+        "exact_match": 0.6875,
+        "admissible": 0.7125,
+        "admissible_ordered": 0.7125,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      },
+      "two_preferences": {
+        "n": 32,
+        "exact_match": 1.0,
+        "admissible": 1.0,
+        "admissible_ordered": 1.0,
+        "flagged": 0.0,
+        "forwarded_to_decider": 0.0,
+        "guarded": 0.0,
+        "rejected": 0.0,
+        "invalid": 0.0,
+        "malformed": 0.0
+      }
+    }
+  }
+}

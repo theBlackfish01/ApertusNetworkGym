@@ -72,6 +72,7 @@ result with its source file, what it shows and what it does not, is in
 | 2 (11–12 Oct) | The same model as a translator into a line of constraints and preferences, measured against the decider; a stronger translator; the first hybrid | `results/tables/phase1.md`, `phase2.md` |
 | 3 (12 Oct) | The policy language in slots, two readers, the guarded fallback, blind test sets in four languages, the mixed closed-loop stream, the 4-bit laptop build, Apertus 70B as a reference | `results/tables/phase3.md`, `docs/decisions.md` |
 | 4 (13 Oct) | The console, the line as a TAPI constraint, asking by consequence, the Swiss network, standing policies with scope and lifetime, self-consistency, the benchmark dataset | `results/tables/phase3.md`, `results/design/`, `data/benchmark/` |
+| 4b (14 Oct) | A decider trained on the reader's own sentences (the matched comparison); the full-format reader and its hybrids on the mixed stream | `docs/results_overview.md` section 4b, `results/design/matched3.json` |
 | Deliverables | Report rendered to PDF by `src/report_pdf.py` (five pages); model cards (`docs/cards/`) and the benchmark on the Hub, private until submission; video script (`docs/video_script.md`); checklist (`docs/submission.md`) | |
 
 The full table, one row per piece of work, is in [`docs/status_history.md`](docs/status_history.md).
@@ -341,6 +342,8 @@ track_2b/
     swiss.py           the Swiss network: test sets with the cities in each language's name
     consistency3.py    self-consistency of reader 1 as a third check
     benchmark_export.py the test instructions and every reader's answers as a dataset
+    decider3_data.py   the matched decider's data: the first decider's states, the reader's sentences
+    report_matched3.py the matched decider and the full-format reader's hybrids -> results/design/matched3.json
     report_phase3.py   third round: results JSON -> results/tables/phase3.md
     report_pdf.py      the report as HTML and, through a headless browser, as PDF
     report_figure.py   the report's figure: violations on the two closed-loop streams
@@ -350,6 +353,7 @@ track_2b/
   data/                sample/ and stats.json are committed; full/ is git-ignored (rebuilt by generate.py)
                        benchmark/: the test sets and every reader's answers as a dataset, with its card
                        translate4/: the fourth format's training data (committed)
+                       full3/: the matched decider's data (git-ignored, rebuilt by decider3_data.py)
                        instructions/ fewshot/ topologies/: phase 1 test instructions (committed);
                        probes/ translate/: rebuilt by corpora.py and transfer.py (git-ignored)
   results/

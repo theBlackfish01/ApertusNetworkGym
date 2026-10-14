@@ -290,6 +290,47 @@ answers on 13 October (`docs/decisions.md`).
 **The benchmark** (`data/benchmark/`): 4,712 test instructions in 20 sets with the line each
 means, 40,332 reader answers with their outcome, metadata and a dataset card.
 
+## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
+
+**The matched decider** (`src/decider3_data.py`, `data/full3/`; adapter
+`blackfish021/apertus-lightpath-decider-v3-e2`, private). The first decider learned four
+instruction types; the reader learned the whole policy language. This decider learned from the
+first decider's 12,000 network states with the reader's own 5,570 training sentences, labelled by
+the rule engine; two epochs, the second because the first scored 94.0 % in distribution, under
+the 98 % set beforehand. Decisions that comply (`results/design/matched3.json`):
+
+| | en | de | fr | it | New types | Carried in part |
+| --- | --- | --- | --- | --- | --- | --- |
+| First decider (four types), % | 91.1 | 87.1 | 86.0 | 86.6 | 78.8 | 67.2 |
+| Matched decider, % | 96.4 | 94.8 | 95.2 | 95.4 | 77.6 | 72.2 |
+| Routing-field reader and rule engine, % | 99.6 | 98.2 | 99.1 | 99.3 | 62.5 | 68.0 |
+
+On held-out decisions it complies on 95.8 / 99.3 / 94.7 % (training templates / unseen wording /
+unseen pairs), the reader with the rule engine on 99.8 / 100.0 / 93.7. What it shows: about two
+thirds of the decider's offline gap to the reader (62 to 70 % by language) came from the training
+data. In closed loop on the mixed stream at 390 E it breaks 14.4 % of requests (first decider
+16.8), 14.1 % inside the language (19.2; the reader 0.9): there the matched data closes 28 % of
+the gap. What it does not show: a decider trained on more data or longer; one training run.
+
+**Closed loop, mixed stream, both experiments** (`results/eval/*_mix3.json`, violations % of
+requests, mean of three seeds, ± the seed standard deviation):
+
+| Policy | 390 E | 240 E | To the decider, % |
+| --- | --- | --- | --- |
+| Routing-field reader alone | 10.60 ± 0.63 | 10.50 ± 1.15 | – |
+| Full-format reader alone | 10.73 ± 0.68 | 10.90 ± 0.69 | – |
+| Hybrid: routing-field reader, first decider | 9.53 ± 0.92 | 8.67 ± 0.59 | 11.5 |
+| Hybrid: full-format reader, first decider | 9.12 ± 0.55 | 9.05 ± 0.39 | 16.1 |
+| Hybrid: full-format reader, matched decider | 9.68 ± 0.38 | 9.15 ± 0.00 | 16.1 |
+
+What it shows: the full-format reader can replace the routing-field reader, alone and in the
+hybrid, within one seed spread, and it reads the standing policies as well; one adapter can serve
+the whole system. Outside the language the reversal stays: alone it breaks 42.6 % of the
+instructions carried in part and 38.4 % of the types never shown, the first decider 36.4 and 27.9.
+Behind a reader the matched decider is no better than the first: the requests it receives are
+those outside the language, where the two deciders are equal on their own too. The two jobs cost
+about USD 8.4 (`docs/decisions.md`).
+
 ## 5. What the results do not show, and what is left
 
 - One topology in closed loop for the mixed stream (the Swiss one at 600 E for the translators
@@ -299,6 +340,7 @@ means, 40,332 reader answers with their outcome, metadata and a dataset card.
   stress set (72.7 %).
 - Unknown instruction types remain the weak point in the mixed stream (28–37 % violations for
   every policy); the limit is what the decider can follow, not the gate.
+  Matched training data does not move it (section 4b).
 - The fourth-format reader has no second reader, so scope and lifetime are read once; the policy
   stream is our construction; weekday and date phrases are not in the language; "to Prague" is a
   scope to the new reader and a destination to the operator.

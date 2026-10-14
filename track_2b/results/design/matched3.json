@@ -1,0 +1,760 @@
+{
+ "heldout_decisions": {
+  "matched decider, epoch 1": {
+   "heldout_indist": 94.0,
+   "heldout_paraphrase": 98.7,
+   "heldout_pairs": 87.7
+  },
+  "matched decider, epoch 2": {
+   "heldout_indist": 95.8,
+   "heldout_paraphrase": 99.3,
+   "heldout_pairs": 94.7
+  },
+  "routing-field reader + engine": {
+   "heldout_indist": 99.8,
+   "heldout_paraphrase": 100.0,
+   "heldout_pairs": 93.7
+  }
+ },
+ "probes": {
+  "routing-field reader + engine": {
+   "en": {
+    "all": {
+     "n": 672,
+     "comply_pct": 99.6
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 99.4
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 99.1
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 100.0
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 100.0
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "de": {
+    "all": {
+     "n": 672,
+     "comply_pct": 98.2
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 99.1
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 97.3
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 99.2
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 93.8
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "fr": {
+    "all": {
+     "n": 672,
+     "comply_pct": 99.1
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 98.4
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 100.0
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 100.0
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 98.8
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "it": {
+    "all": {
+     "n": 672,
+     "comply_pct": 99.3
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 100.0
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 99.1
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 99.2
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 96.2
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "v3_new": {
+    "n": 800,
+    "comply_pct": 62.5
+   },
+   "v3_new_hard": {
+    "n": 302,
+    "comply_pct": 6.3
+   },
+   "v3_new_impossible": {
+    "n": 184,
+    "comply_pct": 21.7
+   },
+   "v3_partial": {
+    "n": 400,
+    "comply_pct": 68.0
+   }
+  },
+  "full-format reader + engine": {
+   "en": {
+    "all": {
+     "n": 672,
+     "comply_pct": 99.7
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 100.0
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 100.0
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 100.0
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 97.5
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "de": {
+    "all": {
+     "n": 672,
+     "comply_pct": 97.9
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 98.4
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 97.3
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 98.4
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 95.0
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "fr": {
+    "all": {
+     "n": 672,
+     "comply_pct": 99.6
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 99.1
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 100.0
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 100.0
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 100.0
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "it": {
+    "all": {
+     "n": 672,
+     "comply_pct": 98.7
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 99.4
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 96.4
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 99.2
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 97.5
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "v3_new": {
+    "n": 800,
+    "comply_pct": 59.6
+   },
+   "v3_new_hard": {
+    "n": 302,
+    "comply_pct": 1.0
+   },
+   "v3_new_impossible": {
+    "n": 184,
+    "comply_pct": 21.2
+   },
+   "v3_partial": {
+    "n": 400,
+    "comply_pct": 68.8
+   }
+  },
+  "first decider (four types)": {
+   "en": {
+    "all": {
+     "n": 672,
+     "comply_pct": 91.1
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 96.2
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 85.7
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 90.6
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 76.2
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 96.9
+    }
+   },
+   "de": {
+    "all": {
+     "n": 672,
+     "comply_pct": 87.1
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 92.2
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 84.8
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 85.2
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 71.2
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 90.6
+    }
+   },
+   "fr": {
+    "all": {
+     "n": 672,
+     "comply_pct": 86.0
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 91.6
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 85.7
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 79.7
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 71.2
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 93.8
+    }
+   },
+   "it": {
+    "all": {
+     "n": 672,
+     "comply_pct": 86.6
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 91.6
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 82.1
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 84.4
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 71.2
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "v3_new": {
+    "n": 800,
+    "comply_pct": 78.8
+   },
+   "v3_new_hard": {
+    "n": 302,
+    "comply_pct": 61.6
+   },
+   "v3_new_impossible": {
+    "n": 184,
+    "comply_pct": 49.5
+   },
+   "v3_partial": {
+    "n": 400,
+    "comply_pct": 67.2
+   }
+  },
+  "matched decider": {
+   "en": {
+    "all": {
+     "n": 672,
+     "comply_pct": 96.4
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 98.8
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 95.5
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 95.3
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 90.0
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 96.9
+    }
+   },
+   "de": {
+    "all": {
+     "n": 672,
+     "comply_pct": 94.8
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 97.5
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 95.5
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 93.0
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 88.8
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 87.5
+    }
+   },
+   "fr": {
+    "all": {
+     "n": 672,
+     "comply_pct": 95.2
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 97.8
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 92.9
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 95.3
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 87.5
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 96.9
+    }
+   },
+   "it": {
+    "all": {
+     "n": 672,
+     "comply_pct": 95.4
+    },
+    "atom": {
+     "n": 320,
+     "comply_pct": 99.1
+    },
+    "heldout_pair": {
+     "n": 112,
+     "comply_pct": 95.5
+    },
+    "pair": {
+     "n": 128,
+     "comply_pct": 92.2
+    },
+    "triple": {
+     "n": 80,
+     "comply_pct": 83.8
+    },
+    "two_preferences": {
+     "n": 32,
+     "comply_pct": 100.0
+    }
+   },
+   "v3_new": {
+    "n": 800,
+    "comply_pct": 77.6
+   },
+   "v3_new_hard": {
+    "n": 302,
+    "comply_pct": 57.6
+   },
+   "v3_new_impossible": {
+    "n": 184,
+    "comply_pct": 42.9
+   },
+   "v3_partial": {
+    "n": 400,
+    "comply_pct": 72.2
+   }
+  }
+ },
+ "mixed_condition": {
+  "first fit": {
+   "240": {
+    "violations_pct": 28.88,
+    "rejected_pct": 2.68,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 36.0,
+    "carried in part": 58.55,
+    "types never shown": 45.58,
+    "nothing to apply": 0.0,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "390": {
+    "violations_pct": 28.63,
+    "rejected_pct": 8.23,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 35.34,
+    "carried in part": 55.28,
+    "types never shown": 47.58,
+    "nothing to apply": 0.0,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "file": "eval/first_fit_mix3.json"
+  },
+  "first decider (four types)": {
+   "240": {
+    "violations_pct": 16.4,
+    "rejected_pct": 2.68,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 19.04,
+    "carried in part": 39.19,
+    "types never shown": 24.26,
+    "nothing to apply": 0.83,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "390": {
+    "violations_pct": 16.83,
+    "rejected_pct": 8.27,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 19.19,
+    "carried in part": 36.35,
+    "types never shown": 27.86,
+    "nothing to apply": 1.17,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "file": "eval/apertus_ft_mix3.json"
+  },
+  "matched decider": {
+   "240": {
+    "violations_pct": 13.85,
+    "rejected_pct": 2.58,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 13.43,
+    "carried in part": 37.1,
+    "types never shown": 25.74,
+    "nothing to apply": 0.72,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "390": {
+    "violations_pct": 14.38,
+    "rejected_pct": 7.92,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 14.09,
+    "carried in part": 35.68,
+    "types never shown": 28.96,
+    "nothing to apply": 0.34,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "file": "eval/apertus3_ft_mix3.json"
+  },
+  "routing-field reader + engine": {
+   "240": {
+    "violations_pct": 10.5,
+    "rejected_pct": 6.03,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 1.19,
+    "carried in part": 42.74,
+    "types never shown": 35.6,
+    "nothing to apply": 1.05,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "390": {
+    "violations_pct": 10.6,
+    "rejected_pct": 11.73,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 0.92,
+    "carried in part": 43.55,
+    "types never shown": 36.67,
+    "nothing to apply": 1.01,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "file": "eval/translate3_ft_mix3.json"
+  },
+  "full-format reader + engine": {
+   "240": {
+    "violations_pct": 10.9,
+    "rejected_pct": 6.15,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 1.49,
+    "carried in part": 40.32,
+    "types never shown": 38.78,
+    "nothing to apply": 1.22,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "390": {
+    "violations_pct": 10.73,
+    "rejected_pct": 11.65,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 0.7,
+    "carried in part": 42.55,
+    "types never shown": 38.44,
+    "nothing to apply": 1.23,
+    "forwarded_to_decider_pct": 0.0
+   },
+   "file": "eval/translate4_ft_mix3.json"
+  },
+  "hybrid: routing-field reader, first decider": {
+   "240": {
+    "violations_pct": 8.67,
+    "rejected_pct": 6.47,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 1.12,
+    "carried in part": 37.1,
+    "types never shown": 27.32,
+    "nothing to apply": 1.05,
+    "forwarded_to_decider_pct": 11.55
+   },
+   "390": {
+    "violations_pct": 9.53,
+    "rejected_pct": 12.12,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 0.96,
+    "carried in part": 40.37,
+    "types never shown": 31.61,
+    "nothing to apply": 1.01,
+    "forwarded_to_decider_pct": 11.47
+   },
+   "file": "eval/hybrid3_ft_mix3.json"
+  },
+  "hybrid: full-format reader, first decider": {
+   "240": {
+    "violations_pct": 9.05,
+    "rejected_pct": 6.43,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 1.6,
+    "carried in part": 35.0,
+    "types never shown": 29.59,
+    "nothing to apply": 1.22,
+    "forwarded_to_decider_pct": 16.57
+   },
+   "390": {
+    "violations_pct": 9.12,
+    "rejected_pct": 12.0,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 0.67,
+    "carried in part": 37.69,
+    "types never shown": 31.17,
+    "nothing to apply": 1.17,
+    "forwarded_to_decider_pct": 16.12
+   },
+   "file": "eval/hybrid4_ft_mix3.json"
+  },
+  "hybrid: full-format reader, matched decider": {
+   "240": {
+    "violations_pct": 9.15,
+    "rejected_pct": 6.47,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 1.26,
+    "carried in part": 36.94,
+    "types never shown": 29.82,
+    "nothing to apply": 1.27,
+    "forwarded_to_decider_pct": 16.57
+   },
+   "390": {
+    "violations_pct": 9.68,
+    "rejected_pct": 12.48,
+    "seeds": [
+     1,
+     2,
+     3
+    ],
+    "inside the language": 0.63,
+    "carried in part": 39.36,
+    "types never shown": 34.03,
+    "nothing to apply": 1.12,
+    "forwarded_to_decider_pct": 16.12
+   },
+   "file": "eval/hybrid4_ft_d3_mix3.json"
+  }
+ },
+ "note": "probes: decisions that comply, ordered preferences; outside the language the probe's own list of complying paths. Mixed condition: three seeds per load; classes as in the paper."
+}

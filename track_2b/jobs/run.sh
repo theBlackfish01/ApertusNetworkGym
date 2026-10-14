@@ -63,7 +63,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | check6}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | hybrids-d3 | check6}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -593,6 +593,32 @@ print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.
     together \
         "$PY src/evaluate.py closed --policy apertus3_ft_mix3 --backend transformers --adapter runs/decider3 $CLOSED $SYNC" \
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus_ft_hybrid4 --decider-adapter runs/adapter $CLOSED --out results/eval/hybrid4_ft_mix3.json" \
+        "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus3_ft_hybrid4 --decider-adapter runs/decider3 $CLOSED --out results/eval/hybrid4_ft_d3_mix3.json"
+    ;;
+hybrids-d3)
+    # The two hybrids of eval-d3 on their own (they stopped there on a stale reader cache, 14 Oct).
+    # Run it with no other job going: every job copies its whole results folder back when it ends.
+    : "${ADAPTER_REPO:?set ADAPTER_REPO (the matched decider)}" "${DECIDER_REPO:?set DECIDER_REPO (the first decider)}"
+    $PY -c "
+from huggingface_hub import snapshot_download
+for repo, where in (('$ADAPTER_REPO', 'runs/decider3'), ('$DECIDER_REPO', 'runs/adapter')):
+    print(snapshot_download(repo, local_dir=where, allow_patterns=['adapter_*', '*.jinja']))
+print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
+    $PY - <<'PYEOF'
+import sys
+from pathlib import Path
+cache = Path("results/cache/translate4_ft.jsonl")
+lines = sum(1 for _ in cache.open(encoding="utf-8"))
+print("translate4_ft cache:", lines, "answers")
+if lines < 7000:
+    sys.exit("the full-format reader's cache is the stale one: restore it first")
+PYEOF
+    export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+    stamp "closed loop, mixed condition: the full-format reader in front of the first and of the matched decider"
+    CLOSED="--model $MODEL --conditions operations_mix3 --sim-workers 2"
+    # shellcheck disable=SC2086
+    together \
+        "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus_ft_hybrid4 --decider-adapter runs/adapter $CLOSED $SYNC --out results/eval/hybrid4_ft_mix3.json" \
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus3_ft_hybrid4 --decider-adapter runs/decider3 $CLOSED --out results/eval/hybrid4_ft_d3_mix3.json"
     ;;
 check6)
