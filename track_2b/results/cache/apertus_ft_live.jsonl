@@ -1,3 +1,6 @@
 {"key": "15379788ff0aa9fd96e2260476d7a05c7dff9692e142f11f104f799a19921080", "answer": "path=0 slot=38", "seconds": 0.8786}
 {"key": "4dcd5b377ae18cdcc9d55b54240daa7075ebc09d3555795d678a11b689e7d405", "answer": "path=1 slot=45", "seconds": 0.6807}
 {"key": "63f868d88aae2cc15e9b0620593d1ca9ac69b28492b6bfdef00d91cfa02c0df0", "answer": "path=0 slot=26", "seconds": 0.6829}
+{"key": "32920d7fb991c25c90ee444af60f21ff5d877bb8423d7b31a977be3b8bc08b5c", "answer": "path=3 slot=163", "seconds": 1.1626}
+{"key": "cda1b3ad4c053b3786a128d61ef3c2c425736e9e627efcb6bad905a61bea4247", "answer": "path=2 slot=187", "seconds": 0.7879}
+{"key": "e016a6f7b44c8af970564a51c36cda7b61593b84bc51e417e6d761a962e788ed", "answer": "path=2 slot=2", "seconds": 0.7709}
