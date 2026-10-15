@@ -23,7 +23,7 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
 | Requirement (`docs/challenge.md`) | State | Who |
 | --- | --- | --- |
 | Public Git repo from the template, `track_2b/` kept, other tracks deleted | Repository ready; `make run` works from the root and from `track_2b/`; `data/` as committed is 40 MB (limit 100) | **You:** create the public repo, push, keep `track_2b/` as is |
-| `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct; one more fresh-clone run is planned after the final commit | Me, then you on your machine once |
+| `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct, and on 15 Oct with the frontend built in the image's Node stage; one more fresh-clone run is planned after the final commit | Me, then you on your machine once |
 | Technical report, PDF, max. 6 pages, `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf` renders at five pages; two placeholders remain (the video link, the public links); the commit is named by the tag `submission` | **You:** team name and members; then I fill, re-render and copy to `track_2b/<TeamName>_Report.pdf` |
 | Demo video, max. 2 min | Script and shot list in `docs/video_script.md` | **You:** record; give me the link |
 | Dataset (optional): evaluation, responses, metadata, card | Uploaded as a private dataset with the card | **You:** make it public; the link goes into the report and the README |

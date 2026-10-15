@@ -1,8 +1,8 @@
 """The operator console: one stream of requests under standing policies and per-request instructions,
 with a feed of what the AI does.
 
-A page (``src/console.html``) served by this script. The simulator runs a stream of requests at the
-given load and seed. Two kinds of operator text govern it:
+A standard-library http server with a browser frontend (``src/console_ui``, below). The simulator
+runs a stream of requests at the given load and seed. Two kinds of operator text govern it:
 
 * **standing policies** (the fourth format: scope and lifetime), typed in the command bar or, in
   demo mode, arriving on the schedule of the standing-policy stream. One reader translates each

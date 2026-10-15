@@ -419,7 +419,7 @@ track_2b/
     video_script.md    the two-minute demo, shot by shot
     cards/             model cards of the four adapters and the GGUF bundle
     status_history.md  the round-by-round status table in full
-    figures/           the report's figures (violations.png, console.png)
+    figures/           the report's figure (violations.png); console.png, a screenshot of the console (15 October)
   technical_report.md  the report; ApertusNetworkGym_Report.pdf is its rendering (src/report_pdf.py, five pages)
 ```
 

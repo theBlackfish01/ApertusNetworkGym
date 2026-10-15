@@ -304,7 +304,13 @@ controller.
 **The console** (`src/console.py`, `make console`): checked live on the laptop with the
 fourth-format reader (an English rate-and-hours policy and a German "everything from Zurich …
 until withdrawn" read correctly, applied over eight requests), and through Docker from recorded
-answers on 13 October (`docs/decisions.md`).
+answers on 13 October (`docs/decisions.md`). On 15 October it got a browser frontend in Svelte and
+TypeScript (`src/console_ui`) with an inspector of every decision (the five candidates, the
+constraint that dropped each, the ranking, the spectrum of the route) and a race that decides the
+evaluation's mixed stream by first fit, the decider, the reader and the hybrid side by side from
+the stored answers. At 390 E, seed 1, the four lanes replay 560, 329, 199 and 170 violations, the
+counts of the stored runs (`results/eval/*_mix3.json`): the closed-loop results reproduce from
+the answer caches with no model loaded.
 
 **The benchmark** (`data/benchmark/`): 4,770 test instructions in 22 sets with the line each
 means, 40,534 reader answers with their outcome, metadata and a dataset card.
