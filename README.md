@@ -1,4 +1,4 @@
-# Operator instructions for lightpath provisioning with Apertus 8B
+# Apertus Lightpath: plain-language routing policies for optical networks
 
 Hack Apertus Track 2B. An operator of an optical transport network types an instruction in plain
 language ("the Zurich–Milan span is under maintenance", "at most four hops, then the shortest in

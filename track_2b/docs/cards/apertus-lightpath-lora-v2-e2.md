@@ -19,7 +19,7 @@ A LoRA adapter that decides a lightpath request directly: given the request (sou
 destination, bit rate), the candidate paths with their state (hops, length, free spectrum,
 modulation, the free blocks), and an operator's instruction in plain language, it answers
 `path=1 slot=120` or `reject`. Built for Hack Apertus 2026 (online, Track 2B) by the project
-*Operator instructions for lightpath provisioning with Apertus 8B*. In the final system it is the
+*Apertus Lightpath*. In the final system it is the
 **fallback**: instructions the policy language can express are translated by a reader
 (`blackfish021/apertus-lightpath-translator-v3`) and enforced by a rule engine; instructions
 outside the language, or carried only in part, go to this decider, whose choice a guard checks

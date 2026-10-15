@@ -18,8 +18,7 @@ tags:
 
 # Apertus 8B lightpath translator, third format (reader 2)
 
-The second reader of the project *Operator instructions for lightpath provisioning with Apertus
-8B* (Hack Apertus 2026, Track 2B): the same recipe as reader 1
+The second reader of the project *Apertus Lightpath* (Hack Apertus 2026, Track 2B): the same recipe as reader 1
 (`blackfish021/apertus-lightpath-translator-v3`) with another random seed and another sample of
 the training sentences. Its purpose is disagreement: every instruction is read by both readers,
 and where the two lines differ in meaning the operator is asked instead of the system guessing.

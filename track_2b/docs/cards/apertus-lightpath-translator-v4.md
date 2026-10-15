@@ -19,8 +19,7 @@ tags:
 # Apertus 8B lightpath translator, fourth format (standing policies)
 
 A LoRA adapter that reads a standing policy for an optical transport network, in English,
-German, French or Italian, into one line of the policy language of the project *Operator
-instructions for lightpath provisioning with Apertus 8B* (Hack Apertus 2026, Track 2B), with
+German, French or Italian, into one line of the policy language of the project *Apertus Lightpath* (Hack Apertus 2026, Track 2B), with
 two slots the third format lacks, a **scope** and a **lifetime**:
 
 ```

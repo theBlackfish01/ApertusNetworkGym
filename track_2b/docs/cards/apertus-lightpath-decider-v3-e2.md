@@ -23,8 +23,7 @@ A LoRA adapter that decides a lightpath request directly, like
 policy language learned from. It exists for one comparison: translating an operator's
 instruction into a line that a rule engine enforces, against deciding every request with the
 instruction in the prompt, with both models trained on the same instructions. It is not part of
-the deployed system. Built for Hack Apertus 2026 (online, Track 2B) by the project *Operator
-instructions for lightpath provisioning with Apertus 8B*.
+the deployed system. Built for Hack Apertus 2026 (online, Track 2B) by the project *Apertus Lightpath*.
 
 Given the request (source, destination, bit rate), the candidate paths with their state (hops,
 length, free spectrum, modulation, the free blocks) and an instruction in plain language, it

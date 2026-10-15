@@ -18,7 +18,7 @@ tags:
 
 # Apertus 8B lightpath models for llama.cpp (GGUF)
 
-Everything the project *Operator instructions for lightpath provisioning with Apertus 8B* (Hack
+Everything the project *Apertus Lightpath* (Hack
 Apertus 2026, Track 2B) runs on a laptop GPU: the base model quantised to 4 bits and its four
 LoRA adapters as GGUF files, switched per request by one llama.cpp server. This is the
 on-premise, air-gapped deployment of the submission: one process, no network.

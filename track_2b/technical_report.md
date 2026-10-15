@@ -1,10 +1,10 @@
-# Technical report — Operator instructions for lightpath provisioning with Apertus 8B
+# Technical report — Apertus Lightpath: plain-language routing policies for optical networks
 
 *Every number is copied from the results file named next to it. The long account of the first two
 rounds is in `docs/report_rounds_1_2.md`; every result with its source file is in
 `docs/results_overview.md`.*
 
-- **Track:** Track 2B, own project: operator instructions for lightpath provisioning
+- **Track:** Track 2B, own project: Apertus Lightpath
 - **Event:** Online
 - **Team:** ApertusNetworkGym (Wadood Ranjha)
 - **Demo:** TODO link to the video

@@ -30,8 +30,7 @@ The slots: links and nodes to avoid, a node to pass through, limits on hops and 
 candidate by its number, preferences in the order stated, and `rest=more` for a part the slots
 cannot carry. Three answers refuse: `unsupported` (about the route, but outside the language),
 `no_instruction` (not a routing instruction), and a name that is not a node leaves the line
-*unresolved*. Built for Hack Apertus 2026 (online, Track 2B) by the project *Operator
-instructions for lightpath provisioning with Apertus 8B*; this is reader 1 of its two readers.
+*unresolved*. Built for Hack Apertus 2026 (online, Track 2B) by the project *Apertus Lightpath*; this is reader 1 of its two readers.
 
 ## Model details
 

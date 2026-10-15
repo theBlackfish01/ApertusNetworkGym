@@ -12,17 +12,16 @@ language:
   - gsw
 task_categories:
   - text-generation
-pretty_name: Operator instructions for lightpath provisioning
+pretty_name: Apertus Lightpath benchmark (operator routing policies for optical networks)
 ---
 
-# Dataset Card: operator instructions for lightpath provisioning
+# Dataset Card: Apertus Lightpath benchmark (operator routing policies for optical networks)
 
 Instructions an operator of an optical transport network might type about how a lightpath is
 routed ("the Zurich–Milan span is under maintenance", "at most four hops, then the shortest in
 km", "for 400G services, avoid Basel until further notice"), each with the line of a small policy
 language it means, and the answers of several Apertus readers to each. Built for Hack Apertus
-(online hackathon, October 2026, Track 2B) by the project *Operator instructions for lightpath
-provisioning with Apertus 8B*.
+(online hackathon, October 2026, Track 2B) by the project *Apertus Lightpath*.
 
 ## Dataset Details
 
