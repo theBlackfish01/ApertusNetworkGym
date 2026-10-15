@@ -359,19 +359,19 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 |---|---|---|---|---|---|
 | Reader 1 | All | 40 | 33 | 7 | 0 |
 | Reader 1 | English | 35 | 31 | 4 | 0 |
-| Reader 1 | Urdu in Latin script | 5 | 2 | 3 | 0 |
+| Reader 1 | Urdu/Hindi in Latin letters | 5 | 2 | 3 | 0 |
 | Reader 2 | All | 40 | 35 | 5 | 0 |
 | Reader 2 | English | 35 | 32 | 3 | 0 |
-| Reader 2 | Urdu in Latin script | 5 | 3 | 2 | 0 |
+| Reader 2 | Urdu/Hindi in Latin letters | 5 | 3 | 2 | 0 |
 | Apertus 8B, 15 examples, no training | All | 40 | 27 | 5 | 8 |
 | Apertus 8B, 15 examples, no training | English | 35 | 26 | 4 | 5 |
-| Apertus 8B, 15 examples, no training | Urdu in Latin script | 5 | 1 | 1 | 3 |
+| Apertus 8B, 15 examples, no training | Urdu/Hindi in Latin letters | 5 | 1 | 1 | 3 |
 | Reader of the fourth format | All | 40 | 31 | 8 | 1 |
 | Reader of the fourth format | English | 35 | 29 | 5 | 1 |
-| Reader of the fourth format | Urdu in Latin script | 5 | 2 | 3 | 0 |
+| Reader of the fourth format | Urdu/Hindi in Latin letters | 5 | 2 | 3 | 0 |
 | Reader of the fourth format, 16 bits (A100) | All | 40 | 34 | 6 | 0 |
 | Reader of the fourth format, 16 bits (A100) | English | 35 | 32 | 3 | 0 |
-| Reader of the fourth format, 16 bits (A100) | Urdu in Latin script | 5 | 2 | 3 | 0 |
+| Reader of the fourth format, 16 bits (A100) | Urdu/Hindi in Latin letters | 5 | 2 | 3 | 0 |
 
 ## The same, two readers of the third format: the operator is asked when their readings differ
 

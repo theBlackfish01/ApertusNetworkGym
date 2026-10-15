@@ -72,9 +72,10 @@ line they combine to, the conflicts a new policy raises, and a report per policy
   training sentence is Swedish. In 4 bits on the laptop: 31, 35, and 33 and 34 of two more sets of
   40 in English and German (English 46 of 50, German 21 of 30), 61 of 70 and 17 of 20 of sets 4
   and 5 (English, Swiss German, French, Italian): 211 of all 250.
-- The same 60 items in eight languages and scripts (written and translated by separate AI
+- The same 60 items in nine languages and scripts (written and translated by separate AI
   instances; 4 bits on the laptop; `results/design/parallel.json`): right on 55 in English, 52–53
-  in German, French and Italian, 43 in Urdu script, 45 in Hindi and Arabic, 32 in Roman Urdu.
+  in German, French and Italian, 43 in Urdu script, 45 in Hindi and in Arabic script, 32 in
+  Urdu/Hindi in Latin letters, 14 in Arabic in Latin letters.
 - Known error: "to Prague, avoid Berlin" is read as a scope (`to:Prague`) where an operator means
   the current request's destination; the language has no word yet for a request's own end points.
 

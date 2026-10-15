@@ -408,7 +408,7 @@ def owner_tables(results: Path) -> list:
              "translate4_ft": "Reader of the fourth format, 16 bits (A100)"}  # fmt: skip
     languages = {
         "en": "English",
-        "ur": "Urdu in Latin script",
+        "ur": "Urdu/Hindi in Latin letters",
         "de": "German",
         "it": "Italian",
         "fr": "French",

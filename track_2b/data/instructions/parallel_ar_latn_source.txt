@@ -1,0 +1,69 @@
+# Parallel test set, Arabic in Latin letters (Arabizi, ar-Latn): the same 60 instructions in nine languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Arabic in Latin letters alone (the Arabic chat alphabet, with 2, 3, 7 and 5 for letters Latin lacks), from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+ab3ed hal lightpath 3an span Paris-Lyon, sarlo 3am y3mel flapping tool el sob7 | avoid Paris-Lyon | ar-Latn
+law sama7t ma testa3mel el link bayn Oslo w Stockholm la hal request | avoid Oslo-Stockholm | ar-Latn
+el fibre bayn Vienna w Zagreb 3ando error rate 3ali el yom, khalli el route yelef men 7awalayh | avoid Vienna-Zagreb | ar-Latn
+node Frankfurt 3alayh card swap mkhattat, ma tmarrer hada men khilalo | avoid Frankfurt | ar-Latn
+tajannab Budapest tamaman 3ala hal path, shukran | avoid Budapest | ar-Latn
+hada lazem ymorr men Strasbourg | via Strasbourg | ar-Latn
+el 3amil msirr enno el path ymorr men Copenhagen, t2akkad enno 3am ymorr menha | via Copenhagen | ar-Latn
+mish aktar men arba3a hops la hada law sama7t | max 4 hops | ar-Latn
+sitta hops heye el 7add el aqsa el mutlaq hon | max 6 hops | ar-Latn
+tool el path el kolli ma byenfa3 yetjawaz 1800 km | max 1800 km | ar-Latn
+khalli el route dimn alfayn w khamsmiyye kilometer | max 2500 km | ar-Latn
+ekhtar el candidate el tani 3al list | candidate 1 | ar-Latn
+ekhtar route 3 la hal request | candidate 3 | ar-Latn
+baddi el path elli fi a2all 3adad hops, ayyan kan | prefer hops | ar-Latn
+el links 3am tsir mashghoule, a3tini el path el a2all load | prefer load | ar-Latn
+esta3mel a2all 3adad mumken men el spectrum slots 3ala hada | prefer slots | ar-Latn
+ab3ed 3an Munich w mish aktar men 5 hops law sama7t | avoid Munich, max 5 hops | ar-Latn
+marrero men Zurich, w ella bas el a2sar bel km | via Zurich, prefer km | ar-Latn
+el path el a2all load law sama7t, w men baynaton elli fi a2all 3adad hops | prefer load, then hops | ar-Latn
+a2all 3adad spectrum slots bel awwal, w iza fi ta3adul el masafe el a2sar heye elli bt7sim | prefer slots, then km | ar-Latn
+ab3ed 3an link Hamburg-Berlin w khalli el tool 2000 km 3al aktar | avoid Hamburg-Berlin, max 2000 km | ar-Latn
+morr men Prague bas mish men Vienna, w ba3d hek a2all 3adad hops | via Prague, avoid Vienna, prefer hops | ar-Latn
+thalatha hops 3al aktar w mish atwal men 900 km | max 3 hops, max 900 km | ar-Latn
+tajannab link London-Dublin, w ba3to men Glasgow badalo | avoid London-Dublin, via Glasgow | ar-Latn
+el route el a2all ez7am b sab3a hops 3al aktar, w wala shi ymorr men Belgrade | avoid Belgrade, max 7 hops, prefer load | ar-Latn
+2allel el hops, w iza tnein routes t3adalo, khod el a2all load fihon | prefer hops, then load | ar-Latn
+lazem ya3bor men Bordeaux, 2200 km 3al aktar, b asra3 wa2t law sama7t | via Bordeaux, max 2200 km | ar-Latn
+ma t2arreb 3ala link Warsaw-Stockholm wala 3ala Prague, w esta3mel a2all 3adad slots | avoid Warsaw-Stockholm, avoid Prague, prefer slots | ar-Latn
+hada byelzamo 1+1 protection ma3 backup path monfasel tamaman | other: 1+1 protection with a disjoint backup path | ar-Latn
+shaghghlo 3ala 16QAM iza el reach byesma7 | other: modulation format 16QAM | ar-Latn
+bala regenerators 3ala hal path, lazem ydall optical bel kamel | other: no regeneration | ar-Latn
+el latency lazem tkun a2all men 15 ms end to end, la2anno 3amil trading | other: maximum latency 15 ms | ar-Latn
+ma t7otto 3ala ayy link ma7jooz aktar men 80% | other: maximum link occupancy 80% | ar-Latn
+a3mel defragment lal spectrum 3ala span Berlin-Munich 2abl ma t7ott hada | other: spectrum defragmentation on Berlin-Munich before setup | ar-Latn
+el 400G taba3 Athens tele3 tamam ba3d el reroute taba3 mbere7 bel lel? | none | ar-Latn
+handover la shift el lel: fi tnein tickets maftu7in 3ala Zagreb, el tnein 3am yestannu el field team | none | ar-Latn
+status update: el card b Hamburg tbaddal, w kel el alarms ra7o | none | ar-Latn
+saba7 el kheir lal kel, makinet el 2ahwe bel taba2 3 rej3et teshtghel | none | ar-Latn
+meen el on call la site Oslo hal weekend? | none | ar-Latn
+lal 3elm, demo el 3amil taba3 Madrid ntaqal la yom el khamis | none | ar-Latn
+lal 6 sa3at el jaye wala shi jdid ymorr 3ala Brussels-Frankfurt | avoid Brussels-Frankfurt, for 6 hours | ar-Latn
+el sa3tayn el jayin: khalli kel path jdid ba3id 3an Lyon | avoid Lyon, for 2 hours | ar-Latn
+lal 12 sa3a el jaye, marrer kel el requests 7asab a2all load | prefer load, for 12 hours | ar-Latn
+khilal el 4 sa3at el jaye, 7ott 7add aqsa khamsa hops lal lightpaths el jdide | max 5 hops, for 4 hours | ar-Latn
+lal arba3a w 3eshrin sa3a el jaye law sama7t faddel el paths el a2sar bel km | prefer km, for 24 hours | ar-Latn
+la 7ad ish3ar akhar, tajannab link Amsterdam-London | avoid Amsterdam-London, until withdrawn | ar-Latn
+fi moshkle kahraba b Paris, wala shi ymorr menha la 7ad ma 2ollak ghayr hek | avoid Paris, until withdrawn | ar-Latn
+qa3ida da2ime jdide la 7ad ma tenshal: ma fi path atwal men 3000 km | max 3000 km, until withdrawn | ar-Latn
+men halla2 w rayeh kel request byesta3mel a2all 3adad spectrum slots, la 7ad ma 7ada yelghi hal shi | prefer slots, until withdrawn | ar-Latn
+ab3ed 3an span Athens-Belgrade la 7ad ma nshil hal qa3ida | avoid Athens-Belgrade, until withdrawn | ar-Latn
+kel requests el 400G lazem takhod a2all 3adad hops | prefer hops, only rate 400 | ar-Latn
+ayy shi byebda men Dublin lazem yetjannab link Glasgow-Amsterdam | avoid Glasgow-Amsterdam, only from Dublin | ar-Latn
+el lightpaths elli btintehi b Rome: khallihon ba3id 3an Zagreb | avoid Zagreb, only to Rome | ar-Latn
+el demands taba3 10G btakhod el route el a2all load la 7ad ish3ar akhar | prefer load, only rate 10, until withdrawn | ar-Latn
+el requests men Warsaw, mish aktar men 1500 km law sama7t | max 1500 km, only from Warsaw | ar-Latn
+lal 8 sa3at el jaye, ayy shi rayeh 3ala Madrid yeb3od 3an span Barcelona-Lyon | avoid Barcelona-Lyon, only to Madrid, for 8 hours | ar-Latn
+lal 3 sa3at el jaye, requests el 100G tetjannab Munich w takhod el path el a2all load | avoid Munich, prefer load, only rate 100, for 3 hours | ar-Latn
+el requests elli tal3a men Athens: marriha men Belgrade, sitta hops 3al aktar | via Belgrade, max 6 hops, only from Athens | ar-Latn
+la 7ad ish3ar akhar, kel requests el 40G lazem tetjannab link Oslo-Copenhagen w testa3mel a2all 3adad mumken men el slots | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | ar-Latn
+lal 10 sa3at el jaye khalli kel el paths 2400 km aw a2all, w men baynaton a2all 3adad hops | max 2400 km, prefer hops, for 10 hours | ar-Latn

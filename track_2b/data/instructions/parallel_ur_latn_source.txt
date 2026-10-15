@@ -1,6 +1,6 @@
-# Parallel test set, Urdu in Latin script (Roman Urdu) (ur-Latn): the same 60 instructions in eight languages and scripts, 15 October 2026.
+# Parallel test set, Urdu/Hindi in Latin letters (ur-Latn): the same 60 instructions in nine languages and scripts, 15 October 2026.
 #
-# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Urdu in Latin script (Roman Urdu) alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Urdu in Latin letters (Roman Urdu, as typed in Pakistan) alone; listed as Urdu/Hindi in Latin letters, since the two languages coincide almost entirely when typed that way, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
 # What each line means (after the first " | ") is the English item's label, the same in every language, in the
 # words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
 # (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies

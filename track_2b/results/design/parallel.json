@@ -8959,6 +8959,1126 @@
     "outcome": "silent",
     "error": "wrong field"
    }
+  },
+  {
+   "item": 1,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "ab3ed hal lightpath 3an span Paris-Lyon, sarlo 3am y3mel flapping tool el sob7",
+   "expect": "avoid=Paris-Lyon; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 2,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "law sama7t ma testa3mel el link bayn Oslo w Stockholm la hal request",
+   "expect": "avoid=Oslo-Stockholm; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Oslo-Stockholm; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 3,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "el fibre bayn Vienna w Zagreb 3ando error rate 3ali el yom, khalli el route yelef men 7awalayh",
+   "expect": "avoid=Vienna-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Vienna-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 4,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "node Frankfurt 3alayh card swap mkhattat, ma tmarrer hada men khilalo",
+   "expect": "avoid=Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 5,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "tajannab Budapest tamaman 3ala hal path, shukran",
+   "expect": "avoid=Budapest; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 6,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "hada lazem ymorr men Strasbourg",
+   "expect": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 7,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "el 3amil msirr enno el path ymorr men Copenhagen, t2akkad enno 3am ymorr menha",
+   "expect": "avoid=none; via=Copenhagen; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Copenhagen; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 8,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "mish aktar men arba3a hops la hada law sama7t",
+   "expect": "avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 9,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "sitta hops heye el 7add el aqsa el mutlaq hon",
+   "expect": "avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=7; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=7; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 10,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "tool el path el kolli ma byenfa3 yetjawaz 1800 km",
+   "expect": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 11,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "khalli el route dimn alfayn w khamsmiyye kilometer",
+   "expect": "avoid=none; via=none; hops=any; km=2500; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=500; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=500; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 12,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "ekhtar el candidate el tani 3al list",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=1; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 13,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "ekhtar route 3 la hal request",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=3; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=3; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 14,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "baddi el path elli fi a2all 3adad hops, ayyan kan",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 15,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "el links 3am tsir mashghoule, a3tini el path el a2all load",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 16,
+   "lang": "ar_latn",
+   "kind": "atom",
+   "text": "esta3mel a2all 3adad mumken men el spectrum slots 3ala hada",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 17,
+   "lang": "ar_latn",
+   "kind": "heldout",
+   "text": "ab3ed 3an Munich w mish aktar men 5 hops law sama7t",
+   "expect": "avoid=Munich; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Munich; hops=5; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 18,
+   "lang": "ar_latn",
+   "kind": "trained",
+   "text": "marrero men Zurich, w ella bas el a2sar bel km",
+   "expect": "avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "unresolved",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 19,
+   "lang": "ar_latn",
+   "kind": "trained",
+   "text": "el path el a2all load law sama7t, w men baynaton elli fi a2all 3adad hops",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load,hops; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 20,
+   "lang": "ar_latn",
+   "kind": "trained",
+   "text": "a2all 3adad spectrum slots bel awwal, w iza fi ta3adul el masafe el a2sar heye elli bt7sim",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots,km; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots,hops; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=more",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 21,
+   "lang": "ar_latn",
+   "kind": "heldout",
+   "text": "ab3ed 3an link Hamburg-Berlin w khalli el tool 2000 km 3al aktar",
+   "expect": "avoid=Hamburg-Berlin; via=none; hops=any; km=2000; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Hamburg-Berlin; via=none; hops=any; km=2000; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Hamburg-Berlin; via=none; hops=any; km=2000; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Hamburg-Berlin; via=none; hops=any; km=2000; path=any; prefer=km; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 22,
+   "lang": "ar_latn",
+   "kind": "new",
+   "text": "morr men Prague bas mish men Vienna, w ba3d hek a2all 3adad hops",
+   "expect": "avoid=Vienna; via=Prague; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Prague,Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Prague,Vienna; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 23,
+   "lang": "ar_latn",
+   "kind": "trained",
+   "text": "thalatha hops 3al aktar w mish atwal men 900 km",
+   "expect": "avoid=none; via=none; hops=3; km=900; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=3; km=900; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=3; km=900; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 24,
+   "lang": "ar_latn",
+   "kind": "heldout",
+   "text": "tajannab link London-Dublin, w ba3to men Glasgow badalo",
+   "expect": "avoid=London-Dublin; via=Glasgow; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=London-Dublin,Glasgow; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=London-Dublin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 25,
+   "lang": "ar_latn",
+   "kind": "heldout",
+   "text": "el route el a2all ez7am b sab3a hops 3al aktar, w wala shi ymorr men Belgrade",
+   "expect": "avoid=Belgrade; via=none; hops=7; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Belgrade; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Belgrade; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=more",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 26,
+   "lang": "ar_latn",
+   "kind": "trained",
+   "text": "2allel el hops, w iza tnein routes t3adalo, khod el a2all load fihon",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops,load; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 27,
+   "lang": "ar_latn",
+   "kind": "heldout",
+   "text": "lazem ya3bor men Bordeaux, 2200 km 3al aktar, b asra3 wa2t law sama7t",
+   "expect": "avoid=none; via=Bordeaux; hops=any; km=2200; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Bordeaux; via=none; hops=any; km=2200; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Bordeaux; via=none; hops=any; km=2200; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Bordeaux; via=none; hops=any; km=2200; path=any; prefer=km; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 28,
+   "lang": "ar_latn",
+   "kind": "new",
+   "text": "ma t2arreb 3ala link Warsaw-Stockholm wala 3ala Prague, w esta3mel a2all 3adad slots",
+   "expect": "avoid=Warsaw-Stockholm,Prague; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Warsaw-Stockholm,Prague; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Warsaw-Stockholm,Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=more",
+    "outcome": "silent",
+    "error": "wrong field"
+   },
+   "translate3_few_laptop": {
+    "answer": "unresolved",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 29,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "hada byelzamo 1+1 protection ma3 backup path monfasel tamaman",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 30,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "shaghghlo 3ala 16QAM iza el reach byesma7",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 31,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "bala regenerators 3ala hal path, lazem ydall optical bel kamel",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 32,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "el latency lazem tkun a2all men 15 ms end to end, la2anno 3amil trading",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 33,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "ma t7otto 3ala ayy link ma7jooz aktar men 80%",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 34,
+   "lang": "ar_latn",
+   "kind": "other_routing",
+   "text": "a3mel defragment lal spectrum 3ala span Berlin-Munich 2abl ma t7ott hada",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Berlin-Munich; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=more",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   }
+  },
+  {
+   "item": 35,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "el 400G taba3 Athens tele3 tamam ba3d el reroute taba3 mbere7 bel lel?",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 36,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "handover la shift el lel: fi tnein tickets maftu7in 3ala Zagreb, el tnein 3am yestannu el field team",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Zagreb; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 37,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "status update: el card b Hamburg tbaddal, w kel el alarms ra7o",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 38,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "saba7 el kheir lal kel, makinet el 2ahwe bel taba2 3 rej3et teshtghel",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 39,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "meen el on call la site Oslo hal weekend?",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal",
+    "error": "other refusal"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 40,
+   "lang": "ar_latn",
+   "kind": "not_instruction",
+   "text": "lal 3elm, demo el 3amil taba3 Madrid ntaqal la yom el khamis",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Madrid; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Madrid; until=open; rest=none",
+    "outcome": "silent",
+    "error": "applied"
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 41,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "lal 6 sa3at el jaye wala shi jdid ymorr 3ala Brussels-Frankfurt",
+   "expect": "avoid=Brussels-Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=6h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 42,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "el sa3tayn el jayin: khalli kel path jdid ba3id 3an Lyon",
+   "expect": "avoid=Lyon; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 43,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "lal 12 sa3a el jaye, marrer kel el requests 7asab a2all load",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=12h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 44,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "khilal el 4 sa3at el jaye, 7ott 7add aqsa khamsa hops lal lightpaths el jdide",
+   "expect": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=4h; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 45,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "lal arba3a w 3eshrin sa3a el jaye law sama7t faddel el paths el a2sar bel km",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=24h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 46,
+   "lang": "ar_latn",
+   "kind": "open",
+   "text": "la 7ad ish3ar akhar, tajannab link Amsterdam-London",
+   "expect": "avoid=Amsterdam-London; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Amsterdam-London; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 47,
+   "lang": "ar_latn",
+   "kind": "open",
+   "text": "fi moshkle kahraba b Paris, wala shi ymorr menha la 7ad ma 2ollak ghayr hek",
+   "expect": "avoid=Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Paris; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 48,
+   "lang": "ar_latn",
+   "kind": "open",
+   "text": "qa3ida da2ime jdide la 7ad ma tenshal: ma fi path atwal men 3000 km",
+   "expect": "avoid=none; via=none; hops=any; km=3000; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=3000; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 49,
+   "lang": "ar_latn",
+   "kind": "open",
+   "text": "men halla2 w rayeh kel request byesta3mel a2all 3adad spectrum slots, la 7ad ma 7ada yelghi hal shi",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=more",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 50,
+   "lang": "ar_latn",
+   "kind": "open",
+   "text": "ab3ed 3an span Athens-Belgrade la 7ad ma nshil hal qa3ida",
+   "expect": "avoid=Athens-Belgrade; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Athens-Belgrade; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 51,
+   "lang": "ar_latn",
+   "kind": "rate",
+   "text": "kel requests el 400G lazem takhod a2all 3adad hops",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=rate:400; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 52,
+   "lang": "ar_latn",
+   "kind": "from",
+   "text": "ayy shi byebda men Dublin lazem yetjannab link Glasgow-Amsterdam",
+   "expect": "avoid=Glasgow-Amsterdam; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Dublin; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Glasgow-Amsterdam; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 53,
+   "lang": "ar_latn",
+   "kind": "to",
+   "text": "el lightpaths elli btintehi b Rome: khallihon ba3id 3an Zagreb",
+   "expect": "avoid=Zagreb; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Rome; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 54,
+   "lang": "ar_latn",
+   "kind": "rate+open",
+   "text": "el demands taba3 10G btakhod el route el a2all load la 7ad ish3ar akhar",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=rate:10; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=rate:10; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 55,
+   "lang": "ar_latn",
+   "kind": "from",
+   "text": "el requests men Warsaw, mish aktar men 1500 km law sama7t",
+   "expect": "avoid=none; via=none; hops=any; km=1500; path=any; prefer=none; scope=from:Warsaw; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=1500; path=any; prefer=none; scope=from:Warsaw; until=open; rest=none",
+    "outcome": "right",
+    "error": ""
+   }
+  },
+  {
+   "item": 56,
+   "lang": "ar_latn",
+   "kind": "to+hours",
+   "text": "lal 8 sa3at el jaye, ayy shi rayeh 3ala Madrid yeb3od 3an span Barcelona-Lyon",
+   "expect": "avoid=Barcelona-Lyon; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Madrid; until=8h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Madrid; until=8h; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 57,
+   "lang": "ar_latn",
+   "kind": "rate+hours",
+   "text": "lal 3 sa3at el jaye, requests el 100G tetjannab Munich w takhod el path el a2all load",
+   "expect": "avoid=Munich; via=none; hops=any; km=any; path=any; prefer=load; scope=rate:100; until=3h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=rate:100; until=3h; rest=none",
+    "outcome": "silent",
+    "error": "wrong city"
+   }
+  },
+  {
+   "item": 58,
+   "lang": "ar_latn",
+   "kind": "from",
+   "text": "el requests elli tal3a men Athens: marriha men Belgrade, sitta hops 3al aktar",
+   "expect": "avoid=none; via=Belgrade; hops=6; km=any; path=any; prefer=none; scope=from:Athens; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Belgrade; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Athens; until=open; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
+  },
+  {
+   "item": 59,
+   "lang": "ar_latn",
+   "kind": "rate+open",
+   "text": "la 7ad ish3ar akhar, kel requests el 40G lazem tetjannab link Oslo-Copenhagen w testa3mel a2all 3adad mumken men el slots",
+   "expect": "avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=slots; scope=rate:40; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged",
+    "error": "not applied"
+   }
+  },
+  {
+   "item": 60,
+   "lang": "ar_latn",
+   "kind": "hours",
+   "text": "lal 10 sa3at el jaye khalli kel el paths 2400 km aw a2all, w men baynaton a2all 3adad hops",
+   "expect": "avoid=none; via=none; hops=any; km=2400; path=any; prefer=hops; scope=any; until=10h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=2400; path=any; prefer=none; scope=any; until=3h; rest=none",
+    "outcome": "silent",
+    "error": "wrong field"
+   }
   }
  ],
  "summary": [
@@ -9102,6 +10222,25 @@
   },
   {
    "reader": "translate3_ft_laptop",
+   "group": "request",
+   "lang": "ar_latn",
+   "n": 40,
+   "right": 10,
+   "share": 0.25,
+   "ci95": [
+    0.1419,
+    0.4019
+   ],
+   "errors": {
+    "applied": 8,
+    "not applied": 3,
+    "other refusal": 3,
+    "wrong city": 2,
+    "wrong field": 14
+   }
+  },
+  {
+   "reader": "translate3_ft_laptop",
    "group": "in_language",
    "lang": "en",
    "n": 28,
@@ -9227,6 +10366,23 @@
   },
   {
    "reader": "translate3_ft_laptop",
+   "group": "in_language",
+   "lang": "ar_latn",
+   "n": 28,
+   "right": 9,
+   "share": 0.3214,
+   "ci95": [
+    0.1793,
+    0.5066
+   ],
+   "errors": {
+    "not applied": 3,
+    "wrong city": 2,
+    "wrong field": 14
+   }
+  },
+  {
+   "reader": "translate3_ft_laptop",
    "group": "refusal",
    "lang": "en",
    "n": 12,
@@ -9348,6 +10504,22 @@
    ],
    "errors": {
     "applied": 8
+   }
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "refusal",
+   "lang": "ar_latn",
+   "n": 12,
+   "right": 1,
+   "share": 0.0833,
+   "ci95": [
+    0.0149,
+    0.3539
+   ],
+   "errors": {
+    "applied": 8,
+    "other refusal": 3
    }
   },
   {
@@ -9495,6 +10667,25 @@
   },
   {
    "reader": "translate4_ft_laptop",
+   "group": "request",
+   "lang": "ar_latn",
+   "n": 40,
+   "right": 9,
+   "share": 0.225,
+   "ci95": [
+    0.1232,
+    0.375
+   ],
+   "errors": {
+    "applied": 5,
+    "not applied": 6,
+    "other refusal": 4,
+    "wrong city": 3,
+    "wrong field": 13
+   }
+  },
+  {
+   "reader": "translate4_ft_laptop",
    "group": "in_language",
    "lang": "en",
    "n": 48,
@@ -9622,6 +10813,23 @@
     "not applied": 1,
     "wrong city": 1,
     "wrong field": 6
+   }
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "in_language",
+   "lang": "ar_latn",
+   "n": 48,
+   "right": 11,
+   "share": 0.2292,
+   "ci95": [
+    0.1331,
+    0.3654
+   ],
+   "errors": {
+    "not applied": 7,
+    "wrong city": 9,
+    "wrong field": 21
    }
   },
   {
@@ -9754,6 +10962,22 @@
   },
   {
    "reader": "translate4_ft_laptop",
+   "group": "refusal",
+   "lang": "ar_latn",
+   "n": 12,
+   "right": 3,
+   "share": 0.25,
+   "ci95": [
+    0.0889,
+    0.5323
+   ],
+   "errors": {
+    "applied": 5,
+    "other refusal": 4
+   }
+  },
+  {
+   "reader": "translate4_ft_laptop",
    "group": "standing",
    "lang": "en",
    "n": 20,
@@ -9874,6 +11098,23 @@
     "not applied": 1,
     "wrong city": 1,
     "wrong field": 2
+   }
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "standing",
+   "lang": "ar_latn",
+   "n": 20,
+   "right": 5,
+   "share": 0.25,
+   "ci95": [
+    0.1119,
+    0.4687
+   ],
+   "errors": {
+    "not applied": 1,
+    "wrong city": 6,
+    "wrong field": 8
    }
   },
   {
@@ -10021,6 +11262,25 @@
     "other refusal": 2,
     "wrong city": 1,
     "wrong field": 6
+   }
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "all",
+   "lang": "ar_latn",
+   "n": 60,
+   "right": 14,
+   "share": 0.2333,
+   "ci95": [
+    0.1444,
+    0.3544
+   ],
+   "errors": {
+    "applied": 5,
+    "not applied": 7,
+    "other refusal": 4,
+    "wrong city": 9,
+    "wrong field": 21
    }
   },
   {
@@ -10172,6 +11432,24 @@
   },
   {
    "reader": "translate3_few_laptop",
+   "group": "request",
+   "lang": "ar_latn",
+   "n": 40,
+   "right": 6,
+   "share": 0.15,
+   "ci95": [
+    0.0706,
+    0.2907
+   ],
+   "errors": {
+    "not applied": 24,
+    "other refusal": 6,
+    "wrong city": 2,
+    "wrong field": 2
+   }
+  },
+  {
+   "reader": "translate3_few_laptop",
    "group": "in_language",
    "lang": "en",
    "n": 28,
@@ -10303,6 +11581,23 @@
   },
   {
    "reader": "translate3_few_laptop",
+   "group": "in_language",
+   "lang": "ar_latn",
+   "n": 28,
+   "right": 0,
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.1206
+   ],
+   "errors": {
+    "not applied": 24,
+    "wrong city": 2,
+    "wrong field": 2
+   }
+  },
+  {
+   "reader": "translate3_few_laptop",
    "group": "refusal",
    "lang": "en",
    "n": 12,
@@ -10428,6 +11723,21 @@
     "applied": 1,
     "other refusal": 4
    }
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "refusal",
+   "lang": "ar_latn",
+   "n": 12,
+   "right": 6,
+   "share": 0.5,
+   "ci95": [
+    0.2538,
+    0.7462
+   ],
+   "errors": {
+    "other refusal": 6
+   }
   }
  ],
  "tests": [
@@ -10511,13 +11821,35 @@
   {
    "reader": "translate3_ft_laptop",
    "group": "request",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 40,
+   "right_only_a": 24,
+   "right_only_b": 0,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "request",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 40,
    "right_only_a": 4,
    "right_only_b": 9,
    "p_exact": 0.2668
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "request",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 40,
+   "right_only_a": 1,
+   "right_only_b": 6,
+   "p_exact": 0.125
   },
   {
    "reader": "translate3_ft_laptop",
@@ -10529,6 +11861,17 @@
    "right_only_a": 4,
    "right_only_b": 4,
    "p_exact": 1.0
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "request",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 40,
+   "right_only_a": 1,
+   "right_only_b": 19,
+   "p_exact": 0.0
   },
   {
    "reader": "translate3_ft_laptop",
@@ -10610,13 +11953,35 @@
   {
    "reader": "translate3_ft_laptop",
    "group": "in_language",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 28,
+   "right_only_a": 18,
+   "right_only_b": 0,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "in_language",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 28,
    "right_only_a": 1,
    "right_only_b": 9,
    "p_exact": 0.0215
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "in_language",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 28,
+   "right_only_a": 0,
+   "right_only_b": 6,
+   "p_exact": 0.0312
   },
   {
    "reader": "translate3_ft_laptop",
@@ -10628,6 +11993,17 @@
    "right_only_a": 4,
    "right_only_b": 2,
    "p_exact": 0.6875
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "in_language",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 28,
+   "right_only_a": 0,
+   "right_only_b": 15,
+   "p_exact": 0.0001
   },
   {
    "reader": "translate3_ft_laptop",
@@ -10709,13 +12085,35 @@
   {
    "reader": "translate3_ft_laptop",
    "group": "refusal",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 12,
+   "right_only_a": 6,
+   "right_only_b": 0,
+   "p_exact": 0.0312
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "refusal",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 12,
    "right_only_a": 3,
    "right_only_b": 0,
    "p_exact": 0.25
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "refusal",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 12,
+   "right_only_a": 1,
+   "right_only_b": 0,
+   "p_exact": 1.0
   },
   {
    "reader": "translate3_ft_laptop",
@@ -10727,6 +12125,17 @@
    "right_only_a": 0,
    "right_only_b": 2,
    "p_exact": 0.5
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "refusal",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 12,
+   "right_only_a": 1,
+   "right_only_b": 4,
+   "p_exact": 0.375
   },
   {
    "reader": "translate4_ft_laptop",
@@ -10808,13 +12217,35 @@
   {
    "reader": "translate4_ft_laptop",
    "group": "request",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 40,
+   "right_only_a": 28,
+   "right_only_b": 1,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "request",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 40,
    "right_only_a": 3,
    "right_only_b": 12,
    "p_exact": 0.0352
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "request",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 40,
+   "right_only_a": 3,
+   "right_only_b": 10,
+   "p_exact": 0.0923
   },
   {
    "reader": "translate4_ft_laptop",
@@ -10826,6 +12257,17 @@
    "right_only_a": 5,
    "right_only_b": 3,
    "p_exact": 0.7266
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "request",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 40,
+   "right_only_a": 0,
+   "right_only_b": 20,
+   "p_exact": 0.0
   },
   {
    "reader": "translate4_ft_laptop",
@@ -10907,13 +12349,35 @@
   {
    "reader": "translate4_ft_laptop",
    "group": "in_language",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 48,
+   "right_only_a": 35,
+   "right_only_b": 0,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "in_language",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 48,
    "right_only_a": 2,
    "right_only_b": 13,
    "p_exact": 0.0074
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "in_language",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 48,
+   "right_only_a": 3,
+   "right_only_b": 16,
+   "p_exact": 0.0044
   },
   {
    "reader": "translate4_ft_laptop",
@@ -10925,6 +12389,17 @@
    "right_only_a": 4,
    "right_only_b": 6,
    "p_exact": 0.7539
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "in_language",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 48,
+   "right_only_a": 0,
+   "right_only_b": 29,
+   "p_exact": 0.0
   },
   {
    "reader": "translate4_ft_laptop",
@@ -11006,12 +12481,34 @@
   {
    "reader": "translate4_ft_laptop",
    "group": "refusal",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 12,
+   "right_only_a": 7,
+   "right_only_b": 1,
+   "p_exact": 0.0703
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "refusal",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 12,
    "right_only_a": 3,
    "right_only_b": 3,
+   "p_exact": 1.0
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "refusal",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 12,
+   "right_only_a": 2,
+   "right_only_b": 2,
    "p_exact": 1.0
   },
   {
@@ -11024,6 +12521,17 @@
    "right_only_a": 2,
    "right_only_b": 2,
    "p_exact": 1.0
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "refusal",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 12,
+   "right_only_a": 0,
+   "right_only_b": 2,
+   "p_exact": 0.5
   },
   {
    "reader": "translate4_ft_laptop",
@@ -11105,13 +12613,35 @@
   {
    "reader": "translate4_ft_laptop",
    "group": "standing",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 20,
+   "right_only_a": 14,
+   "right_only_b": 0,
+   "p_exact": 0.0001
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "standing",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 20,
    "right_only_a": 2,
    "right_only_b": 4,
    "p_exact": 0.6875
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "standing",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 20,
+   "right_only_a": 2,
+   "right_only_b": 8,
+   "p_exact": 0.1094
   },
   {
    "reader": "translate4_ft_laptop",
@@ -11123,6 +12653,17 @@
    "right_only_a": 1,
    "right_only_b": 5,
    "p_exact": 0.2188
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "standing",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 20,
+   "right_only_a": 0,
+   "right_only_b": 11,
+   "p_exact": 0.001
   },
   {
    "reader": "translate4_ft_laptop",
@@ -11204,13 +12745,35 @@
   {
    "reader": "translate4_ft_laptop",
    "group": "all",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 60,
+   "right_only_a": 42,
+   "right_only_b": 1,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "all",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 60,
    "right_only_a": 5,
    "right_only_b": 16,
    "p_exact": 0.0266
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "all",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 60,
+   "right_only_a": 5,
+   "right_only_b": 18,
+   "p_exact": 0.0106
   },
   {
    "reader": "translate4_ft_laptop",
@@ -11222,6 +12785,17 @@
    "right_only_a": 6,
    "right_only_b": 8,
    "p_exact": 0.7905
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "all",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 60,
+   "right_only_a": 0,
+   "right_only_b": 31,
+   "p_exact": 0.0
   },
   {
    "reader": "translate3_few_laptop",
@@ -11303,13 +12877,35 @@
   {
    "reader": "translate3_few_laptop",
    "group": "request",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 40,
+   "right_only_a": 25,
+   "right_only_b": 0,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "request",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 40,
    "right_only_a": 2,
    "right_only_b": 9,
    "p_exact": 0.0654
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "request",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 40,
+   "right_only_a": 2,
+   "right_only_b": 7,
+   "p_exact": 0.1797
   },
   {
    "reader": "translate3_few_laptop",
@@ -11321,6 +12917,17 @@
    "right_only_a": 5,
    "right_only_b": 3,
    "p_exact": 0.7266
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "request",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 40,
+   "right_only_a": 0,
+   "right_only_b": 22,
+   "p_exact": 0.0
   },
   {
    "reader": "translate3_few_laptop",
@@ -11402,13 +13009,35 @@
   {
    "reader": "translate3_few_laptop",
    "group": "in_language",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
+   "n": 28,
+   "right_only_a": 25,
+   "right_only_b": 0,
+   "p_exact": 0.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "in_language",
    "a": "ur_latn",
    "b": "ur_arab",
-   "what": "one language, two scripts",
+   "what": "Urdu: Latin letters against its own script",
    "n": 28,
    "right_only_a": 2,
    "right_only_b": 9,
    "p_exact": 0.0654
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "in_language",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 28,
+   "right_only_a": 1,
+   "right_only_b": 7,
+   "p_exact": 0.0703
   },
   {
    "reader": "translate3_few_laptop",
@@ -11420,6 +13049,17 @@
    "right_only_a": 4,
    "right_only_b": 3,
    "p_exact": 1.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "in_language",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 28,
+   "right_only_a": 0,
+   "right_only_b": 21,
+   "p_exact": 0.0
   },
   {
    "reader": "translate3_few_laptop",
@@ -11501,11 +13141,33 @@
   {
    "reader": "translate3_few_laptop",
    "group": "refusal",
-   "a": "ur_latn",
-   "b": "ur_arab",
-   "what": "one language, two scripts",
+   "a": "en",
+   "b": "ar_latn",
+   "what": "against English",
    "n": 12,
    "right_only_a": 0,
+   "right_only_b": 0,
+   "p_exact": 1.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "refusal",
+   "a": "ur_latn",
+   "b": "ur_arab",
+   "what": "Urdu: Latin letters against its own script",
+   "n": 12,
+   "right_only_a": 0,
+   "right_only_b": 0,
+   "p_exact": 1.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "refusal",
+   "a": "ur_latn",
+   "b": "hi",
+   "what": "Hindi: Latin letters against Devanagari",
+   "n": 12,
+   "right_only_a": 1,
    "right_only_b": 0,
    "p_exact": 1.0
   },
@@ -11519,6 +13181,17 @@
    "right_only_a": 1,
    "right_only_b": 0,
    "p_exact": 1.0
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "refusal",
+   "a": "ar_latn",
+   "b": "ar",
+   "what": "Arabic: Latin letters against its own script",
+   "n": 12,
+   "right_only_a": 0,
+   "right_only_b": 1,
+   "p_exact": 1.0
   }
  ],
  "metadata": {
@@ -11529,10 +13202,11 @@
    "de": "German",
    "fr": "French",
    "it": "Italian",
-   "ur_latn": "Urdu, Latin script",
+   "ur_latn": "Urdu/Hindi, Latin letters",
    "ur_arab": "Urdu, Urdu script",
    "hi": "Hindi, Devanagari",
-   "ar": "Arabic"
+   "ar": "Arabic, Arabic script",
+   "ar_latn": "Arabic, Latin letters"
   },
   "trained": [
    "en",

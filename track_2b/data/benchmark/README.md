@@ -28,9 +28,9 @@ provisioning with Apertus 8B*.
 
 - **Curated by:** the project's author (Wadood Ranjha), with sentences written by separate AI
   instances from briefs; see *Source Data*.
-- **Language(s) (NLP):** English, German, French, Italian; Swedish, Swiss German and Urdu in Latin script in
-  the template lines; the parallel sets add Urdu in Urdu script, Roman Urdu, Hindi (Devanagari) and
-  Arabic.
+- **Language(s) (NLP):** English, German, French, Italian; Swedish, Swiss German and Urdu/Hindi in Latin letters
+  in the template lines; the parallel sets add Urdu/Hindi in Latin letters, Urdu in Urdu script, Hindi in
+  Devanagari, and Arabic in Arabic script and in Latin letters (Arabizi).
 - **License:** CDLA-Permissive-2.0 (the whole dataset and every instance).
 - **Git repository:** [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`), which holds the generators
   (`src/corpora3_tests.py`, `src/corpora4_tests.py`, `src/swiss.py`, `src/benchmark_export.py`).
@@ -70,9 +70,10 @@ owner set (`owner`, 40) and five sets on the project's template, per request (`t
 `template5`; 25, 25, 25, 44, 13) and standing policies (`template1_standing` …
 `template5_standing`; 15, 15, 15, 26, 7); standing policies with a scope or a lifetime (`v4_en` … `v4_it`); the same sentences on
 a Swiss network with the cities in each language's own name (`v3_swiss_en` … `v3_swiss_it`); and
-the parallel sets, the same 60 items in eight languages and scripts (`parallel_<code>`, 40 per
-request, and `parallel_<code>_standing`, 20; codes `en`, `de`, `fr`, `it`, `ur_latn`, `ur_arab`,
-`hi`, `ar`), with an `item` number shared by the eight versions of an item.
+the parallel sets, the same 60 items in nine languages and scripts (`parallel_<code>`, 40 per
+request, and `parallel_<code>_standing`, 20; codes `en`, `de`, `fr`, `it`, `ur_latn` (Urdu/Hindi in
+Latin letters, written as Roman Urdu), `ur_arab`, `hi`, `ar`, `ar_latn` (Arabic in Latin letters)),
+with an `item` number shared by the nine versions of an item.
 
 The line format: `avoid=<links,nodes>; via=<node>; hops=<n|any>; km=<n|any>; path=<0-4|any>;
 prefer=<hops,km,load,slots in order>; scope=<any|rate:G|from:node|to:node>; until=<open|Nh>;

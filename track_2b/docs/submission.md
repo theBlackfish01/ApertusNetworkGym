@@ -12,7 +12,7 @@ this page maps them to the material in the repository and lists the steps only t
 | The evidence | Blind test sentences in four languages written by separate AI instances; held-out clause combinations fixed before the sentences were opened; closed-loop runs in the simulator with instruction-blind baselines; a standing-policy stream judged against the true table; a 4-bit laptop build measured beside the job build. | `results/` (every number), `results/tables/phase3.md`, `docs/results_overview.md` |
 | The standards link | The policy line maps onto TAPI 2.1.3 constraints. | `src/tapi.py`, the console |
 | The console | A dark operations view in Svelte and TypeScript: the map as the stage, a feed of what the model does, the policies in force with remaining hours, questions that pause the stream, play at a chosen pace; an inspector that shows why each candidate path was kept or dropped and the spectrum a lightpath took; a race of the four methods on the evaluation's stream, each lane checked against its stored run; a guided tour. From recorded answers in Docker, or live on the laptop. | `src/console.py`, `src/console_extras.py`, `src/console_ui/`, `make console` |
-| The benchmark | 5,420 test instructions (46 sets), every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
+| The benchmark | 5,480 test instructions (48 sets), every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
 | The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
@@ -58,11 +58,12 @@ other people** without an AI tool. The guide to hand out is
 `data/instructions/contributor_template.txt`. Since no data was collected from people, the
 consent rules of the terms (section 6, responsibly sourced datasets) do not apply.
 
-The parallel set (15 October): the same 60 items in eight languages and scripts (English, German,
-French, Italian, Urdu in Latin and in Urdu script, Hindi, Arabic), written and translated by
+The parallel set (15 October): the same 60 items in nine languages and scripts (English, German,
+French, Italian, Urdu/Hindi in Latin letters, Urdu in Urdu script, Hindi in Devanagari, Arabic in
+Arabic script and in Latin letters), written and translated by
 separate AI instances, read on the laptop (`src/parallel3.py`, `results/design/parallel.json`,
 `docs/figures/languages.png`). The translations have not been checked by a native speaker; the
-owner could check the Urdu and Roman Urdu.
+owner could check the Urdu and the Urdu/Hindi in Latin letters.
 
 ## 4. What a fresh pair of eyes said
 

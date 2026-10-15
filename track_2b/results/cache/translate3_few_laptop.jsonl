@@ -490,3 +490,43 @@
 {"key": "f72d77f33ad97532962494133eae84e4b96b645947dfd68f680d532fcef9ae59", "answer": "no_instruction", "seconds": 0.114}
 {"key": "66def365519dd35960aa6960126ad134cbdbcd3bdef2d95b0cbe0f941990347b", "answer": "no_instruction", "seconds": 0.1133}
 {"key": "b5a9e0cedf8b2283e5b6b799597a0386bf798d331d0e65c35280b53f897c8be2", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none", "seconds": 0.674}
+{"key": "bfe457448855332c2b7d481acff317a2b55fd545f7882bb969a24de22b9ef658", "answer": "unsupported", "seconds": 0.892}
+{"key": "e69070a99a23049732597d306110139203e3a59cf74807499102d623d1a954d2", "answer": "no_instruction", "seconds": 0.1362}
+{"key": "b5c04061743e291d1333f6d128e47e45a67f6fa88a35200a47f308ef13601744", "answer": "no_instruction", "seconds": 0.1359}
+{"key": "218fa3ee4b4a33604bdac80b7f6b4045e9619df5aa7f1896d06d8e1191883192", "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=hops; rest=none", "seconds": 0.8035}
+{"key": "78415c48688f11af150f44dd0e4f439338b9b341e2a3e535360592a2d91c1f52", "answer": "avoid=Hamburg-Berlin; via=none; hops=any; km=2000; path=any; prefer=km; rest=none", "seconds": 0.9407}
+{"key": "3a33d4c90db720124e2a675a0c2a4a5455ada4a27847dae49cd400decc0fa473", "answer": "no_instruction", "seconds": 0.1382}
+{"key": "aa0be65112ef3f69aa94557d5cd8f28e8d6dd498eb198fc74a19d41b1620761b", "answer": "unsupported", "seconds": 0.1108}
+{"key": "b5246e98355e713adff9660bb75477568b306fc4b5d1503dbf980c37e68b349b", "answer": "no_instruction", "seconds": 0.1331}
+{"key": "855e5a020231bfc6930c0425bfb58690580ae81734a1e6f1a48f3b1e4955718b", "answer": "no_instruction", "seconds": 0.1354}
+{"key": "02cd39a64a074940bfe5b035764e9c988c78ce52a1b1e91ffa675278756dda76", "answer": "no_instruction", "seconds": 0.1355}
+{"key": "835021fdb1c272bbd6cbe852e2ecaffda831784467f1ef147a174818a22f6f1b", "answer": "no_instruction", "seconds": 0.1356}
+{"key": "bba1fb6824c8ea68cfbce523bfc5bbc3df40ec1d2dfbdab8959d389c252b672f", "answer": "no_instruction", "seconds": 0.1339}
+{"key": "5281f01874032f1856fbb4fce677be69a8419bfa070f8c3403bb58b6830fd041", "answer": "no_instruction", "seconds": 0.141}
+{"key": "2ad4ccd37b6e61bc687eb42c717882e5c99fa7a21549452c692319cf9136b0c3", "answer": "no_instruction", "seconds": 0.1346}
+{"key": "99e31f9ad76b9929ed8555688050aa24877a27e4f21f2c01f279fe302665d62b", "answer": "unsupported", "seconds": 0.1069}
+{"key": "bb7977f5454cbbefa985a093cdaa56984fb7770c4e4eb91da84eb495f369416d", "answer": "unsupported", "seconds": 0.1154}
+{"key": "f11e6f5aaa16552464453d8bb20c19cfbe3b557a929ee564a80bcb8d385dde58", "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none", "seconds": 0.7839}
+{"key": "3dc97a819e9aa103d06e19df99dfb94bec81617f65da38ca408a784867bc99b5", "answer": "unsupported", "seconds": 0.1081}
+{"key": "d048f5797a30d82c5c16f21487dd2f3ce8d25104de1b74f1ac41607671f5d41f", "answer": "no_instruction", "seconds": 0.1361}
+{"key": "c55588f6445f947fe3320853c3a89e7708979464bc52636db0a24f039e692c01", "answer": "unsupported", "seconds": 0.1137}
+{"key": "07641e59bec6e1a146a32ef63c3387758b55d964fd0daed4c012f729cf7defe4", "answer": "no_instruction", "seconds": 0.1358}
+{"key": "774760f485eb25d6a2ee91656a0a49958a92f82a53f29d5b522ed56b274f7eaf", "answer": "no_instruction", "seconds": 0.1315}
+{"key": "1914014fe2d0b67dd0875ee6f60fdf7c4eddeff2744f29ce5f08ffc958ce4bd8", "answer": "no_instruction", "seconds": 0.136}
+{"key": "f3f01ee7d6b17520ac6dc6d912259ace8f55b22f5386839e874cb335747daea0", "answer": "no_instruction", "seconds": 0.1465}
+{"key": "a7df01b0310a18cdd64dd18e0a68e8078d42e213f975bddcda679db0a5fa10ab", "answer": "avoid=Bordeaux; via=none; hops=any; km=2200; path=any; prefer=km; rest=none", "seconds": 1.0607}
+{"key": "7f2b03460a59c212485ac1994bef565bfc30e60a13003248bc3912b97123f5c7", "answer": "avoid=Warsaw-Stockholm,Warsaw-Prague; via=none; hops=any; km=any; path=any; prefer=slots; rest=more", "seconds": 1.3384}
+{"key": "278b7f702eabfab832ed2a121c103ea3621394b744bd9921af6425a259a76bdb", "answer": "no_instruction", "seconds": 0.1641}
+{"key": "f8b16c66b785df42ccaa3d0bbfde13b25d243bb67641e9cedae94791f7eeb0e9", "answer": "unsupported", "seconds": 0.1254}
+{"key": "b9b0c47523ef690ba7a3d22fd106e03e987636a85741e64ee310ba15d5bd2088", "answer": "no_instruction", "seconds": 0.1575}
+{"key": "9886e30bb3c3f8a162c4631c8c8db20f2819f9c2cd1ec3836da00c9642e2cb0a", "answer": "unsupported", "seconds": 0.1237}
+{"key": "d21a0cf63e4dd7fb56d6c5a8e6dc2fd2d76c2185251addbb99ff0e568ae61070", "answer": "unsupported", "seconds": 0.1313}
+{"key": "721950f4b7c5f5e8c4f52bf1b64615047fbcade21858a7784c773da23fd1ca60", "answer": "unsupported", "seconds": 0.1264}
+{"key": "3eeb927293974ea8dc3644d9b11a65d5d741dbbd587a698cfb0becaed0f6d46f", "answer": "no_instruction", "seconds": 0.1655}
+{"key": "694170651509690311902fd40b91d28531d7ec87bd1e502c27ca01eb4c0dd0ed", "answer": "no_instruction", "seconds": 0.1619}
+{"key": "7ee63d4b4a3715924e6cd346bd89437b35e7dc633f7f5bbdc51524a262a2fb6a", "answer": "unsupported", "seconds": 0.134}
+{"key": "34ac7b3e96216895878f63b4751a46c7457cc21d021c6c9222d11af23945057d", "answer": "no_instruction", "seconds": 0.1589}
+{"key": "530d3651af40ffbe51269167506eb947e3bd62533b00b5d3407f8f8fc7816dac", "answer": "no_instruction", "seconds": 0.171}
+{"key": "fb084df657bf8bf0d91b3a1223ee79e77218f7fce2885864492bf31f481198e5", "answer": "no_instruction", "seconds": 0.1681}
+{"key": "960e93a320ebebeb15cabbc8bc4079ee87628528ba854899ac788cfaf3cb0ab9", "answer": "unsupported", "seconds": 0.1206}
+{"key": "4040221eb212575c3d0f6bb0e7d7553c925e294507586c20e66644cd586543e0", "answer": "no_instruction", "seconds": 0.1568}

@@ -56,7 +56,7 @@ passes the answer grammar as GBNF; the project's client does both (`src/translat
   policy table in closed loop stays within 2.4 points of the true table.
 - The hybrid (two readers, rule engine, decider with guard) run live on the laptop on a mixed
   stream at 390 Erlang: 9.18 % violations (job: 8.47 %).
-- 250 template lines (written outside the sentence generators by the author, partly with ChatGPT 6.1 Sol); among them, of the owner set's 40 (35 English, 5 Urdu in Latin script)
+- 250 template lines (written outside the sentence generators by the author, partly with ChatGPT 6.1 Sol); among them, of the owner set's 40 (35 English, 5 Urdu/Hindi in Latin letters)
   reader 1 is right on 33, reader 2 on 35, the fourth-format reader on 31; of template set 1's 40
   (English, German, Italian, Swedish) reader 1 on 20 of the 25 per-request lines and the
   fourth-format reader on 35, standing policies included; of two more sets of 40 (English and

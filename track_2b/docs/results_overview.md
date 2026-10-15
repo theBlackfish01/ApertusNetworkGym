@@ -273,7 +273,7 @@ cost 0.3 points inside the language alone and nothing with a second reader.
 **Template lines** (`results/design/owner.json`, `template1.json` to `template5.json`; the laptop
 readers, 4-bit base under llama.cpp). 250 lines written outside the project's sentence generators,
 by the author, partly with an AI assistant (ChatGPT 6.1 Sol). The owner set's 40 (35 English, 5 Urdu
-in Latin script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
+in Latin letters, Urdu/Hindi): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
 fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). Template set 1: 40
 lines on the project's template, 10 each in English, German, Italian and Swedish, 15 of them
 standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
@@ -325,31 +325,36 @@ the stored answers. At 390 E, seed 1, the four lanes replay 560, 329, 199 and 17
 counts of the stored runs (`results/eval/*_mix3.json`): the closed-loop results reproduce from
 the answer caches with no model loaded.
 
-**The same items in eight languages** (`results/design/parallel.json`, `src/parallel3.py`). 60
-items written blind by a separate AI instance (40 for one request: 28 the language carries, 12 it
-cannot carry or no instruction; 20 standing policies), each translated by another instance into
-German, French, Italian, Urdu in Latin letters (Roman Urdu) and in Urdu script, Hindi and Arabic,
-the cities as each language writes them; no native speaker has checked them. The eight versions
-of an item mean the same line, so a difference between them is the language's (exact paired
-McNemar tests against English). On the laptop the full-format reader is right on 55 of 60 in
+**The same items in nine languages and scripts** (`results/design/parallel.json`,
+`src/parallel3.py`). 60 items written blind by a separate AI instance (40 for one request: 28 the
+language carries, 12 it cannot carry or no instruction; 20 standing policies), each translated by
+another instance into German, French and Italian; Urdu/Hindi in Latin letters (written as Roman
+Urdu: the two languages coincide almost entirely when typed so), Urdu in its own script and Hindi in
+Devanagari; and Arabic in its own script and in Latin letters (Arabizi, in the light Levantine
+register it is typed in), the cities as each writes them; no native speaker has checked them. The
+nine versions of an item mean the same line, so a difference between them is the language's or the
+script's (exact paired McNemar tests). On the laptop the full-format reader is right on 55 of 60 in
 English, 52–53 in German, French and Italian (p ≥ 0.5 against English), and 43, 45 and 45 in Urdu
-script, Hindi and Arabic (p ≤ 0.006). Roman Urdu is the worst at 32 (p < 0.001), and the same
-language in its own script beats it (16 items right only in Urdu script, 5 only in Latin letters,
-p = 0.03), while Urdu script and Hindi do not differ (p = 0.79). In Latin letters the Urdu words
-are read as something else: *se door rakho* ("keep away from") as a waypoint and a scope, *se
-zyada nahi* ("not more than") as a preference, *agle 10 ghanton* ("the next 10 hours") as a scope
-of 10G. A city in another script is seldom the problem: the full-format reader names a wrong city
-on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
-the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages
-and on 5 in each new one, and applies 3 to 5 of them there. Over the 40
-per-request items, fine-tuning gains over the untrained 8B with 15 examples in the trained
-languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in the new ones
-(104, 105 and 100 of 160).
+script, Hindi and Arabic script (p ≤ 0.006). Latin letters do not help a language that has a script
+of its own; they hurt: Urdu/Hindi in Latin letters gets 32 (16 items right only in Urdu script, 5
+only in Latin letters, p = 0.03; 18 to 5 against Hindi, p = 0.01) and Arabic in Latin letters 14
+(31 to 0 against Arabic script, p < 0.001), while Urdu script and Hindi do not differ (p = 0.79).
+In Latin letters the words that carry the meaning are lost: *se door rakho* ("keep away from") is
+read as a waypoint and a scope, its Arabizi counterpart *ab3ed 3an* is refused as outside the
+language, *tajannab* ("avoid") becomes a waypoint, and the chat alphabet's digit letters are read as
+numbers (*lal 10 sa3at*, "for the next 10 hours", as 3 hours). The untrained 8B with 15 examples
+mostly declines Arabizi (24 of 40 per-request items not applied) where the fine-tuned readers apply
+it wrongly. A city in another script is seldom the problem: the full-format reader names a wrong
+city on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
+the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages and
+on 3 to 5 in the new versions. Over the 40 per-request items, fine-tuning gains over the untrained 8B
+in the trained languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in
+the new versions (114, 114 and 106 of 200).
 
-![The same 40 per-request items in eight languages and scripts](figures/languages.png)
+![The same 40 per-request items in nine languages and scripts](figures/languages.png)
 
-**The benchmark** (`data/benchmark/`): 5,420 test instructions in 46 sets with the line each
-means, 41,718 reader answers with their outcome, metadata and a dataset card.
+**The benchmark** (`data/benchmark/`): 5,480 test instructions in 48 sets with the line each
+means, 41,818 reader answers with their outcome, metadata and a dataset card.
 
 ## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
 

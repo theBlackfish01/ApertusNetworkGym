@@ -39,7 +39,7 @@ SETS = {
     "v3_not": ("a separate AI instance: text that is no routing instruction", "nobel-eu"),
     "v3_faulty": ("v3 sentences naming a place outside the network", "nobel-eu"),
     "owner": (
-        "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu in Latin script",
+        "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu/Hindi in Latin letters",
         "nobel-eu",
     ),
     "template1": (
@@ -99,10 +99,11 @@ SETS = {
             ("de", "German"),
             ("fr", "French"),
             ("it", "Italian"),
-            ("ur_latn", "Urdu in Latin script"),
+            ("ur_latn", "Urdu/Hindi in Latin letters (written as Roman Urdu)"),
             ("ur_arab", "Urdu in Urdu script"),
             ("hi", "Hindi in Devanagari"),
             ("ar", "Arabic"),
+            ("ar_latn", "Arabic in Latin letters (Arabizi)"),
         )
         for part in ("", "_standing")
     },

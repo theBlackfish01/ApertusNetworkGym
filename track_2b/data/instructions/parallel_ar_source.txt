@@ -1,4 +1,4 @@
-# Parallel test set, Arabic (ar): the same 60 instructions in eight languages and scripts, 15 October 2026.
+# Parallel test set, Arabic (ar): the same 60 instructions in nine languages and scripts, 15 October 2026.
 #
 # The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Arabic alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
 # What each line means (after the first " | ") is the English item's label, the same in every language, in the

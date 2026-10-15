@@ -384,7 +384,7 @@ track_2b/
     corpora3_tests.py  third round: test sets from the independently written sources
     mixed3.py          third round: instructions tied to a request, rules of the new types, the mixed stream
     corpora3_owner.py  the template lines (the owner set and five template sets, by the author, partly with ChatGPT 6.1 Sol) as test sets, and what the readers made of them
-    parallel3.py       the same 60 items in eight languages and scripts: accuracy per language, paired tests, the figure
+    parallel3.py       the same 60 items in nine languages and scripts: accuracy per language, paired tests, the figure
     readers3.py        third round: what each reader does with every test instruction; two readers
     tapi.py            a line of the policy language as a TAPI 2.1.3 topology and routing constraint
     console.py         the operator console (http server); console.html is the earlier page, at /legacy
@@ -493,7 +493,7 @@ Code and documentation in this repository were written with the help of Claude C
 under the owner's direction and review. The sentence templates of the readers' training data were
 written the same way. The test instructions were written by separate instances of the same
 assistant that never saw the repository (`data/instructions/*_source.json`), and so were the
-items of the parallel set and their seven translations (`data/instructions/parallel_*_source.txt`);
+items of the parallel set and their eight translations (`data/instructions/parallel_*_source.txt`);
 two more such instances reviewed the project before the third round (`docs/decisions.md`). The
 250 template lines (`owner_source.txt`, `template1_source.txt` to `template5_source.txt`) were
 written outside the project's sentence generators by the author, partly with another AI

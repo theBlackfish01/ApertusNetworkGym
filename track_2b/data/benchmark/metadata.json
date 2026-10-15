@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-15T13:43:09.041789+00:00",
+ "generated_utc": "2026-10-15T16:23:18.565665+00:00",
  "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written or AI-translated from briefs, or the author's, partly with ChatGPT 6.1 Sol)",
  "no_personal_data": true,
  "topologies": {
@@ -64,7 +64,7 @@
   },
   "owner": {
    "rows": 40,
-   "written_by": "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu in Latin script",
+   "written_by": "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu/Hindi in Latin letters",
    "topology": "nobel-eu"
   },
   "template1": {
@@ -199,12 +199,12 @@
   },
   "parallel_ur_latn": {
    "rows": 40,
-   "written_by": "parallel_en translated into Urdu in Latin script by another separate AI instance, from the sentences alone: one request each",
+   "written_by": "parallel_en translated into Urdu/Hindi in Latin letters (written as Roman Urdu) by another separate AI instance, from the sentences alone: one request each",
    "topology": "nobel-eu"
   },
   "parallel_ur_latn_standing": {
    "rows": 20,
-   "written_by": "parallel_en translated into Urdu in Latin script by another separate AI instance, from the sentences alone: standing policies",
+   "written_by": "parallel_en translated into Urdu/Hindi in Latin letters (written as Roman Urdu) by another separate AI instance, from the sentences alone: standing policies",
    "topology": "nobel-eu"
   },
   "parallel_ur_arab": {
@@ -236,6 +236,16 @@
    "rows": 20,
    "written_by": "parallel_en translated into Arabic by another separate AI instance, from the sentences alone: standing policies",
    "topology": "nobel-eu"
+  },
+  "parallel_ar_latn": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Arabic in Latin letters (Arabizi) by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_ar_latn_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Arabic in Latin letters (Arabizi) by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
   }
  },
  "readers": {
@@ -260,7 +270,7 @@
    "model": "Apertus v1.5 70B, 15 examples, no training, 4-bit GGUF"
   },
   "translate3_ft_laptop": {
-   "rows": 5182,
+   "rows": 5222,
    "model": "reader 1, 4-bit GGUF under llama.cpp on an RTX 4060 laptop"
   },
   "translate3_ft2_laptop": {
@@ -292,7 +302,7 @@
    "model": "Apertus v1.5 8B, fine-tuned reader of the fourth format (scope, lifetime), A100"
   },
   "translate4_ft_laptop": {
-   "rows": 1530,
+   "rows": 1590,
    "model": "the fourth-format reader, 4-bit GGUF on the laptop"
   }
  },

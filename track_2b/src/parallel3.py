@@ -1,12 +1,13 @@
-"""The same 60 instructions in eight languages and scripts: what the language alone does to the readers.
+"""The same 60 instructions in nine languages and scripts: what the language alone does to the readers.
 
 The English items were written blind by a separate AI instance and each translation by another one,
 from the English sentences only (``data/instructions/parallel_<code>_source.txt``). Every line keeps
-its English item's label, so the eight versions of an item mean the same line and differ only in
-language and script. Urdu appears twice, in its own script and in Latin letters; Hindi, close to
-Urdu as spoken, in Devanagari; Arabic shares the script of written Urdu. German, French and Italian
-are the languages the readers were trained on besides English; the other four never occur in
-training.
+its English item's label, so the nine versions of an item mean the same line and differ only in
+language and script: Urdu/Hindi in Latin letters (``ur_latn``, written as Roman Urdu; the two
+languages coincide almost entirely when typed in Latin letters), Urdu in its own script, Hindi in
+Devanagari, Arabic in its own script and in Latin letters (Arabizi, ``ar_latn``). German, French and
+Italian are the languages the readers were trained on besides English; the other five versions
+never occur in training.
 
     uv run python src/parallel3.py              # data/instructions/parallel_<code>[_standing].jsonl
     uv run python src/parallel3.py --score      # results/design/parallel.json, docs/figures/languages.png
@@ -39,10 +40,11 @@ LANGUAGES = {  # code -> label, in the order of the figure
     "de": "German",
     "fr": "French",
     "it": "Italian",
-    "ur_latn": "Urdu, Latin script",
+    "ur_latn": "Urdu/Hindi, Latin letters",
     "ur_arab": "Urdu, Urdu script",
     "hi": "Hindi, Devanagari",
-    "ar": "Arabic",
+    "ar": "Arabic, Arabic script",
+    "ar_latn": "Arabic, Latin letters",
 }
 TRAINED = ("en", "de", "fr", "it")
 READERS = {
@@ -52,8 +54,10 @@ READERS = {
 }
 FULL = "translate4_ft_laptop"  # the only reader of standing policies
 CONTRASTS = (
-    ("ur_latn", "ur_arab", "one language, two scripts"),
+    ("ur_latn", "ur_arab", "Urdu: Latin letters against its own script"),
+    ("ur_latn", "hi", "Hindi: Latin letters against Devanagari"),
     ("ur_arab", "hi", "Urdu and Hindi, two scripts"),
+    ("ar_latn", "ar", "Arabic: Latin letters against its own script"),
 )
 
 
@@ -190,7 +194,7 @@ def figure(data: dict, out: Path) -> None:
     fig, ax = plt.subplots(figsize=(7.4, 2.5))
     plt.rcParams.update({"font.size": 7.5})
     ax.axvspan(len(TRAINED) - 0.5, len(codes) - 0.5, color="#f0efec", zorder=0, lw=0)
-    for x, text in ((1.5, "trained languages"), (5.5, "never in training")):
+    for x, text in ((1.5, "trained languages"), (6.0, "never in training")):
         ax.text(
             x,
             1.035,

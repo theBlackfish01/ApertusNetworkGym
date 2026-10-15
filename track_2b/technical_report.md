@@ -141,7 +141,7 @@ network.
 
 Synthetic, no personal data; licence CDLA-Permissive-2.0; the test sets with every reader's
 answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/benchmark/`:
-5,420 instructions, 46 sets).
+5,480 instructions, 48 sets).
 
 | Data | Size | How it was made |
 | --- | --- | --- |
@@ -151,8 +151,8 @@ answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/
 | Readers, test | 2,078 + 661 | 168 sentences per language by four separate AI instances from a brief naming the clause kinds and none of our wording |
 | Standing policies, test | 800 | 200 scope and lifetime phrases by another separate instance, attached to the test sentences |
 | Swiss network, test | 1,151 | the test sentences filled with Swiss cities in each language's own name (*Genf*, *Genève*, *Ginevra*) |
-| Template lines | 40 + 210 | by the author, partly with ChatGPT 6.1 Sol: the owner set (35 English, 5 Urdu in Latin script) and five sets on the project's template (English, German, French, Italian, Swedish, Swiss German; 78 standing policies) |
-| Parallel set | 60 × 8 | 60 items by a separate AI instance, each language by another: German, French, Italian, Urdu in two scripts, Hindi, Arabic |
+| Template lines | 40 + 210 | by the author, partly with ChatGPT 6.1 Sol: the owner set (35 English, 5 Urdu/Hindi in Latin letters) and five sets on the project's template (English, German, French, Italian, Swedish, Swiss German; 78 standing policies) |
+| Parallel set | 60 × 9 | 60 items by a separate AI instance, each version by another: German, French, Italian; Urdu/Hindi in Latin letters, Urdu in its own script, Hindi in Devanagari; Arabic in its own script and in Latin letters |
 | Closed loop | 2 loads × 3 seeds × 2,000 requests | traffic seeds 1–3, never trained on; 4,599 distinct instructions; a second stream of standing policies |
 
 Which clause combinations are trained (eight pairs) and which held out (seven pairs, five
@@ -301,36 +301,39 @@ asking: the unseen city names cost 0.3 points alone and nothing once a second re
 
 **Template lines** (`results/design/owner.json`, `template1.json` to `template5.json`; written
 outside the sentence generators, §3; the laptop readers, 4-bit base under llama.cpp). The owner
-set's 40 (35 English, 5 Urdu in Latin script): reader 1 is right on 33, reader 2 on 35, the
+set's 40 (35 English, 5 Urdu/Hindi in Latin letters): reader 1 is right on 33, reader 2 on 35, the
 untrained 8B with 15 examples on 27, the fourth-format reader on 31 (34 at 16 bits, an A100 job).
 The five template sets' 210 (English, German, French, Italian, Swedish, Swiss German; 78 standing
 policies): reader 1 is right on 105 of the 132 per-request lines, reader 2 on 112, the 8B on 95,
 the fourth-format reader on 180 of 210 (set 1 at 16 bits: 36 of 40). Over all 250 the
 fourth-format reader is right on 211 and reader 1 on 138 of the 172 per-request ones; with reader 2
-as the check, 15 of reader 1's 34 errors are asked about. Errors that recur: a request's end point read as a waypoint or a scope (the language has no word for it); an ordinal written as its digit (*der dritte Vorschlag* as `path=3`, where the list counts from 0); a German clause lost or turned around; *Wien* read as Warsaw by the third-format readers; a request outside the language applied as an empty line instead of `unsupported`.
+as the check, 15 of reader 1's 34 errors are asked about. The errors that recur are listed in `docs/results_overview.md`.
 
-**The same items in eight languages** (`results/design/parallel.json`, `src/parallel3.py`). 60
-items written blind by a separate AI instance (40 for one request: 28 the language carries, 12 it
-cannot carry or no instruction; 20 standing policies), each translated by another instance into
-German, French, Italian, Urdu in Latin letters (Roman Urdu) and in Urdu script, Hindi and Arabic,
-the cities as each language writes them; no native speaker has checked them. The eight versions
-of an item mean the same line, so a difference between them is the language's (exact paired
-McNemar tests against English). On the laptop the full-format reader is right on 55 of 60 in
+**The same items in nine languages and scripts** (`results/design/parallel.json`,
+`src/parallel3.py`). 60 items written blind by a separate AI instance (40 for one request: 28 the
+language carries, 12 it cannot carry or no instruction; 20 standing policies), each translated by
+another instance into German, French and Italian; Urdu/Hindi in Latin letters (written as Roman
+Urdu), Urdu in its own script and Hindi in Devanagari; and Arabic in its own script and in Latin letters (Arabizi, in the light Levantine
+register it is typed in), the cities as each writes them; no native speaker has checked them. The
+nine versions of an item mean the same line, so a difference between them is the language's or the
+script's (exact paired McNemar tests). On the laptop the full-format reader is right on 55 of 60 in
 English, 52–53 in German, French and Italian (p ≥ 0.5 against English), and 43, 45 and 45 in Urdu
-script, Hindi and Arabic (p ≤ 0.006). Roman Urdu is the worst at 32 (p < 0.001), and the same
-language in its own script beats it (16 items right only in Urdu script, 5 only in Latin letters,
-p = 0.03), while Urdu script and Hindi do not differ (p = 0.79). In Latin letters the Urdu words
-are read as something else: *se door rakho* ("keep away from") as a waypoint and a scope, *se
-zyada nahi* ("not more than") as a preference, *agle 10 ghanton* ("the next 10 hours") as a scope
-of 10G. A city in another script is seldom the problem: the full-format reader names a wrong city
-on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
-the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages
-and on 5 in each new one, and applies 3 to 5 of them there. Over the 40
-per-request items, fine-tuning gains over the untrained 8B with 15 examples in the trained
-languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in the new ones
-(104, 105 and 100 of 160).
+script, Hindi and Arabic script (p ≤ 0.006). Latin letters do not help a language that has a script
+of its own; they hurt: Urdu/Hindi in Latin letters gets 32 (16 items right only in Urdu script, 5
+only in Latin letters, p = 0.03; 18 to 5 against Hindi, p = 0.01) and Arabic in Latin letters 14
+(31 to 0 against Arabic script, p < 0.001), while Urdu script and Hindi do not differ (p = 0.79).
+In Latin letters the words that carry the meaning are lost: *se door rakho* ("keep away from") is
+read as a waypoint and a scope, its Arabizi counterpart *ab3ed 3an* is refused as outside the
+language, *tajannab* ("avoid") becomes a waypoint, and the chat alphabet's digit letters are read as
+numbers (*lal 10 sa3at*, "for the next 10 hours", as 3 hours); the untrained 8B mostly declines
+Arabizi (24 of 40 not applied). A city in another script is seldom the problem: the full-format reader names a wrong
+city on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
+the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages and
+on 3 to 5 in the new versions. Over the 40 per-request items, fine-tuning gains over the untrained 8B
+in the trained languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in
+the new versions (114, 114 and 106 of 200).
 
-![The same 40 per-request items in eight languages and scripts](docs/figures/languages.png)
+![The same 40 per-request items in nine languages and scripts](docs/figures/languages.png)
 
 ## 6. Limitations
 
