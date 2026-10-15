@@ -114,7 +114,11 @@ network.
   readers of the third format on 5,570 instructions each (34 min each); one reader of the fourth
   format on 7,170 (65 min). A fifth, the **matched decider**, serves only the comparison: the
   decider's 12,000 states carrying reader 1's 5,570 training sentences (two epochs, 127 min).
-  TODO: public links.
+  Weights: [`translator-v3`](https://huggingface.co/blackfish021/apertus-lightpath-translator-v3), [`translator-v3-b`](https://huggingface.co/blackfish021/apertus-lightpath-translator-v3-b),
+  [`translator-v4`](https://huggingface.co/blackfish021/apertus-lightpath-translator-v4), the decider [`lora-v2-e2`](https://huggingface.co/blackfish021/apertus-lightpath-lora-v2-e2), the matched
+  decider [`decider-v3-e2`](https://huggingface.co/blackfish021/apertus-lightpath-decider-v3-e2), all four as GGUF in
+  [`translator-v3-gguf`](https://huggingface.co/blackfish021/apertus-lightpath-translator-v3-gguf) (`blackfish021/apertus-lightpath-*`); code:
+  [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym); benchmark: [huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark](https://huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark).
 - **Decoding:** greedy, constrained to the decision line or the policy language.
 - **Serving:** Transformers in Hugging Face Jobs (one A100) for training and scoring; llama.cpp
   with our own 4-bit GGUF of the base and GGUF adapters on the laptop; the rendered prompts are

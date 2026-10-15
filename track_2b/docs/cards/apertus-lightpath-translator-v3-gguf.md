@@ -71,6 +71,6 @@ points against the bf16 adapters. License Apache-2.0 for the adapters and this p
 base model under its own licence (Apache-2.0). Other models' role: Claude (Anthropic) wrote the
 project's code and documentation under the author's direction, the sentence templates of the
 training data and, as separate instances, the test sentences; no other model is part of the
-system.
+system. The author wrote the template lines (a test set) partly with ChatGPT 6.1 Sol (OpenAI).
 
-Repository: *filled at submission*.
+Repository: [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`).

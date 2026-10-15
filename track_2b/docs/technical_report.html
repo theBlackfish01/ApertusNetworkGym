@@ -128,7 +128,11 @@ network.</p>
   readers of the third format on 5,570 instructions each (34 min each); one reader of the fourth
   format on 7,170 (65 min). A fifth, the <strong>matched decider</strong>, serves only the comparison: the
   decider's 12,000 states carrying reader 1's 5,570 training sentences (two epochs, 127 min).
-  TODO: public links.</li>
+  Weights: <a href="https://huggingface.co/blackfish021/apertus-lightpath-translator-v3"><code>translator-v3</code></a>, <a href="https://huggingface.co/blackfish021/apertus-lightpath-translator-v3-b"><code>translator-v3-b</code></a>,
+  <a href="https://huggingface.co/blackfish021/apertus-lightpath-translator-v4"><code>translator-v4</code></a>, the decider <a href="https://huggingface.co/blackfish021/apertus-lightpath-lora-v2-e2"><code>lora-v2-e2</code></a>, the matched
+  decider <a href="https://huggingface.co/blackfish021/apertus-lightpath-decider-v3-e2"><code>decider-v3-e2</code></a>, all four as GGUF in
+  <a href="https://huggingface.co/blackfish021/apertus-lightpath-translator-v3-gguf"><code>translator-v3-gguf</code></a> (<code>blackfish021/apertus-lightpath-*</code>); code:
+  <a href="https://github.com/theBlackfish01/ApertusNetworkGym">github.com/theBlackfish01/ApertusNetworkGym</a>; benchmark: <a href="https://huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark">huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark</a>.</li>
 <li><strong>Decoding:</strong> greedy, constrained to the decision line or the policy language.</li>
 <li><strong>Serving:</strong> Transformers in Hugging Face Jobs (one A100) for training and scoring; llama.cpp
   with our own 4-bit GGUF of the base and GGUF adapters on the laptop; the rendered prompts are
@@ -209,7 +213,7 @@ answers are exported as a dataset with a card (<code>src/benchmark_export.py</co
 </table>
 <p>Which clause combinations are trained (eight pairs) and which held out (seven pairs, five
 triples), and four instruction types absent from all training, were fixed and committed before
-any test sentence was opened (<code>7ab1e66</code>). A request is used for a test instruction when the
+any test sentence was opened (<code>88336ca</code>). A request is used for a test instruction when the
 instruction is <em>restrictive</em> there: at least one feasible path complies and one does not.</p>
 <h2>5. Evaluation</h2>
 <p><strong>Protocol.</strong> A decision <em>complies</em> when it lies in the set of paths the instruction allows;

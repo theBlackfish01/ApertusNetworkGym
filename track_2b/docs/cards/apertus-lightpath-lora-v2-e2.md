@@ -70,7 +70,7 @@ tok = AutoTokenizer.from_pretrained(base)
 model = PeftModel.from_pretrained(AutoModelForCausalLM.from_pretrained(base), "blackfish021/apertus-lightpath-lora-v2-e2")
 ```
 
-The prompt is rendered by `src/prompt.py` of the project repository from the simulator's request
+The prompt is rendered by `src/prompt.py` of the [project repository](https://github.com/theBlackfish01/ApertusNetworkGym) from the simulator's request
 analysis; `src/policies.py` parses the answer. A GGUF of the adapter for llama.cpp is in
 `blackfish021/apertus-lightpath-translator-v3-gguf` (`lightpath-decider-v2-lora-f16.gguf`).
 
@@ -82,4 +82,4 @@ model; English instructions; synthetic data. Other models' role: Claude (Anthrop
 project's code and documentation under the author's direction and the wording templates; no
 other model is part of the system.
 
-Repository: *filled at submission*.
+Repository: [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`).

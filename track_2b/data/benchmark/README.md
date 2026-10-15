@@ -32,7 +32,7 @@ provisioning with Apertus 8B*.
   the template lines; the parallel sets add Urdu in Urdu script, Roman Urdu, Hindi (Devanagari) and
   Arabic.
 - **License:** CDLA-Permissive-2.0 (the whole dataset and every instance).
-- **Git repository:** the project repository (`track_2b/`), which holds the generators
+- **Git repository:** [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`), which holds the generators
   (`src/corpora3_tests.py`, `src/corpora4_tests.py`, `src/swiss.py`, `src/benchmark_export.py`).
 
 ## Uses

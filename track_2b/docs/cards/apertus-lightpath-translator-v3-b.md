@@ -61,6 +61,6 @@ adapter for llama.cpp is in `blackfish021/apertus-lightpath-translator-v3-gguf`.
 Research and prototyping on a simulator; synthetic sentences; the language carries seven slots.
 Other models' role: Claude (Anthropic) wrote the project's code and documentation under the
 author's direction, the sentence templates of the training data and, as separate instances that
-never saw the repository, the test sentences; no other model is part of the system.
+never saw the repository, the test sentences; no other model is part of the system. The author wrote the template lines (a test set) partly with ChatGPT 6.1 Sol (OpenAI).
 
-Repository: *filled at submission*.
+Repository: [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`).

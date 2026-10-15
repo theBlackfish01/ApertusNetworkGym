@@ -83,7 +83,7 @@ tok = AutoTokenizer.from_pretrained(base)
 model = PeftModel.from_pretrained(AutoModelForCausalLM.from_pretrained(base), "blackfish021/apertus-lightpath-decider-v3-e2")
 ```
 
-The prompt is rendered by `src/prompt.py` of the project repository from the simulator's request
+The prompt is rendered by `src/prompt.py` of the [project repository](https://github.com/theBlackfish01/ApertusNetworkGym) from the simulator's request
 analysis; `src/policies.py` parses the answer.
 
 ## Intended use and limits
@@ -94,4 +94,4 @@ training run. Other models' role: Claude (Anthropic) wrote the project's code an
 under the author's direction and the wording templates of the reader's training data; no other
 model is part of the system.
 
-Repository: *filled at submission*.
+Repository: [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`).

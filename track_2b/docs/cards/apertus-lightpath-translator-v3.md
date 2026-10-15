@@ -74,7 +74,7 @@ model = PeftModel.from_pretrained(AutoModelForCausalLM.from_pretrained(base), "b
 ```
 
 The prompt (system text, the node list, the instruction) and the answer grammar are in the
-project repository, `src/translate.py` and `src/grammar.py`; without the grammar the model still
+[project repository](https://github.com/theBlackfish01/ApertusNetworkGym), `src/translate.py` and `src/grammar.py`; without the grammar the model still
 answers in the format, with it the answer is guaranteed to parse. A GGUF of the adapter for
 llama.cpp is in `blackfish021/apertus-lightpath-translator-v3-gguf`.
 
@@ -85,6 +85,6 @@ training and test sentences are synthetic; no operator wrote them. The language 
 slots; everything else is refused or handed on. Trained once; no second training run for error
 bars. Other models' role: Claude (Anthropic) wrote the project's code and documentation under
 the author's direction, the sentence templates of the training data and, as separate instances
-that never saw the repository, the test sentences; no other model is part of the system.
+that never saw the repository, the test sentences; no other model is part of the system. The author wrote the template lines (a test set) partly with ChatGPT 6.1 Sol (OpenAI).
 
-Repository: *filled at submission*. Report: `technical_report.md` in that repository.
+Repository: [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym) (`track_2b/`). Report: `technical_report.md` in that repository.
