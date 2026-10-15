@@ -109,7 +109,7 @@ language does not carry.
 
 Third answer format: `avoid=…; via=…; hops=…; km=…; path=…; prefer=…; rest=…`. Test sentences:
 168 per language from four separate AI instances. Held-out combinations fixed and committed before
-the sentences were opened (`7ab1e66`).
+the sentences were opened (`88336ca`).
 
 **Reader 1 by composition and the decider's compliance** (`results/offline/*_probes3.json`,
 672 English requests):

@@ -153,7 +153,7 @@ answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/
 
 Which clause combinations are trained (eight pairs) and which held out (seven pairs, five
 triples), and four instruction types absent from all training, were fixed and committed before
-any test sentence was opened (`7ab1e66`). A request is used for a test instruction when the
+any test sentence was opened (`88336ca`). A request is used for a test instruction when the
 instruction is *restrictive* there: at least one feasible path complies and one does not.
 
 ## 5. Evaluation
