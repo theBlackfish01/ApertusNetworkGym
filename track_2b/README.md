@@ -477,7 +477,7 @@ Copy `.env.example` to `.env`.
 | Purpose | Machine |
 | --- | --- |
 | Simulation, data generation, MLP, CPU evaluation | Windows 11 laptop, WSL2 Ubuntu 24.04, 16 logical CPUs, 7.6 GB RAM visible to WSL |
-| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, 17.3 GPU-hours and about USD 43.18 over all four rounds (peak memory 18.8 GB training a reader, 23.6 GB answering) |
+| Fine-tuning and evaluation | One rented NVIDIA A100 80 GB as Hugging Face Jobs, about 20.7 GPU-hours and about USD 51.73 over all four rounds and the follow-ups of 14 October (peak memory 18.8 GB training a reader, 23.6 GB answering) |
 | The hybrid on a laptop (llama.cpp, 4-bit GGUF, four adapters) | RTX 4060 laptop GPU, 8 GB: 0.89 s per instruction, 0.97 s per decision |
 
 ## AI assistance
