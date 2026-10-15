@@ -1,6 +1,6 @@
 # Submission: what is prepared, what is yours to do, and what a fresh pair of eyes said
 
-Written 13 October 2026 for the owner, updated 14 October. The organisers' requirements are in `docs/challenge.md`;
+Written 13 October 2026 for the owner, updated 14 and 15 October. The organisers' requirements are in `docs/challenge.md`;
 this page maps them to the material in the repository and lists the steps only the owner can take.
 
 ## 1. What you are submitting, in one page
@@ -12,7 +12,7 @@ this page maps them to the material in the repository and lists the steps only t
 | The evidence | Blind test sentences in four languages written by separate AI instances; held-out clause combinations fixed before the sentences were opened; closed-loop runs in the simulator with instruction-blind baselines; a standing-policy stream judged against the true table; a 4-bit laptop build measured beside the job build. | `results/` (every number), `results/tables/phase3.md`, `docs/results_overview.md` |
 | The standards link | The policy line maps onto TAPI 2.1.3 constraints. | `src/tapi.py`, the console |
 | The console | A dark operations view in Svelte and TypeScript: the map as the stage, a feed of what the model does, the policies in force with remaining hours, questions that pause the stream, play at a chosen pace; an inspector that shows why each candidate path was kept or dropped and the spectrum a lightpath took; a race of the four methods on the evaluation's stream, each lane checked against its stored run; a guided tour. From recorded answers in Docker, or live on the laptop. | `src/console.py`, `src/console_extras.py`, `src/console_ui/`, `make console` |
-| The benchmark | 4,770 test instructions, every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
+| The benchmark | 4,850 test instructions, every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
 | The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
@@ -49,9 +49,13 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
 
 Started on 14 October: one contributor returned 40 lines, scored with your 40
 (`results/design/contributor1.json`, `owner.json`; in the report, the paper and the dataset).
-Before calling them human-written in public, confirm with the contributor that no AI tool wrote
-or translated them (rule 2 of the template): they follow the template's counts exactly and
-alternate English, German, Swedish and Italian line by line. More contributors would help further,
+On 15 October two more sets of 40 arrived (English and German), scored the same way on the
+laptop (`contributor2.json`, `contributor3.json`; also in the report, both papers and the
+dataset), so the paper now counts 160 sentences by people. Before calling them human-written in
+public, confirm with each writer that no AI tool wrote or translated them (rule 2 of the
+template): all three sets follow the template's counts exactly, the first alternates English,
+German, Swedish and Italian line by line, and set 3 carries scattered typing errors
+(*pleae*, *bittte*, *näcshten*, *availble*). More contributors would help further,
 the best answer to the reviewers' main doubt (all evidence is synthetic): **30 to 50
 sentences typed by other people** (colleagues, friends, in any of the four languages, about
 routing). The guide and template to hand out is `data/instructions/contributor_template.txt`;
@@ -92,7 +96,7 @@ Their reports are in the session's scratchpad; the substance:
 
 | Item | Value | Effort / cost |
 | --- | --- | --- |
-| More sentences from other people (section 3; one contributor's 40 are in) | The single best answer to "all synthetic" | an hour of yours to collect, an hour of mine |
+| More sentences from other people (section 3; three sets of 40 are in) | The single best answer to "all synthetic" | an hour of yours to collect, an hour of mine |
 | A second reader of the fourth format | Gives scope and lifetime the disagreement check the third format has; a training-variance estimate | about USD 2.7 of GPU (about 3.3 left) |
 | The model server as a compose service | Sovereign deployment in one command; judges with a GPU could run the live mode | half a day |
 | TAPI object sent to a controller (TeraFlowSDN) | Turns the mapping into an integration | a day or more; uncertain |

@@ -1,0 +1,47 @@
+# Routing instructions returned on 15 October 2026 (set contributor3; the writer is not named), in English and German.
+#
+# Written against data/instructions/contributor_template.txt: part A, one request (lines 1-25); part B,
+# standing policies (lines 26-40). Each line: the instruction, " | ", what was meant in the template's
+# words, and " | <language>" when not English. Received as routing_reference_3.md; copied unchanged
+# below. A test set only: never used for training (licence as in the template, CDLA-Permissive-2.0).
+#
+Lyon-Zürich für die Schaltung bitte außen vor lassen, da sind noch Fehler drauf. | avoid Lyon-Zurich | de
+Keep this order off the Brussels-Frankfurt span, pleae. | avoid Brussels-Frankfurt
+Milan's a no-go for this one. | avoid Milan
+Make sure this circuit goes through Warsaw. | via Warsaw
+No more than three hops on this order. | max 3 hops
+Distance budget on this order is 1600 km end to end. | max 1600 km
+Der dritte Vorschlag passt, den bitte nehmen. | candidate 2 | de
+Just give me the shortest one in km for this circuit. | prefer km
+Keep the slot count as low as you can on this request. | prefer slots
+Go with the fewest hops for this one. | prefer hops
+Die hier bittte über Frankfurt, den direkten Link Paris-Straßburg aber nicht nutzen. | via Frankfurt, avoid Paris-Strasbourg | de
+Through Hamburg, five hops max. That's for the whole path. | via Hamburg, max 5 hops
+Keep Zurich out of it and take whichever remaining path is least busy. | avoid Zurich, prefer load
+2400 km ceiling on this one, then take the option needing the fewest slots. | max 2400 km, prefer slots
+Don't use Budapest-Belgrade on this order. Six hops max, then pick the shortest route in km. | avoid Budapest-Belgrade, max 6 hops, prefer km
+Über Prag; möglichst wenig Auslastung, bei Gleichstand die kürzere Strecke in km. | via Prague, prefer load, then km | de
+Need this circuit at 12 ms one-way latency or better. | other: require end-to-end one-way latency of at most 12 milliseconds
+Beim neuen Pfad keine SRLG gemeinsam mit dem bestehenden Backup. | other: require a path that shares no shared risk link groups with the existing backup path | de
+Put this one in the upper half of the spectrum. | other: restrict spectrum allocation to the upper half of the available spectrum range
+Try 16QAM first; if the reach doesn't work, fall back to QPSK. | other: prefer 16QAM modulation and fall back to QPSK if the path exceeds the reach supported by 16QAM
+Don't defrag the spectrum to fit this one; use what's free already. | other: allocate using existing free spectrum without moving or changing any existing spectrum allocations
+Have they finished testing Hamburg-Frankfurt yet? | none
+Handover: Glasgow alarm cleared, waiting on the test results. | none
+Ich hol mir kurz was zu essen, bin in zehn Minuten wieder da. | none | de
+Is anyone from the late shift availble for the handover? | none
+No new circuits on Madrid-Barcelona for the next 6 hours. | avoid Madrid-Barcelona, for 6 hours
+New circuits get a seven-hop cap for the next 3 hours. | max 7 hops, for 3 hours
+In den näcshten 4 Std. alle neuen Anfragen über Straßburg schicken. | via Strasbourg, for 4 hours | de
+Next 12 hours, go for the shortest routes in km on new orders. | prefer km, for 12 hours
+Leave Berlin-Warsaw blocked for new orders until the restriction is explicitly removed. | avoid Berlin-Warsaw, until withdrawn
+No new paths through Munich until we explicitly lift that rule. | avoid Munich, until withdrawn
+Bis auf Widerruf bei neuen Schaltungen die am wenigsten ausgelastete Route bevorzugen. | prefer load, until withdrawn | de
+Until this policy is withdrawn, minimise slot use on all new requests. | prefer slots, until withdrawn
+For 40G orders, don't go above 4 hops. | max 4 hops, only rate 40
+For anything starting in Bordeaux, keep Paris out of the route. | avoid Paris, only from Bordeaux
+Anfragen mit Ziel Kopenhagen immer über Berlin führen. | via Berlin, only to Copenhagen | de
+For every 400G order, use candidate 3. | candidate 3, only rate 400
+For the next 2 hours, keep new circuits off Glasgow-Amsterdam and pick routes with the fewest hops. | avoid Glasgow-Amsterdam, prefer hops, for 2 hours
+New requests out of Rome need to go via Vienna, eight hops max. | via Vienna, max 8 hops, only from Rome
+Für 100G gilt die nächsten 10 Stunden: maximal 2000 km, von den passenden Routen die am wenigsten ausgelastete nehmen. | max 2000 km, prefer load, only rate 100, for 10 hours | de

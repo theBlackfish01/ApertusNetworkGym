@@ -43,7 +43,20 @@ SETS = {
         "a contributor, from the project's template: one request each, English, German, Italian, Swedish",
         "nobel-eu",
     ),
-    "contributor1_standing": ("the same contributor: standing policies with a scope or a lifetime", "nobel-eu"),
+    "contributor1_standing": (
+        "the same contributor: standing policies with a scope or a lifetime",
+        "nobel-eu",
+    ),
+    "contributor2": (
+        "contributed lines from the project's template, set 2: one request each, English and German",
+        "nobel-eu",
+    ),
+    "contributor2_standing": ("set 2: standing policies with a scope or a lifetime", "nobel-eu"),
+    "contributor3": (
+        "contributed lines from the project's template, set 3: one request each, English and German",
+        "nobel-eu",
+    ),
+    "contributor3_standing": ("set 3: standing policies with a scope or a lifetime", "nobel-eu"),
     "v4_en": ("v3 sentences with a scope or lifetime phrase by another separate AI instance", "nobel-eu"),
     "v4_de": ("as v4_en (German)", "nobel-eu"),
     "v4_fr": ("as v4_en (French)", "nobel-eu"),

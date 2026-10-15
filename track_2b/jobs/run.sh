@@ -639,9 +639,10 @@ PYEOF
 from huggingface_hub import snapshot_download
 print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator4', allow_patterns=['adapter_*', '*.jinja']))
 print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
-    stamp "translate4_ft: the lines written by people (owner, contributor 1)"
+    stamp "translate4_ft: the lines written by people (owner, contributed sets 1 to 3)"
     $PY src/translate.py parse --policy translate4_ft --model "$MODEL" --adapter runs/translator4 --batch 64 \
-        --sets $I/owner.jsonl $I/contributor1.jsonl $I/contributor1_standing.jsonl
+        --sets $I/owner.jsonl $I/contributor1.jsonl $I/contributor1_standing.jsonl \
+        $I/contributor2.jsonl $I/contributor2_standing.jsonl $I/contributor3.jsonl $I/contributor3_standing.jsonl
     keep results/cache/translate4_ft.jsonl
     ;;
 check6)

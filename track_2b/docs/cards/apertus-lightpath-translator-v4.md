@@ -69,7 +69,8 @@ line they combine to, the conflicts a new policy raises, and a report per policy
   9.1 % (9.5 %), passing 16.1 % of requests to the decider instead of 11.5 %.
 - Lines written by people, at 16 bits: right on 34 of the author's 40 and on 36 of a contributor's
   40 (English, German, Italian, Swedish; 15 standing policies), Swedish 9 of 10, although no
-  training sentence is Swedish.
+  training sentence is Swedish. In 4 bits on the laptop: 31, 35, and 33 and 34 of two more sets of
+  40 in English and German (English 46 of 50, German 21 of 30).
 - Known error: "to Prague, avoid Berlin" is read as a scope (`to:Prague`) where an operator means
   the current request's destination; the language has no word yet for a request's own end points.
 

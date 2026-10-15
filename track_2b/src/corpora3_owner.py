@@ -38,6 +38,8 @@ INSTRUCTIONS = ROOT / "data" / "instructions"
 SOURCES = {
     "owner": INSTRUCTIONS / "owner_source.txt",
     "contributor1": INSTRUCTIONS / "contributor1_source.txt",
+    "contributor2": INSTRUCTIONS / "contributor2_source.txt",
+    "contributor3": INSTRUCTIONS / "contributor3_source.txt",
 }
 SOURCE = SOURCES["owner"]
 # the laptop readers (4-bit base, llama.cpp), then the fourth-format reader at 16 bits (an A100 job)
@@ -49,6 +51,7 @@ READERS = (
     "translate4_ft",
 )
 STANDING_READERS = ("translate4_ft_laptop", "translate4_ft")  # the only format with scope and lifetime
+OPTIONAL = ("translate4_ft",)  # read in a paid job; a source it has not read is scored without it
 URDU = {"se", "hai", "mat", "nahi", "nahee", "aur", "kar", "lena", "rakho", "liken", "lekin", "baqi"}
 
 
@@ -207,8 +210,13 @@ if __name__ == "__main__":
                     dict(sorted(Counter((r["lang"], r["kind"]) for r in part).items())),
                 )
             continue
-        scored = score(made) | {}
+        from readers3 import Answers
+
+        missing = [n for n in OPTIONAL if any(Answers(n).spec(r["text"]) is None for r in made)]
+        scored = score(made, tuple(n for n in READERS if n not in missing)) | {}
         scored["metadata"]["source"] = source.name
+        if missing:
+            scored["metadata"]["not_read_by"] = missing
         out = ROOT / "results" / "design" / f"{name}.json"
         out.write_text(json.dumps(scored, indent=1, ensure_ascii=False), encoding="utf-8", newline="\n")
         for entry in scored["lines"]:

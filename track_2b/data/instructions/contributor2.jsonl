@@ -1,0 +1,25 @@
+{"text": "Don't put this one over Amsterdam-Hamburg, still seeing errors on that span.", "expect": {"status": "ok", "avoid": [["Amsterdam", "Hamburg"]], "prefer": []}, "set": "contributor2", "lang": "en", "kind": "atom"}
+{"text": "Rom-Zagreb bitte bei der Anfrage rauslassen.", "expect": {"status": "ok", "avoid": [["Rome", "Zagreb"]], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "atom"}
+{"text": "Can we keep Vienna out of this path?", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Vienna"]}, "set": "contributor2", "lang": "en", "kind": "atom"}
+{"text": "Die hier muss über Budapest laufen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Budapest"]}, "set": "contributor2", "lang": "de", "kind": "atom"}
+{"text": "5 hops is the limit for this circuit.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 5}, "set": "contributor2", "lang": "en", "kind": "atom"}
+{"text": "Für die Verbindung sind 2100 km das Maximum, nicht pro Abschnitt.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_km": 2100}, "set": "contributor2", "lang": "de", "kind": "atom"}
+{"text": "use the last candidate on the list for this one", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "contributor2", "lang": "en", "kind": "atom"}
+{"text": "Nimm hier die Route mit den wenigsten Hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "contributor2", "lang": "de", "kind": "atom"}
+{"text": "Pick the one that burns the fewest slots.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "contributor2", "lang": "en", "kind": "atom"}
+{"text": "Hauptsache möglichst wenig ausgelastet, die Länge ist hier egal.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "contributor2", "lang": "de", "kind": "atom"}
+{"text": "Via Brussels please, and don't use the Amsterdam-London link.", "expect": {"status": "ok", "avoid": [["Amsterdam", "London"]], "prefer": [], "via": ["Brussels"]}, "set": "contributor2", "lang": "en", "kind": "heldout"}
+{"text": "Ohne Hamburg, max. 4 Hops. Sonst die kürzeste in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"], "nodes": ["Hamburg"], "max_hops": 4}, "set": "contributor2", "lang": "de", "kind": "heldout"}
+{"text": "Avoid Paris-Lyon for this one. 1900 km total max.", "expect": {"status": "ok", "avoid": [["Paris", "Lyon"]], "prefer": [], "max_km": 1900}, "set": "contributor2", "lang": "en", "kind": "heldout"}
+{"text": "Die Anfrage bitte über Berlin, aber nicht über Warschau.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Warsaw"], "via": ["Berlin"]}, "set": "contributor2", "lang": "de", "kind": "heldout"}
+{"text": "Für die hier erstmal die Auslastung minimieren, bei Gleichstand die Hops. Maximal 6 Hops insgesamt.", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "hops"], "max_hops": 6}, "set": "contributor2", "lang": "de", "kind": "new"}
+{"text": "Route this through Strasbourg and use as few slots as possible.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"], "via": ["Strasbourg"]}, "set": "contributor2", "lang": "en", "kind": "trained"}
+{"text": "Use slots 32 through 39 for this circuit, nothing else.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "en", "kind": "other_routing"}
+{"text": "Für diesen Lightpath bitte kein 16QAM verwenden.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "other_routing"}
+{"text": "Put this circuit in the lowest-index free slot block that fits.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "en", "kind": "other_routing"}
+{"text": "Die Verbindung darf keine Regeneration brauchen, das muss optisch durchgehen.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "other_routing"}
+{"text": "Für die hier: nach dem Schalten max. 70 % Spektrumbelegung auf jedem Link.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "other_routing"}
+{"text": "Did the London maintenance actually finish, or is the ticket just closed?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "en", "kind": "not_instruction"}
+{"text": "Zur Übergabe: Ticket in Madrid ist noch offen, letzte Rückmeldung fehlt.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "not_instruction"}
+{"text": "Coffee machine's dead again. Long shift ahead.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "en", "kind": "not_instruction"}
+{"text": "Ich bin gleich in der Übergabe, danach wieder erreichbar.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor2", "lang": "de", "kind": "not_instruction"}

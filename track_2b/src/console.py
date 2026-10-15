@@ -209,7 +209,8 @@ class Console:
             out, seen = [], set()
             for row in read_rows([p for p in paths if p.exists()]):
                 text = row["text"]
-                if text in seen:
+                # the owner's lines in Urdu stay in the results but are not offered (owner, 15 October)
+                if text in seen or row.get("lang") == "ur":
                     continue
                 keys = [
                     hashlib.sha256(

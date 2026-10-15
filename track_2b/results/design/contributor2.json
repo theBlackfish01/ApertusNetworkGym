@@ -1,0 +1,1145 @@
+{
+ "lines": [
+  {
+   "text": "Don't put this one over Amsterdam-Hamburg, still seeing errors on that span.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "atom",
+   "expect": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Amsterdam-Hamburg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Rom-Zagreb bitte bei der Anfrage rauslassen.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "atom",
+   "expect": "avoid=Rome-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Rome-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Rome-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Rome-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Rome-Zagreb; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Can we keep Vienna out of this path?",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "atom",
+   "expect": "avoid=Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Vienna; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Vienna; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Die hier muss über Budapest laufen.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "atom",
+   "expect": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "5 hops is the limit for this circuit.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Für die Verbindung sind 2100 km das Maximum, nicht pro Abschnitt.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=any; km=2100; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=2100; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=2100; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=2100; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=2100; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "use the last candidate on the list for this one",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=4; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "flagged"
+   }
+  },
+  {
+   "text": "Nimm hier die Route mit den wenigsten Hops.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Pick the one that burns the fewest slots.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Hauptsache möglichst wenig ausgelastet, die Länge ist hier egal.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "atom",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Via Brussels please, and don't use the Amsterdam-London link.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "heldout",
+   "expect": "avoid=Amsterdam-London; via=Brussels; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Amsterdam-London; via=Brussels; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Amsterdam-London; via=Brussels; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Amsterdam-London; via=Brussels; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Amsterdam-London; via=Brussels; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Ohne Hamburg, max. 4 Hops. Sonst die kürzeste in km.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "heldout",
+   "expect": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=km; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=km; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=km; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=km; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Hamburg; via=none; hops=4; km=any; path=any; prefer=km; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Avoid Paris-Lyon for this one. 1900 km total max.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "heldout",
+   "expect": "avoid=Paris-Lyon; via=none; hops=any; km=1900; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Paris-Lyon; via=none; hops=any; km=1900; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Paris-Lyon; via=none; hops=any; km=1900; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Paris-Lyon; via=none; hops=any; km=1900; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Paris-Lyon; via=none; hops=any; km=1900; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Die Anfrage bitte über Berlin, aber nicht über Warschau.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "heldout",
+   "expect": "avoid=Warsaw; via=Berlin; hops=any; km=any; path=any; prefer=none; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=Warsaw; via=Berlin; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=Warsaw; via=Berlin; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=Warsaw; via=Berlin; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=Warsaw; via=Berlin; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Für die hier erstmal die Auslastung minimieren, bei Gleichstand die Hops. Maximal 6 Hops insgesamt.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "new",
+   "expect": "avoid=none; via=none; hops=6; km=any; path=any; prefer=load,hops; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=load,hops; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=load,hops; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=hops; rest=none",
+    "outcome": "silent",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=6; km=any; path=any; prefer=load; scope=any; until=open; rest=none",
+    "outcome": "silent"
+   }
+  },
+  {
+   "text": "Route this through Strasbourg and use as few slots as possible.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "trained",
+   "expect": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=slots; rest=none",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=slots; rest=more",
+    "outcome": "silent",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=slots; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Use slots 32 through 39 for this circuit, nothing else.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "other_routing",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none",
+    "outcome": "silent"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "unsupported",
+    "outcome": "right",
+    "asked": true
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Für diesen Lightpath bitte kein 16QAM verwenden.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "other_routing",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Put this circuit in the lowest-index free slot block that fits.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "other_routing",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "unsupported",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Die Verbindung darf keine Regeneration brauchen, das muss optisch durchgehen.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "other_routing",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "other_refusal",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "silent"
+   }
+  },
+  {
+   "text": "Für die hier: nach dem Schalten max. 70 % Spektrumbelegung auf jedem Link.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "other_routing",
+   "expect": "unsupported",
+   "translate3_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none",
+    "outcome": "silent"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "silent",
+    "asked": true
+   },
+   "translate3_few_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none",
+    "outcome": "silent",
+    "asked": true
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Did the London maintenance actually finish, or is the ticket just closed?",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "not_instruction",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Zur Übergabe: Ticket in Madrid ist noch offen, letzte Rückmeldung fehlt.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "not_instruction",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "unsupported",
+    "outcome": "other_refusal"
+   }
+  },
+  {
+   "text": "Coffee machine's dead again. Long shift ahead.",
+   "set": "contributor2",
+   "lang": "en",
+   "kind": "not_instruction",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Ich bin gleich in der Übergabe, danach wieder erreichbar.",
+   "set": "contributor2",
+   "lang": "de",
+   "kind": "not_instruction",
+   "expect": "no_instruction",
+   "translate3_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   },
+   "translate3_ft2_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate3_few_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right",
+    "asked": false
+   },
+   "translate4_ft_laptop": {
+    "answer": "no_instruction",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "For the next two hours, no new paths over Bordeaux-Paris.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "hours",
+   "expect": "avoid=Bordeaux-Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Bordeaux-Paris; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Ab jetzt für 3 Std. alle neuen Anfragen über München führen.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "hours",
+   "expect": "avoid=none; via=Munich; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none",
+    "outcome": "silent"
+   }
+  },
+  {
+   "text": "Next 4 hours: prefer the least loaded route for new requests.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "hours",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=4h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=4h; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Für die nächsten 2 Stunden bei allen neuen Lightpaths max. 1800 km.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "hours",
+   "expect": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=2h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=1800; path=any; prefer=none; scope=any; until=2h; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Keep Barcelona-Lyon out of new routes until this restriction is explicitly lifted.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "open",
+   "expect": "avoid=Barcelona-Lyon; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Barcelona-Lyon; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Prag bleibt für neue Verbindungen tabu, bis wir die Sperre aufheben.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "open",
+   "expect": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Prague; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "From now on, optimise new requests for fewest hops until we withdraw that policy.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "open",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Ab sofort bei neuen Anfragen Kandidat 0 nehmen. Gilt bis zum Widerruf.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "open",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; scope=any; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=0; prefer=none; scope=any; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "All 40G requests should avoid the Berlin-Copenhagen span.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "rate",
+   "expect": "avoid=Berlin-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Berlin-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:40; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Alles, was in Dublin startet, soll über London gehen.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "from",
+   "expect": "avoid=none; via=London; hops=any; km=any; path=any; prefer=none; scope=from:Dublin; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=London; hops=any; km=any; path=any; prefer=none; scope=from:Dublin; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "For requests ending in Zurich, pick the shortest route in km.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "to",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=to:Zurich; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=km; scope=to:Zurich; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Bei 100G grundsätzlich die Route mit dem kleinsten Slotbedarf nehmen.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "rate",
+   "expect": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=rate:100; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=rate:100; until=open; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Next 5 hours, route all new requests via Frankfurt and keep Munich out.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "hours",
+   "expect": "avoid=Munich; via=Frankfurt; hops=any; km=any; path=any; prefer=none; scope=any; until=5h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Munich; via=Frankfurt; hops=any; km=any; path=any; prefer=none; scope=any; until=5h; rest=none",
+    "outcome": "right"
+   }
+  },
+  {
+   "text": "Für Anfragen nach Stockholm Oslo auslassen und höchstens 7 Hops zulassen.",
+   "set": "contributor2_standing",
+   "lang": "de",
+   "kind": "to",
+   "expect": "avoid=Oslo; via=none; hops=7; km=any; path=any; prefer=none; scope=to:Stockholm; until=open; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=none; via=none; hops=7; km=any; path=any; prefer=none; scope=from:Stockholm; until=open; rest=none",
+    "outcome": "silent"
+   }
+  },
+  {
+   "text": "For the next 8 hours, keep 400G off Belgrade-Zagreb and favour the route with the fewest hops.",
+   "set": "contributor2_standing",
+   "lang": "en",
+   "kind": "rate+hours",
+   "expect": "avoid=Belgrade-Zagreb; via=none; hops=any; km=any; path=any; prefer=hops; scope=rate:400; until=8h; rest=none",
+   "translate4_ft_laptop": {
+    "answer": "avoid=Belgrade-Zagreb; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none",
+    "outcome": "silent"
+   }
+  }
+ ],
+ "readers": [
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "all",
+   "n": 25,
+   "right": 20,
+   "silent": 5
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:atom",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:heldout",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:new",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:not_instruction",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:other_routing",
+   "n": 5,
+   "right": 1,
+   "silent": 4
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "kind:trained",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "lang:de",
+   "n": 13,
+   "right": 10,
+   "silent": 3
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "lang:en",
+   "n": 12,
+   "right": 10,
+   "silent": 2
+  },
+  {
+   "reader": "translate3_ft_laptop",
+   "group": "set:contributor2",
+   "n": 25,
+   "right": 20,
+   "silent": 5
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "all",
+   "n": 25,
+   "right": 21,
+   "silent": 4
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:atom",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:heldout",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:new",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:not_instruction",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:other_routing",
+   "n": 5,
+   "right": 2,
+   "silent": 3
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "kind:trained",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "lang:de",
+   "n": 13,
+   "right": 10,
+   "silent": 3
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "lang:en",
+   "n": 12,
+   "right": 11,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_ft2_laptop",
+   "group": "set:contributor2",
+   "n": 25,
+   "right": 21,
+   "silent": 4
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "all",
+   "n": 25,
+   "other_refusal": 3,
+   "right": 17,
+   "silent": 5
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:atom",
+   "n": 10,
+   "right": 9,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:heldout",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:new",
+   "n": 1,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:not_instruction",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:other_routing",
+   "n": 5,
+   "other_refusal": 3,
+   "silent": 2
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "kind:trained",
+   "n": 1,
+   "silent": 1
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "lang:de",
+   "n": 13,
+   "other_refusal": 1,
+   "right": 9,
+   "silent": 3
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "lang:en",
+   "n": 12,
+   "other_refusal": 2,
+   "right": 8,
+   "silent": 2
+  },
+  {
+   "reader": "translate3_few_laptop",
+   "group": "set:contributor2",
+   "n": 25,
+   "other_refusal": 3,
+   "right": 17,
+   "silent": 5
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "all",
+   "flagged": 1,
+   "n": 40,
+   "other_refusal": 1,
+   "right": 33,
+   "silent": 5
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:atom",
+   "flagged": 1,
+   "n": 10,
+   "right": 9
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:from",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:heldout",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:hours",
+   "n": 5,
+   "right": 4,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:new",
+   "n": 1,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:not_instruction",
+   "n": 4,
+   "other_refusal": 1,
+   "right": 3
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:open",
+   "n": 4,
+   "right": 4
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:other_routing",
+   "n": 5,
+   "right": 4,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:rate",
+   "n": 2,
+   "right": 2
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:rate+hours",
+   "n": 1,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:to",
+   "n": 2,
+   "right": 1,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "kind:trained",
+   "n": 1,
+   "right": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "lang:de",
+   "n": 20,
+   "other_refusal": 1,
+   "right": 15,
+   "silent": 4
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "lang:en",
+   "flagged": 1,
+   "n": 20,
+   "right": 18,
+   "silent": 1
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "set:contributor2",
+   "flagged": 1,
+   "n": 25,
+   "other_refusal": 1,
+   "right": 21,
+   "silent": 2
+  },
+  {
+   "reader": "translate4_ft_laptop",
+   "group": "set:contributor2_standing",
+   "n": 15,
+   "right": 12,
+   "silent": 3
+  }
+ ],
+ "pairs": [
+  {
+   "first": "translate3_ft_laptop",
+   "second": "translate3_ft2_laptop",
+   "n": 25,
+   "asked": 2,
+   "wrong_alone": 5,
+   "wrong_left": 3,
+   "right_but_asked": 0
+  },
+  {
+   "first": "translate3_ft_laptop",
+   "second": "translate3_few_laptop",
+   "n": 25,
+   "asked": 6,
+   "wrong_alone": 5,
+   "wrong_left": 2,
+   "right_but_asked": 3
+  }
+ ],
+ "metadata": {
+  "command": "src/corpora3_owner.py --score",
+  "instructions": 40,
+  "note": "laptop readers (4-bit base, llama.cpp) and translate4_ft at 16 bits; standing policies are read by the fourth-format reader only",
+  "source": "contributor2_source.txt",
+  "not_read_by": [
+   "translate4_ft"
+  ]
+ }
+}

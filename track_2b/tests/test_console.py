@@ -12,7 +12,7 @@ import pytest
 from console import Console, Handler, who_decided
 from spec import EMPTY, Spec, describe
 
-OWNER_LINE = "paris se mat guzarna, baqi jo kam busy hai woh le lo"  # the two readers answered it differently
+OWNER_LINE = "pass through budapest but dont go through zagreb"  # the two readers answered it differently
 POLICY = "For 10G services. The route has to pass through Warsaw."  # a recorded policy sentence (v4_en)
 
 
@@ -52,6 +52,8 @@ def test_state_and_recorded(console):
     assert state["question"] is None and state["policies"] == [] and state["stats"]["served"] == 0
     assert state["pending"]["instruction"]["text"] == "none"
     assert any(r["text"] == OWNER_LINE for r in console.recorded["instructions"])
+    # the owner's Urdu lines are not offered (the owner's request)
+    assert not any(r["lang"] == "ur" for r in console.recorded["instructions"])
     assert any(r["text"] == POLICY for r in console.recorded["policies"])
     assert console.feed[0]["kind"] == "start"
 

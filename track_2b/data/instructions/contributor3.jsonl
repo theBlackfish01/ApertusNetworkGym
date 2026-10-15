@@ -1,0 +1,25 @@
+{"text": "Lyon-Zürich für die Schaltung bitte außen vor lassen, da sind noch Fehler drauf.", "expect": {"status": "ok", "avoid": [["Lyon", "Zurich"]], "prefer": []}, "set": "contributor3", "lang": "de", "kind": "atom"}
+{"text": "Keep this order off the Brussels-Frankfurt span, pleae.", "expect": {"status": "ok", "avoid": [["Brussels", "Frankfurt"]], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Milan's a no-go for this one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Milan"]}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Make sure this circuit goes through Warsaw.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Warsaw"]}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "No more than three hops on this order.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 3}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Distance budget on this order is 1600 km end to end.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_km": 1600}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Der dritte Vorschlag passt, den bitte nehmen.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 2}, "set": "contributor3", "lang": "de", "kind": "atom"}
+{"text": "Just give me the shortest one in km for this circuit.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Keep the slot count as low as you can on this request.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Go with the fewest hops for this one.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "contributor3", "lang": "en", "kind": "atom"}
+{"text": "Die hier bittte über Frankfurt, den direkten Link Paris-Straßburg aber nicht nutzen.", "expect": {"status": "ok", "avoid": [["Paris", "Strasbourg"]], "prefer": [], "via": ["Frankfurt"]}, "set": "contributor3", "lang": "de", "kind": "heldout"}
+{"text": "Through Hamburg, five hops max. That's for the whole path.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Hamburg"], "max_hops": 5}, "set": "contributor3", "lang": "en", "kind": "trained"}
+{"text": "Keep Zurich out of it and take whichever remaining path is least busy.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"], "nodes": ["Zurich"]}, "set": "contributor3", "lang": "en", "kind": "trained"}
+{"text": "2400 km ceiling on this one, then take the option needing the fewest slots.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"], "max_km": 2400}, "set": "contributor3", "lang": "en", "kind": "heldout"}
+{"text": "Don't use Budapest-Belgrade on this order. Six hops max, then pick the shortest route in km.", "expect": {"status": "ok", "avoid": [["Budapest", "Belgrade"]], "prefer": ["km"], "max_hops": 6}, "set": "contributor3", "lang": "en", "kind": "new"}
+{"text": "Über Prag; möglichst wenig Auslastung, bei Gleichstand die kürzere Strecke in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "km"], "via": ["Prague"]}, "set": "contributor3", "lang": "de", "kind": "new"}
+{"text": "Need this circuit at 12 ms one-way latency or better.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "other_routing"}
+{"text": "Beim neuen Pfad keine SRLG gemeinsam mit dem bestehenden Backup.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "de", "kind": "other_routing"}
+{"text": "Put this one in the upper half of the spectrum.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "other_routing"}
+{"text": "Try 16QAM first; if the reach doesn't work, fall back to QPSK.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "other_routing"}
+{"text": "Don't defrag the spectrum to fit this one; use what's free already.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "other_routing"}
+{"text": "Have they finished testing Hamburg-Frankfurt yet?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "not_instruction"}
+{"text": "Handover: Glasgow alarm cleared, waiting on the test results.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "not_instruction"}
+{"text": "Ich hol mir kurz was zu essen, bin in zehn Minuten wieder da.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "de", "kind": "not_instruction"}
+{"text": "Is anyone from the late shift availble for the handover?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "contributor3", "lang": "en", "kind": "not_instruction"}

@@ -401,7 +401,7 @@ def swiss_tables(results: Path) -> list:
 
 
 def owner_tables(results: Path) -> list:
-    """Instructions written by people (``design/owner.json``, ``design/contributor1.json``, written by ``corpora3_owner.py``)."""
+    """Instructions written by people (``design/owner.json``, ``design/contributor<n>.json``, written by ``corpora3_owner.py``)."""
     names = {"translate3_ft_laptop": "Reader 1", "translate3_ft2_laptop": "Reader 2",
              "translate3_few_laptop": "Apertus 8B, 15 examples, no training",
              "translate4_ft_laptop": "Reader of the fourth format",
@@ -416,13 +416,19 @@ def owner_tables(results: Path) -> list:
     sources = {
         "owner": "the project owner (40 lines)",
         "contributor1": "a contributor (40 lines, 15 of them standing policies)",
+        "contributor2": "the writer of set 2 (40 lines in English and German, 15 of them standing policies)",
+        "contributor3": "the writer of set 3 (40 lines in English and German, 15 of them standing policies)",
     }
-    where = "on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits"
     out = []
     for source, who in sources.items():
         data = read(results / "design" / f"{source}.json")
         if not data:
             continue
+        where = "on the laptop (4-bit base model, llama.cpp)" + (
+            "; not read at 16 bits"
+            if "translate4_ft" in data["metadata"].get("not_read_by", [])
+            else ", and the fourth-format reader at 16 bits"
+        )
         groups = (
             {"all": "All"}
             | {f"set:{source}_standing": "Standing policies"}
@@ -457,7 +463,7 @@ def owner_tables(results: Path) -> list:
             ("The same, two readers of the third format: the operator is asked when their readings differ",
              ["First reader / second reader", "n", "Not right, first reader alone", "Not right and not asked", "Asked",
               "Asked although right"], asking),
-            (f"Instructions written by {who}, line by line (= : wrote what was meant; – : not read, a standing policy)",
+            (f"Instructions written by {who}, line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)",
              ["Instruction", "Language", "Meant", "Reader 1 wrote", "Reader 2 differs: asked", "Fourth format wrote",
               "Fourth format, 16 bits, wrote"],
              lines),

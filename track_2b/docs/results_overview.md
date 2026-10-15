@@ -270,7 +270,7 @@ European network at 390 E (`results/eval/translate3_ft_laptop*_mix3.json`) break
 inside the language), 10.9 % asking (1.2 %), 10.6 % asking by consequence (1.2 %): the Swiss names
 cost 0.3 points inside the language alone and nothing with a second reader.
 
-**Lines written by people** (`results/design/owner.json`, `results/design/contributor1.json`; the
+**Lines written by people** (`results/design/owner.json`, `contributor1.json` to `contributor3.json`; the
 laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
 script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
 fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). A contributor returned 40
@@ -283,17 +283,24 @@ request outside the language flagged as such; "to munich" no longer read as a sc
 preference kept) and misses others (an avoided link dropped from a standing policy; "the second
 route" left without a candidate number). With reader 2 as
 the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
-asked about. Errors that recur: a request's end point read as a waypoint or a scope ("go from
+asked about. Two more sets of 40 from the template (English and German: 20 and 20, 30 and 10;
+received on 15 October, read on the laptop only): reader 1 is right on 20 of the 25 per-request
+lines in each, reader 2 on 21 and 20, the 8B on 17 and 18; the fourth-format reader on 33 and 34
+of 40 (12 and 14 of the 15 standing policies; English 46 of 50, German 21 of 30), and reader 2
+asks about 2 of reader 1's 5 errors in each. Over all 160 lines the fourth-format reader is right
+on 133 on the laptop and reader 1 on 93 of the 115 per-request ones. Errors that recur: a request's end point read as a waypoint or a scope ("go from
 London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
 end points); an ordinal written as its digit ("den andra rutten", the second route, as `path=2`,
-where the template and the candidate list count from 0); *Wien* read as Warsaw by both
+where the template and the candidate list count from 0; *der dritte Vorschlag* as `path=3`, and
+"the last candidate on the list" left without a number); a German clause lost or turned around
+(*über München* dropped from a three-hour policy, *über Frankfurt* read as avoiding it); *Wien* read as Warsaw by both
 third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
 the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
 instead of `unsupported`. What it shows: 78–90 % right on
 sentences people wrote, against 91–95 % on the AI-written test sets; most errors are phrasings
 the templates never used, and the two languages outside training cost more (Urdu: 2 or 3 of 5
-right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader, 9 at 16 bits). What it does not show: two writers, 80 lines; the
-contributor's lines are taken as written by a person on the contributor's word.
+right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader, 9 at 16 bits). What it does not show: a few writers, 160 lines; the
+lines returned on the template are taken as written by a person on their writers' word.
 
 **TAPI export** (`src/tapi.py`, `tests/test_tapi.py`): the line becomes a `topology-constraint`
 and `routing-constraint` of TAPI 2.1.3 (`exclude-link`, `exclude-node`, `include-node`,
@@ -312,8 +319,8 @@ the stored answers. At 390 E, seed 1, the four lanes replay 560, 329, 199 and 17
 counts of the stored runs (`results/eval/*_mix3.json`): the closed-loop results reproduce from
 the answer caches with no model loaded.
 
-**The benchmark** (`data/benchmark/`): 4,770 test instructions in 22 sets with the line each
-means, 40,534 reader answers with their outcome, metadata and a dataset card.
+**The benchmark** (`data/benchmark/`): 4,850 test instructions in 26 sets with the line each
+means, 40,714 reader answers with their outcome, metadata and a dataset card.
 
 ## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
 
@@ -372,7 +379,7 @@ about USD 8.4 (`docs/decisions.md`).
 - One topology in closed loop for the mixed stream (the Swiss one at 600 E for the translators
   only; no hybrid there, since the decider would have to run live), one traffic model, one
   simulator; the model ranks candidates the simulator has checked, it computes no physics.
-- Every test sentence but 80 was written by an AI instance (the author's 40, a contributor's 40). Four languages; Swiss German only on a
+- Every test sentence but 160 was written by an AI instance (the author's 40, 120 returned on the project's template). Four languages; Swiss German only on a
   stress set (72.7 %).
 - Unknown instruction types remain the weak point in the mixed stream (28–37 % violations for
   every policy); the limit is what the decider can follow, not the gate.

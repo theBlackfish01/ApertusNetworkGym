@@ -1,0 +1,47 @@
+# Routing instructions returned on 15 October 2026 (set contributor2; the writer is not named), in English and German.
+#
+# Written against data/instructions/contributor_template.txt: part A, one request (lines 1-25); part B,
+# standing policies (lines 26-40). Each line: the instruction, " | ", what was meant in the template's
+# words, and " | <language>" when not English. Received as routing_reference_2.md; copied unchanged
+# below. A test set only: never used for training (licence as in the template, CDLA-Permissive-2.0).
+#
+Don't put this one over Amsterdam-Hamburg, still seeing errors on that span. | avoid Amsterdam-Hamburg
+Rom-Zagreb bitte bei der Anfrage rauslassen. | avoid Rome-Zagreb | de
+Can we keep Vienna out of this path? | avoid Vienna
+Die hier muss über Budapest laufen. | via Budapest | de
+5 hops is the limit for this circuit. | max 5 hops
+Für die Verbindung sind 2100 km das Maximum, nicht pro Abschnitt. | max 2100 km | de
+use the last candidate on the list for this one | candidate 4
+Nimm hier die Route mit den wenigsten Hops. | prefer hops | de
+Pick the one that burns the fewest slots. | prefer slots
+Hauptsache möglichst wenig ausgelastet, die Länge ist hier egal. | prefer load | de
+Via Brussels please, and don't use the Amsterdam-London link. | via Brussels, avoid Amsterdam-London
+Ohne Hamburg, max. 4 Hops. Sonst die kürzeste in km. | avoid Hamburg, max 4 hops, prefer km | de
+Avoid Paris-Lyon for this one. 1900 km total max. | avoid Paris-Lyon, max 1900 km
+Die Anfrage bitte über Berlin, aber nicht über Warschau. | via Berlin, avoid Warsaw | de
+Für die hier erstmal die Auslastung minimieren, bei Gleichstand die Hops. Maximal 6 Hops insgesamt. | prefer load, then hops, max 6 hops | de
+Route this through Strasbourg and use as few slots as possible. | via Strasbourg, prefer slots
+Use slots 32 through 39 for this circuit, nothing else. | other: allocate exactly spectrum slots 32 through 39 inclusive
+Für diesen Lightpath bitte kein 16QAM verwenden. | other: exclude 16QAM modulation for this request | de
+Put this circuit in the lowest-index free slot block that fits. | other: allocate the feasible contiguous free spectrum block with the lowest starting slot index
+Die Verbindung darf keine Regeneration brauchen, das muss optisch durchgehen. | other: require an optically transparent path without optical-electrical-optical regeneration | de
+Für die hier: nach dem Schalten max. 70 % Spektrumbelegung auf jedem Link. | other: require spectrum occupancy of at most 70 percent on every link after allocating this circuit | de
+Did the London maintenance actually finish, or is the ticket just closed? | none
+Zur Übergabe: Ticket in Madrid ist noch offen, letzte Rückmeldung fehlt. | none | de
+Coffee machine's dead again. Long shift ahead. | none
+Ich bin gleich in der Übergabe, danach wieder erreichbar. | none | de
+For the next two hours, no new paths over Bordeaux-Paris. | avoid Bordeaux-Paris, for 2 hours
+Ab jetzt für 3 Std. alle neuen Anfragen über München führen. | via Munich, for 3 hours | de
+Next 4 hours: prefer the least loaded route for new requests. | prefer load, for 4 hours
+Für die nächsten 2 Stunden bei allen neuen Lightpaths max. 1800 km. | max 1800 km, for 2 hours | de
+Keep Barcelona-Lyon out of new routes until this restriction is explicitly lifted. | avoid Barcelona-Lyon, until withdrawn
+Prag bleibt für neue Verbindungen tabu, bis wir die Sperre aufheben. | avoid Prague, until withdrawn | de
+From now on, optimise new requests for fewest hops until we withdraw that policy. | prefer hops, until withdrawn
+Ab sofort bei neuen Anfragen Kandidat 0 nehmen. Gilt bis zum Widerruf. | candidate 0, until withdrawn | de
+All 40G requests should avoid the Berlin-Copenhagen span. | avoid Berlin-Copenhagen, only rate 40
+Alles, was in Dublin startet, soll über London gehen. | via London, only from Dublin | de
+For requests ending in Zurich, pick the shortest route in km. | prefer km, only to Zurich
+Bei 100G grundsätzlich die Route mit dem kleinsten Slotbedarf nehmen. | prefer slots, only rate 100 | de
+Next 5 hours, route all new requests via Frankfurt and keep Munich out. | via Frankfurt, avoid Munich, for 5 hours
+Für Anfragen nach Stockholm Oslo auslassen und höchstens 7 Hops zulassen. | avoid Oslo, max 7 hops, only to Stockholm | de
+For the next 8 hours, keep 400G off Belgrade-Zagreb and favour the route with the fewest hops. | avoid Belgrade-Zagreb, prefer hops, only rate 400, for 8 hours
