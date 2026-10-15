@@ -1,7 +1,9 @@
-"""Instructions written by people as test sets: the owner's and a contributor's.
+"""Instructions written outside the sentence generators as test sets: the owner's and five template sets.
 
-One instruction per line, a bar, then what the writer meant in the words the file's header lists;
-a contributor's line may end with a second bar and its language (``| de``). Each line becomes an
+All six were written by the project's author, partly with an AI assistant (ChatGPT 6.1 Sol); the
+template sets follow ``data/instructions/contributor_template.txt``. One instruction per line, a
+bar, then what the writer meant in the words the file's header lists; a template line may end with
+a second bar and its language (``| de``). Each line becomes an
 instruction row with the spec it means (``data/instructions/<set>.jsonl``, what
 ``translate.py parse`` and ``readers3.py`` read). ``kind`` says how the instruction relates to the
 readers' training: ``atom`` one clause, ``trained`` a combination of clause kinds that occurs in
@@ -37,9 +39,11 @@ ROOT = Path(__file__).resolve().parents[1]
 INSTRUCTIONS = ROOT / "data" / "instructions"
 SOURCES = {
     "owner": INSTRUCTIONS / "owner_source.txt",
-    "contributor1": INSTRUCTIONS / "contributor1_source.txt",
-    "contributor2": INSTRUCTIONS / "contributor2_source.txt",
-    "contributor3": INSTRUCTIONS / "contributor3_source.txt",
+    "template1": INSTRUCTIONS / "template1_source.txt",
+    "template2": INSTRUCTIONS / "template2_source.txt",
+    "template3": INSTRUCTIONS / "template3_source.txt",
+    "template4": INSTRUCTIONS / "template4_source.txt",
+    "template5": INSTRUCTIONS / "template5_source.txt",
 }
 SOURCE = SOURCES["owner"]
 # the laptop readers (4-bit base, llama.cpp), then the fourth-format reader at 16 bits (an A100 job)

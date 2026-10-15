@@ -49,11 +49,12 @@ reported beside the job figures throughout.
 ## 2. Architecture
 
 ```
-operator policy ──> reader 1 ─┐  same reading, or no request   ┌─ in the language ──> policy table ──> rule engine ─┐
- (any language) ──> reader 2 ─┴─ tells them apart? ── yes ─────┤   (scope, lifetime, conflicts, report)             ├─> allocation
-                                   │ no: ask (show the difference) └─ outside it / in part ───────────> decider (guarded) ┘
-console: map, feed of the model's steps, read-back, TAPI constraint, preview on a copy of the network, questions, audit
-request and network state ───────────────────────────────────────────────────────────────────────────────┘
+operator policy ──> reader 1 ─┐  same reading, or no request
+ (any language) ──> reader 2 ─┴─ tells them apart? ── no ──> ask the operator (show the difference)
+                                         │ yes
+     ┌─ in the language ──> policy table (scope, lifetime, conflicts) ──> rule engine ───┐
+     └─ outside it, in part ──> decider (request and network state; guarded) ────────────┴─> allocation
+console: map, the model's steps, read-back, TAPI constraint, preview, questions, audit trail
 ```
 
 - **Simulator** (`src/sim.py`): Optical Networking Gym, preset `jocn_benchmark` (nobel-eu, 28
@@ -101,9 +102,7 @@ of the third format, one of the fourth, the decider), switched per request. On a
 RTX 4060 (8 GB) under llama.cpp: 0.89 s per instruction, 0.97 s per decision
 (`results/design/readers3.json`). A reader is called once per policy, not per request; the
 decider only for instructions outside the language. The container built by `make run` needs no
-network. A note on the host: with the adapters loaded llama.cpp held 7.3 GB of host RAM, and a
-WSL VM of 7.8 GB left little for the simulator; the laptop runs were slowed by that, not by the
-GPU.
+network.
 
 ## 3. Use of Apertus
 
@@ -123,21 +122,22 @@ GPU.
 - **Apertus 70B** (both generations, 4-bit GGUF, 15 examples, no training) translated the same
   test instructions under the same grammar, and generation 1.5 served as the second reader.
 - **Other models:** none is part of the system, and none produced a result. The brief allows
-  other open-weights models to support development; we also used a closed one, Claude (Anthropic),
-  and state its role exactly. It wrote code and documentation under the author's direction, the
+  other open-weights models to support development; we also used two closed ones and state their
+  roles exactly. Claude (Anthropic) wrote code and documentation under the author's direction, the
   sentence templates of the readers' training data, and, as separate instances that never saw the
-  repository or each other's output, the blind test sentences. It is not used at runtime, it never
-  labelled a training example (every training line comes from the project's generators, which
-  fill templates from the topology and know the line by construction), and it never judged an
-  answer (scoring is exact comparison of lines; the simulator judges decisions). What rests on it
-  is the wording of the sentences, and that is checked by 160 sentences written by people: the
-  author's 40 and 120 returned on the project's template (§5).
+  repository or each other's output, the blind test sentences and the translations of the
+  parallel set (§5). The 250 template lines were written outside the project's sentence
+  generators, by the author, partly with an AI assistant (ChatGPT 6.1 Sol, OpenAI). Neither model
+  is used at runtime, labelled a training example (every training line comes from the project's
+  generators, which fill templates from the topology and know the line by construction) or judged
+  an answer (scoring is exact comparison of lines; the simulator judges decisions). What rests on
+  them is the wording of the test sentences: none is a record of what operators type (§6).
 
 ## 4. Data
 
 Synthetic, no personal data; licence CDLA-Permissive-2.0; the test sets with every reader's
 answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/benchmark/`:
-4,850 instructions, 26 sets).
+5,420 instructions, 46 sets).
 
 | Data | Size | How it was made |
 | --- | --- | --- |
@@ -147,7 +147,8 @@ answers are exported as a dataset with a card (`src/benchmark_export.py`, `data/
 | Readers, test | 2,078 + 661 | 168 sentences per language by four separate AI instances from a brief naming the clause kinds and none of our wording |
 | Standing policies, test | 800 | 200 scope and lifetime phrases by another separate instance, attached to the test sentences |
 | Swiss network, test | 1,151 | the test sentences filled with Swiss cities in each language's own name (*Genf*, *Genève*, *Ginevra*) |
-| Lines written by people | 40 + 120 | the owner: 35 English, 5 Urdu in Latin script; from the project's template, a contributor: 10 each in English, German, Italian, Swedish, 15 of them standing policies; two more sets of 40 in English and German, 15 standing policies each |
+| Template lines | 40 + 210 | by the author, partly with ChatGPT 6.1 Sol: the owner set (35 English, 5 Urdu in Latin script) and five sets on the project's template (English, German, French, Italian, Swedish, Swiss German; 78 standing policies) |
+| Parallel set | 60 × 8 | 60 items by a separate AI instance, each language by another: German, French, Italian, Urdu in two scripts, Hindi, Arabic |
 | Closed loop | 2 loads × 3 seeds × 2,000 requests | traffic seeds 1–3, never trained on; 4,599 distinct instructions; a second stream of standing policies |
 
 Which clause combinations are trained (eight pairs) and which held out (seven pairs, five
@@ -282,7 +283,7 @@ request for ever and rejects half to two thirds of them. In 4 bits on the laptop
 fourth-format reader is right on 90.6 % of the policy sentences (93.5 % in the job) and its table
 stays within 2.4 points of the truth.
 
-**A Swiss network and the author's lines.** On 1,151 sentences with Swiss cities in each
+**A Swiss network.** On 1,151 sentences with Swiss cities in each
 language's own name (*Genf*, *Genève*, *Ginevra*, *Sankt Gallen*; no reader ever saw them), reader 1
 on the laptop is right on 90.6 (en), 92.0 (de), 90.8 (fr) and 89.0 (it) %, against 93.1 % on the
 network it was trained on; one clause 92–97 %, three clauses 70–85 %
@@ -294,42 +295,47 @@ translator alone breaks 9.8 % of requests (2.2 % inside the language), the trans
 (`results/eval/translate3_ft_laptop*_mix3.json`) break 1.9 % inside the language alone and 1.2 %
 asking: the unseen city names cost 0.3 points alone and nothing once a second reader is asked.
 
-**Lines written by people** (`results/design/owner.json`, `contributor1.json` to `contributor3.json`; the
-laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
-script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
-fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). A contributor returned 40
-lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
-standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
-16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
-10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training), and at 16 bits on
-36 of 40 (Swedish 9 of 10). The 16-bit build gets right some lines the laptop's misses (a routing
-request outside the language flagged as such; "to munich" no longer read as a scope; a second
-preference kept) and misses others (an avoided link dropped from a standing policy; "the second
-route" left without a candidate number). With reader 2 as
-the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
-asked about. Two more sets of 40 from the template (English and German: 20 and 20, 30 and 10;
-received on 15 October, read on the laptop only): reader 1 is right on 20 of the 25 per-request
-lines in each, reader 2 on 21 and 20, the 8B on 17 and 18; the fourth-format reader on 33 and 34
-of 40 (12 and 14 of the 15 standing policies; English 46 of 50, German 21 of 30), and reader 2
-asks about 2 of reader 1's 5 errors in each. Over all 160 lines the fourth-format reader is right
-on 133 on the laptop and reader 1 on 93 of the 115 per-request ones. Errors that recur: a request's end point read as a waypoint or a scope ("go from
-London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
-end points); an ordinal written as its digit ("den andra rutten", the second route, as `path=2`,
-where the template and the candidate list count from 0; *der dritte Vorschlag* as `path=3`, and
-"the last candidate on the list" left without a number); a German clause lost or turned around (*über
-München* dropped from a three-hour policy, *über Frankfurt* read as avoiding it); *Wien* read as Warsaw by both
-third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
-the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
-instead of `unsupported`.
+**Template lines** (`results/design/owner.json`, `template1.json` to `template5.json`; written
+outside the sentence generators, §3; the laptop readers, 4-bit base under llama.cpp). The owner
+set's 40 (35 English, 5 Urdu in Latin script): reader 1 is right on 33, reader 2 on 35, the
+untrained 8B with 15 examples on 27, the fourth-format reader on 31 (34 at 16 bits, an A100 job).
+The five template sets' 210 (English, German, French, Italian, Swedish, Swiss German; 78 standing
+policies): reader 1 is right on 105 of the 132 per-request lines, reader 2 on 112, the 8B on 95,
+the fourth-format reader on 180 of 210 (set 1 at 16 bits: 36 of 40). Over all 250 the
+fourth-format reader is right on 211 and reader 1 on 138 of the 172 per-request ones; with reader 2
+as the check, 15 of reader 1's 34 errors are asked about. Errors that recur: a request's end point read as a waypoint or a scope (the language has no word for it); an ordinal written as its digit (*der dritte Vorschlag* as `path=3`, where the list counts from 0); a German clause lost or turned around; *Wien* read as Warsaw by the third-format readers; a request outside the language applied as an empty line instead of `unsupported`.
+
+**The same items in eight languages** (`results/design/parallel.json`, `src/parallel3.py`). 60
+items written blind by a separate AI instance (40 for one request: 28 the language carries, 12 it
+cannot carry or no instruction; 20 standing policies), each translated by another instance into
+German, French, Italian, Urdu in Latin letters (Roman Urdu) and in Urdu script, Hindi and Arabic,
+the cities as each language writes them; no native speaker has checked them. The eight versions
+of an item mean the same line, so a difference between them is the language's (exact paired
+McNemar tests against English). On the laptop the full-format reader is right on 55 of 60 in
+English, 52–53 in German, French and Italian (p ≥ 0.5 against English), and 43, 45 and 45 in Urdu
+script, Hindi and Arabic (p ≤ 0.006). Roman Urdu is the worst at 32 (p < 0.001), and the same
+language in its own script beats it (16 items right only in Urdu script, 5 only in Latin letters,
+p = 0.03), while Urdu script and Hindi do not differ (p = 0.79). In Latin letters the Urdu words
+are read as something else: *se door rakho* ("keep away from") as a waypoint and a scope, *se
+zyada nahi* ("not more than") as a preference, *agle 10 ghanton* ("the next 10 hours") as a scope
+of 10G. A city in another script is seldom the problem: the full-format reader names a wrong city
+on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
+the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages
+and on 5 in each new one, and applies 3 to 5 of them there. Over the 40
+per-request items, fine-tuning gains over the untrained 8B with 15 examples in the trained
+languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in the new ones
+(104, 105 and 100 of 160).
+
+![The same 40 per-request items in eight languages and scripts](docs/figures/languages.png)
 
 ## 6. Limitations
 
 - One topology in closed loop (the Swiss one offline so far), one traffic model, one simulator;
   the model ranks candidates the simulator has already checked, it does not compute physics.
-- Every test sentence but 160 was written by an AI instance (40 by the author, the only Urdu;
-  120 returned on the project's template, the only Swedish; that these were written without an
-  AI tool rests on their writers' word); four languages otherwise, no Swiss German in
-  the demo (72.7 % on a stress set).
+- Every test sentence was written or translated by an AI model, or by the author with one (the
+  250 template lines, ChatGPT 6.1 Sol); none is a record of what operators type, and the parallel
+  set's translations are not checked by native speakers. No Swiss German in the demo (72.7 % on a
+  stress set).
 - Unknown types remain the weak point (28–37 % violations for every policy in the mixed stream).
 - The fourth-format reader has no second reader yet, so scope and lifetime are read once; the
   stream's policies are our construction and reuse the 800 sentences the reader is scored on;
@@ -346,8 +352,7 @@ instead of `unsupported`.
   community GGUF builds; the TAPI object was not sent to a controller.
 - The mixed stream's proportions are ours. From its per-kind rates the hybrid stays the best of the
   three policies for a share of unknown types between about 1 % and 42 % of requests
-  (`docs/decisions.md`, 12 Oct), extrapolated, not measured; the simulated operator answers every
-  question with the truth, so the gain from asking is an upper bound.
+  (`docs/decisions.md`, 12 Oct), extrapolated, not measured.
 
 ## 7. Reproducibility and cost
 
@@ -357,8 +362,17 @@ command, the simulator commit (`f7c4491`), seeds and loads; every model answer i
 `results/cache/`; `docs/decisions.md` logs every deviation, mistake and its cost. Hugging Face
 Jobs on one A100: about 20.7 GPU-hours and about USD 51.7 over four rounds and the follow-ups
 (the fourth round USD 3.14; the matched decider and the fourth-format reader in the mixed stream
-about USD 8.4; the lines written by people at 16 bits about USD 0.12).
+about USD 8.4; the owner set and template set 1 at 16 bits about USD 0.12).
 The submission is the commit tagged `submission` in the repository.
+
+**Running it live with the local open-weight models.** The 4-bit GGUF of the base and the four
+adapters as GGUF (Hub `blackfish021/apertus-lightpath-translator-v3-gguf`) are served by one
+`llama-server` (llama.cpp b11558) with one `--lora` per adapter, `--lora-init-without-apply`,
+`--jinja` and the GPU offload; `LLM_BASE_URL` names the server and `LLM_LORA_IDS` which adapter
+each reader and the decider is; then `make console`, or `make run` for the episode, ask the model
+instead of replaying the recorded answers. The commands are in the repository's `README.md`,
+section "On a laptop". Hardware: training and the 16-bit scores on one A100 80 GB (Hugging Face
+Jobs); everything in 4 bits on a laptop with an RTX 4060 (8 GB) and WSL2 with 7.6 GB of RAM.
 
 ## 8. Related work
 

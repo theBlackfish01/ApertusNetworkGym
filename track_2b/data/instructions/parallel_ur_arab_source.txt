@@ -1,0 +1,69 @@
+# Parallel test set, Urdu in Urdu (Perso-Arabic) script (ur-Arab): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Urdu in Urdu (Perso-Arabic) script alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+یہ لائٹ پاتھ پیرس-لیون اسپین پر نہ ڈالو، ساری صبح سے فلیپ کر رہا ہے | avoid Paris-Lyon | ur-Arab
+پلیز اس ریکویسٹ کے لیے اوسلو اور اسٹاک ہوم کے درمیان والا لنک استعمال نہ کرو | avoid Oslo-Stockholm | ur-Arab
+آج ویانا-زغرب فائبر پر ایرر ریٹ زیادہ ہے، اس سے ہٹ کر روٹ کرو | avoid Vienna-Zagreb | ur-Arab
+فرینکفرٹ نوڈ پر کارڈ سویپ پلان ہے، یہ والا اس میں سے روٹ نہ کرو | avoid Frankfurt | ur-Arab
+اس پاتھ پر بوڈاپیسٹ کو بالکل چھوڑ دو، تھینکس | avoid Budapest | ur-Arab
+یہ والا اسٹراسبرگ سے ہو کر ہی جانا چاہیے | via Strasbourg | ur-Arab
+کسٹمر کا اصرار ہے کہ پاتھ کوپن ہیگن سے گزرے، یقینی بناؤ کہ گزرے | via Copenhagen | ur-Arab
+اس والے کے لیے چار ہاپس سے زیادہ نہیں، پلیز | max 4 hops | ur-Arab
+یہاں چھ ہاپس بالکل آخری حد ہے | max 6 hops | ur-Arab
+پاتھ کی کل لمبائی 1800 km سے زیادہ نہیں ہو سکتی | max 1800 km | ur-Arab
+روٹ کو دو ہزار پانچ سو کلومیٹر کے اندر رکھو | max 2500 km | ur-Arab
+لسٹ میں جو دوسرا کینڈیڈیٹ ہے وہ لے لو | candidate 1 | ur-Arab
+اس ریکویسٹ کے لیے روٹ 3 چنو | candidate 3 | ur-Arab
+مجھے وہ پاتھ چاہیے جس میں سب سے کم ہاپس ہوں | prefer hops | ur-Arab
+لنکس بزی ہو رہے ہیں، مجھے سب سے کم لوڈ والا پاتھ دو | prefer load | ur-Arab
+اس والے پر جتنے کم سے کم اسپیکٹرم سلاٹس ہو سکیں استعمال کرو | prefer slots | ur-Arab
+میونخ سے دور رہو اور 5 ہاپس سے زیادہ نہیں، پلیز | avoid Munich, max 5 hops | ur-Arab
+اسے زیورخ کے راستے روٹ کرو، باقی بس km کے حساب سے سب سے چھوٹا والا | via Zurich, prefer km | ur-Arab
+سب سے کم لوڈ والا پاتھ پلیز، اور ان میں سے وہ جس میں سب سے کم ہاپس ہوں | prefer load, then hops | ur-Arab
+پہلے سب سے کم اسپیکٹرم سلاٹس، ٹائی ہو تو سب سے کم فاصلہ | prefer slots, then km | ur-Arab
+ہیمبرگ-برلن لنک سے دور رہو اور زیادہ سے زیادہ 2000 km تک رہو | avoid Hamburg-Berlin, max 2000 km | ur-Arab
+پراگ سے ہو کر جاؤ لیکن ویانا سے نہیں، اس کے بعد سب سے کم ہاپس | via Prague, avoid Vienna, prefer hops | ur-Arab
+زیادہ سے زیادہ تین ہاپس اور 900 km سے لمبا نہیں | max 3 hops, max 900 km | ur-Arab
+لندن-ڈبلن لنک سے بچو، اس کی جگہ گلاسگو کے راستے بھیجو | avoid London-Dublin, via Glasgow | ur-Arab
+سب سے کم کنجیشن والا روٹ جس میں زیادہ سے زیادہ سات ہاپس ہوں، اور بلغراد سے کچھ نہ گزرے | avoid Belgrade, max 7 hops, prefer load | ur-Arab
+ہاپس کم سے کم رکھو، اور اگر دو روٹس برابر ہوں تو کم لوڈ والا لو | prefer hops, then load | ur-Arab
+بورڈو سے گزرنا ضروری ہے، زیادہ سے زیادہ 2200 km، جلد از جلد پلیز | via Bordeaux, max 2200 km | ur-Arab
+وارسا-اسٹاک ہوم لنک یا پراگ کو ہاتھ نہ لگاؤ، اور سب سے کم سلاٹس استعمال کرو | avoid Warsaw-Stockholm, avoid Prague, prefer slots | ur-Arab
+اسے مکمل طور پر الگ بیک اپ پاتھ کے ساتھ 1+1 پروٹیکشن چاہیے | other: 1+1 protection with a disjoint backup path | ur-Arab
+اگر ریچ اجازت دے تو اسے 16QAM پر چلاؤ | other: modulation format 16QAM | ur-Arab
+اس پاتھ پر کوئی ریجنریٹر نہیں، اسے پورا آپٹیکل ہی رہنا چاہیے | other: no regeneration | ur-Arab
+اینڈ ٹو اینڈ لیٹنسی 15 ms سے کم ہونی چاہیے، یہ ٹریڈنگ کسٹمر ہے | other: maximum latency 15 ms | ur-Arab
+اسے کسی ایسے لنک پر نہ ڈالو جو 80% سے زیادہ بھرا ہوا ہو | other: maximum link occupancy 80% | ur-Arab
+یہ والا لگانے سے پہلے برلن-میونخ اسپین پر اسپیکٹرم ڈیفریگمنٹ کرو | other: spectrum defragmentation on Berlin-Munich before setup | ur-Arab
+کل رات کے ری روٹ کے بعد ایتھنز والا 400G ٹھیک سے اپ ہو گیا تھا؟ | none | ur-Arab
+نائٹ شفٹ کے لیے ہینڈ اوور: زغرب پر دو ٹکٹس اوپن ہیں، دونوں فیلڈ ٹیم کے انتظار میں ہیں | none | ur-Arab
+اسٹیٹس اپڈیٹ: ہیمبرگ کا کارڈ تبدیل ہو گیا، سارے الارمز کلیئر ہو گئے | none | ur-Arab
+سب کو صبح بخیر، فلور 3 والی کافی مشین پھر سے چل رہی ہے | none | ur-Arab
+اس ویک اینڈ اوسلو سائٹ کے لیے آن کال کون ہے؟ | none | ur-Arab
+اطلاع کے لیے، میڈرڈ کسٹمر کا ڈیمو جمعرات پر چلا گیا ہے | none | ur-Arab
+اگلے 6 گھنٹے برسلز-فرینکفرٹ پر سے کوئی نئی چیز نہیں جائے گی | avoid Brussels-Frankfurt, for 6 hours | ur-Arab
+اگلے دو گھنٹے: ہر نیا پاتھ لیون سے باہر رکھو | avoid Lyon, for 2 hours | ur-Arab
+آنے والے 12 گھنٹوں کے لیے تمام ریکویسٹس سب سے کم لوڈ کے حساب سے روٹ کرو | prefer load, for 12 hours | ur-Arab
+اگلے 4 گھنٹوں میں نئے لائٹ پاتھس زیادہ سے زیادہ پانچ ہاپس تک محدود رکھو | max 5 hops, for 4 hours | ur-Arab
+اگلے چوبیس گھنٹوں کے لیے پلیز km میں سب سے چھوٹے پاتھس کو ترجیح دو | prefer km, for 24 hours | ur-Arab
+اگلے حکم تک ایمسٹرڈیم-لندن لنک سے بچو | avoid Amsterdam-London, until withdrawn | ur-Arab
+پیرس میں بجلی کا مسئلہ ہے، جب تک میں نہ کہوں اس میں سے کچھ نہیں گزرے گا | avoid Paris, until withdrawn | ur-Arab
+نیا مستقل رول، جب تک ہٹایا نہ جائے: کوئی پاتھ 3000 km سے لمبا نہیں | max 3000 km, until withdrawn | ur-Arab
+اب سے ہر ریکویسٹ سب سے کم اسپیکٹرم سلاٹس استعمال کرے گی، جب تک کوئی اسے کینسل نہ کرے | prefer slots, until withdrawn | ur-Arab
+جب تک ہم یہ رول ختم نہ کریں، ایتھنز-بلغراد اسپین سے دور رہو | avoid Athens-Belgrade, until withdrawn | ur-Arab
+تمام 400G ریکویسٹس سب سے کم ہاپس والا راستہ لیں | prefer hops, only rate 400 | ur-Arab
+ڈبلن سے شروع ہونے والی ہر چیز لازمی گلاسگو-ایمسٹرڈیم لنک سے بچے | avoid Glasgow-Amsterdam, only from Dublin | ur-Arab
+روم پر ختم ہونے والے لائٹ پاتھس: انہیں زغرب سے باہر رکھو | avoid Zagreb, only to Rome | ur-Arab
+اگلے حکم تک 10G ڈیمانڈز کو سب سے کم لوڈ والا روٹ دو | prefer load, only rate 10, until withdrawn | ur-Arab
+وارسا سے آنے والی ریکویسٹس، 1500 km سے زیادہ نہیں پلیز | max 1500 km, only from Warsaw | ur-Arab
+اگلے 8 گھنٹوں تک میڈرڈ جانے والی ہر چیز بارسلونا-لیون اسپین سے دور رہے | avoid Barcelona-Lyon, only to Madrid, for 8 hours | ur-Arab
+اگلے 3 گھنٹوں تک 100G ریکویسٹس میونخ سے بچیں اور سب سے کم لوڈ والا پاتھ لیں | avoid Munich, prefer load, only rate 100, for 3 hours | ur-Arab
+ایتھنز سے نکلنے والی ریکویسٹس: بلغراد کے راستے جاؤ، زیادہ سے زیادہ چھ ہاپس | via Belgrade, max 6 hops, only from Athens | ur-Arab
+اگلے حکم تک تمام 40G ریکویسٹس اوسلو-کوپن ہیگن لنک سے بچیں اور جتنے کم ہو سکیں اتنے سلاٹس استعمال کریں | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | ur-Arab
+اگلے 10 گھنٹوں تک تمام پاتھس 2400 km یا اس سے کم رکھو، اور ان میں سے سب سے کم ہاپس والا | max 2400 km, prefer hops, for 10 hours | ur-Arab

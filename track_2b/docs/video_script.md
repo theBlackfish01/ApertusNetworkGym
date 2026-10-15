@@ -4,7 +4,7 @@ The video is the operator console on the laptop, live, with the model server up.
 viewer sees is real: the readers and the decider answer on the laptop's GPU. Record the browser
 at 1440 px wide or more, dark theme, no narration overlays needed beyond the spoken words.
 
-**Set-up (before recording).** In WSL: the llama.cpp server with the four adapters (README,
+**Set-up (before recording).** In WSL: the llama.cpp server with the four adapters (the repository's README.md,
 "On a laptop"), then `uv run python src/console.py --base-url http://127.0.0.1:8089/v1
 --no-arrivals`. Open http://127.0.0.1:8090, set the pace to 2 /s, switch "simulated operator"
 off, leave "instructions with requests" on. In the Race view, prepare the race and run it to the

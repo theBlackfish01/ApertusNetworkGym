@@ -1,0 +1,69 @@
+# Parallel test set, French (fr): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for French alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+garde ce chemin optique hors du tronçon Paris-Lyon, il n'arrête pas de flapper depuis ce matin | avoid Paris-Lyon | fr
+stp n'utilise pas le lien entre Oslo et Stockholm pour cette demande | avoid Oslo-Stockholm | fr
+la fibre Vienne-Zagreb a un taux d'erreur élevé aujourd'hui, contourne-la | avoid Vienna-Zagreb | fr
+un changement de carte est prévu sur le nœud de Francfort, ne fais pas passer celle-ci par là | avoid Frankfurt | fr
+évite complètement Budapest sur ce chemin, merci | avoid Budapest | fr
+celle-ci doit passer par Strasbourg | via Strasbourg | fr
+le client tient à ce que le chemin passe par Copenhague, vérifie que c'est bien le cas | via Copenhagen | fr
+pas plus de quatre sauts pour celle-ci stp | max 4 hops | fr
+six sauts, c'est le plafond absolu ici | max 6 hops | fr
+la longueur totale du chemin ne peut pas dépasser 1800 km | max 1800 km | fr
+garde la route dans la limite de deux mille cinq cents kilomètres | max 2500 km | fr
+prends le deuxième candidat de la liste | candidate 1 | fr
+choisis la route 3 pour cette demande | candidate 3 | fr
+je veux le chemin qui a le moins de sauts, quel qu'il soit | prefer hops | fr
+les liens commencent à être chargés, donne-moi le chemin le moins chargé | prefer load | fr
+utilise le moins de slots spectraux possible sur celle-ci | prefer slots | fr
+évite Munich et pas plus de 5 sauts stp | avoid Munich, max 5 hops | fr
+fais-la passer par Zurich, sinon prends juste le plus court en km | via Zurich, prefer km | fr
+le chemin le moins chargé svp, et parmi ceux-là celui qui a le moins de sauts | prefer load, then hops | fr
+d'abord le moins de slots spectraux, la distance la plus courte pour départager | prefer slots, then km | fr
+évite le lien Hambourg-Berlin et reste à 2000 km max | avoid Hamburg-Berlin, max 2000 km | fr
+passe par Prague mais pas par Vienne, ensuite le moins de sauts | via Prague, avoid Vienna, prefer hops | fr
+trois sauts max et pas plus de 900 km | max 3 hops, max 900 km | fr
+évite le lien Londres-Dublin, fais-la passer par Glasgow à la place | avoid London-Dublin, via Glasgow | fr
+la route la moins congestionnée avec sept sauts au plus, et rien par Belgrade | avoid Belgrade, max 7 hops, prefer load | fr
+minimise les sauts, et si deux routes sont à égalité, prends la moins chargée | prefer hops, then load | fr
+doit transiter par Bordeaux, 2200 km max, au plus vite stp | via Bordeaux, max 2200 km | fr
+ne touche pas au lien Varsovie-Stockholm ni à Prague, et utilise le moins de slots | avoid Warsaw-Stockholm, avoid Prague, prefer slots | fr
+celle-ci a besoin d'une protection 1+1 avec un chemin de secours entièrement disjoint | other: 1+1 protection with a disjoint backup path | fr
+passe-la en 16QAM si la portée le permet | other: modulation format 16QAM | fr
+pas de régénérateurs sur ce chemin, il doit rester tout optique | other: no regeneration | fr
+la latence doit être sous les 15 ms de bout en bout, c'est un client de trading | other: maximum latency 15 ms | fr
+ne la mets sur aucun lien occupé à plus de 80% | other: maximum link occupancy 80% | fr
+défragmente le spectre sur le tronçon Berlin-Munich avant de placer celle-ci | other: spectrum defragmentation on Berlin-Munich before setup | fr
+le 400G d'Athènes est bien remonté après le reroutage de cette nuit ? | none | fr
+passation pour l'équipe de nuit : deux tickets ouverts sur Zagreb, tous les deux en attente de l'équipe terrain | none | fr
+point de situation : carte de Hambourg remplacée, toutes les alarmes sont levées | none | fr
+bonjour à tous, la machine à café du 3e étage remarche | none | fr
+qui est d'astreinte pour le site d'Oslo ce week-end ? | none | fr
+pour info la démo client de Madrid est décalée à jeudi | none | fr
+pendant les 6 prochaines heures, rien de nouveau ne passe par Bruxelles-Francfort | avoid Brussels-Frankfurt, for 6 hours | fr
+les deux prochaines heures : garde tous les nouveaux chemins hors de Lyon | avoid Lyon, for 2 hours | fr
+pour les 12 heures à venir, route toutes les demandes selon la charge la plus faible | prefer load, for 12 hours | fr
+sur les 4 prochaines heures, plafonne les nouveaux chemins optiques à cinq sauts | max 5 hops, for 4 hours | fr
+pour les vingt-quatre prochaines heures stp privilégie les chemins les plus courts en km | prefer km, for 24 hours | fr
+jusqu'à nouvel ordre, évite le lien Amsterdam-Londres | avoid Amsterdam-London, until withdrawn | fr
+Paris a un souci d'alim, rien par là jusqu'à ce que je dise le contraire | avoid Paris, until withdrawn | fr
+nouvelle règle permanente jusqu'à ce qu'elle soit levée : aucun chemin de plus de 3000 km | max 3000 km, until withdrawn | fr
+à partir de maintenant chaque demande utilise le moins de slots spectraux, jusqu'à ce que quelqu'un annule ça | prefer slots, until withdrawn | fr
+évite le tronçon Athènes-Belgrade jusqu'à ce qu'on supprime cette règle | avoid Athens-Belgrade, until withdrawn | fr
+toutes les demandes 400G doivent prendre le moins de sauts | prefer hops, only rate 400 | fr
+tout ce qui part de Dublin doit éviter le lien Glasgow-Amsterdam | avoid Glasgow-Amsterdam, only from Dublin | fr
+chemins optiques qui se terminent à Rome : garde-les hors de Zagreb | avoid Zagreb, only to Rome | fr
+les demandes 10G prennent la route la moins chargée jusqu'à nouvel ordre | prefer load, only rate 10, until withdrawn | fr
+demandes depuis Varsovie, pas plus de 1500 km svp | max 1500 km, only from Warsaw | fr
+pendant les 8 prochaines heures, tout ce qui va vers Madrid évite le tronçon Barcelone-Lyon | avoid Barcelona-Lyon, only to Madrid, for 8 hours | fr
+pendant les 3 prochaines heures, les demandes 100G évitent Munich et prennent le chemin le moins chargé | avoid Munich, prefer load, only rate 100, for 3 hours | fr
+demandes au départ d'Athènes : passe par Belgrade, six sauts max | via Belgrade, max 6 hops, only from Athens | fr
+jusqu'à nouvel ordre, toutes les demandes 40G doivent éviter le lien Oslo-Copenhague et utiliser le moins de slots possible | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | fr
+pendant les 10 prochaines heures, garde tous les chemins à 2400 km ou moins, et parmi eux le moins de sauts | max 2400 km, prefer hops, for 10 hours | fr

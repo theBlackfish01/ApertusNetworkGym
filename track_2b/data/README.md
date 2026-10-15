@@ -8,7 +8,7 @@
   and the city names in four languages; `fewshot/`: the examples of the untrained translators;
   `translate4/`: the fourth format's training data; `sample/` and `stats.json`: a sample of the
   decider's dataset and its statistics.
-- Not committed, rebuilt by the pipeline (README, "Pipeline"): `full/` (the decider's 12,000
+- Not committed, rebuilt by the pipeline (the repository's README.md, "Pipeline"): `full/` (the decider's 12,000
   training decisions and held-out splits, `src/generate.py`), `probes/`, `translate/`,
   `translate2/`, `translate3/` (the earlier formats' training data), `pass1/`. None is needed to
   run `make run` or the console; they are needed only to retrain.

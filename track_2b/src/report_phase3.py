@@ -401,7 +401,7 @@ def swiss_tables(results: Path) -> list:
 
 
 def owner_tables(results: Path) -> list:
-    """Instructions written by people (``design/owner.json``, ``design/contributor<n>.json``, written by ``corpora3_owner.py``)."""
+    """Instructions written outside the sentence generators (``design/owner.json``, ``design/template<n>.json``, written by ``corpora3_owner.py``)."""
     names = {"translate3_ft_laptop": "Reader 1", "translate3_ft2_laptop": "Reader 2",
              "translate3_few_laptop": "Apertus 8B, 15 examples, no training",
              "translate4_ft_laptop": "Reader of the fourth format",
@@ -411,13 +411,17 @@ def owner_tables(results: Path) -> list:
         "ur": "Urdu in Latin script",
         "de": "German",
         "it": "Italian",
+        "fr": "French",
         "sv": "Swedish",
+        "gsw": "Swiss German",
     }
     sources = {
-        "owner": "the project owner (40 lines)",
-        "contributor1": "a contributor (40 lines, 15 of them standing policies)",
-        "contributor2": "the writer of set 2 (40 lines in English and German, 15 of them standing policies)",
-        "contributor3": "the writer of set 3 (40 lines in English and German, 15 of them standing policies)",
+        "owner": "the project's author, partly with ChatGPT 6.1 Sol (40 lines)",
+        "template1": "the author on the template, partly with ChatGPT 6.1 Sol, set 1 (40 lines, 15 of them standing policies)",
+        "template2": "the author on the template, partly with ChatGPT 6.1 Sol, set 2 (40 lines in English and German, 15 of them standing policies)",
+        "template3": "the author on the template, partly with ChatGPT 6.1 Sol, set 3 (40 lines in English and German, 15 of them standing policies)",
+        "template4": "the author on the template, partly with ChatGPT 6.1 Sol, set 4 (70 lines in English, Swiss German, French and Italian, 26 of them standing policies)",
+        "template5": "the author on the template, partly with ChatGPT 6.1 Sol, set 5 (20 lines in English, Swiss German, French and Italian, 7 of them standing policies)",
     }
     out = []
     for source, who in sources.items():

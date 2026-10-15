@@ -270,11 +270,12 @@ European network at 390 E (`results/eval/translate3_ft_laptop*_mix3.json`) break
 inside the language), 10.9 % asking (1.2 %), 10.6 % asking by consequence (1.2 %): the Swiss names
 cost 0.3 points inside the language alone and nothing with a second reader.
 
-**Lines written by people** (`results/design/owner.json`, `contributor1.json` to `contributor3.json`; the
-laptop readers, 4-bit base under llama.cpp). The author's 40 lines (35 English, 5 Urdu in Latin
-script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
-fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). A contributor returned 40
-lines from the project's template, 10 each in English, German, Italian and Swedish, 15 of them
+**Template lines** (`results/design/owner.json`, `template1.json` to `template5.json`; the laptop
+readers, 4-bit base under llama.cpp). 250 lines written outside the project's sentence generators,
+by the author, partly with an AI assistant (ChatGPT 6.1 Sol). The owner set's 40 (35 English, 5 Urdu
+in Latin script): reader 1 is right on 33, reader 2 on 35, the untrained 8B with 15 examples on 27, the
+fourth-format reader on 31, and on 34 at 16 bits (an A100 job, the build of the main results). Template set 1: 40
+lines on the project's template, 10 each in English, German, Italian and Swedish, 15 of them
 standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2 on 22, the 8B on
 16; the fourth-format reader on 21 of them and 14 of the 15 standing policies, 35 of 40 (German
 10 of 10, English and Italian 9, Swedish 7; no reader saw Swedish in training), and at 16 bits on
@@ -282,13 +283,18 @@ standing policies: reader 1 is right on 20 of the 25 per-request lines, reader 2
 request outside the language flagged as such; "to munich" no longer read as a scope; a second
 preference kept) and misses others (an avoided link dropped from a standing policy; "the second
 route" left without a candidate number). With reader 2 as
-the check, 5 of reader 1's 7 errors on the author's lines and 2 of 5 on the contributor's are
-asked about. Two more sets of 40 from the template (English and German: 20 and 20, 30 and 10;
+the check, 5 of reader 1's 7 errors on the owner set and 2 of 5 on set 1 are
+asked about. Template sets 2 and 3 (English and German: 20 and 20, 30 and 10;
 received on 15 October, read on the laptop only): reader 1 is right on 20 of the 25 per-request
 lines in each, reader 2 on 21 and 20, the 8B on 17 and 18; the fourth-format reader on 33 and 34
 of 40 (12 and 14 of the 15 standing policies; English 46 of 50, German 21 of 30), and reader 2
-asks about 2 of reader 1's 5 errors in each. Over all 160 lines the fourth-format reader is right
-on 133 on the laptop and reader 1 on 93 of the 115 per-request ones. Errors that recur: a request's end point read as a waypoint or a scope ("go from
+asks about 2 of reader 1's 5 errors in each. Template sets 4 and 5 (70 and 20 lines in English,
+Swiss German, French and Italian; 26 and 7 standing policies; received on 15 October, read on the
+laptop only): reader 1 is right on 35 of 44 and 10 of 13 per-request lines, reader 2 on 39 and 10,
+the 8B on 33 and 11; the fourth-format reader on 61 of 70 and 17 of 20 (22 of 26 and 5 of 7
+standing policies; Swiss German, never in training, 5 of 8). Over all 250 lines the fourth-format
+reader is right on 211 on the laptop and reader 1 on 138 of the 172 per-request ones; reader 2 asks
+about 15 of reader 1's 34 errors. Errors that recur: a request's end point read as a waypoint or a scope ("go from
 London to Lyon via Oslo", "to prague freom neighborsd but avoid berlin"; the language has no word for a request's own
 end points); an ordinal written as its digit ("den andra rutten", the second route, as `path=2`,
 where the template and the candidate list count from 0; *der dritte Vorschlag* as `path=3`, and
@@ -296,11 +302,11 @@ where the template and the candidate list count from 0; *der dritte Vorschlag* a
 (*über München* dropped from a three-hour policy, *über Frankfurt* read as avoiding it); *Wien* read as Warsaw by both
 third-format readers and the 8B (the fourth-format reader got it right); a routing request outside
 the language (a backup path, a fixed modulation, one contiguous block) applied as an empty line
-instead of `unsupported`. What it shows: 78–90 % right on
-sentences people wrote, against 91–95 % on the AI-written test sets; most errors are phrasings
+instead of `unsupported`. What it shows: 77–90 % right on
+lines written outside the generators, against 91–95 % on the blind test sets; most errors are phrasings
 the templates never used, and the two languages outside training cost more (Urdu: 2 or 3 of 5
-right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader, 9 at 16 bits). What it does not show: a few writers, 160 lines; the
-lines returned on the template are taken as written by a person on their writers' word.
+right; Swedish: 4 of 6 for reader 1, 7 of 10 for the fourth-format reader, 9 at 16 bits). What it does not show: how operators write. One
+writer, partly with an AI assistant, 250 lines.
 
 **TAPI export** (`src/tapi.py`, `tests/test_tapi.py`): the line becomes a `topology-constraint`
 and `routing-constraint` of TAPI 2.1.3 (`exclude-link`, `exclude-node`, `include-node`,
@@ -319,8 +325,31 @@ the stored answers. At 390 E, seed 1, the four lanes replay 560, 329, 199 and 17
 counts of the stored runs (`results/eval/*_mix3.json`): the closed-loop results reproduce from
 the answer caches with no model loaded.
 
-**The benchmark** (`data/benchmark/`): 4,850 test instructions in 26 sets with the line each
-means, 40,714 reader answers with their outcome, metadata and a dataset card.
+**The same items in eight languages** (`results/design/parallel.json`, `src/parallel3.py`). 60
+items written blind by a separate AI instance (40 for one request: 28 the language carries, 12 it
+cannot carry or no instruction; 20 standing policies), each translated by another instance into
+German, French, Italian, Urdu in Latin letters (Roman Urdu) and in Urdu script, Hindi and Arabic,
+the cities as each language writes them; no native speaker has checked them. The eight versions
+of an item mean the same line, so a difference between them is the language's (exact paired
+McNemar tests against English). On the laptop the full-format reader is right on 55 of 60 in
+English, 52–53 in German, French and Italian (p ≥ 0.5 against English), and 43, 45 and 45 in Urdu
+script, Hindi and Arabic (p ≤ 0.006). Roman Urdu is the worst at 32 (p < 0.001), and the same
+language in its own script beats it (16 items right only in Urdu script, 5 only in Latin letters,
+p = 0.03), while Urdu script and Hindi do not differ (p = 0.79). In Latin letters the Urdu words
+are read as something else: *se door rakho* ("keep away from") as a waypoint and a scope, *se
+zyada nahi* ("not more than") as a preference, *agle 10 ghanton* ("the next 10 hours") as a scope
+of 10G. A city in another script is seldom the problem: the full-format reader names a wrong city
+on 1 to 5 of the 60 items in Arabic, Hindi and Urdu script. The fields and the refusals are: of
+the 12 items it should refuse it gives the expected refusal on 8 or 9 in the trained languages
+and on 5 in each new one, and applies 3 to 5 of them there. Over the 40
+per-request items, fine-tuning gains over the untrained 8B with 15 examples in the trained
+languages (reader 1 122, the full-format reader 138, the 8B 108 of 160) and little in the new ones
+(104, 105 and 100 of 160).
+
+![The same 40 per-request items in eight languages and scripts](figures/languages.png)
+
+**The benchmark** (`data/benchmark/`): 5,420 test instructions in 46 sets with the line each
+means, 41,718 reader answers with their outcome, metadata and a dataset card.
 
 ## 4b. Two follow-up experiments (14 October): the matched decider, the full-format reader on the mixed stream
 
@@ -379,8 +408,8 @@ about USD 8.4 (`docs/decisions.md`).
 - One topology in closed loop for the mixed stream (the Swiss one at 600 E for the translators
   only; no hybrid there, since the decider would have to run live), one traffic model, one
   simulator; the model ranks candidates the simulator has checked, it computes no physics.
-- Every test sentence but 160 was written by an AI instance (the author's 40, 120 returned on the project's template). Four languages; Swiss German only on a
-  stress set (72.7 %).
+- Every test sentence was written or translated by an AI model, or by the author with one (the 250 template lines, ChatGPT 6.1 Sol). Four trained languages; the parallel set's translations
+  are unchecked by native speakers; Swiss German only on a stress set (72.7 %) and 8 template lines.
 - Unknown instruction types remain the weak point in the mixed stream (28–37 % violations for
   every policy); the limit is what the decider can follow, not the gate.
   Matched training data does not move it (section 4b).

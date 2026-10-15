@@ -7,6 +7,9 @@ language:
   - it
   - sv
   - ur
+  - hi
+  - ar
+  - gsw
 task_categories:
   - text-generation
 pretty_name: Operator instructions for lightpath provisioning
@@ -25,8 +28,9 @@ provisioning with Apertus 8B*.
 
 - **Curated by:** the project's author (Wadood Ranjha), with sentences written by separate AI
   instances from briefs; see *Source Data*.
-- **Language(s) (NLP):** English, German, French, Italian; 5 lines of Urdu in Latin script and 10 of
-  Swedish, written by people.
+- **Language(s) (NLP):** English, German, French, Italian; Swedish, Swiss German and Urdu in Latin script in
+  the template lines; the parallel sets add Urdu in Urdu script, Roman Urdu, Hindi (Devanagari) and
+  Arabic.
 - **License:** CDLA-Permissive-2.0 (the whole dataset and every instance).
 - **Git repository:** the project repository (`track_2b/`), which holds the generators
   (`src/corpora3_tests.py`, `src/corpora4_tests.py`, `src/swiss.py`, `src/benchmark_export.py`).
@@ -42,8 +46,9 @@ project's readers, so new models can be compared with them on the same sentences
 
 ### Out-of-Scope Use
 
-The sentences are synthetic (written by AI instances from briefs), except 160: the author's 40 and
-120 returned on the project's template (a contributor's 40, and two more sets of 40). They are not a record of what operators say. The policy language carries seven slots; instructions
+The sentences are synthetic: written by AI instances from briefs, or translated by them (the
+parallel sets), or, for 250 template lines, written outside the project's sentence generators by
+the author, partly with an AI assistant (ChatGPT 6.1 Sol). They are not a record of what operators say. The policy language carries seven slots; instructions
 outside it are included only as material the model should refuse or hand on.
 
 ### Specifications
@@ -60,10 +65,14 @@ Sets (`set` field): the policy language in four languages (`v3_en`, `v3_de`, `v3
 every clause kind alone, clause pairs seen and never seen in training, triples, two preferences);
 instruction types shown to no component (`v3_new`, `v3_new_hard`, `v3_new_impossible`);
 instructions carried in part (`v3_partial`); other routing instructions (`v3_other`); text that is
-no instruction (`v3_not`); places outside the network (`v3_faulty`); the author's own lines
-(`owner`, 40); lines returned on the project's template, per request (`contributor1` … `contributor3`,
-25 each) and standing policies (`contributor1_standing` … `contributor3_standing`, 15 each); standing policies with a scope or a lifetime (`v4_en` … `v4_it`); the same sentences on
-a Swiss network with the cities in each language's own name (`v3_swiss_en` … `v3_swiss_it`).
+no instruction (`v3_not`); places outside the network (`v3_faulty`); the template lines: the
+owner set (`owner`, 40) and five sets on the project's template, per request (`template1` …
+`template5`; 25, 25, 25, 44, 13) and standing policies (`template1_standing` …
+`template5_standing`; 15, 15, 15, 26, 7); standing policies with a scope or a lifetime (`v4_en` … `v4_it`); the same sentences on
+a Swiss network with the cities in each language's own name (`v3_swiss_en` … `v3_swiss_it`); and
+the parallel sets, the same 60 items in eight languages and scripts (`parallel_<code>`, 40 per
+request, and `parallel_<code>_standing`, 20; codes `en`, `de`, `fr`, `it`, `ur_latn`, `ur_arab`,
+`hi`, `ar`), with an `item` number shared by the eight versions of an item.
 
 The line format: `avoid=<links,nodes>; via=<node>; hops=<n|any>; km=<n|any>; path=<0-4|any>;
 prefer=<hops,km,load,slots in order>; scope=<any|rate:G|from:node|to:node>; until=<open|Nh>;
@@ -86,23 +95,25 @@ The sentences of the `v3_*` sets were written by four separate AI instances (one
 from a brief that named the clause kinds, the cities and none of the project's wording. The
 scope and lifetime phrases of the `v4_*` sets were written by another instance from a brief, and
 attached to `v3` sentences by a script. The `v3_swiss_*` sets fill the `v3` sentences with Swiss
-cities in each language's own name. The `owner` set was typed by the author; the `contributor1` sets were written by a contributor,
-and the `contributor2` and `contributor3` sets (English and German) were returned on 15 October,
-from the project's template (`data/instructions/contributor_template.txt`), each line labelled by
-its writer with what was meant and its language. Placeholders
+cities in each language's own name. The `owner` and `template*` sets were written outside the
+sentence generators by the author, partly with ChatGPT 6.1 Sol, the `template*` sets on the
+project's template (`data/instructions/contributor_template.txt`), each line labelled with what
+was meant and its language. The `parallel_en` items were written by another separate AI instance
+from a brief (clause kinds, the network, the template's labels), and each other `parallel_*` set
+by one more instance that translated the English sentences alone, not their labels; no native
+speaker has checked the translations. Placeholders
 (cities, links, limits, bit rates, hours) were filled by scripts with values from the topology.
 
 #### Source Data Producers and Data Subjects
 
-Producers: AI instances (Claude, Anthropic) writing from briefs; the author; the writers of three sets returned on the project's template. No
-data subjects:
-the sentences describe no person.
+Producers: AI instances (Claude, Anthropic) writing or translating from briefs; the author,
+partly with an AI assistant (ChatGPT 6.1 Sol), for the 250 template lines. No data subjects: the
+sentences describe no person, and no data was collected from people.
 
 #### Ownership and Consent Management
 
-All sentences were created for this dataset by its author, by AI instances under the author's
-direction, or by people who wrote them for it under the template's terms (an open test set,
-CDLA-Permissive-2.0, never used for training); nothing was collected from other sources.
+All sentences were created for this dataset by its author or by AI instances under the author's
+direction; nothing was collected from other sources.
 
 #### Data Processing and Quality Control
 
@@ -126,8 +137,9 @@ computed by comparing the meaning of the line with the expected one.
 
 #### Annotator Details
 
-Scripts in the project repository; human annotation only on the 160 lines written by people, each
-labelled by its writer (`src/corpora3_owner.py` turns the labels into lines).
+Scripts in the project repository; the 250 template lines were labelled by the author with the
+template's words, and the parallel items carry the English item's label (`src/corpora3_owner.py`
+turns the labels into lines).
 
 ## Risks, Bias, and Limitations
 

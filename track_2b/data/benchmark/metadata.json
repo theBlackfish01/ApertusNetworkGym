@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-15T07:53:18.628926+00:00",
- "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
+ "generated_utc": "2026-10-15T13:43:09.041789+00:00",
+ "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written or AI-translated from briefs, or the author's, partly with ChatGPT 6.1 Sol)",
  "no_personal_data": true,
  "topologies": {
   "nobel-eu": "SNDlib reference network, 28 nodes, 41 links (shipped with Optical Networking Gym)",
@@ -64,37 +64,57 @@
   },
   "owner": {
    "rows": 40,
-   "written_by": "the project's author (35 English, 5 Urdu in Latin script)",
+   "written_by": "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu in Latin script",
    "topology": "nobel-eu"
   },
-  "contributor1": {
+  "template1": {
    "rows": 25,
-   "written_by": "a contributor, from the project's template: one request each, English, German, Italian, Swedish",
+   "written_by": "the author on the project's template, partly with ChatGPT 6.1 Sol, set 1: one request each, English, German, Italian, Swedish",
    "topology": "nobel-eu"
   },
-  "contributor1_standing": {
+  "template1_standing": {
    "rows": 15,
-   "written_by": "the same contributor: standing policies with a scope or a lifetime",
+   "written_by": "set 1: standing policies with a scope or a lifetime",
    "topology": "nobel-eu"
   },
-  "contributor2": {
+  "template2": {
    "rows": 25,
-   "written_by": "contributed lines from the project's template, set 2: one request each, English and German",
+   "written_by": "the author on the project's template, partly with ChatGPT 6.1 Sol, set 2: one request each, English and German",
    "topology": "nobel-eu"
   },
-  "contributor2_standing": {
+  "template2_standing": {
    "rows": 15,
    "written_by": "set 2: standing policies with a scope or a lifetime",
    "topology": "nobel-eu"
   },
-  "contributor3": {
+  "template3": {
    "rows": 25,
-   "written_by": "contributed lines from the project's template, set 3: one request each, English and German",
+   "written_by": "the author on the project's template, partly with ChatGPT 6.1 Sol, set 3: one request each, English and German",
    "topology": "nobel-eu"
   },
-  "contributor3_standing": {
+  "template3_standing": {
    "rows": 15,
    "written_by": "set 3: standing policies with a scope or a lifetime",
+   "topology": "nobel-eu"
+  },
+  "template4": {
+   "rows": 44,
+   "written_by": "the author on the project's template, partly with ChatGPT 6.1 Sol, set 4: one request each, English, Swiss German, French, Italian",
+   "topology": "nobel-eu"
+  },
+  "template4_standing": {
+   "rows": 26,
+   "written_by": "set 4: standing policies with a scope or a lifetime",
+   "topology": "nobel-eu"
+  },
+  "template5": {
+   "rows": 13,
+   "written_by": "the author on the project's template, partly with ChatGPT 6.1 Sol, set 5: one request each, English, Swiss German, French, Italian",
+   "topology": "nobel-eu"
+  },
+  "template5_standing": {
+   "rows": 7,
+   "written_by": "set 5: standing policies with a scope or a lifetime",
    "topology": "nobel-eu"
   },
   "v4_en": {
@@ -136,6 +156,86 @@
    "rows": 283,
    "written_by": "v3 sentences filled with Swiss cities in their Italian names",
    "topology": "swiss"
+  },
+  "parallel_en": {
+   "rows": 40,
+   "written_by": "60 items by a separate AI instance from a brief: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_en_standing": {
+   "rows": 20,
+   "written_by": "60 items by a separate AI instance from a brief: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_de": {
+   "rows": 40,
+   "written_by": "parallel_en translated into German by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_de_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into German by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_fr": {
+   "rows": 40,
+   "written_by": "parallel_en translated into French by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_fr_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into French by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_it": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Italian by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_it_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Italian by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_ur_latn": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Urdu in Latin script by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_ur_latn_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Urdu in Latin script by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_ur_arab": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Urdu in Urdu script by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_ur_arab_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Urdu in Urdu script by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_hi": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Hindi in Devanagari by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_hi_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Hindi in Devanagari by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
+  },
+  "parallel_ar": {
+   "rows": 40,
+   "written_by": "parallel_en translated into Arabic by another separate AI instance, from the sentences alone: one request each",
+   "topology": "nobel-eu"
+  },
+  "parallel_ar_standing": {
+   "rows": 20,
+   "written_by": "parallel_en translated into Arabic by another separate AI instance, from the sentences alone: standing policies",
+   "topology": "nobel-eu"
   }
  },
  "readers": {
@@ -160,11 +260,11 @@
    "model": "Apertus v1.5 70B, 15 examples, no training, 4-bit GGUF"
   },
   "translate3_ft_laptop": {
-   "rows": 4805,
+   "rows": 5182,
    "model": "reader 1, 4-bit GGUF under llama.cpp on an RTX 4060 laptop"
   },
   "translate3_ft2_laptop": {
-   "rows": 4005,
+   "rows": 4062,
    "model": "reader 2, 4-bit GGUF on the laptop"
   },
   "translate3_ft_laptop_s1": {
@@ -192,7 +292,7 @@
    "model": "Apertus v1.5 8B, fine-tuned reader of the fourth format (scope, lifetime), A100"
   },
   "translate4_ft_laptop": {
-   "rows": 960,
+   "rows": 1530,
    "model": "the fourth-format reader, 4-bit GGUF on the laptop"
   }
  },

@@ -1,0 +1,13 @@
+{"text": "Please leave the Athens-Rome link out of this calculation.", "expect": {"status": "ok", "avoid": [["Athens", "Rome"]], "prefer": []}, "set": "template5", "lang": "en", "kind": "atom"}
+{"text": "This circuit mustn't use Prague-Budapest, still seeing erorrs there.", "expect": {"status": "ok", "avoid": [["Prague", "Budapest"]], "prefer": []}, "set": "template5", "lang": "en", "kind": "atom"}
+{"text": "Dä Pfad bitte nöd über Hamburg.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Hamburg"]}, "set": "template5", "lang": "gsw", "kind": "atom"}
+{"text": "Questa richiesta deve passare da Francoforte.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Frankfurt"]}, "set": "template5", "lang": "it", "kind": "atom"}
+{"text": "Keep the whole thing within 1250 km.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_km": 1250}, "set": "template5", "lang": "en", "kind": "atom"}
+{"text": "Candidate 4 looks fine, let's use it.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 4}, "set": "template5", "lang": "en", "kind": "atom"}
+{"text": "Put this one through Berlin, five hops max, and keep the hop count as low as possible.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "via": ["Berlin"], "max_hops": 5}, "set": "template5", "lang": "en", "kind": "new"}
+{"text": "Pour celle-là, pas de lien Londres-Paris, et prends le trajet qui demande le moins de slots.", "expect": {"status": "ok", "avoid": [["London", "Paris"]], "prefer": ["slots"]}, "set": "template5", "lang": "fr", "kind": "trained"}
+{"text": "Pick the least loaded path for this one; same load, shorter distance in km wins. 2100 km max.", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "km"], "max_km": 2100}, "set": "template5", "lang": "en", "kind": "new"}
+{"text": "If 16QAM won't reach, fail this request. Don't quietly switch it to QPSK.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template5", "lang": "en", "kind": "other_routing"}
+{"text": "Leave slots 0 to 15 alone when placing this circuit; they're reserved.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template5", "lang": "en", "kind": "other_routing"}
+{"text": "Was the Vienna ticket closed by the morning shift or the afternoon shift?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template5", "lang": "en", "kind": "not_instruction"}
+{"text": "Ho aggiornato il disegno, manca solo il risultato della misura.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template5", "lang": "it", "kind": "not_instruction"}

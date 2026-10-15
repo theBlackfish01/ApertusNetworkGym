@@ -1,4 +1,6 @@
 # Instructions written by the project's owner: a blind test for the third round.
+# (Noted on 15 October 2026: written by the author, partly with an AI assistant, ChatGPT 6.1 Sol; not written
+# by the project's sentence generators.)
 #
 # One instruction per line, then " | " and what you meant, in plain words. Lines starting with # are ignored.
 # Write as the operator you would be. Do not open src/intents.py, src/corpora*.py or data/instructions/* first.

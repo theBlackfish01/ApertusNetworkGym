@@ -1,0 +1,69 @@
+# Parallel test set, German (de): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for German alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+halt diesen Lightpath von der Strecke Paris-Lyon fern, die flappt schon den ganzen Vormittag | avoid Paris-Lyon | de
+bitte für diese Anfrage nicht den Link zwischen Oslo und Stockholm nehmen | avoid Oslo-Stockholm | de
+die Faser Wien-Zagreb hat heute eine hohe Fehlerrate, route drumherum | avoid Vienna-Zagreb | de
+am Knoten Frankfurt ist ein Kartentausch geplant, den hier nicht darüber routen | avoid Frankfurt | de
+Budapest auf diesem Pfad komplett auslassen, danke | avoid Budapest | de
+der hier muss über Straßburg laufen | via Strasbourg | de
+Kunde besteht darauf, dass der Pfad über Kopenhagen läuft, stell sicher, dass er das tut | via Copenhagen | de
+für den hier bitte nicht mehr als vier Hops | max 4 hops | de
+sechs Hops sind hier die absolute Obergrenze | max 6 hops | de
+die Gesamtlänge des Pfads darf 1800 km nicht überschreiten | max 1800 km | de
+die Route innerhalb von zweitausendfünfhundert Kilometern halten | max 2500 km | de
+nimm den zweiten Kandidaten auf der Liste | candidate 1 | de
+nimm Route 3 für diese Anfrage | candidate 3 | de
+ich will den Pfad mit den wenigsten Hops, egal welcher das ist | prefer hops | de
+die Links werden voll, gib mir den am wenigsten ausgelasteten Pfad | prefer load | de
+bei dem hier so wenige Spektrum-Slots wie möglich verwenden | prefer slots | de
+bleib aus München raus und bitte nicht mehr als 5 Hops | avoid Munich, max 5 hops | de
+über Zürich routen, ansonsten einfach die kürzeste in km | via Zurich, prefer km | de
+bitte den am wenigsten ausgelasteten Pfad, und davon den mit den wenigsten Hops | prefer load, then hops | de
+zuerst die wenigsten Spektrum-Slots, bei Gleichstand die kürzeste Distanz | prefer slots, then km | de
+Finger weg vom Link Hamburg-Berlin und höchstens 2000 km | avoid Hamburg-Berlin, max 2000 km | de
+über Prag, aber nicht über Wien, danach die wenigsten Hops | via Prague, avoid Vienna, prefer hops | de
+max. drei Hops und nicht länger als 900 km | max 3 hops, max 900 km | de
+den Link London-Dublin meiden, stattdessen über Glasgow schicken | avoid London-Dublin, via Glasgow | de
+die am wenigsten überlastete Route mit höchstens sieben Hops, und nichts über Belgrad | avoid Belgrade, max 7 hops, prefer load | de
+Hops minimieren, und wenn zwei Routen gleichauf sind, die weniger ausgelastete nehmen | prefer hops, then load | de
+muss über Bordeaux laufen, max. 2200 km, bitte ASAP | via Bordeaux, max 2200 km | de
+den Link Warschau-Stockholm und Prag nicht anfassen, und die wenigsten Slots nehmen | avoid Warsaw-Stockholm, avoid Prague, prefer slots | de
+der hier braucht 1+1-Schutz mit einem komplett disjunkten Backup-Pfad | other: 1+1 protection with a disjoint backup path | de
+mit 16QAM fahren, wenn die Reichweite es hergibt | other: modulation format 16QAM | de
+keine Regeneratoren auf diesem Pfad, der muss rein optisch bleiben | other: no regeneration | de
+Latenz muss Ende-zu-Ende unter 15 ms liegen, ist ein Trading-Kunde | other: maximum latency 15 ms | de
+nicht auf Links legen, die zu mehr als 80% belegt sind | other: maximum link occupancy 80% | de
+bevor du den hier platzierst, das Spektrum auf der Strecke Berlin-München defragmentieren | other: spectrum defragmentation on Berlin-Munich before setup | de
+ist der 400G in Athen nach dem Reroute letzte Nacht sauber hochgekommen? | none | de
+Übergabe an die Nachtschicht: zwei Tickets offen zu Zagreb, beide warten auf den Außendienst | none | de
+Statusupdate: Karte in Hamburg getauscht, alle Alarme gecleart | none | de
+Morgen zusammen, die Kaffeemaschine im 3. Stock geht wieder | none | de
+wer hat dieses Wochenende Rufbereitschaft für den Standort Oslo? | none | de
+zur Info, die Kundendemo in Madrid ist auf Donnerstag verschoben | none | de
+die nächsten 6 Stunden geht nichts Neues über Brüssel-Frankfurt | avoid Brussels-Frankfurt, for 6 hours | de
+nächste zwei Stunden: alle neuen Pfade aus Lyon raushalten | avoid Lyon, for 2 hours | de
+für die kommenden 12 Stunden alle Anfragen nach geringster Last routen | prefer load, for 12 hours | de
+in den nächsten 4 Stunden neue Lightpaths auf fünf Hops begrenzen | max 5 hops, for 4 hours | de
+für die nächsten vierundzwanzig Stunden bitte die kürzesten Pfade in km bevorzugen | prefer km, for 24 hours | de
+bis auf Weiteres den Link Amsterdam-London meiden | avoid Amsterdam-London, until withdrawn | de
+Paris hat ein Stromproblem, nichts darüber, bis ich was anderes sage | avoid Paris, until withdrawn | de
+neue Dauerregel, bis sie aufgehoben wird: kein Pfad länger als 3000 km | max 3000 km, until withdrawn | de
+ab jetzt nimmt jede Anfrage die wenigsten Spektrum-Slots, bis jemand das zurücknimmt | prefer slots, until withdrawn | de
+Finger weg von der Strecke Athen-Belgrad, bis wir diese Regel rausnehmen | avoid Athens-Belgrade, until withdrawn | de
+alle 400G-Anfragen sollen die wenigsten Hops nehmen | prefer hops, only rate 400 | de
+alles, was in Dublin startet, muss den Link Glasgow-Amsterdam meiden | avoid Glasgow-Amsterdam, only from Dublin | de
+Lightpaths, die in Rom enden: aus Zagreb raushalten | avoid Zagreb, only to Rome | de
+10G-Anforderungen bekommen bis auf Weiteres die am wenigsten ausgelastete Route | prefer load, only rate 10, until withdrawn | de
+Anfragen aus Warschau: bitte nicht mehr als 1500 km | max 1500 km, only from Warsaw | de
+die nächsten 8 Stunden bleibt alles Richtung Madrid weg von der Strecke Barcelona-Lyon | avoid Barcelona-Lyon, only to Madrid, for 8 hours | de
+für die nächsten 3 Stunden: 100G-Anfragen meiden München und nehmen den am wenigsten ausgelasteten Pfad | avoid Munich, prefer load, only rate 100, for 3 hours | de
+Anfragen ab Athen: über Belgrad, max. sechs Hops | via Belgrade, max 6 hops, only from Athens | de
+bis auf Weiteres sollen alle 40G-Anfragen den Link Oslo-Kopenhagen meiden und so wenige Slots wie möglich nutzen | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | de
+für die nächsten 10 Stunden alle Pfade bei 2400 km oder weniger halten, und davon die mit den wenigsten Hops | max 2400 km, prefer hops, for 10 hours | de

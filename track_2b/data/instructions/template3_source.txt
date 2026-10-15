@@ -1,4 +1,5 @@
-# Routing instructions returned on 15 October 2026 (set contributor3; the writer is not named), in English and German.
+# Template set 3: routing instructions in English and German, written by the project's author, partly with an
+# AI assistant (ChatGPT 6.1 Sol), received on 15 October 2026; not written by the project's sentence generators.
 #
 # Written against data/instructions/contributor_template.txt: part A, one request (lines 1-25); part B,
 # standing policies (lines 26-40). Each line: the instruction, " | ", what was meant in the template's

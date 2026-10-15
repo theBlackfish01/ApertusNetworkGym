@@ -6,7 +6,7 @@
 #    lies outside the language goes to the decider. Without a server this replays the episode as it
 #    was recorded on a laptop (RTX 4060, llama.cpp, 4-bit model): every answer is in results/cache/.
 #    With LLM_BASE_URL pointing at a llama.cpp server that holds the base model and the three
-#    adapters (README, "On a laptop"), the same episode runs live; LLM_LORA_IDS names the adapters.
+#    adapters (the repository's README.md, "On a laptop"), the same episode runs live; LLM_LORA_IDS names the adapters.
 # 3. Show a few requests decided by the fine-tuned decider alone, from its recorded answers.
 set -e
 cd "$(dirname "$0")"

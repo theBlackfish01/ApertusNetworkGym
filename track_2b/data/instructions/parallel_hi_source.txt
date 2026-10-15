@@ -1,0 +1,69 @@
+# Parallel test set, Hindi in Devanagari (hi): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Hindi in Devanagari alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+इस लाइटपाथ को पेरिस-लियोन स्पैन से दूर रखो, पूरी सुबह से फ़्लैप कर रहा है | avoid Paris-Lyon | hi
+प्लीज़ इस रिक्वेस्ट के लिए ओस्लो और स्टॉकहोम के बीच वाला लिंक इस्तेमाल मत करना | avoid Oslo-Stockholm | hi
+आज वियना-ज़ाग्रेब फ़ाइबर पर एरर रेट ज़्यादा है, उससे बचाकर रूट करो | avoid Vienna-Zagreb | hi
+फ़्रैंकफ़र्ट नोड पर कार्ड स्वैप प्लान है, इसे उसमें से होकर रूट मत करना | avoid Frankfurt | hi
+इस पाथ पर बुडापेस्ट को पूरी तरह स्किप करो, थैंक्स | avoid Budapest | hi
+इसे स्ट्रासबर्ग से होकर ही जाना है | via Strasbourg | hi
+कस्टमर की ज़िद है कि पाथ कोपेनहेगन से होकर जाए, पक्का कर लेना कि ऐसा ही हो | via Copenhagen | hi
+इसके लिए चार से ज़्यादा हॉप्स नहीं, प्लीज़ | max 4 hops | hi
+यहाँ छह हॉप्स बिल्कुल आख़िरी हद है | max 6 hops | hi
+कुल पाथ की लंबाई 1800 km से ज़्यादा नहीं हो सकती | max 1800 km | hi
+रूट को दो हज़ार पाँच सौ किलोमीटर के अंदर रखो | max 2500 km | hi
+लिस्ट में दूसरे कैंडिडेट को लो | candidate 1 | hi
+इस रिक्वेस्ट के लिए रूट 3 चुनो | candidate 3 | hi
+मुझे वो पाथ चाहिए जिसमें सबसे कम हॉप्स हों | prefer hops | hi
+लिंक्स बिज़ी हो रहे हैं, मुझे सबसे कम लोड वाला पाथ दो | prefer load | hi
+इसमें जितने कम हो सकें उतने स्पेक्ट्रम स्लॉट इस्तेमाल करो | prefer slots | hi
+म्यूनिख से बाहर रहो और 5 से ज़्यादा हॉप्स नहीं, प्लीज़ | avoid Munich, max 5 hops | hi
+इसे ज़्यूरिख से होकर रूट करो, बाक़ी बस km में सबसे छोटा वाला | via Zurich, prefer km | hi
+सबसे कम लोड वाला पाथ प्लीज़, और उनमें से वो जिसमें सबसे कम हॉप्स हों | prefer load, then hops | hi
+पहले सबसे कम स्पेक्ट्रम स्लॉट, टाई हो तो सबसे कम दूरी वाला | prefer slots, then km | hi
+हैम्बर्ग-बर्लिन लिंक से दूर रहो और ज़्यादा से ज़्यादा 2000 km तक रहो | avoid Hamburg-Berlin, max 2000 km | hi
+प्राग से होकर जाओ पर वियना से नहीं, उसके बाद सबसे कम हॉप्स | via Prague, avoid Vienna, prefer hops | hi
+ज़्यादा से ज़्यादा तीन हॉप्स और 900 km से लंबा नहीं | max 3 hops, max 900 km | hi
+लंदन-डबलिन लिंक से बचो, उसकी जगह ग्लासगो से होकर भेजो | avoid London-Dublin, via Glasgow | hi
+सबसे कम कंजेशन वाला रूट जिसमें ज़्यादा से ज़्यादा सात हॉप्स हों, और बेलग्रेड से होकर कुछ नहीं | avoid Belgrade, max 7 hops, prefer load | hi
+हॉप्स कम से कम रखो, और अगर दो रूट बराबर हों तो कम लोड वाला लो | prefer hops, then load | hi
+इसे बोर्डो से होकर जाना है, ज़्यादा से ज़्यादा 2200 km, जितनी जल्दी हो सके प्लीज़ | via Bordeaux, max 2200 km | hi
+वॉरसॉ-स्टॉकहोम लिंक या प्राग को हाथ मत लगाना, और सबसे कम स्लॉट इस्तेमाल करो | avoid Warsaw-Stockholm, avoid Prague, prefer slots | hi
+इसे 1+1 प्रोटेक्शन चाहिए, पूरी तरह डिसजॉइंट बैकअप पाथ के साथ | other: 1+1 protection with a disjoint backup path | hi
+अगर रीच अलाउ करे तो इसे 16QAM पर चलाओ | other: modulation format 16QAM | hi
+इस पाथ पर कोई रीजेनरेटर नहीं, इसे ऑल-ऑप्टिकल ही रहना चाहिए | other: no regeneration | hi
+एंड-टू-एंड लेटेंसी 15 ms से कम होनी चाहिए, ये ट्रेडिंग कस्टमर है | other: maximum latency 15 ms | hi
+इसे किसी ऐसे लिंक पर मत डालना जो 80% से ज़्यादा भरा हो | other: maximum link occupancy 80% | hi
+इसे लगाने से पहले बर्लिन-म्यूनिख स्पैन पर स्पेक्ट्रम डीफ़्रैगमेंट कर लो | other: spectrum defragmentation on Berlin-Munich before setup | hi
+कल रात के रीरूट के बाद एथेंस वाला 400G ठीक से अप हुआ? | none | hi
+नाइट शिफ़्ट के लिए हैंडओवर: ज़ाग्रेब पर दो टिकट खुले हैं, दोनों फ़ील्ड टीम का इंतज़ार कर रहे हैं | none | hi
+स्टेटस अपडेट: हैम्बर्ग का कार्ड बदल दिया, सारे अलार्म क्लियर हो गए | none | hi
+सबको गुड मॉर्निंग, फ़्लोर 3 की कॉफ़ी मशीन फिर से चल रही है | none | hi
+इस वीकेंड ओस्लो साइट के लिए ऑन-कॉल कौन है? | none | hi
+जानकारी के लिए, मैड्रिड कस्टमर डेमो गुरुवार पर शिफ़्ट हो गया है | none | hi
+अगले 6 घंटे तक ब्रसेल्स-फ़्रैंकफ़र्ट से होकर कुछ भी नया नहीं जाएगा | avoid Brussels-Frankfurt, for 6 hours | hi
+अगले दो घंटे: हर नया पाथ लियोन से बाहर रखो | avoid Lyon, for 2 hours | hi
+आने वाले 12 घंटों के लिए सारी रिक्वेस्ट सबसे कम लोड के हिसाब से रूट करो | prefer load, for 12 hours | hi
+अगले 4 घंटों में नए लाइटपाथ की लिमिट पाँच हॉप्स रखो | max 5 hops, for 4 hours | hi
+अगले चौबीस घंटे प्लीज़ km में सबसे छोटे पाथ को तरजीह दो | prefer km, for 24 hours | hi
+अगली सूचना तक एम्स्टर्डम-लंदन लिंक से बचो | avoid Amsterdam-London, until withdrawn | hi
+पेरिस में पावर की दिक़्क़त है, जब तक मैं कुछ और न कहूँ उससे होकर कुछ नहीं जाएगा | avoid Paris, until withdrawn | hi
+नया स्थायी नियम, जब तक हटाया न जाए: कोई भी पाथ 3000 km से लंबा नहीं | max 3000 km, until withdrawn | hi
+अब से हर रिक्वेस्ट सबसे कम स्पेक्ट्रम स्लॉट इस्तेमाल करेगी, जब तक कोई इसे कैंसल न करे | prefer slots, until withdrawn | hi
+जब तक हम ये नियम नहीं हटाते, एथेंस-बेलग्रेड स्पैन से दूर रहो | avoid Athens-Belgrade, until withdrawn | hi
+सारी 400G रिक्वेस्ट को सबसे कम हॉप्स वाला पाथ लेना चाहिए | prefer hops, only rate 400 | hi
+जो भी डबलिन से शुरू हो, उसे ग्लासगो-एम्स्टर्डम लिंक से बचना है | avoid Glasgow-Amsterdam, only from Dublin | hi
+रोम में टर्मिनेट होने वाले लाइटपाथ: उन्हें ज़ाग्रेब से बाहर रखो | avoid Zagreb, only to Rome | hi
+अगली सूचना तक 10G डिमांड्स को सबसे कम लोड वाला रूट मिलेगा | prefer load, only rate 10, until withdrawn | hi
+वॉरसॉ से आने वाली रिक्वेस्ट, 1500 km से ज़्यादा नहीं प्लीज़ | max 1500 km, only from Warsaw | hi
+अगले 8 घंटे तक मैड्रिड जाने वाला कुछ भी बार्सिलोना-लियोन स्पैन से दूर रहेगा | avoid Barcelona-Lyon, only to Madrid, for 8 hours | hi
+अगले 3 घंटे तक 100G रिक्वेस्ट म्यूनिख से बचें और सबसे कम लोड वाला पाथ लें | avoid Munich, prefer load, only rate 100, for 3 hours | hi
+एथेंस से निकलने वाली रिक्वेस्ट: बेलग्रेड से होकर जाओ, ज़्यादा से ज़्यादा छह हॉप्स | via Belgrade, max 6 hops, only from Athens | hi
+अगली सूचना तक सारी 40G रिक्वेस्ट ओस्लो-कोपेनहेगन लिंक से बचें और जितने कम हो सकें उतने स्लॉट इस्तेमाल करें | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | hi
+अगले 10 घंटे तक सारे पाथ 2400 km या उससे कम रखो, और उनमें से सबसे कम हॉप्स वाला | max 2400 km, prefer hops, for 10 hours | hi

@@ -38,25 +38,44 @@ SETS = {
     "v3_other": ("a separate AI instance: routing instructions of yet other kinds", "nobel-eu"),
     "v3_not": ("a separate AI instance: text that is no routing instruction", "nobel-eu"),
     "v3_faulty": ("v3 sentences naming a place outside the network", "nobel-eu"),
-    "owner": ("the project's author (35 English, 5 Urdu in Latin script)", "nobel-eu"),
-    "contributor1": (
-        "a contributor, from the project's template: one request each, English, German, Italian, Swedish",
+    "owner": (
+        "the project's author, partly with an AI assistant (ChatGPT 6.1 Sol): 35 English, 5 Urdu in Latin script",
         "nobel-eu",
     ),
-    "contributor1_standing": (
-        "the same contributor: standing policies with a scope or a lifetime",
+    "template1": (
+        (
+            "the author on the project's template, partly with ChatGPT 6.1 Sol, set 1: one request each, English, "
+            "German, Italian, Swedish"
+        ),
         "nobel-eu",
     ),
-    "contributor2": (
-        "contributed lines from the project's template, set 2: one request each, English and German",
+    "template1_standing": ("set 1: standing policies with a scope or a lifetime", "nobel-eu"),
+    "template2": (
+        "the author on the project's template, partly with ChatGPT 6.1 Sol, set 2: one request each, English and German",
         "nobel-eu",
     ),
-    "contributor2_standing": ("set 2: standing policies with a scope or a lifetime", "nobel-eu"),
-    "contributor3": (
-        "contributed lines from the project's template, set 3: one request each, English and German",
+    "template2_standing": ("set 2: standing policies with a scope or a lifetime", "nobel-eu"),
+    "template3": (
+        "the author on the project's template, partly with ChatGPT 6.1 Sol, set 3: one request each, English and German",
         "nobel-eu",
     ),
-    "contributor3_standing": ("set 3: standing policies with a scope or a lifetime", "nobel-eu"),
+    "template3_standing": ("set 3: standing policies with a scope or a lifetime", "nobel-eu"),
+    "template4": (
+        (
+            "the author on the project's template, partly with ChatGPT 6.1 Sol, set 4: one request each, English, "
+            "Swiss German, French, Italian"
+        ),
+        "nobel-eu",
+    ),
+    "template4_standing": ("set 4: standing policies with a scope or a lifetime", "nobel-eu"),
+    "template5": (
+        (
+            "the author on the project's template, partly with ChatGPT 6.1 Sol, set 5: one request each, English, "
+            "Swiss German, French, Italian"
+        ),
+        "nobel-eu",
+    ),
+    "template5_standing": ("set 5: standing policies with a scope or a lifetime", "nobel-eu"),
     "v4_en": ("v3 sentences with a scope or lifetime phrase by another separate AI instance", "nobel-eu"),
     "v4_de": ("as v4_en (German)", "nobel-eu"),
     "v4_fr": ("as v4_en (French)", "nobel-eu"),
@@ -65,6 +84,28 @@ SETS = {
     "v3_swiss_de": ("v3 sentences filled with Swiss cities in their German names", "swiss"),
     "v3_swiss_fr": ("v3 sentences filled with Swiss cities in their French names", "swiss"),
     "v3_swiss_it": ("v3 sentences filled with Swiss cities in their Italian names", "swiss"),
+    **{
+        f"parallel_{code}{part}": (
+            (
+                "60 items by a separate AI instance from a brief"
+                if code == "en"
+                else f"parallel_en translated into {language} by another separate AI instance, from the sentences alone"
+            )
+            + (": standing policies" if part else ": one request each"),
+            "nobel-eu",
+        )
+        for code, language in (
+            ("en", "English"),
+            ("de", "German"),
+            ("fr", "French"),
+            ("it", "Italian"),
+            ("ur_latn", "Urdu in Latin script"),
+            ("ur_arab", "Urdu in Urdu script"),
+            ("hi", "Hindi in Devanagari"),
+            ("ar", "Arabic"),
+        )
+        for part in ("", "_standing")
+    },
 }
 READERS = {
     # reader -> (description, topology it answered for)
@@ -108,7 +149,7 @@ def main() -> None:
             rows.append({"id": f"{name}:{by_set[name]:04d}", "set": name, "lang": row.get("lang", "en"),
                          "kind": row.get("kind", ""), "text": row["text"], "topology": topology,
                          "means": format_spec(spec, 4) if spec.applies else spec.status, "spec": spec.to_json(),
-                         "written_by": how})  # fmt: skip
+                         "written_by": how} | ({"item": row["item"]} if "item" in row else {}))  # fmt: skip
             by_set[name] += 1
     (OUT / "evaluation.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
                                          encoding="utf-8", newline="\n")  # fmt: skip
@@ -134,7 +175,7 @@ def main() -> None:
                                         encoding="utf-8", newline="\n")  # fmt: skip
     metadata = {
         "generated_utc": datetime.now(UTC).isoformat(),
-        "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written from briefs, or the author's)",
+        "license": "CDLA-Permissive-2.0 for every instance; the sentences are synthetic (AI-written or AI-translated from briefs, or the author's, partly with ChatGPT 6.1 Sol)",
         "no_personal_data": True,
         "topologies": {"nobel-eu": "SNDlib reference network, 28 nodes, 41 links (shipped with Optical Networking Gym)",
                        "swiss": "24 Swiss cities, 33 links along the main corridors, built for this project from public geography"},

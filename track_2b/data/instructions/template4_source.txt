@@ -1,0 +1,79 @@
+# Template set 4: routing instructions written by the project's author, partly with an AI assistant
+# (ChatGPT 6.1 Sol), received on 15 October 2026; not written by the project's sentence generators. 70 lines:
+# 52 English, 6 Swiss German, 6 Italian, 6 French.
+#
+# Written against data/instructions/contributor_template.txt: first the instructions for one request, then the
+# standing policies. Each line: the instruction, " | ", what was meant in the template's words, and
+# " | <language>" when not English. Received as routing_reference_4.md; copied unchanged below. A test set only: never used
+# for training (CDLA-Permissive-2.0).
+#
+Leave Vienna-Prague out when you calculate this one. | avoid Vienna-Prague
+Oslo-Stockholm is flapping again, use another span for this order plase. | avoid Oslo-Stockholm
+No Athens in the route for this request. | avoid Athens
+This needs to pass through Paris somewhere along the way. | via Paris
+Dä Auftrag bitte nöd über Züri. | avoid Zurich | gsw
+Two links at most between the endpoints on this one. | max 2 hops
+900 km total is the cutoff for this path. | max 900 km
+Questa falla passare da Vienna. | via Vienna | it
+Take candidate zero for this request. | candidate 0
+Whichever route is carrying the least load, use that one. | prefer load
+Pour celle-ci, quatre sauts maximum de bout en bout. | max 4 hops | fr
+I'd rather save spectrum here. Pick the path needing the fewest slots. | prefer slots
+Pick teh shortest route by total distance in km. | prefer km
+Hamburg-Berlin mustn't be part of this circuit. | avoid Hamburg-Berlin
+This one has to go through Belgrade. | via Belgrade
+Fewest hops wins for this one. | prefer hops
+Nimm de viert Vorschlag us de Liste. | candidate 3 | gsw
+Reject this one if it needs more than 8 hops. | max 8 hops
+Via Munich for this request. Leave Berlin out and take the shortest remaining path in km. | via Munich, avoid Berlin, prefer km
+This one can have up to four hops, but don't take London-Amsterdam. | max 4 hops, avoid London-Amsterdam
+Per questa evita Praga e passa da Vienna. | avoid Prague, via Vienna | it
+Least loaded first for this one; if that's tied, shorter in km wins. | prefer load, then km
+Keep Madrid-Bordeaux out, 1800 km max, and use as few slots as you can. | avoid Madrid-Bordeaux, max 1800 km, prefer slots
+Need Lyon on this circuit, up to six hops end to end. | via Lyon, max 6 hops
+Die Verbindig bitte über München, aber nöd über Frankfurt. | via Munich, avoid Frankfurt | gsw
+For this conenction, skip Strasbourg and minimise the hops. | avoid Strasbourg, prefer hops
+3000 km ceiling. Within that, shortest km first, then least loaded if the distances match. | max 3000 km, prefer km, then load
+Pour cette demande, passe par Amsterdam et évite le lien direct Bruxelles-Francfort. | via Amsterdam, avoid Brussels-Frankfurt | fr
+Keep at least 3 dB OSNR margin on this circuit. | other: require an OSNR margin of at least 3 dB above the threshold for the selected modulation
+Both directions need to follow the same physical route for this order. | other: require both directions of the connection to follow the same physical route
+If you can't find a route for this one, show me which constraint is blocking it. | other: identify the blocking constraint if no feasible route can be found
+Su questa usa 8QAM, senza cambiare modulazione lungo il percorso. | other: use 8QAM modulation on every link without changing modulation along the path | it
+Leave one free guard slot on each side of this allocation. | other: leave one unused spectrum slot immediately adjacent to each side of the allocated block
+Keep the working and backup paths for this circuit node-disjoint, apart from the two endpoints. | other: require the working and backup paths to share no intermediate nodes
+This needs to stay in the C-band all the way. | other: restrict spectrum allocation to the C-band on every link
+Da bitte kei 16QAM, au wenns vom Reach her würd gah. | other: exclude 16QAM modulation even if the path is within its supported reach | gsw
+Give this one a route with at least three hops, it's for the failover test. | other: require a route with a minimum of three hops
+La relève de nuit a bien reçu le compte rendu ? | none | fr
+I allready updated the diagram, ticket still needs the test log. | none
+Does anyone have the latest fibre length spreadsheet? | none
+The alerts from Rome stopped a few minutes ago. | none
+I'll be back after lunch, same number if anything urgent comes up. | none
+Was that candidate list from before the topology update? | none
+Il collega del prossimo turno arriva tra dieci minuti. | none | it
+For the next 9 hours, don't place new circuits on Warsaw-Budapest. | avoid Warsaw-Budapest, for 9 hours
+All new orders via Zurich for the next two hours, please. | via Zurich, for 2 hours
+Die nöchschte 5 Stund bitte kei nöii Verbindige über Oslo-Kopenhagen. | avoid Oslo-Copenhagen, for 5 hours | gsw
+For six hours from now, minimise hops on new requests. | prefer hops, for 6 hours
+Pendant les trois prochaines heures, aucune nouvelle demande ne doit passer par Francfort. | avoid Frankfurt, for 3 hours | fr
+New reqests: five hops max for the next four hours. | max 5 hops, for 4 hours
+For the next 7 hours, keep slot use as low as possible on new orders. | prefer slots, for 7 hours
+Copenhagen-Berlin stays blocked for new circuits until we remove the restriction. | avoid Copenhagen-Berlin, until withdrawn
+Keep routing new requests through Brussels until this rule is withdrawn. | via Brussels, until withdrawn
+Finché non togliamo il blocco, niente nuovi circuiti sulla tratta Monaco di Baviera-Milano. | avoid Munich-Milan, until withdrawn | it
+Six hops is the ceiling on all new orders until we explicitly cancel that limit. | max 6 hops, until withdrawn
+Until further notice, put new circuits on the least loaded route. | prefer load, until withdrawn
+Berlin is out for new paths until someone explicitly lifts the block. | avoid Berlin, until withdrawn
+Pour les nouvelles demandes, on reste à 1700 km maximum jusqu'à la levée de cette limite. | max 1700 km, until withdrawn | fr
+Send every 100G request through Strasbourg. | via Strasbourg, only rate 100
+On orders starting in Athens, favour fewer hops. | prefer hops, only from Athens
+Requests ending in Madrid should stay out of Barcelona. | avoid Barcelona, only to Madrid
+Alles, wo in Züri startet, bitte über Lyon schicke. | via Lyon, only from Zurich | gsw
+Set a 2000 km distance limit on all 40G requests. | max 2000 km, only rate 40
+For 10G orders, candidate 1 is the defualt. Use that one. | candidate 1, only rate 10
+If the destination is Glasgow, go with the path that needs the fewest slots. | prefer slots, only to Glasgow
+For the next 6 hours, 400G requests must avoid Hamburg-Frankfurt; pick the least loaded of the remaining routes. | avoid Hamburg-Frankfurt, prefer load, only rate 400, for 6 hours
+Orders out of Amsterdam go via Hamburg, no more than five hops overall. | via Hamburg, max 5 hops, only from Amsterdam
+Per le prossime otto ore, le richieste da 100G devono evitare Parigi-Lione e restare entro 2500 km totali. | avoid Paris-Lyon, max 2500 km, only rate 100, for 8 hours | it
+For the next 3 hours, send all new orders through Budapest and choose the shortest feasible route in km. | via Budapest, prefer km, for 3 hours
+Pour toutes les demandes à destination de Rome, évite Zagreb et choisis le chemin avec le moins de sauts. | avoid Zagreb, prefer hops, only to Rome | fr

@@ -5,7 +5,9 @@
 
 The PDF step calls Chrome or Edge in headless mode (``--print-to-pdf``), the only PDF engine that
 is on every judge's machine; the page count is read back with pypdf when it is installed. The
-stylesheet is sized for the six-page limit of the hackathon: A4, 17 mm margins, 10.3 pt text.
+stylesheet is sized for the six-page limit of the hackathon (without references): A4, 14 mm
+margins, 9 pt text. Images are held to the text width: a wider one made Chrome shrink every page
+to fit it, which until 15 October cut off the right half of each figure.
 """
 
 from __future__ import annotations
@@ -19,9 +21,9 @@ import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 CSS = """
-@page { size: A4; margin: 17mm 16mm 16mm 16mm; }
-html { font-size: 10.3pt; }
-body { font-family: "Source Serif 4", Georgia, "Times New Roman", serif; line-height: 1.32; color: #111; max-width: 178mm; margin: 0 auto; }
+@page { size: A4; margin: 14mm 14mm 13mm 14mm; }
+html { font-size: 9pt; }
+body { font-family: "Source Serif 4", Georgia, "Times New Roman", serif; line-height: 1.32; color: #111; max-width: 182mm; margin: 0 auto; }
 h1 { font-size: 16pt; margin: 0 0 4pt; line-height: 1.2; }
 h2 { font-size: 11.8pt; margin: 10pt 0 3pt; border-bottom: 0.5pt solid #999; padding-bottom: 1pt; }
 h3 { font-size: 10.6pt; margin: 7pt 0 2pt; }
@@ -29,14 +31,16 @@ p { margin: 0 0 5pt; text-align: justify; hyphens: auto; }
 ul, ol { margin: 0 0 5pt 16pt; padding: 0; }
 li { margin: 0 0 1.5pt; }
 blockquote { margin: 0 0 6pt; padding: 3pt 8pt; border-left: 2pt solid #bbb; color: #333; font-size: 9.4pt; }
-code { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: 8.6pt; }
-pre { font-size: 7.6pt; line-height: 1.25; background: #f5f5f5; padding: 4pt 6pt; border: 0.5pt solid #ddd; overflow: hidden; white-space: pre; margin: 0 0 6pt; }
+code { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: 8pt; }
+p code, li code, td code { overflow-wrap: anywhere; }
+pre { font-size: 6.2pt; line-height: 1.25; background: #f5f5f5; padding: 4pt 6pt; border: 0.5pt solid #ddd; overflow: hidden; white-space: pre; margin: 0 0 6pt; }
 table { border-collapse: collapse; margin: 3pt 0 7pt; font-size: 8.8pt; width: 100%; }
 th, td { border-bottom: 0.5pt solid #bbb; padding: 1.5pt 4pt; text-align: left; vertical-align: top; }
 th { border-bottom: 1pt solid #444; font-weight: 600; }
 tr, h2, h3 { page-break-inside: avoid; }
 h2, h3 { page-break-after: avoid; }
 a { color: #0b3d91; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; margin: 2pt auto 3pt; page-break-inside: avoid; }
 .meta { font-size: 9.4pt; color: #333; }
 """
 

@@ -75,10 +75,10 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 
 | Model | Answers | Median | Mean | 95th percentile |
 |---|---|---|---|---|
-| Reader 1 | 8991 | 0.89 | 0.99 | 1.70 |
-| Reader 2 | 8191 | 0.82 | 0.87 | 1.19 |
+| Reader 1 | 9368 | 0.89 | 0.98 | 1.69 |
+| Reader 2 | 8248 | 0.82 | 0.87 | 1.19 |
 | Decider | 134 | 0.97 | 0.97 | 1.20 |
-| Reader of the fourth format | 962 | 1.22 | 1.30 | 1.80 |
+| Reader of the fourth format | 1532 | 1.12 | 1.17 | 1.73 |
 
 ## New types, on requests where the instruction is restrictive: decisions that comply, %
 
@@ -353,7 +353,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | types never shown | reader 2 (same recipe, on the laptop) | 108 | 37.0 | 43.5 | 8.3 | 8.3 | 1.9 |
 | types never shown | reader 2, or a sample differs | 108 | 88.0 | 43.5 | 2.8 | 2.8 | 47.2 |
 
-## Instructions written by the project owner (40 lines), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
+## Instructions written by the project's author, partly with ChatGPT 6.1 Sol (40 lines), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -380,7 +380,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader 1 / Reader 2 | 40 | 7 | 2 | 6 | 1 |
 | Reader 1 / Apertus 8B, 15 examples, no training | 40 | 7 | 1 | 13 | 7 |
 
-## Instructions written by the project owner (40 lines), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+## Instructions written by the project's author, partly with ChatGPT 6.1 Sol (40 lines), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
 
 | Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
 |---|---|---|---|---|---|---|
@@ -425,7 +425,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | cheers, handing over to the evening shift now | en | no_instruction | = |  | = | = |
 | can someone explain what qpsk means again | en | no_instruction | = |  | = | = |
 
-## Instructions written by a contributor (40 lines, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 1 (40 lines, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp), and the fourth-format reader at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -464,7 +464,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader 1 / Reader 2 | 25 | 5 | 3 | 2 | 0 |
 | Reader 1 / Apertus 8B, 15 examples, no training | 25 | 5 | 3 | 6 | 4 |
 
-## Instructions written by a contributor (40 lines, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 1 (40 lines, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
 
 | Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
 |---|---|---|---|---|---|---|
@@ -509,7 +509,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Alla nya förbindelser till Zagreb ska gå via Wien och inte genom München. | sv | avoid=Munich; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none | – |  | avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; scope=to:Zagreb; until=open; rest=none | = |
 | Per le prossime 12 ore, tutte le richieste da 100G devono evitare Amburgo e restare entro sette salti. | it | avoid=Hamburg; via=none; hops=7; km=any; path=any; prefer=none; scope=rate:100; until=12h; rest=none | – |  | = | = |
 
-## Instructions written by the writer of set 2 (40 lines in English and German, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 2 (40 lines in English and German, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -534,7 +534,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader 1 / Reader 2 | 25 | 5 | 3 | 2 | 0 |
 | Reader 1 / Apertus 8B, 15 examples, no training | 25 | 5 | 2 | 6 | 3 |
 
-## Instructions written by the writer of set 2 (40 lines in English and German, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 2 (40 lines in English and German, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
 
 | Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
 |---|---|---|---|---|---|---|
@@ -579,7 +579,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Für Anfragen nach Stockholm Oslo auslassen und höchstens 7 Hops zulassen. | de | avoid=Oslo; via=none; hops=7; km=any; path=any; prefer=none; scope=to:Stockholm; until=open; rest=none | – |  | avoid=none; via=none; hops=7; km=any; path=any; prefer=none; scope=from:Stockholm; until=open; rest=none | – |
 | For the next 8 hours, keep 400G off Belgrade-Zagreb and favour the route with the fewest hops. | en | avoid=Belgrade-Zagreb; via=none; hops=any; km=any; path=any; prefer=hops; scope=rate:400; until=8h; rest=none | – |  | avoid=Belgrade-Zagreb; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=8h; rest=none | – |
 
-## Instructions written by the writer of set 3 (40 lines in English and German, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 3 (40 lines in English and German, 15 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
 
 | Reader | Lines | n | Right | Applied with another meaning | Not applied |
 |---|---|---|---|---|---|
@@ -604,7 +604,7 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | Reader 1 / Reader 2 | 25 | 5 | 3 | 2 | 0 |
 | Reader 1 / Apertus 8B, 15 examples, no training | 25 | 5 | 1 | 7 | 3 |
 
-## Instructions written by the writer of set 3 (40 lines in English and German, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 3 (40 lines in English and German, 15 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
 
 | Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
 |---|---|---|---|---|---|---|
@@ -648,3 +648,169 @@ Rendered by `src/report_phase3.py`; do not edit by hand. The third format of the
 | For the next 2 hours, keep new circuits off Glasgow-Amsterdam and pick routes with the fewest hops. | en | avoid=Glasgow-Amsterdam; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=2h; rest=none | – |  | = | – |
 | New requests out of Rome need to go via Vienna, eight hops max. | en | avoid=none; via=Vienna; hops=8; km=any; path=any; prefer=none; scope=from:Rome; until=open; rest=none | – |  | = | – |
 | Für 100G gilt die nächsten 10 Stunden: maximal 2000 km, von den passenden Routen die am wenigsten ausgelastete nehmen. | de | avoid=none; via=none; hops=any; km=2000; path=any; prefer=load; scope=rate:100; until=10h; rest=none | – |  | = | – |
+
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 4 (70 lines in English, Swiss German, French and Italian, 26 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
+
+| Reader | Lines | n | Right | Applied with another meaning | Not applied |
+|---|---|---|---|---|---|
+| Reader 1 | All | 44 | 35 | 7 | 2 |
+| Reader 1 | English | 33 | 27 | 4 | 2 |
+| Reader 1 | Italian | 4 | 3 | 1 | 0 |
+| Reader 1 | French | 3 | 3 | 0 | 0 |
+| Reader 1 | Swiss German | 4 | 2 | 2 | 0 |
+| Reader 2 | All | 44 | 39 | 3 | 2 |
+| Reader 2 | English | 33 | 29 | 2 | 2 |
+| Reader 2 | Italian | 4 | 4 | 0 | 0 |
+| Reader 2 | French | 3 | 3 | 0 | 0 |
+| Reader 2 | Swiss German | 4 | 3 | 1 | 0 |
+| Apertus 8B, 15 examples, no training | All | 44 | 33 | 2 | 9 |
+| Apertus 8B, 15 examples, no training | English | 33 | 25 | 2 | 6 |
+| Apertus 8B, 15 examples, no training | Italian | 4 | 3 | 0 | 1 |
+| Apertus 8B, 15 examples, no training | French | 3 | 3 | 0 | 0 |
+| Apertus 8B, 15 examples, no training | Swiss German | 4 | 2 | 0 | 2 |
+| Reader of the fourth format | All | 70 | 61 | 7 | 2 |
+| Reader of the fourth format | Standing policies | 26 | 22 | 4 | 0 |
+| Reader of the fourth format | English | 52 | 45 | 5 | 2 |
+| Reader of the fourth format | Italian | 6 | 6 | 0 | 0 |
+| Reader of the fourth format | French | 6 | 6 | 0 | 0 |
+| Reader of the fourth format | Swiss German | 6 | 4 | 2 | 0 |
+
+## The same, two readers of the third format: the operator is asked when their readings differ
+
+| First reader / second reader | n | Not right, first reader alone | Not right and not asked | Asked | Asked although right |
+|---|---|---|---|---|---|
+| Reader 1 / Reader 2 | 44 | 9 | 5 | 4 | 0 |
+| Reader 1 / Apertus 8B, 15 examples, no training | 44 | 9 | 2 | 11 | 4 |
+
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 4 (70 lines in English, Swiss German, French and Italian, 26 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+
+| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
+|---|---|---|---|---|---|---|
+| Leave Vienna-Prague out when you calculate this one. | en | avoid=Vienna-Prague; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Oslo-Stockholm is flapping again, use another span for this order plase. | en | avoid=Oslo-Stockholm; via=none; hops=any; km=any; path=any; prefer=none; rest=none | avoid=Oslo-Stockholm; via=none; hops=any; km=any; path=any; prefer=none; rest=more | yes | avoid=Oslo-Stockholm; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=more | – |
+| No Athens in the route for this request. | en | avoid=Athens; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| This needs to pass through Paris somewhere along the way. | en | avoid=none; via=Paris; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Dä Auftrag bitte nöd über Züri. | gsw | avoid=Zurich; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Two links at most between the endpoints on this one. | en | avoid=none; via=none; hops=2; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| 900 km total is the cutoff for this path. | en | avoid=none; via=none; hops=any; km=900; path=any; prefer=none; rest=none | = |  | = | – |
+| Questa falla passare da Vienna. | it | avoid=none; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Take candidate zero for this request. | en | avoid=none; via=none; hops=any; km=any; path=0; prefer=none; rest=none | = |  | = | – |
+| Whichever route is carrying the least load, use that one. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; rest=none | = |  | = | – |
+| Pour celle-ci, quatre sauts maximum de bout en bout. | fr | avoid=none; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| I'd rather save spectrum here. Pick the path needing the fewest slots. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = | – |
+| Pick teh shortest route by total distance in km. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=km; rest=none | = |  | = | – |
+| Hamburg-Berlin mustn't be part of this circuit. | en | avoid=Hamburg-Berlin; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| This one has to go through Belgrade. | en | avoid=none; via=Belgrade; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Fewest hops wins for this one. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | = |  | = | – |
+| Nimm de viert Vorschlag us de Liste. | gsw | avoid=none; via=none; hops=any; km=any; path=3; prefer=none; rest=none | avoid=none; via=none; hops=any; km=any; path=4; prefer=none; rest=none |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |
+| Reject this one if it needs more than 8 hops. | en | avoid=none; via=none; hops=8; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Via Munich for this request. Leave Berlin out and take the shortest remaining path in km. | en | avoid=Berlin; via=Munich; hops=any; km=any; path=any; prefer=km; rest=none | avoid=Berlin,Munich; via=none; hops=any; km=any; path=any; prefer=km; rest=none |  | = | – |
+| This one can have up to four hops, but don't take London-Amsterdam. | en | avoid=London-Amsterdam; via=none; hops=4; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Per questa evita Praga e passa da Vienna. | it | avoid=Prague; via=Vienna; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Least loaded first for this one; if that's tied, shorter in km wins. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load,km; rest=none | = |  | = | – |
+| Keep Madrid-Bordeaux out, 1800 km max, and use as few slots as you can. | en | avoid=Madrid-Bordeaux; via=none; hops=any; km=1800; path=any; prefer=slots; rest=none | = |  | = | – |
+| Need Lyon on this circuit, up to six hops end to end. | en | avoid=none; via=Lyon; hops=6; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Die Verbindig bitte über München, aber nöd über Frankfurt. | gsw | avoid=Frankfurt; via=Munich; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| For this conenction, skip Strasbourg and minimise the hops. | en | avoid=Strasbourg; via=none; hops=any; km=any; path=any; prefer=hops; rest=none | = |  | = | – |
+| 3000 km ceiling. Within that, shortest km first, then least loaded if the distances match. | en | avoid=none; via=none; hops=any; km=3000; path=any; prefer=km,load; rest=none | = |  | avoid=none; via=none; hops=any; km=3000; path=any; prefer=km; scope=any; until=open; rest=none | – |
+| Pour cette demande, passe par Amsterdam et évite le lien direct Bruxelles-Francfort. | fr | avoid=Brussels-Frankfurt; via=Amsterdam; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Keep at least 3 dB OSNR margin on this circuit. | en | unsupported | no_instruction |  | no_instruction | – |
+| Both directions need to follow the same physical route for this order. | en | unsupported | = |  | = | – |
+| If you can't find a route for this one, show me which constraint is blocking it. | en | unsupported | no_instruction |  | no_instruction | – |
+| Su questa usa 8QAM, senza cambiare modulazione lungo il percorso. | it | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | = | – |
+| Leave one free guard slot on each side of this allocation. | en | unsupported | = |  | = | – |
+| Keep the working and backup paths for this circuit node-disjoint, apart from the two endpoints. | en | unsupported | = |  | = | – |
+| This needs to stay in the C-band all the way. | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | = | – |
+| Da bitte kei 16QAM, au wenns vom Reach her würd gah. | gsw | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none | yes | = | – |
+| Give this one a route with at least three hops, it's for the failover test. | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | = | – |
+| La relève de nuit a bien reçu le compte rendu ? | fr | no_instruction | = |  | = | – |
+| I allready updated the diagram, ticket still needs the test log. | en | no_instruction | = |  | = | – |
+| Does anyone have the latest fibre length spreadsheet? | en | no_instruction | = |  | = | – |
+| The alerts from Rome stopped a few minutes ago. | en | no_instruction | = |  | = | – |
+| I'll be back after lunch, same number if anything urgent comes up. | en | no_instruction | = |  | = | – |
+| Was that candidate list from before the topology update? | en | no_instruction | = |  | = | – |
+| Il collega del prossimo turno arriva tra dieci minuti. | it | no_instruction | = |  | = | – |
+| For the next 9 hours, don't place new circuits on Warsaw-Budapest. | en | avoid=Warsaw-Budapest; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=9h; rest=none | – |  | = | – |
+| All new orders via Zurich for the next two hours, please. | en | avoid=none; via=Zurich; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none | – |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=from:Zurich; until=2h; rest=none | – |
+| Die nöchschte 5 Stund bitte kei nöii Verbindige über Oslo-Kopenhagen. | gsw | avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=5h; rest=none | – |  | avoid=Oslo-Copenhagen; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |
+| For six hours from now, minimise hops on new requests. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=any; until=6h; rest=none | – |  | = | – |
+| Pendant les trois prochaines heures, aucune nouvelle demande ne doit passer par Francfort. | fr | avoid=Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=3h; rest=none | – |  | = | – |
+| New reqests: five hops max for the next four hours. | en | avoid=none; via=none; hops=5; km=any; path=any; prefer=none; scope=any; until=4h; rest=none | – |  | = | – |
+| For the next 7 hours, keep slot use as low as possible on new orders. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=any; until=7h; rest=none | – |  | = | – |
+| Copenhagen-Berlin stays blocked for new circuits until we remove the restriction. | en | avoid=Copenhagen-Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| Keep routing new requests through Brussels until this rule is withdrawn. | en | avoid=none; via=Brussels; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |
+| Finché non togliamo il blocco, niente nuovi circuiti sulla tratta Monaco di Baviera-Milano. | it | avoid=Munich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| Six hops is the ceiling on all new orders until we explicitly cancel that limit. | en | avoid=none; via=none; hops=6; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| Until further notice, put new circuits on the least loaded route. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=load; scope=any; until=open; rest=none | – |  | = | – |
+| Berlin is out for new paths until someone explicitly lifts the block. | en | avoid=Berlin; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| Pour les nouvelles demandes, on reste à 1700 km maximum jusqu'à la levée de cette limite. | fr | avoid=none; via=none; hops=any; km=1700; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| Send every 100G request through Strasbourg. | en | avoid=none; via=Strasbourg; hops=any; km=any; path=any; prefer=none; scope=rate:100; until=open; rest=none | – |  | = | – |
+| On orders starting in Athens, favour fewer hops. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=hops; scope=from:Athens; until=open; rest=none | – |  | = | – |
+| Requests ending in Madrid should stay out of Barcelona. | en | avoid=Barcelona; via=none; hops=any; km=any; path=any; prefer=none; scope=to:Madrid; until=open; rest=none | – |  | = | – |
+| Alles, wo in Züri startet, bitte über Lyon schicke. | gsw | avoid=none; via=Lyon; hops=any; km=any; path=any; prefer=none; scope=from:Zurich; until=open; rest=none | – |  | = | – |
+| Set a 2000 km distance limit on all 40G requests. | en | avoid=none; via=none; hops=any; km=2000; path=any; prefer=none; scope=rate:40; until=open; rest=none | – |  | = | – |
+| For 10G orders, candidate 1 is the defualt. Use that one. | en | avoid=none; via=none; hops=any; km=any; path=1; prefer=none; scope=rate:10; until=open; rest=none | – |  | = | – |
+| If the destination is Glasgow, go with the path that needs the fewest slots. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=to:Glasgow; until=open; rest=none | – |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=from:Glasgow; until=open; rest=none | – |
+| For the next 6 hours, 400G requests must avoid Hamburg-Frankfurt; pick the least loaded of the remaining routes. | en | avoid=Hamburg-Frankfurt; via=none; hops=any; km=any; path=any; prefer=load; scope=rate:400; until=6h; rest=none | – |  | = | – |
+| Orders out of Amsterdam go via Hamburg, no more than five hops overall. | en | avoid=none; via=Hamburg; hops=5; km=any; path=any; prefer=none; scope=from:Amsterdam; until=open; rest=none | – |  | = | – |
+| Per le prossime otto ore, le richieste da 100G devono evitare Parigi-Lione e restare entro 2500 km totali. | it | avoid=Paris-Lyon; via=none; hops=any; km=2500; path=any; prefer=none; scope=rate:100; until=8h; rest=none | – |  | = | – |
+| For the next 3 hours, send all new orders through Budapest and choose the shortest feasible route in km. | en | avoid=none; via=Budapest; hops=any; km=any; path=any; prefer=km; scope=any; until=3h; rest=none | – |  | = | – |
+| Pour toutes les demandes à destination de Rome, évite Zagreb et choisis le chemin avec le moins de sauts. | fr | avoid=Zagreb; via=none; hops=any; km=any; path=any; prefer=hops; scope=to:Rome; until=open; rest=none | – |  | = | – |
+
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 5 (20 lines in English, Swiss German, French and Italian, 7 of them standing policies), on the laptop (4-bit base model, llama.cpp); not read at 16 bits: number of instructions
+
+| Reader | Lines | n | Right | Applied with another meaning | Not applied |
+|---|---|---|---|---|---|
+| Reader 1 | All | 13 | 10 | 2 | 1 |
+| Reader 1 | English | 9 | 6 | 2 | 1 |
+| Reader 1 | Italian | 2 | 2 | 0 | 0 |
+| Reader 1 | French | 1 | 1 | 0 | 0 |
+| Reader 1 | Swiss German | 1 | 1 | 0 | 0 |
+| Reader 2 | All | 13 | 10 | 2 | 1 |
+| Reader 2 | English | 9 | 6 | 2 | 1 |
+| Reader 2 | Italian | 2 | 2 | 0 | 0 |
+| Reader 2 | French | 1 | 1 | 0 | 0 |
+| Reader 2 | Swiss German | 1 | 1 | 0 | 0 |
+| Apertus 8B, 15 examples, no training | All | 13 | 11 | 1 | 1 |
+| Apertus 8B, 15 examples, no training | English | 9 | 7 | 1 | 1 |
+| Apertus 8B, 15 examples, no training | Italian | 2 | 2 | 0 | 0 |
+| Apertus 8B, 15 examples, no training | French | 1 | 1 | 0 | 0 |
+| Apertus 8B, 15 examples, no training | Swiss German | 1 | 1 | 0 | 0 |
+| Reader of the fourth format | All | 20 | 17 | 2 | 1 |
+| Reader of the fourth format | Standing policies | 7 | 5 | 2 | 0 |
+| Reader of the fourth format | English | 14 | 12 | 1 | 1 |
+| Reader of the fourth format | Italian | 2 | 2 | 0 | 0 |
+| Reader of the fourth format | French | 2 | 2 | 0 | 0 |
+| Reader of the fourth format | Swiss German | 2 | 1 | 1 | 0 |
+
+## The same, two readers of the third format: the operator is asked when their readings differ
+
+| First reader / second reader | n | Not right, first reader alone | Not right and not asked | Asked | Asked although right |
+|---|---|---|---|---|---|
+| Reader 1 / Reader 2 | 13 | 3 | 3 | 0 | 0 |
+| Reader 1 / Apertus 8B, 15 examples, no training | 13 | 3 | 1 | 3 | 1 |
+
+## Instructions written by the author on the template, partly with ChatGPT 6.1 Sol, set 5 (20 lines in English, Swiss German, French and Italian, 7 of them standing policies), line by line (= : wrote what was meant; – : not read: a standing policy, or a set the 16-bit reader has not read)
+
+| Instruction | Language | Meant | Reader 1 wrote | Reader 2 differs: asked | Fourth format wrote | Fourth format, 16 bits, wrote |
+|---|---|---|---|---|---|---|
+| Please leave the Athens-Rome link out of this calculation. | en | avoid=Athens-Rome; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| This circuit mustn't use Prague-Budapest, still seeing erorrs there. | en | avoid=Prague-Budapest; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Dä Pfad bitte nöd über Hamburg. | gsw | avoid=Hamburg; via=none; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Questa richiesta deve passare da Francoforte. | it | avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=none; rest=none | = |  | = | – |
+| Keep the whole thing within 1250 km. | en | avoid=none; via=none; hops=any; km=1250; path=any; prefer=none; rest=none | = |  | = | – |
+| Candidate 4 looks fine, let's use it. | en | avoid=none; via=none; hops=any; km=any; path=4; prefer=none; rest=none | = |  | = | – |
+| Put this one through Berlin, five hops max, and keep the hop count as low as possible. | en | avoid=none; via=Berlin; hops=5; km=any; path=any; prefer=hops; rest=none | avoid=none; via=Berlin; hops=any; km=any; path=any; prefer=hops; rest=none |  | = | – |
+| Pour celle-là, pas de lien Londres-Paris, et prends le trajet qui demande le moins de slots. | fr | avoid=London-Paris; via=none; hops=any; km=any; path=any; prefer=slots; rest=none | = |  | = | – |
+| Pick the least loaded path for this one; same load, shorter distance in km wins. 2100 km max. | en | avoid=none; via=none; hops=any; km=2100; path=any; prefer=load,km; rest=none | = |  | = | – |
+| If 16QAM won't reach, fail this request. Don't quietly switch it to QPSK. | en | unsupported | no_instruction |  | no_instruction | – |
+| Leave slots 0 to 15 alone when placing this circuit; they're reserved. | en | unsupported | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; rest=none |  | = | – |
+| Was the Vienna ticket closed by the morning shift or the afternoon shift? | en | no_instruction | = |  | = | – |
+| Ho aggiornato il disegno, manca solo il risultato della misura. | it | no_instruction | = |  | = | – |
+| For the next two hours, no new paths on Frankfurt-Strasbourg. | en | avoid=Frankfurt-Strasbourg; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=2h; rest=none | – |  | = | – |
+| Für die nöchschte 3 Stund maximal 4 Hops bi neue Verbindige. | gsw | avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=3h; rest=none | – |  | avoid=none; via=none; hops=4; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |
+| Until we explicitly withdraw this rule, route new orders through Hamburg. | en | avoid=none; via=Hamburg; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | avoid=none; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |
+| Madrid reste exclue des nouveaux chemins jusqu'à la levée de la consigne. | fr | avoid=Madrid; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none | – |  | = | – |
+| 400G requests should use whichever route needs the fewest slots. | en | avoid=none; via=none; hops=any; km=any; path=any; prefer=slots; scope=rate:400; until=open; rest=none | – |  | = | – |
+| For anything comming out of London, leave Amsterdam out. | en | avoid=Amsterdam; via=none; hops=any; km=any; path=any; prefer=none; scope=from:London; until=open; rest=none | – |  | = | – |
+| For the next 4 hours, requests ending in Prague must avoid Munich-Vienna and stay within 1600 km. | en | avoid=Munich-Vienna; via=none; hops=any; km=1600; path=any; prefer=none; scope=to:Prague; until=4h; rest=none | – |  | = | – |

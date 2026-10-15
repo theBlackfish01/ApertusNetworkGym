@@ -67,10 +67,14 @@ line they combine to, the conflicts a new policy raises, and a report per policy
 - On the third round's mixed stream of per-request instructions (390 Erlang, three seeds) it can
   replace reader 1: alone it breaks 10.7 % of requests (reader 1: 10.6 %), in front of the decider
   9.1 % (9.5 %), passing 16.1 % of requests to the decider instead of 11.5 %.
-- Lines written by people, at 16 bits: right on 34 of the author's 40 and on 36 of a contributor's
+- Template lines (by the author, partly with ChatGPT 6.1 Sol), at 16 bits: right on 34 of the owner set's 40 and on 36 of template set 1's
   40 (English, German, Italian, Swedish; 15 standing policies), Swedish 9 of 10, although no
   training sentence is Swedish. In 4 bits on the laptop: 31, 35, and 33 and 34 of two more sets of
-  40 in English and German (English 46 of 50, German 21 of 30).
+  40 in English and German (English 46 of 50, German 21 of 30), 61 of 70 and 17 of 20 of sets 4
+  and 5 (English, Swiss German, French, Italian): 211 of all 250.
+- The same 60 items in eight languages and scripts (written and translated by separate AI
+  instances; 4 bits on the laptop; `results/design/parallel.json`): right on 55 in English, 52–53
+  in German, French and Italian, 43 in Urdu script, 45 in Hindi and Arabic, 32 in Roman Urdu.
 - Known error: "to Prague, avoid Berlin" is read as a scope (`to:Prague`) where an operator means
   the current request's destination; the language has no word yet for a request's own end points.
 

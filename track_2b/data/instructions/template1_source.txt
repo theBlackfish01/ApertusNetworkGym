@@ -1,4 +1,5 @@
-# Routing instructions from a contributor (contributor 1, anonymous), returned on 14 October 2026.
+# Template set 1: routing instructions written by the project's author, partly with an AI assistant
+# (ChatGPT 6.1 Sol), received on 14 October 2026; not written by the project's sentence generators.
 #
 # Written against data/instructions/contributor_template.txt: part A, one request (lines 1-25); part B,
 # standing policies (lines 26-40). Each line: the instruction, " | ", what was meant in the template's

@@ -63,7 +63,7 @@
 # the eval stage evaluates the fine-tuned model only); for phase1: TRANSLATOR_REPO (model repo for
 # the translator's adapter), CLOSED_POLICIES.
 set -euo pipefail
-STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | hybrids-d3 | read-people | check6}
+STAGE=${1:?stage: check | check2 | check3 | check4 | smoke | train | eval | phase1 | phase1-ft | phase1-closed | phase2 | phase2-ft | phase3 | train3 | train4 | score4 | check5 | phase4 | phase5 | gguf | gguf-lora | big | read4 | train-d3 | eval-d3 | hybrids-d3 | read-template | check6}
 : "${WORK_REPO:?set WORK_REPO}"
 MODEL=${MODEL:-andreasmartin/apertus-v1.5-8b-text}
 cd "$(dirname "$0")/.."
@@ -621,10 +621,11 @@ PYEOF
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus_ft_hybrid4 --decider-adapter runs/adapter $CLOSED $SYNC --out results/eval/hybrid4_ft_mix3.json" \
         "$PY src/evaluate.py closed --policy hybrid4_ft --decider apertus3_ft_hybrid4 --decider-adapter runs/decider3 $CLOSED --out results/eval/hybrid4_ft_d3_mix3.json"
     ;;
-read-people)
-    # The fourth-format reader at 16 bits on the lines written by people (corpora3_owner.py): the
-    # owner's 40 (22 already in the answer cache) and contributor 1's 40. ``parse`` only fills the
-    # cache, so no score file is replaced; scoring happens on the laptop (readers3.py).
+read-template|read-people)
+    # The fourth-format reader at 16 bits on the lines written outside the sentence generators
+    # (corpora3_owner.py; by the author, partly with ChatGPT 6.1 Sol): the owner's 40 (22 already in
+    # the answer cache) and the template sets. ``parse`` only fills the cache, so no score file is
+    # replaced; scoring happens on the laptop (readers3.py). ``read-people`` is the stage's old name.
     : "${TRANSLATOR_REPO:?set TRANSLATOR_REPO (the fourth-format reader)}"
     $PY - <<'PYEOF'
 import sys
@@ -639,10 +640,11 @@ PYEOF
 from huggingface_hub import snapshot_download
 print(snapshot_download('$TRANSLATOR_REPO', local_dir='runs/translator4', allow_patterns=['adapter_*', '*.jinja']))
 print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.jinja', 'tokenizer*']))"
-    stamp "translate4_ft: the lines written by people (owner, contributed sets 1 to 3)"
+    stamp "translate4_ft: the owner's lines and template sets 1 to 3"
     $PY src/translate.py parse --policy translate4_ft --model "$MODEL" --adapter runs/translator4 --batch 64 \
-        --sets $I/owner.jsonl $I/contributor1.jsonl $I/contributor1_standing.jsonl \
-        $I/contributor2.jsonl $I/contributor2_standing.jsonl $I/contributor3.jsonl $I/contributor3_standing.jsonl
+        --sets $I/owner.jsonl $I/template1.jsonl $I/template1_standing.jsonl \
+        $I/template2.jsonl $I/template2_standing.jsonl $I/template3.jsonl $I/template3_standing.jsonl \
+        $I/template4.jsonl $I/template4_standing.jsonl $I/template5.jsonl $I/template5_standing.jsonl
     keep results/cache/translate4_ft.jsonl
     ;;
 check6)

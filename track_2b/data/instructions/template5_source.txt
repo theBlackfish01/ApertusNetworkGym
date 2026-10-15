@@ -1,0 +1,29 @@
+# Template set 5: routing instructions written by the project's author, partly with an AI assistant
+# (ChatGPT 6.1 Sol), received on 15 October 2026; not written by the project's sentence generators. 20 lines:
+# 14 English, 2 Swiss German, 2 Italian, 2 French.
+#
+# Written against data/instructions/contributor_template.txt: first the instructions for one request, then the
+# standing policies. Each line: the instruction, " | ", what was meant in the template's words, and
+# " | <language>" when not English. Received as routing_reference_5.md; copied unchanged below. A test set only: never used
+# for training (CDLA-Permissive-2.0).
+#
+Please leave the Athens-Rome link out of this calculation. | avoid Athens-Rome
+This circuit mustn't use Prague-Budapest, still seeing erorrs there. | avoid Prague-Budapest
+Dä Pfad bitte nöd über Hamburg. | avoid Hamburg | gsw
+Questa richiesta deve passare da Francoforte. | via Frankfurt | it
+Keep the whole thing within 1250 km. | max 1250 km
+Candidate 4 looks fine, let's use it. | candidate 4
+Put this one through Berlin, five hops max, and keep the hop count as low as possible. | via Berlin, max 5 hops, prefer hops
+Pour celle-là, pas de lien Londres-Paris, et prends le trajet qui demande le moins de slots. | avoid London-Paris, prefer slots | fr
+Pick the least loaded path for this one; same load, shorter distance in km wins. 2100 km max. | prefer load, then km, max 2100 km
+If 16QAM won't reach, fail this request. Don't quietly switch it to QPSK. | other: require 16QAM modulation and reject the request if its reach is insufficient rather than falling back to QPSK
+Leave slots 0 to 15 alone when placing this circuit; they're reserved. | other: exclude spectrum slots 0 through 15 inclusive from allocation
+Was the Vienna ticket closed by the morning shift or the afternoon shift? | none
+Ho aggiornato il disegno, manca solo il risultato della misura. | none | it
+For the next two hours, no new paths on Frankfurt-Strasbourg. | avoid Frankfurt-Strasbourg, for 2 hours
+Für die nöchschte 3 Stund maximal 4 Hops bi neue Verbindige. | max 4 hops, for 3 hours | gsw
+Until we explicitly withdraw this rule, route new orders through Hamburg. | via Hamburg, until withdrawn
+Madrid reste exclue des nouveaux chemins jusqu'à la levée de la consigne. | avoid Madrid, until withdrawn | fr
+400G requests should use whichever route needs the fewest slots. | prefer slots, only rate 400
+For anything comming out of London, leave Amsterdam out. | avoid Amsterdam, only from London
+For the next 4 hours, requests ending in Prague must avoid Munich-Vienna and stay within 1600 km. | avoid Munich-Vienna, max 1600 km, only to Prague, for 4 hours

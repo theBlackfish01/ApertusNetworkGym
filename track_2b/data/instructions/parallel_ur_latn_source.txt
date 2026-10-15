@@ -1,0 +1,69 @@
+# Parallel test set, Urdu in Latin script (Roman Urdu) (ur-Latn): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Urdu in Latin script (Roman Urdu) alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+is lightpath ko Paris-Lyon span se door rakho, ye subah se flap kar raha hai | avoid Paris-Lyon | ur-Latn
+pls is request ke liye Oslo aur Stockholm wala link use mat karo | avoid Oslo-Stockholm | ur-Latn
+aaj Vienna-Zagreb fibre pe error rate high hai, isko chhor ke route karo | avoid Vienna-Zagreb | ur-Latn
+Frankfurt node pe card swap planned hai, isko us ke through route mat karna | avoid Frankfurt | ur-Latn
+is path pe Budapest bilkul skip karo, thx | avoid Budapest | ur-Latn
+isko Strasbourg se ho kar jana hai | via Strasbourg | ur-Latn
+customer ka israr hai ke path Copenhagen se guzre, confirm karo ke aisa hi ho | via Copenhagen | ur-Latn
+is ke liye chaar hops se zyada nahi pls | max 4 hops | ur-Latn
+yahan chhe hops hi aakhri had hai | max 6 hops | ur-Latn
+total path length 1800 km se zyada nahi ho sakti | max 1800 km | ur-Latn
+route ko do hazaar paanch sau kilometre ke andar rakho | max 2500 km | ur-Latn
+list ka doosra candidate le lo | candidate 1 | ur-Latn
+is request ke liye route 3 select karo | candidate 3 | ur-Latn
+mujhe wo path chahiye jis mein sab se kam hops hon | prefer hops | ur-Latn
+links busy ho rahe hain, mujhe sab se kam loaded path do | prefer load | ur-Latn
+is pe jitne kam ho sakein utne spectrum slots use karo | prefer slots | ur-Latn
+Munich se door raho aur 5 hops se zyada nahi pls | avoid Munich, max 5 hops | ur-Latn
+isko Zurich se ho kar route karo, is ke ilawa bas km mein sab se chhota path | via Zurich, prefer km | ur-Latn
+sab se kam loaded path please, aur un mein se wo jis mein sab se kam hops hon | prefer load, then hops | ur-Latn
+pehle sab se kam spectrum slots, tie ho to sab se kam distance wala | prefer slots, then km | ur-Latn
+Hamburg-Berlin link se door raho aur zyada se zyada 2000 km tak raho | avoid Hamburg-Berlin, max 2000 km | ur-Latn
+Prague se guzro lekin Vienna se nahi, us ke baad sab se kam hops | via Prague, avoid Vienna, prefer hops | ur-Latn
+max teen hops aur 900 km se lamba nahi | max 3 hops, max 900 km | ur-Latn
+London-Dublin link avoid karo, us ki jagah Glasgow se ho kar bhejo | avoid London-Dublin, via Glasgow | ur-Latn
+sab se kam congested route jis mein zyada se zyada saat hops hon, aur Belgrade se kuch nahi guzarna chahiye | avoid Belgrade, max 7 hops, prefer load | ur-Latn
+hops kam se kam rakho, aur agar do routes barabar hon to kam loaded wala le lo | prefer hops, then load | ur-Latn
+isko Bordeaux se transit karna hai, max 2200 km, ASAP pls | via Bordeaux, max 2200 km | ur-Latn
+Warsaw-Stockholm link ya Prague ko haath mat lagao, aur sab se kam slots use karo | avoid Warsaw-Stockholm, avoid Prague, prefer slots | ur-Latn
+isko 1+1 protection chahiye, poori tarah disjoint backup path ke saath | other: 1+1 protection with a disjoint backup path | ur-Latn
+agar reach allow kare to isko 16QAM pe chalao | other: modulation format 16QAM | ur-Latn
+is path pe koi regenerator nahi, isko all-optical hi rehna chahiye | other: no regeneration | ur-Latn
+latency end to end 15 ms se kam honi chahiye, trading customer hai | other: maximum latency 15 ms | ur-Latn
+isko kisi aise link pe mat dalo jo 80% se zyada occupied ho | other: maximum link occupancy 80% | ur-Latn
+isko place karne se pehle Berlin-Munich span pe spectrum defragment karo | other: spectrum defragmentation on Berlin-Munich before setup | ur-Latn
+kal raat ke reroute ke baad Athens wala 400G theek se up ho gaya tha? | none | ur-Latn
+night shift ke liye handover: Zagreb pe do tickets open hain, dono field team ka wait kar rahe hain | none | ur-Latn
+status update: Hamburg ka card replace ho gaya, saare alarms clear ho gaye | none | ur-Latn
+sab ko morning, floor 3 wali coffee machine phir se chal rahi hai | none | ur-Latn
+is weekend Oslo site ke liye on call kaun hai? | none | ur-Latn
+fyi Madrid wala customer demo Thursday pe shift ho gaya hai | none | ur-Latn
+agle 6 ghante Brussels-Frankfurt pe kuch bhi naya nahi jayega | avoid Brussels-Frankfurt, for 6 hours | ur-Latn
+agle do ghante: har naye path ko Lyon se bahar rakho | avoid Lyon, for 2 hours | ur-Latn
+aane wale 12 ghanton ke liye saari requests sab se kam load ke hisaab se route karo | prefer load, for 12 hours | ur-Latn
+agle 4 ghanton mein naye lightpaths ko paanch hops pe cap karo | max 5 hops, for 4 hours | ur-Latn
+agle chaubees ghanton ke liye pls km mein sab se chhote paths ko prefer karo | prefer km, for 24 hours | ur-Latn
+agle notice tak Amsterdam-London link avoid karo | avoid Amsterdam-London, until withdrawn | ur-Latn
+Paris mein power ka masla hai, jab tak main na kahun us ke through kuch nahi jayega | avoid Paris, until withdrawn | ur-Latn
+naya standing rule, jab tak hataya na jaye: koi path 3000 km se lamba nahi | max 3000 km, until withdrawn | ur-Latn
+ab se har request sab se kam spectrum slots use karegi, jab tak koi isko cancel na kare | prefer slots, until withdrawn | ur-Latn
+jab tak hum ye rule hata na dein, Athens-Belgrade span se door raho | avoid Athens-Belgrade, until withdrawn | ur-Latn
+saari 400G requests sab se kam hops wala path lein | prefer hops, only rate 400 | ur-Latn
+jo bhi Dublin se start ho raha hai usay Glasgow-Amsterdam link avoid karna hai | avoid Glasgow-Amsterdam, only from Dublin | ur-Latn
+Rome pe terminate hone wale lightpaths: inko Zagreb se bahar rakho | avoid Zagreb, only to Rome | ur-Latn
+agle notice tak 10G demands ko sab se kam loaded route do | prefer load, only rate 10, until withdrawn | ur-Latn
+Warsaw se aane wali requests, 1500 km se zyada nahi please | max 1500 km, only from Warsaw | ur-Latn
+agle 8 ghanton ke liye, jo bhi Madrid ja raha hai wo Barcelona-Lyon span se door rahe | avoid Barcelona-Lyon, only to Madrid, for 8 hours | ur-Latn
+agle 3 ghanton ke liye 100G requests Munich avoid karein aur sab se kam loaded path lein | avoid Munich, prefer load, only rate 100, for 3 hours | ur-Latn
+Athens se nikalne wali requests: Belgrade se ho kar jao, max chhe hops | via Belgrade, max 6 hops, only from Athens | ur-Latn
+agle notice tak saari 40G requests Oslo-Copenhagen link avoid karein aur jitne kam ho sakein utne slots use karein | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | ur-Latn
+agle 10 ghanton ke liye saare paths 2400 km ya us se kam rakho, aur un mein se sab se kam hops wala | max 2400 km, prefer hops, for 10 hours | ur-Latn

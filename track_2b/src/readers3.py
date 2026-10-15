@@ -41,8 +41,8 @@ LAPTOP = (
 )  # one request at a time: real latencies
 SETS = ("v3_en", "v3_de", "v3_fr", "v3_it", "v3_new", "v3_new_hard", "v3_new_impossible", "v3_partial", "v3_other", "v3_not",
         "v3_faulty", "independent", "de_ind", "fr_ind", "it_ind", "gsw", "noisy", "operations_mix3",
-        "owner", "contributor1", "contributor1_standing", "contributor2", "contributor2_standing", "contributor3",
-        "contributor3_standing", "v4_en", "v4_de", "v4_fr", "v4_it")  # fmt: skip
+        "owner", "template1", "template1_standing", "template2", "template2_standing", "template3",
+        "template3_standing", "template4", "template4_standing", "template5", "template5_standing", "v4_en", "v4_de", "v4_fr", "v4_it")  # fmt: skip
 
 
 class Answers:

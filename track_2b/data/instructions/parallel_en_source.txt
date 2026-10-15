@@ -1,0 +1,69 @@
+# Parallel test set, English (en): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: written by a separate AI instance (Claude, Anthropic) from a brief that named the clause kinds and the network, without access to the repository.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+keep this lightpath off the Paris-Lyon span, it's been flapping all morning | avoid Paris-Lyon | en
+pls don't use the link between Oslo and Stockholm for this request | avoid Oslo-Stockholm | en
+Vienna-Zagreb fibre has a high error rate today, route around it | avoid Vienna-Zagreb | en
+the Frankfurt node has a card swap planned, don't route this one through it | avoid Frankfurt | en
+skip Budapest entirely on this path, thx | avoid Budapest | en
+this one has to go via Strasbourg | via Strasbourg | en
+customer insists the path passes through Copenhagen, make sure it does | via Copenhagen | en
+no more than four hops for this one pls | max 4 hops | en
+six hops is the absolute ceiling here | max 6 hops | en
+total path length can't exceed 1800 km | max 1800 km | en
+keep the route within two thousand five hundred kilometres | max 2500 km | en
+go with the second candidate on the list | candidate 1 | en
+pick route 3 for this request | candidate 3 | en
+I want whichever path has the fewest hops | prefer hops | en
+links are getting busy, give me the least loaded path | prefer load | en
+use as few spectrum slots as possible on this one | prefer slots | en
+stay out of Munich and no more than 5 hops pls | avoid Munich, max 5 hops | en
+route it via Zurich, otherwise just the shortest in km | via Zurich, prefer km | en
+least loaded path please, and among those the one with the fewest hops | prefer load, then hops | en
+fewest spectrum slots first, shortest distance as the tiebreaker | prefer slots, then km | en
+keep off the Hamburg-Berlin link and stay at 2000 km at most | avoid Hamburg-Berlin, max 2000 km | en
+go through Prague but not Vienna, fewest hops after that | via Prague, avoid Vienna, prefer hops | en
+three hops max and no longer than 900 km | max 3 hops, max 900 km | en
+avoid the London-Dublin link, send it via Glasgow instead | avoid London-Dublin, via Glasgow | en
+least congested route with at most seven hops, and nothing through Belgrade | avoid Belgrade, max 7 hops, prefer load | en
+minimise hops, and if two routes tie, take the less loaded one | prefer hops, then load | en
+needs to transit Bordeaux, 2200 km max, ASAP pls | via Bordeaux, max 2200 km | en
+don't touch the Warsaw-Stockholm link or Prague, and use the fewest slots | avoid Warsaw-Stockholm, avoid Prague, prefer slots | en
+this one needs 1+1 protection with a fully disjoint backup path | other: 1+1 protection with a disjoint backup path | en
+run it on 16QAM if the reach allows | other: modulation format 16QAM | en
+no regenerators on this path, it must stay all-optical | other: no regeneration | en
+latency has to be below 15 ms end to end, it's a trading customer | other: maximum latency 15 ms | en
+don't put it on any link that's more than 80% occupied | other: maximum link occupancy 80% | en
+defragment the spectrum on the Berlin-Munich span before you place this one | other: spectrum defragmentation on Berlin-Munich before setup | en
+did the Athens 400G come up fine after last night's reroute? | none | en
+handover for the night shift: two tickets open on Zagreb, both waiting for the field team | none | en
+status update: Hamburg card replaced, all alarms cleared | none | en
+morning all, the coffee machine on floor 3 works again | none | en
+who's on call for the Oslo site this weekend? | none | en
+fyi the Madrid customer demo moved to Thursday | none | en
+for the next 6 hours nothing new goes over Brussels-Frankfurt | avoid Brussels-Frankfurt, for 6 hours | en
+next two hours: keep every new path out of Lyon | avoid Lyon, for 2 hours | en
+for the coming 12 hours, route all requests by least load | prefer load, for 12 hours | en
+over the next 4 hours, cap new lightpaths at five hops | max 5 hops, for 4 hours | en
+for the next twenty-four hours pls favour the shortest paths in km | prefer km, for 24 hours | en
+until further notice, avoid the Amsterdam-London link | avoid Amsterdam-London, until withdrawn | en
+Paris has a power problem, nothing through it until I say otherwise | avoid Paris, until withdrawn | en
+new standing rule until it's lifted: no path longer than 3000 km | max 3000 km, until withdrawn | en
+from now on every request uses the fewest spectrum slots, until someone cancels this | prefer slots, until withdrawn | en
+keep off the Athens-Belgrade span until we remove this rule | avoid Athens-Belgrade, until withdrawn | en
+all 400G requests should take the fewest hops | prefer hops, only rate 400 | en
+anything starting in Dublin must avoid the Glasgow-Amsterdam link | avoid Glasgow-Amsterdam, only from Dublin | en
+lightpaths terminating in Rome: keep them out of Zagreb | avoid Zagreb, only to Rome | en
+10G demands get the least loaded route until further notice | prefer load, only rate 10, until withdrawn | en
+requests from Warsaw, no more than 1500 km please | max 1500 km, only from Warsaw | en
+for the next 8 hours, anything heading to Madrid stays off the Barcelona-Lyon span | avoid Barcelona-Lyon, only to Madrid, for 8 hours | en
+for the next 3 hours, 100G requests avoid Munich and take the least loaded path | avoid Munich, prefer load, only rate 100, for 3 hours | en
+requests out of Athens: go via Belgrade, max six hops | via Belgrade, max 6 hops, only from Athens | en
+until further notice, all 40G requests should avoid the Oslo-Copenhagen link and use as few slots as possible | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | en
+for the next 10 hours keep all paths at 2400 km or less, and fewest hops among them | max 2400 km, prefer hops, for 10 hours | en

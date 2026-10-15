@@ -1,0 +1,69 @@
+# Parallel test set, Arabic (ar): the same 60 instructions in eight languages and scripts, 15 October 2026.
+#
+# The sentences: translated from parallel_en_source.txt by a separate AI instance (Claude, Anthropic) for Arabic alone, from the English sentences only (not their labels), without access to the repository; not checked by a native speaker.
+# What each line means (after the first " | ") is the English item's label, the same in every language, in the
+# words of data/instructions/contributor_template.txt; then the language. Lines 1-40 are for one request
+# (16 one clause, 12 two or three, 6 the language cannot carry, 6 no instruction), lines 41-60 standing policies
+# with a scope or a lifetime. A test set only: never used for training (CDLA-Permissive-2.0).
+# Read by src/parallel3.py.
+#
+أبعِد هذا المسار الضوئي عن مقطع باريس-ليون، فهو يسقط ويرجع طوال الصباح | avoid Paris-Lyon | ar
+من فضلك لا تستخدم الوصلة بين أوسلو وستوكهولم لهذا الطلب | avoid Oslo-Stockholm | ar
+ألياف فيينا-زغرب عليها نسبة أخطاء عالية اليوم، وجّه المسار بعيداً عنها | avoid Vienna-Zagreb | ar
+عقدة فرانكفورت عليها تبديل بطاقة مخطط له، لا تمرّر هذا الطلب عبرها | avoid Frankfurt | ar
+تجنّب بودابست تماماً في هذا المسار، شكراً | avoid Budapest | ar
+هذا الطلب يجب أن يمر عبر ستراسبورغ | via Strasbourg | ar
+العميل يصرّ على أن يمر المسار عبر كوبنهاغن، تأكد من ذلك | via Copenhagen | ar
+لا أكثر من أربع قفزات لهذا الطلب من فضلك | max 4 hops | ar
+ست قفزات هي الحد الأقصى المطلق هنا | max 6 hops | ar
+الطول الكلي للمسار لا يمكن أن يتجاوز 1800 km | max 1800 km | ar
+حافظ على المسار ضمن ألفين وخمسمئة كيلومتر | max 2500 km | ar
+اختر المرشح الثاني في القائمة | candidate 1 | ar
+اختر المسار 3 لهذا الطلب | candidate 3 | ar
+أريد المسار الذي فيه أقل عدد من القفزات، أياً كان | prefer hops | ar
+الوصلات بدأت تزدحم، أعطني المسار الأقل حملاً | prefer load | ar
+استخدم أقل عدد ممكن من شرائح الطيف لهذا الطلب | prefer slots | ar
+ابتعد عن ميونخ ولا أكثر من 5 قفزات من فضلك | avoid Munich, max 5 hops | ar
+مرّره عبر زيورخ، وإلا فببساطة الأقصر بالـ km | via Zurich, prefer km | ar
+المسار الأقل حملاً من فضلك، ومن بينها الذي فيه أقل عدد من القفزات | prefer load, then hops | ar
+أقل عدد من شرائح الطيف أولاً، والمسافة الأقصر لحسم التعادل | prefer slots, then km | ar
+ابتعد عن وصلة هامبورغ-برلين وابقَ عند 2000 km كحد أقصى | avoid Hamburg-Berlin, max 2000 km | ar
+مرّ عبر براغ لكن ليس عبر فيينا، وبعد ذلك أقل عدد من القفزات | via Prague, avoid Vienna, prefer hops | ar
+ثلاث قفزات كحد أقصى وبطول لا يتجاوز 900 km | max 3 hops, max 900 km | ar
+تجنّب وصلة لندن-دبلن، وأرسله عبر غلاسكو بدلاً من ذلك | avoid London-Dublin, via Glasgow | ar
+المسار الأقل ازدحاماً بسبع قفزات كحد أقصى، ولا شيء عبر بلغراد | avoid Belgrade, max 7 hops, prefer load | ar
+قلّل عدد القفزات، وإذا تعادل مساران فخذ الأقل حملاً | prefer hops, then load | ar
+يجب أن يعبر بوردو، 2200 km كحد أقصى، بأسرع وقت من فضلك | via Bordeaux, max 2200 km | ar
+لا تقترب من وصلة وارسو-ستوكهولم ولا من براغ، واستخدم أقل عدد من الشرائح | avoid Warsaw-Stockholm, avoid Prague, prefer slots | ar
+هذا الطلب يحتاج حماية 1+1 مع مسار احتياطي منفصل تماماً | other: 1+1 protection with a disjoint backup path | ar
+شغّله على 16QAM إذا سمح المدى بذلك | other: modulation format 16QAM | ar
+بدون مجددات إشارة على هذا المسار، يجب أن يبقى ضوئياً بالكامل | other: no regeneration | ar
+زمن التأخير يجب أن يكون أقل من 15 ms من طرف إلى طرف، فهو عميل تداول | other: maximum latency 15 ms | ar
+لا تضعه على أي وصلة إشغالها أكثر من 80% | other: maximum link occupancy 80% | ar
+أزِل تجزئة الطيف على مقطع برلين-ميونخ قبل أن تضع هذا الطلب | other: spectrum defragmentation on Berlin-Munich before setup | ar
+هل اشتغلت دائرة 400G في أثينا بشكل سليم بعد إعادة التوجيه الليلة الماضية؟ | none | ar
+تسليم للوردية الليلية: تذكرتان مفتوحتان على زغرب، كلتاهما بانتظار الفريق الميداني | none | ar
+تحديث الحالة: تم استبدال بطاقة هامبورغ، وأُزيلت جميع الإنذارات | none | ar
+صباح الخير للجميع، آلة القهوة في الطابق 3 تعمل من جديد | none | ar
+من المناوب لموقع أوسلو في عطلة نهاية هذا الأسبوع؟ | none | ar
+للعلم، العرض التجريبي لعميل مدريد انتقل إلى الخميس | none | ar
+خلال الـ 6 ساعات القادمة لا يمر أي شيء جديد عبر بروكسل-فرانكفورت | avoid Brussels-Frankfurt, for 6 hours | ar
+الساعتان القادمتان: أبعِد كل مسار جديد عن ليون | avoid Lyon, for 2 hours | ar
+خلال الـ 12 ساعة القادمة، وجّه كل الطلبات حسب الحمل الأقل | prefer load, for 12 hours | ar
+على مدى الـ 4 ساعات القادمة، حدّد المسارات الضوئية الجديدة بخمس قفزات كحد أقصى | max 5 hops, for 4 hours | ar
+خلال الأربع والعشرين ساعة القادمة من فضلك فضّل أقصر المسارات بالـ km | prefer km, for 24 hours | ar
+حتى إشعار آخر، تجنّب وصلة أمستردام-لندن | avoid Amsterdam-London, until withdrawn | ar
+باريس فيها مشكلة كهرباء، لا شيء يمر عبرها حتى أقول غير ذلك | avoid Paris, until withdrawn | ar
+قاعدة دائمة جديدة حتى يتم رفعها: لا مسار أطول من 3000 km | max 3000 km, until withdrawn | ar
+من الآن فصاعداً كل طلب يستخدم أقل عدد من شرائح الطيف، إلى أن يلغي أحدٌ هذا | prefer slots, until withdrawn | ar
+ابتعد عن مقطع أثينا-بلغراد حتى نزيل هذه القاعدة | avoid Athens-Belgrade, until withdrawn | ar
+كل طلبات 400G يجب أن تأخذ أقل عدد من القفزات | prefer hops, only rate 400 | ar
+أي شيء يبدأ من دبلن يجب أن يتجنب وصلة غلاسكو-أمستردام | avoid Glasgow-Amsterdam, only from Dublin | ar
+المسارات الضوئية التي تنتهي في روما: أبعِدها عن زغرب | avoid Zagreb, only to Rome | ar
+طلبات 10G تأخذ المسار الأقل حملاً حتى إشعار آخر | prefer load, only rate 10, until withdrawn | ar
+الطلبات من وارسو، لا أكثر من 1500 km من فضلك | max 1500 km, only from Warsaw | ar
+خلال الـ 8 ساعات القادمة، أي شيء متجه إلى مدريد يبتعد عن مقطع برشلونة-ليون | avoid Barcelona-Lyon, only to Madrid, for 8 hours | ar
+خلال الـ 3 ساعات القادمة، طلبات 100G تتجنب ميونخ وتأخذ المسار الأقل حملاً | avoid Munich, prefer load, only rate 100, for 3 hours | ar
+الطلبات الخارجة من أثينا: مرّ عبر بلغراد، ست قفزات كحد أقصى | via Belgrade, max 6 hops, only from Athens | ar
+حتى إشعار آخر، كل طلبات 40G يجب أن تتجنب وصلة أوسلو-كوبنهاغن وتستخدم أقل عدد ممكن من الشرائح | avoid Oslo-Copenhagen, prefer slots, only rate 40, until withdrawn | ar
+خلال الـ 10 ساعات القادمة اجعل كل المسارات 2400 km أو أقل، ومن بينها الأقل في عدد القفزات | max 2400 km, prefer hops, for 10 hours | ar

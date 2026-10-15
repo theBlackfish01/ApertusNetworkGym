@@ -1,0 +1,44 @@
+{"text": "Leave Vienna-Prague out when you calculate this one.", "expect": {"status": "ok", "avoid": [["Vienna", "Prague"]], "prefer": []}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Oslo-Stockholm is flapping again, use another span for this order plase.", "expect": {"status": "ok", "avoid": [["Oslo", "Stockholm"]], "prefer": []}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "No Athens in the route for this request.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Athens"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "This needs to pass through Paris somewhere along the way.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Paris"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Dä Auftrag bitte nöd über Züri.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Zurich"]}, "set": "template4", "lang": "gsw", "kind": "atom"}
+{"text": "Two links at most between the endpoints on this one.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 2}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "900 km total is the cutoff for this path.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_km": 900}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Questa falla passare da Vienna.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Vienna"]}, "set": "template4", "lang": "it", "kind": "atom"}
+{"text": "Take candidate zero for this request.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 0}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Whichever route is carrying the least load, use that one.", "expect": {"status": "ok", "avoid": [], "prefer": ["load"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Pour celle-ci, quatre sauts maximum de bout en bout.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 4}, "set": "template4", "lang": "fr", "kind": "atom"}
+{"text": "I'd rather save spectrum here. Pick the path needing the fewest slots.", "expect": {"status": "ok", "avoid": [], "prefer": ["slots"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Pick teh shortest route by total distance in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Hamburg-Berlin mustn't be part of this circuit.", "expect": {"status": "ok", "avoid": [["Hamburg", "Berlin"]], "prefer": []}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "This one has to go through Belgrade.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Belgrade"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Fewest hops wins for this one.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"]}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Nimm de viert Vorschlag us de Liste.", "expect": {"status": "ok", "avoid": [], "prefer": [], "path": 3}, "set": "template4", "lang": "gsw", "kind": "atom"}
+{"text": "Reject this one if it needs more than 8 hops.", "expect": {"status": "ok", "avoid": [], "prefer": [], "max_hops": 8}, "set": "template4", "lang": "en", "kind": "atom"}
+{"text": "Via Munich for this request. Leave Berlin out and take the shortest remaining path in km.", "expect": {"status": "ok", "avoid": [], "prefer": ["km"], "nodes": ["Berlin"], "via": ["Munich"]}, "set": "template4", "lang": "en", "kind": "new"}
+{"text": "This one can have up to four hops, but don't take London-Amsterdam.", "expect": {"status": "ok", "avoid": [["London", "Amsterdam"]], "prefer": [], "max_hops": 4}, "set": "template4", "lang": "en", "kind": "trained"}
+{"text": "Per questa evita Praga e passa da Vienna.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Prague"], "via": ["Vienna"]}, "set": "template4", "lang": "it", "kind": "heldout"}
+{"text": "Least loaded first for this one; if that's tied, shorter in km wins.", "expect": {"status": "ok", "avoid": [], "prefer": ["load", "km"]}, "set": "template4", "lang": "en", "kind": "trained"}
+{"text": "Keep Madrid-Bordeaux out, 1800 km max, and use as few slots as you can.", "expect": {"status": "ok", "avoid": [["Madrid", "Bordeaux"]], "prefer": ["slots"], "max_km": 1800}, "set": "template4", "lang": "en", "kind": "new"}
+{"text": "Need Lyon on this circuit, up to six hops end to end.", "expect": {"status": "ok", "avoid": [], "prefer": [], "via": ["Lyon"], "max_hops": 6}, "set": "template4", "lang": "en", "kind": "trained"}
+{"text": "Die Verbindig bitte über München, aber nöd über Frankfurt.", "expect": {"status": "ok", "avoid": [], "prefer": [], "nodes": ["Frankfurt"], "via": ["Munich"]}, "set": "template4", "lang": "gsw", "kind": "heldout"}
+{"text": "For this conenction, skip Strasbourg and minimise the hops.", "expect": {"status": "ok", "avoid": [], "prefer": ["hops"], "nodes": ["Strasbourg"]}, "set": "template4", "lang": "en", "kind": "trained"}
+{"text": "3000 km ceiling. Within that, shortest km first, then least loaded if the distances match.", "expect": {"status": "ok", "avoid": [], "prefer": ["km", "load"], "max_km": 3000}, "set": "template4", "lang": "en", "kind": "new"}
+{"text": "Pour cette demande, passe par Amsterdam et évite le lien direct Bruxelles-Francfort.", "expect": {"status": "ok", "avoid": [["Brussels", "Frankfurt"]], "prefer": [], "via": ["Amsterdam"]}, "set": "template4", "lang": "fr", "kind": "heldout"}
+{"text": "Keep at least 3 dB OSNR margin on this circuit.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "Both directions need to follow the same physical route for this order.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "If you can't find a route for this one, show me which constraint is blocking it.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "Su questa usa 8QAM, senza cambiare modulazione lungo il percorso.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "it", "kind": "other_routing"}
+{"text": "Leave one free guard slot on each side of this allocation.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "Keep the working and backup paths for this circuit node-disjoint, apart from the two endpoints.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "This needs to stay in the C-band all the way.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "Da bitte kei 16QAM, au wenns vom Reach her würd gah.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "gsw", "kind": "other_routing"}
+{"text": "Give this one a route with at least three hops, it's for the failover test.", "expect": {"status": "unsupported", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "other_routing"}
+{"text": "La relève de nuit a bien reçu le compte rendu ?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "fr", "kind": "not_instruction"}
+{"text": "I allready updated the diagram, ticket still needs the test log.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "not_instruction"}
+{"text": "Does anyone have the latest fibre length spreadsheet?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "not_instruction"}
+{"text": "The alerts from Rome stopped a few minutes ago.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "not_instruction"}
+{"text": "I'll be back after lunch, same number if anything urgent comes up.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "not_instruction"}
+{"text": "Was that candidate list from before the topology update?", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "en", "kind": "not_instruction"}
+{"text": "Il collega del prossimo turno arriva tra dieci minuti.", "expect": {"status": "no_instruction", "avoid": [], "prefer": []}, "set": "template4", "lang": "it", "kind": "not_instruction"}

@@ -1,0 +1,4 @@
+{"key": "feaf4118612f8636fe527a771ad85cc71597c1787511c4b2caf859e325e9f0b9", "answer": "avoid=Munich; via=none; hops=any; km=any; path=any; prefer=km; scope=any; until=5h; rest=none", "seconds": 2.2048}
+{"key": "3d454a61c84c4da5353c48d6950925ad8800e4d0164f38f5f23a50eab3a617cf", "answer": "avoid=Berlin-Munich,Brussels; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=10h; rest=none", "seconds": 1.2746}
+{"key": "e40a0388f7d825cf9cc99f851d548616ba9b54e5e23e039413b9009b02ef9ef9", "answer": "avoid=none; via=none; hops=any; km=1650; path=any; prefer=none; scope=to:Lyon; until=open; rest=none", "seconds": 1.1965}
+{"key": "10f493bbedb2ddbc143f4f195e8755ad9199bca8ab258f5672d75e94b68ed7ba", "answer": "avoid=Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "seconds": 2.913}
