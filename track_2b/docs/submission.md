@@ -8,12 +8,12 @@ this page maps them to the material in the repository and lists the steps only t
 | Piece | What it is | Where |
 | --- | --- | --- |
 | The idea | An operator states a routing policy in plain language; Apertus 8B reads it once into one line of a seven-slot policy language; a rule engine enforces the line on every request the policy covers, for as long as it holds. Two readers, and a question to the operator only when their readings would route a request differently. What the language cannot express goes to a fine-tuned decider with a guard. | `README.md` at the repository root (first page), `technical_report.md` §1–2 |
-| The models | Four LoRA adapters on `andreasmartin/apertus-v1.5-8b-text`: reader 1 and reader 2 (third format), the reader of standing policies (fourth format: scope and lifetime), the decider. Each 160 MB; all four as GGUF for llama.cpp with the 4-bit base. A fifth, the matched decider (`apertus-lightpath-decider-v3-e2`), was trained only for the comparison of translating and deciding on the same sentences and is not part of the system. | Hub repos `blackfish021/apertus-lightpath-*` (private until you flip them); cards in `docs/cards/` |
+| The models | Four LoRA adapters on `andreasmartin/apertus-v1.5-8b-text`: reader 1 and reader 2 (third format), the reader of standing policies (fourth format: scope and lifetime), the decider. Each 160 MB; all four as GGUF for llama.cpp with the 4-bit base. A fifth, the matched decider (`apertus-lightpath-decider-v3-e2`), was trained only for the comparison of translating and deciding on the same sentences and is not part of the system. | Hub repos `blackfish021/apertus-lightpath-*` (public since 15 October); cards in `docs/cards/` |
 | The evidence | Blind test sentences in four languages written by separate AI instances; held-out clause combinations fixed before the sentences were opened; closed-loop runs in the simulator with instruction-blind baselines; a standing-policy stream judged against the true table; a 4-bit laptop build measured beside the job build. | `results/` (every number), `results/tables/phase3.md`, `docs/results_overview.md` |
 | The standards link | The policy line maps onto TAPI 2.1.3 constraints. | `src/tapi.py`, the console |
 | The console | A dark operations view in Svelte and TypeScript: the map as the stage, a feed of what the model does, the policies in force with remaining hours, questions that pause the stream, play at a chosen pace; an inspector that shows why each candidate path was kept or dropped and the spectrum a lightpath took; a race of the four methods on the evaluation's stream, each lane checked against its stored run; a guided tour. From recorded answers in Docker, or live on the laptop. | `src/console.py`, `src/console_extras.py`, `src/console_ui/`, `make console` |
-| The benchmark | 5,480 test instructions (48 sets), every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (private until you flip it) |
-| The report | Five pages, rendered by `src/report_pdf.py`; one figure (`docs/figures/violations.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
+| The benchmark | 5,480 test instructions (48 sets), every reader's answers, metadata, a card in the HackApertus format. | `data/benchmark/`; Hub dataset `blackfish021/apertus-lightpath-benchmark` (public since 15 October) |
+| The report | Six pages before the references (seven with them), rendered by `src/report_pdf.py`; two figures (`docs/figures/violations.png`, `languages.png`). | `technical_report.md`, `ApertusNetworkGym_Report.pdf` |
 | The record | Every deviation, mistake and cost; the full status history. | `docs/decisions.md`, `docs/status_history.md` |
 
 Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one rented A100 (USD 8.5 of it on 14 October: the matched decider, the fourth-format reader in the mixed stream, and the owner set and template set 1 at 16 bits).
@@ -22,12 +22,12 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
 
 | Requirement (`track_2b/README.md`) | State | Who |
 | --- | --- | --- |
-| Public Git repo from the template, `track_2b/` kept, other tracks deleted | Repository ready; `make run` works from the root and from `track_2b/`; `data/` as committed is 40 MB (limit 100) | **You:** create the public repo, push, keep `track_2b/` as is |
-| `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct, and on 15 Oct with the frontend built in the image's Node stage; one more fresh-clone run is planned after the final commit | Me, then you on your machine once |
-| Technical report, PDF, max. 6 pages without references (the template's text since 11 October), `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf` renders at five pages; two placeholders remain (the video link, the public links); the commit is named by the tag `submission` | **You:** team name and members; then I fill, re-render and copy to `track_2b/<TeamName>_Report.pdf` |
+| Public Git repo from the template, `track_2b/` kept, other tracks deleted | Public at https://github.com/theBlackfish01/ApertusNetworkGym, created from the template on 15 October; `make run` works from the root and from `track_2b/`; `data/` as committed is 41 MB (limit 100) | done |
+| `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct, and on 15 Oct with the frontend built in the image's Node stage; on 15 Oct from a fresh clone of the public repository (`docker compose run --rm --build lightpath`, the recipe of `make run`, exit 0) | done |
+| Technical report, PDF, max. 6 pages without references (the template's text since 11 October), `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf`: six pages before the references; one placeholder remains, the video link; the commit is named by the tag `submission` | Me, once the video link is in |
 | Demo video, max. 2 min | Script and shot list in `docs/video_script.md` | **You:** record; give me the link |
-| Dataset (optional): evaluation, responses, metadata, card | Uploaded as a private dataset with the card | **You:** make it public; the link goes into the report and the README |
-| Apertus weights published | Five adapters and the GGUF bundle with cards, private | **You:** make them public (the organisers accepted the text-only base on condition that the fine-tuned weights are published) |
+| Dataset (optional): evaluation, responses, metadata, card | Public with its card since 15 October; linked from the report and the cards | done |
+| Apertus weights published | Five adapters and the GGUF bundle with cards, public since 15 October (the organisers accepted the text-only base on condition that the fine-tuned weights are published) | done |
 | Other models' role described | Report §3 states what Claude did and did not do; the root `README.md`, "AI assistance" | done |
 | Target architecture | On-premise and air-gapped: one llama.cpp server, no outbound call; report §2 | done |
 | Licence | Apache-2.0 code, CC-BY-4.0 report, CDLA-Permissive-2.0 data | done |
@@ -35,14 +35,13 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
 ## 3. Your steps, in order
 
 1. ~~Team name and members~~: done, ApertusNetworkGym (Wadood Ranjha); the PDF is `track_2b/ApertusNetworkGym_Report.pdf`.
-2. **Create the public repository** from the Hack Apertus template on GitHub (Use this template),
-   then tell me its URL. I push, set the links in the report, README and cards, and run `make run`
-   from a fresh clone of it.
-3. **Make the six Hub repositories and the dataset public** (Settings, Change visibility) when
-   you are ready: `apertus-lightpath-lora-v2-e2`, `-translator-v3`, `-translator-v3-b`,
-   `-translator-v4`, `-translator-v3-gguf`, `-decider-v3-e2`, and the dataset
-   `apertus-lightpath-benchmark`. `apertus-lightpath-decider-v3` holds the matched decider's first
-   epoch, which no reported result uses; keep it private or delete it.
+2. ~~Create the public repository~~: done on 15 October, https://github.com/theBlackfish01/ApertusNetworkGym, from the template (the author
+   e-mail in the history is the GitHub no-reply address; `docs/commit_map.md`).
+3. ~~Make the six Hub repositories and the dataset public~~: done on 15 October
+   (`apertus-lightpath-lora-v2-e2`, `-translator-v3`, `-translator-v3-b`, `-translator-v4`,
+   `-translator-v3-gguf`, `-decider-v3-e2`, and the dataset `apertus-lightpath-benchmark`). The
+   earlier rounds' repositories, `apertus-lightpath-decider-v3` (the matched decider's first epoch,
+   which no reported result uses) and the two work datasets stay private.
 4. **Record the video** (`docs/video_script.md`): the console live on the laptop, one German
    standing policy, one question. If the server is not up, `make console` with recorded lines.
 5. **Submit** at the organisers' URL: the repository URL, the PDF, the video URL, the dataset URL.

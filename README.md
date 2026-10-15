@@ -80,7 +80,7 @@ result with its source file, what it shows and what it does not, is in
 | 3 (12 Oct) | The policy language in slots, two readers, the guarded fallback, blind test sets in four languages, the mixed closed-loop stream, the 4-bit laptop build, Apertus 70B as a reference | `results/tables/phase3.md`, `docs/decisions.md` |
 | 4 (13 Oct) | The console, the line as a TAPI constraint, asking by consequence, the Swiss network, standing policies with scope and lifetime, self-consistency, the benchmark dataset | `results/tables/phase3.md`, `results/design/`, `data/benchmark/` |
 | 4b (14 Oct) | A decider trained on the reader's own sentences (the matched comparison); the full-format reader and its hybrids on the mixed stream | `docs/results_overview.md` section 4b, `results/design/matched3.json` |
-| Deliverables | Report rendered to PDF by `src/report_pdf.py` (five pages); model cards (`docs/cards/`) and the benchmark on the Hub, private until submission; video script (`docs/video_script.md`); checklist (`docs/submission.md`) | |
+| Deliverables | Report rendered to PDF by `src/report_pdf.py` (six pages before the references); model cards (`docs/cards/`) and the benchmark public on the Hub (`blackfish021/apertus-lightpath-*`); video script (`docs/video_script.md`); checklist (`docs/submission.md`) | |
 
 The full table, one row per piece of work, is in [`docs/status_history.md`](track_2b/docs/status_history.md).
 
@@ -277,7 +277,7 @@ server (build 11558 or later; Apertus needs b6686 or later). Measured on an RTX 
 0.89 s per instruction, 0.97 s per decision.
 
 ```bash
-# the files (private until submission): the 4-bit base and the adapters as GGUF
+# the files: the 4-bit base and the adapters as GGUF
 hf download blackfish021/apertus-lightpath-translator-v3-gguf --local-dir models
 
 llama-server -m models/apertus-v1.5-8b-text-Q4_K_M.gguf \
