@@ -7,7 +7,8 @@ rounds is in `docs/report_rounds_1_2.md`; every result with its source file is i
 - **Track:** Track 2B, own project: Apertus Lightpath
 - **Event:** Online
 - **Team:** ApertusNetworkGym (Wadood Ranjha)
-- **Demo:** TODO link to the video
+- **Demo:** [youtu.be/8zNhOLt4x6s](https://youtu.be/8zNhOLt4x6s) (1:56)
+- **Code:** [github.com/theBlackfish01/ApertusNetworkGym](https://github.com/theBlackfish01/ApertusNetworkGym)
 
 ## 1. Summary
 

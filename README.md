@@ -10,6 +10,8 @@ with its choice checked against the part of the instruction the language carries
 on a laptop GPU. Requests, network and blocking come from the
 [Optical Networking Gym](https://github.com/carlosnatalino/optical-networking-gym) (ONG) simulator.
 
+**Demo video (1:56):** https://youtu.be/8zNhOLt4x6s · **Report:** [`track_2b/ApertusNetworkGym_Report.pdf`](track_2b/ApertusNetworkGym_Report.pdf) · **Benchmark:** [huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark](https://huggingface.co/datasets/blackfish021/apertus-lightpath-benchmark)
+
 The project is the directory [`track_2b/`](track_2b/), laid out as the
 [Hack Apertus project template](https://github.com/HackApertus/project-template) asks: its
 `README.md` is the challenge text, [`technical_report.md`](track_2b/technical_report.md) the report

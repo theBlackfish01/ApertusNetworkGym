@@ -24,8 +24,8 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
 | --- | --- | --- |
 | Public Git repo from the template, `track_2b/` kept, other tracks deleted | Public at https://github.com/theBlackfish01/ApertusNetworkGym, created from the template on 15 October; `make run` works from the root and from `track_2b/`; `data/` as committed is 41 MB (limit 100) | done |
 | `make run` runs end to end in Docker | Checked from a fresh clone on 12 Oct; the console through Docker on 13 Oct, and on 15 Oct with the frontend built in the image's Node stage; on 15 Oct from a fresh clone of the public repository (`docker compose run --rm --build lightpath`, the recipe of `make run`, exit 0) | done |
-| Technical report, PDF, max. 6 pages without references (the template's text since 11 October), `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf`: six pages before the references; one placeholder remains, the video link; the commit is named by the tag `submission` | Me, once the video link is in |
-| Demo video, max. 2 min | Script and shot list in `docs/video_script.md` | **You:** record; give me the link |
+| Technical report, PDF, max. 6 pages without references (the template's text since 11 October), `TeamName_Report.pdf` in `track_2b/` | `ApertusNetworkGym_Report.pdf`: six pages before the references, no placeholder left; the commit is named by the tag `submission` | done |
+| Demo video, max. 2 min | Recorded on 15 October, cut to 1:56 (the clean takes, the race fast-forwarded to its end), unlisted on YouTube: https://youtu.be/8zNhOLt4x6s | done |
 | Dataset (optional): evaluation, responses, metadata, card | Public with its card since 15 October; linked from the report and the cards | done |
 | Apertus weights published | Five adapters and the GGUF bundle with cards, public since 15 October (the organisers accepted the text-only base on condition that the fine-tuned weights are published) | done |
 | Other models' role described | Report §3 states what Claude did and did not do; the root `README.md`, "AI assistance" | done |
@@ -42,8 +42,7 @@ Cost: about USD 51.7 of GPU time for everything, about 20.7 GPU-hours on one ren
    `-translator-v3-gguf`, `-decider-v3-e2`, and the dataset `apertus-lightpath-benchmark`). The
    earlier rounds' repositories, `apertus-lightpath-decider-v3` (the matched decider's first epoch,
    which no reported result uses) and the two work datasets stay private.
-4. **Record the video** (`docs/video_script.md`): the console live on the laptop, one German
-   standing policy, one question. If the server is not up, `make console` with recorded lines.
+4. ~~Record the video~~: done on 15 October, https://youtu.be/8zNhOLt4x6s (unlisted).
 5. **Submit** at the organisers' URL: the repository URL, the PDF, the video URL, the dataset URL.
 
 The template lines (`results/design/owner.json`, `template1.json` to `template5.json`): 250 lines

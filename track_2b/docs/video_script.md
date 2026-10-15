@@ -1,5 +1,7 @@
 # Demo video: script and shot list (two minutes)
 
+The video: https://youtu.be/8zNhOLt4x6s (1:56, recorded live on the laptop on 15 October and cut to its clean takes).
+
 The video is the operator console on the laptop, live, with the model server up. Everything the
 viewer sees is real: the readers and the decider answer on the laptop's GPU. Record the browser
 at 1440 px wide or more, dark theme, no narration overlays needed beyond the spoken words.

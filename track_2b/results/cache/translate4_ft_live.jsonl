@@ -2,3 +2,5 @@
 {"key": "3d454a61c84c4da5353c48d6950925ad8800e4d0164f38f5f23a50eab3a617cf", "answer": "avoid=Berlin-Munich,Brussels; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=10h; rest=none", "seconds": 1.2746}
 {"key": "e40a0388f7d825cf9cc99f851d548616ba9b54e5e23e039413b9009b02ef9ef9", "answer": "avoid=none; via=none; hops=any; km=1650; path=any; prefer=none; scope=to:Lyon; until=open; rest=none", "seconds": 1.1965}
 {"key": "10f493bbedb2ddbc143f4f195e8755ad9199bca8ab258f5672d75e94b68ed7ba", "answer": "avoid=Frankfurt; via=none; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "seconds": 2.913}
+{"key": "ee5dc6938b6cc0048e087a1fca296c6628dd22384e09c02e2362c91a56baca8f", "answer": "avoid=Zurich-Milan; via=none; hops=any; km=any; path=any; prefer=none; scope=rate:400; until=6h; rest=none", "seconds": 2.149}
+{"key": "6d40d46d099f2f84086986ebc6f74695867a0e2ab771a3c2832bb7332338528f", "answer": "avoid=none; via=Frankfurt; hops=any; km=any; path=any; prefer=none; scope=any; until=open; rest=none", "seconds": 1.7792}
